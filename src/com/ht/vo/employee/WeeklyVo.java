@@ -1,4 +1,4 @@
-package com.ht.vo;
+package com.ht.vo.employee;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
