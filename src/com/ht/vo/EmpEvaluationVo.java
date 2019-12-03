@@ -2,6 +2,8 @@ package com.ht.vo;
 
 import javax.persistence.*;
 
+//此vo为教师考评vo
+
 /**
  * Created by @ZhangJiaWen on 2019/12/3.
  */
