@@ -1,15 +1,13 @@
 package com.ht.vo.educational;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by 华 on 2019/12/3.
  *
  */
 @Entity
+@Table(name="t_trial")
 public class TrialVo {
     /**
      * 试讲与培训计划表
