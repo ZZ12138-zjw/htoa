@@ -5,6 +5,7 @@ import java.util.Date;
 
 /**
  * 资料文档
+ * @author WuJun
  */
 @Entity
 @Table(name = "dataDoc")
