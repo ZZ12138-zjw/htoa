@@ -17,7 +17,8 @@ public class EmpCheckVo {
     private Integer checkScore;     //考核分数，正数加分负数减分
     private Date checkDate;         //考核日期
     private String inputEmp;        //录入人员（权限不足时不展示录入按钮）
-
+    private String checkExplain;    //考核说明（可以理解为备注）
+    
     @Override
     public String toString() {
         return "EmpCheckVo{" +
@@ -31,7 +32,7 @@ public class EmpCheckVo {
                 '}';
     }
 
-    private String checkExplain;    //考核说明（可以理解为备注）
+    
 
     public Integer getID() {
         return ID;
