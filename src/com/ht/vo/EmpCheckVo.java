@@ -3,8 +3,8 @@ package com.ht.vo;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by Administrator on 2019/12/3.
+/**员工考核vo
+ * Created by ZhangJiaWen on 2019/12/3.
  */
 @Entity
 @Table(name="empCheck")
