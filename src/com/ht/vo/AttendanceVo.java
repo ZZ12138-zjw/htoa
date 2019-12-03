@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * 考勤表(就是未打卡)
  * Created by shkstart on 2019/12/3
- * @author LaIWeiChun
+ * @author LaiWeiChun
  */
 @Entity
 @Table(name = "t_attendance")

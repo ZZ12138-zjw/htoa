@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 /**
  * Created by 华 on 2019/12/3.
+ *
  */
 @Entity
 public class TrialVo {
