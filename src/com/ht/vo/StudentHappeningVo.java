@@ -10,7 +10,7 @@ import java.util.Date;
  * */
 //学生情况记录表
 @Entity
-@Table(name = "")
+@Table(name = "t_studentHappening")
 public class StudentHappeningVo {
     private Integer happenid;//主键id
     private Integer stuid;//学生id外键

@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * */
 //学生项目答辩成绩表
 @Entity
-@Table(name = "")
+@Table(name = "t_studentReplyScore")
 public class StudentReplyScoreVo {
     private Integer replyId;//成绩主键Id
     private Integer studentId;//学生表外键

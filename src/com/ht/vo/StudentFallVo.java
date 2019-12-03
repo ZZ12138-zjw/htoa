@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * */
 //届别表
 @Entity
-@Table(name = "")
+@Table(name = "t_studentFall")
 public class StudentFallVo {
     private Integer fallid;
     private String level;//届别名称

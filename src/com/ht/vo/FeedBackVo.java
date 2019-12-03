@@ -10,7 +10,7 @@ import java.util.Date;
 * */
 //问题反馈表
 @Entity
-@Table(name = "")
+@Table(name = "t_feedBack")
 public class FeedBackVo {
     private Integer feedbackId;//主键自增
     private Integer feedBackType;//1员工2学生

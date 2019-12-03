@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * */
 //楼栋管理表
 @Entity
-@Table(name="")
+@Table(name="t_studentFloor")
 public class StudentFloorVo {
     private Integer floorId;//楼栋主键id
     private String floorName;//楼栋名称

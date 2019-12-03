@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * */
 //班级管理表
 @Entity
-@Table(name = "")
+@Table(name = "t_studentClass")
 public class StudentClassVo {
     private int classId;//自增主键
     private int classNo;//班级编号

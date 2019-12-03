@@ -11,7 +11,7 @@ import java.util.Date;
  * */
 //学生教育经历表
 @Entity
-@Table(name = "")
+@Table(name = "t_studentEdu")
 public class StudentEduVo {
     private Integer Eduid;//经历主键id
     private Integer stuId;//学生表外键

@@ -10,7 +10,7 @@ import java.util.Date;
  * */
 //学生专业课程成绩表
 @Entity
-@Table(name = "")
+@Table(name = "t_studentScore")
 public class StudentScoreVo {
     private Integer scoreId;//成绩主键Id;
     private Integer stuid;//学生

@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * */
 //员工考评标准表
 @Entity
-@Table(name = "")
+@Table(name = "t_evaluationid")
 public class EvaluationidVo {
     private Integer evaluationid;//主键自增id
     private Integer evaluationName;//考评名称

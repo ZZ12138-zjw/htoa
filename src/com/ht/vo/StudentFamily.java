@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * */
 //学生家庭情况表
 @Entity
-@Table(name = "")
+@Table(name = "t_studentFamily")
 public class StudentFamily {
     private Integer familyid;//表主键Id
     private Integer stuid;//学生表外键

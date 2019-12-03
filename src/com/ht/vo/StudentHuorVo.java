@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * */
 //宿舍资料
 @Entity
-@Table(name = "")
+@Table(name = "t_studentHuor")
 public class StudentHuorVo {
     private Integer hourId;//宿舍主键id;
     private String hourName;//宿舍房号名称

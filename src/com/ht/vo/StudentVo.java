@@ -10,7 +10,7 @@ import java.util.Date;
 
 //学生资料管理
 @Entity
-@Table(name = "")
+@Table(name = "t_student")
 public class StudentVo {
     private Integer stuId;//学生服主键Id;
     private String password;//登录密码

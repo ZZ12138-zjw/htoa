@@ -10,7 +10,7 @@ import java.util.Date;
  * */
 //考评总表
 @Entity
-@Table(name = "")
+@Table(name = "t_teacherTotal")
 public class TeacherTotalVo {
     private Integer TeachertotalId;//主键标识列id
     private Integer classTeacher;//班主任或老师员工表主键
