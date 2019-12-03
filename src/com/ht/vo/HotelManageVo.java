@@ -2,8 +2,8 @@ package com.ht.vo;
 
 import javax.persistence.*;
 
-/**
- * Created by Administrator on 2019/12/3.
+/**宿舍管理vo
+ * Created by ZhangJiaWen on 2019/12/3.
  */
 
 @Entity
