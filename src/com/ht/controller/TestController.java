@@ -13,7 +13,7 @@ public class TestController {
     @RequestMapping("/test")
     public String test(){
         System.out.println("我进来了");
-        return "";
+        return "index";
     }
 
 

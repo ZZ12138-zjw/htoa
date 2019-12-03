@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+    <a href="${pageContext.request.contextPath}/test">测试</a>
   </body>
 </html>
