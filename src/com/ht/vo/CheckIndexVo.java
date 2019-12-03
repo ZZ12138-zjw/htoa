@@ -2,7 +2,7 @@ package com.ht.vo;
 
 import javax.persistence.*;
 
-/**
+/**考核指标vo
  * Created by Administrator on 2019/12/3.
  */
 
