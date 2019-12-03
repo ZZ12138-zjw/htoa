@@ -2,8 +2,8 @@ package com.ht.vo;
 
 import javax.persistence.*;
 
-/**
- * Created by Administrator on 2019/12/3.
+/**楼栋管理vo
+ * Created by ZhangJiaWen on 2019/12/3.
  */
 
 /*楼栋管理表，新增楼栋时只需要添加楼栋名称即可
