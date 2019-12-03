@@ -3,7 +3,7 @@ package com.ht.vo;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
+/**维修管理vo
  * Created by @ZhangJiaWen on 2019/12/3.
  */
 @Entity
