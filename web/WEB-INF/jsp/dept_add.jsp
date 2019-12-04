@@ -82,6 +82,7 @@
           var layer = layui.layer;
 
           //表单校验
+
             form.verify({
                 //value：表单的值，item表单的dom对象
                 depName:function (value,item) {
