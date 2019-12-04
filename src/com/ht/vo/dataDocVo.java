@@ -19,6 +19,7 @@ public class dataDocVo {
     private String remark;      //备注
     private int empId;      //上传人员
 
+
     public int getDocId() {
         return docId;
     }
