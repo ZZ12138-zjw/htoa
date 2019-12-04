@@ -1,7 +1,6 @@
-package com.ht.vo;
+package com.vo.student;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /*
  * @author Cemer
@@ -11,6 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "t_studentClass")
 public class StudentClassVo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int classId;//自增主键
     private int classNo;//班级编号
     private String className;//班级名称

@@ -1,7 +1,6 @@
-package com.ht.vo;
+package com.vo.student;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /*
  * @author Cemer
@@ -11,6 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "t_studentReplyScore")
 public class StudentReplyScoreVo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer replyId;//成绩主键Id
     private Integer studentId;//学生表外键
     private Integer projectId;//关联答辩项目

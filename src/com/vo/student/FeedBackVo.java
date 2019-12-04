@@ -1,7 +1,6 @@
-package com.ht.vo;
+package com.vo.student;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /*
@@ -12,6 +11,8 @@ import java.util.Date;
 @Entity
 @Table(name = "t_feedBack")
 public class FeedBackVo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer feedbackId;//主键自增
     private Integer feedBackType;//1员工2学生
     private String empId;//员工字段

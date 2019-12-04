@@ -1,7 +1,6 @@
-package com.ht.vo;
+package com.vo.student;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 /*
  * @author Cemer
@@ -12,6 +11,8 @@ import java.util.Date;
 @Entity
 @Table(name = "t_student")
 public class StudentVo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer stuId;//学生服主键Id;
     private String password;//登录密码
     private String stuName;//学生名称
