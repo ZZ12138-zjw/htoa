@@ -10,7 +10,7 @@
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- Spring对com.xrom.ssh目录下的@Repository、@Service、@@Component注解标注的bean进行自动扫描 -->
+    <!-- Spring对com.xrom.ssh目录下的@Repository、@Service、@Component注解标注的bean进行自动扫描 -->
     <context:component-scan base-package="com.ht">
         <!-- 扫描时跳过 @Controller 注解的JAVA类（控制器）以免重复扫描 -->
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>

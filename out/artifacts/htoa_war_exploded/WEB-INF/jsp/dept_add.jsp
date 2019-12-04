@@ -12,13 +12,13 @@
   
   <body>
     <div class="x-body">
-        <form class="layui-form">
+        <form class="layui-form" lay-filter="add">
           <div class="layui-form-item">
-              <label for="username" class="layui-form-label">
+              <label for="depName" class="layui-form-label">
                   <span class="x-red">*</span>部门名称
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="username" name="username" required="" lay-verify="required"
+                  <input type="text" id="depName" name="depName" required="" lay-verify="depName"
                   autocomplete="off" class="layui-input">
               </div>
               <%--<div class="layui-form-mid layui-word-aux">
@@ -32,9 +32,9 @@
               <div class="layui-input-inline">
                   <select id="deptType"  name="deptType" lay-verify="required">
                       <option value="">不选择</option>
-                      <option value="0">后勤部</option>
-                      <option value="1">人事部</option>
-                      <option value="2">财务部</option>
+                      <option value="后勤部">后勤部</option>
+                      <option value="人事部">人事部</option>
+                      <option value="财务部">财务部</option>
                   </select>
               </div>
           </div>
@@ -45,7 +45,7 @@
             <div class="layui-input-inline">
                 <select id="parentId"  name="parentId" lay-verify="required">
                     <option value=""></option>
-                    <option value="0" selected>宏图软件</option>
+                    <option value="宏图软件" selected>宏图软件</option>
                 </select>
             </div>
         </div>
@@ -56,9 +56,9 @@
             </label>
             <div class="layui-input-inline">
                 <select id="chairman"  name="chairman" lay-verify="required">
-                    <option value="0">张嘉文</option>
-                    <option value="1">适合话</option>
-                    <option value="2">陈茂荣</option>
+                    <option value="张嘉文">张嘉文</option>
+                    <option value="适合话">适合话</option>
+                    <option value="陈茂荣">陈茂荣</option>
                 </select>
             </div>
         </div>
@@ -78,41 +78,55 @@
     </div>
     <script>
         layui.use(['form','layer'], function(){
-            $ = layui.jquery;
-          var form = layui.form
-          ,layer = layui.layer;
-        
-          //自定义验证规则
-          form.verify({
-            nikename: function(value){
-              if(value.length < 5){
-                return '昵称至少得5个字符啊';
-              }
-            }
-            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-            ,repass: function(value){
-                if($('#L_pass').val()!=$('#L_repass').val()){
-                    return '两次密码不一致';
+          var form = layui.form;
+          var layer = layui.layer;
+
+
+          //表单校验
+            form.verify({
+                //value：表单的值，item表单的dom对象
+                depName:function (value,item) {
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                        return '部门名称不能有特殊字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)){
+                        return '部门名称首尾不能出现下划线\'_\'';
+                    }
+                    if (/^\d+\d+\d$/.test(value)){
+                        return '部门名称不能为全数字';
+                    }
+                    if (value.length<5){
+                        return '部门名称至少得5个字符';
+                    }
                 }
-            }
-          });
+            });
 
           //监听提交
-          form.on('submit(add)', function(data){
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
+          form.on('submit(formDemo)',function(data){
+            //发异步，把数据提交给后台
+              $.ajax({
+                  url:'${pageContext.request.contextPath}/dept/add',
+                  type:'post',
+                  data:data.field,
+                  dataType:'json',
+                  success:function (data) {
+                      alert(data);
+                      layer.alert("增加成功", {icon: 6},function(){
+                          // 获得frame索引
+                          var index = parent.layer.getFrameIndex(window.name);
+                          //关闭当前frame
+                          parent.layer.close(index);
+                      });
+                  }
+              });
+              return false;
           });
           
           
         });
     </script>
+
+
     <script>var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";

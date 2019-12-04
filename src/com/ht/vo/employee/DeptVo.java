@@ -17,10 +17,10 @@ public class DeptVo {
     @GeneratedValue
     private Integer depid; //主键，标识列，自动生成
     private String depName; //部门名称
-    private Integer parentId; //父部门名称
+    private String parentId; //父部门名称
     private String chairman; //部门负责人
     private String remark; //备注
-    private Integer personnel; //是否为人事部
+
 
 
     public Integer getDepid() {
@@ -30,7 +30,6 @@ public class DeptVo {
     public void setDepid(Integer depid) {
         this.depid = depid;
     }
-
     public String getDepName() {
         return depName;
     }
@@ -39,11 +38,11 @@ public class DeptVo {
         this.depName = depName;
     }
 
-    public Integer getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
@@ -63,24 +62,14 @@ public class DeptVo {
         this.remark = remark;
     }
 
-    public Integer getPersonnel() {
-        return personnel;
-    }
-
-    public void setPersonnel(Integer personnel) {
-        this.personnel = personnel;
-    }
-
-
     @Override
     public String toString() {
         return "DeptVo{" +
                 "depid=" + depid +
                 ", depName='" + depName + '\'' +
-                ", parentId=" + parentId +
+                ", parentId='" + parentId + '\'' +
                 ", chairman='" + chairman + '\'' +
                 ", remark='" + remark + '\'' +
-                ", personnel=" + personnel +
                 '}';
     }
 }
