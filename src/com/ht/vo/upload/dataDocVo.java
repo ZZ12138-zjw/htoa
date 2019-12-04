@@ -1,4 +1,4 @@
-package com.ht.vo;
+package com.ht.vo.upload;
 
 import javax.persistence.*;
 import java.util.Date;
