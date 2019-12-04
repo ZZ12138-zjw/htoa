@@ -13,6 +13,11 @@ public class RepairManageVo {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer ID;             //标识列
     private String repairSort;      //维修类别
+    private String repairMan;       //报修人
+    private String dept;            //保修部门或班级
+    private Date startDate;         //开始维修时间（申请维修时间）
+    private Date endDate;           //结束时间（完成时间）
+    private String repairStatus;     //当前状态
 
     @Override
     public String toString() {
@@ -26,12 +31,6 @@ public class RepairManageVo {
                 ", repairStatus='" + repairStatus + '\'' +
                 '}';
     }
-
-    private String repairMan;       //报修人
-    private String dept;            //保修部门或班级
-    private Date startDate;         //开始维修时间（申请维修时间）
-    private Date endDate;           //结束时间（完成时间）
-    private String repairStatus;     //当前状态
 
     public Integer getID() {
         return ID;
