@@ -1,4 +1,4 @@
-package com.vo.student;
+package com.ht.vo.student;
 
 
 import javax.persistence.*;
