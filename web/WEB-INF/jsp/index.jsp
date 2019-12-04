@@ -273,14 +273,14 @@
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>系统报表</cite>
+                    <cite>通知公告</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
                         <a _href="order-list.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>所有报表</cite>
+                            <cite>公告发布</cite>
                         </a>
                     </li >
                 </ul>
