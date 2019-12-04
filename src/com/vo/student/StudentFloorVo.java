@@ -1,7 +1,6 @@
-package com.ht.vo;
+package com.vo.student;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /*
  * @author Cemer
@@ -11,6 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="t_studentFloor")
 public class StudentFloorVo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer floorId;//楼栋主键id
     private String floorName;//楼栋名称
 

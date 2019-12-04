@@ -1,7 +1,6 @@
-package com.ht.vo;
+package com.vo.student;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /*
@@ -12,6 +11,8 @@ import java.util.Date;
 @Entity
 @Table(name = "t_teacherTotal")
 public class TeacherTotalVo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer TeachertotalId;//主键标识列id
     private Integer classTeacher;//班主任或老师员工表主键
     private Integer classid;//关联班级表主键

@@ -1,7 +1,6 @@
-package com.ht.vo;
+package com.vo.student;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /*
@@ -12,6 +11,8 @@ import java.util.Date;
 @Entity
 @Table(name = "t_studentScore")
 public class StudentScoreVo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer scoreId;//成绩主键Id;
     private Integer stuid;//学生
     private Integer score;//学生成绩

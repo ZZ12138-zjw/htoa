@@ -1,7 +1,6 @@
-package com.ht.vo;
+package com.vo.student;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /*
  * @author Cemer
@@ -10,6 +9,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "t_headTeacher")
 public class HeadTeacherVo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer headTeacherid;//主键自增标识列
     private Integer evaluationid;//考评类别id关联考评类
     private String testScore;//考评分

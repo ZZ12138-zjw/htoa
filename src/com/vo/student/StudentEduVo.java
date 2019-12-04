@@ -1,8 +1,7 @@
-package com.ht.vo;
+package com.vo.student;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /*
@@ -13,6 +12,8 @@ import java.util.Date;
 @Entity
 @Table(name = "t_studentEdu")
 public class StudentEduVo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Eduid;//经历主键id
     private Integer stuId;//学生表外键
     private String school;//就读学校

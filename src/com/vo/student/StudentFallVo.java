@@ -1,7 +1,6 @@
-package com.ht.vo;
+package com.vo.student;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /*
  * @author Cemer
@@ -11,7 +10,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "t_studentFall")
 public class StudentFallVo {
-    private Integer fallid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer fallid;//自增主键标识列
     private String level;//届别名称
     private String remark;//备注
 
