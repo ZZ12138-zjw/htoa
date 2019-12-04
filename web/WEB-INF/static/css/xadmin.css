@@ -19,12 +19,21 @@ body{
 	width: 100%;
 	min-height: 100%;
 }
+
+.login #darkbannerwrap {
+	background: url(../images/aiwrap.png);
+	width: 18px;
+	height: 10px;
+	margin: 0 0 20px -58px;
+	position: relative;
+}
 .login-bg{
 	/*background: #eeeeee url() 0 0 no-repeat;*/
-	 background:url(../images/bg.png) no-repeat center;
-    background-size: cover;
-    overflow: hidden;
+	background:url(../images/bg.png) no-repeat center;
+	background-size: cover;
+	overflow: hidden;
 }
+
 .login{
     margin: 120px auto 0 auto;
     min-height: 420px;
@@ -52,13 +61,7 @@ body{
     color: #fff;
     font-size: 16px;
 }
-.login #darkbannerwrap {
-    background: url(../images/aiwrap.png);
-    width: 18px;
-    height: 10px;
-    margin: 0 0 20px -58px;
-    position: relative;
-}
+
 
 .login input[type=text],
 .login input[type=file],

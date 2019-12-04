@@ -129,55 +129,177 @@
                     <li>
                         <a _href="xx.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite></cite>
+                            <cite>请假管理</cite>
                         </a>
                     </li>
                     <li>
                         <a _href="xx.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>谈心记录</cite>
+                            <cite>考勤管理</cite>
                         </a>
                     </li>
                 </ul>
             </li>
             <%--员工管理 end--%>
+            <%--学生管理 begin--%>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>通知公告</cite>
+                    <cite>学生管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
                         <a _href="order-list.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>公告发布</cite>
+                            <cite>学生请假</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>班级管理</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>楼栋管理</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>班级管理</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>宿舍管理</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>学生列表</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>考试成绩</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>答辩成绩</cite>
                         </a>
                     </li >
                 </ul>
             </li>
+            <%--学生管理 end--%>
+            <%--教务管理 begin--%>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
-                    <cite>订单管理</cite>
+                    <cite>教务管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
                         <a _href="order-list.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表</cite>
+                            <cite>课程类别</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>课程管理</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>试讲培训</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>值班管理</cite>
                         </a>
                     </li >
                 </ul>
             </li>
+            <%--教务管理 end--%>
+            <%--问题反馈 begin--%>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>问题反馈</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>问题反馈</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <%--问题反馈 end--%>
+            <%--文件管理 begin--%>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>文件管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>资料文档</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <%--文件管理 end--%>
+            <%--通知公告 begin--%>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>系统报表</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>所有报表</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+            <%--通知公告 end--%>
+            <%--系统设置 begin--%>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe726;</i>
-                    <cite>管理员管理</cite>
+                    <cite>系统设置</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
+                    <li>
+                        <a _href="admin-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>流程列表</cite>
+                        </a>
+                    </li >
                     <li>
                         <a _href="admin-list.html">
                             <i class="iconfont">&#xe6a7;</i>
@@ -204,10 +326,12 @@
                     </li >
                 </ul>
             </li>
+            <%--系统设置 end--%>
+            <%--系统报表 begin --%>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6ce;</i>
-                    <cite>系统统计</cite>
+                    <cite>系统报表</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
@@ -263,6 +387,7 @@
                     </li>
                 </ul>
             </li>
+            <%--系统报表 end--%>
         </ul>
       </div>
     </div>
