@@ -1,4 +1,4 @@
-package com.ht.vo;
+package com.ht.vo.LogisticsCheck;
 
 import javax.persistence.*;
 
