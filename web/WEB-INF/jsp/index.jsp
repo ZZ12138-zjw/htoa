@@ -235,6 +235,64 @@
                 </ul>
             </li>
             <%--教务管理 end--%>
+            <%--后勤管理 begin--%>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>后勤管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>保修申请</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>维修管理</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <%--后勤管理 end--%>
+            <%--考核管理 begin--%>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>考核管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>考核指标</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>考核录入</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>考评内容</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>教师考评</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <%--考核管理 end--%>
             <%--问题反馈 begin--%>
             <li>
                 <a href="javascript:;">
