@@ -208,7 +208,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/coursetype/tocurriculum_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>课程类别</cite>
                         </a>
