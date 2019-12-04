@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>后台登录-X-admin2.0</title>
+	<title>宏图软件</title>
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -20,7 +20,7 @@
 <body>
     <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="index.jsp">X-admin v2.0</a></div>
+        <div class="logo"><a href="index.jsp">宏图软件教育</a></div>
         <div class="left_open">
             <i title="展开左侧栏" class="iconfont">&#xe699;</i>
         </div>
@@ -28,9 +28,9 @@
           <li class="layui-nav-item">
             <a href="javascript:;">+新增</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
-              <dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
-               <dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>
+              <dd><a onclick="x_admin_show('请假','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>请假</a></dd>
+              <dd><a onclick="x_admin_show('谈心','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>谈心</a></dd>
+               <dd><a onclick="x_admin_show('员工','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>员工</a></dd>
             </dl>
           </li>
         </ul>
@@ -43,7 +43,6 @@
               <dd><a href="./login.html">退出</a></dd>
             </dl>
           </li>
-          <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>
         </ul>
         
     </div>
@@ -56,22 +55,33 @@
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b8;</i>
-                    <cite>会员管理</cite>
+                    <cite>个人主页</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
                         <a _href="member-list.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员列表</cite>
-                            
+                            <cite>员工请假</cite>
                         </a>
                     </li >
                     <li>
                         <a _href="member-del.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员删除</cite>
+                            <cite>我的周报</cite>
                             
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="member-del.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>考勤管理</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="member-del.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>离职申请</cite>
                         </a>
                     </li>
                     <li>
@@ -105,6 +115,21 @@
                             
                         </ul>
                     </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>通知公告</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="order-list.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>公告发布</cite>
+                        </a>
+                    </li >
                 </ul>
             </li>
             <li>
