@@ -84,7 +84,6 @@
                 repairMan:$('#repairMan').val(),
                 repairSort:$('#repairSort').val(),
                 repairAddress:$('#repairAddress').val(),
-                startDate:$('#startDate').val(),
                 repairDept:$('#repairDept').val(),
                 repairName:$('#repairName').val()
             },function (data) {
