@@ -14,7 +14,7 @@ public class RepairManageVo {
     private Integer ID;             //标识列
     private String repairSort;      //维修类别
     private String repairMan;       //报修人
-    private String dept;            //保修部门或班级
+    private String repairAddress;            //保修部门或班级
     private Date startDate;         //开始维修时间（申请维修时间）
     private Date endDate;           //结束时间（完成时间）
     private String repairStatus;     //当前状态
@@ -25,7 +25,7 @@ public class RepairManageVo {
                 "ID=" + ID +
                 ", repairSort='" + repairSort + '\'' +
                 ", repairMan='" + repairMan + '\'' +
-                ", dept='" + dept + '\'' +
+                ", repairAddress='" + repairAddress + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", repairStatus='" + repairStatus + '\'' +
@@ -56,12 +56,12 @@ public class RepairManageVo {
         this.repairMan = repairMan;
     }
 
-    public String getDept() {
-        return dept;
+    public String getRepairAddress() {
+        return repairAddress;
     }
 
-    public void setDept(String dept) {
-        this.dept = dept;
+    public void setRepairAddress(String repairAddress) {
+        this.repairAddress = repairAddress;
     }
 
     public Date getStartDate() {

@@ -34,56 +34,28 @@
           <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/dept/to_dept_add')"><i class="layui-icon"></i>添加</button>
           <span class="x-right" style="line-height:40px">共有数据：${deptCount} 条</span>
       </xblock>
-      <table class="layui-table">
-          <thead>
-          <tr>
-              <th>
-                  <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-              </th>
-              <th>ID</th>
-              <th>部门名称</th>
-              <th>父部门名称</th>
-              <th>部门负责人</th>
-              <th>备注</th>
-              <th>操作</th>
-          </thead>
-          <tbody>
-          <c:forEach items="${deptList}" var="d" >
-              <tr>
-                  <td>
-                      <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-                  </td>
-                  <td>${d.depid}</td>
-                  <td>${d.depName}</td>
-                  <td>${d.parentId}</td>
-                  <td>${d.chairman}</td>
-                  <td>${d.remark}</td>
-                  <td>
-                      <a title="编辑"  onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">
-                          <i class="layui-icon">&#xe642;</i>
-                      </a>
-                      <a title="删除" onclick="member_del(this,'${d.depid}')" href="javascript:;">
-                          <i class="layui-icon">&#xe640;</i>
-                      </a>
-                  </td>
-              </tr>
-          </c:forEach>
-          </tbody>
-      </table>
-      <div class="page">
-          <div>
-              <a class="prev" href="">首页</a>
-              <a class="prev" href="">上一页</a>
-              <a class="next" href="">下一页</a>
-              <a class="next" href="">尾页</a>
+      <table class="layui-hide" id="complainTable" lay-filter="complainList"></table>
+
+      <script type="text/html" id="complain_toolbar">
+          <div class="layui-btn-container">
+              <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delBatchAll"><i class="layui-icon"></i>批量删除</button>
+              <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon"></i>添加</button>
           </div>
-      </div>
+      </script>
+
+      <script type="text/html" id="barDemo">
+          <a class="layui-btn layui-btn-xs" lay-event="edit" >  编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
+      </script>
+
+
   </div>
+
 
     <script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;
-        
+
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
@@ -95,30 +67,113 @@
         });
       });
 
+      layui.use(['table','layer','form','laypage'], function(){
+          var table = layui.table,
+              layer = layui.layer,
+              form = layui.form,
+              laypage = layui.laypage;
+
+          table.render({
+              id:"provinceReload"
+              ,elem: '#complainTable'
+              ,url:'${pageContext.request.contextPath}/dept/depList'
+              ,page: true
+              ,method:'post'
+              ,limit:10
+              ,cols: [
+                  [
+                       {checkbox:true}//开启多选框
+                      ,{field:'depid', width:250,title: 'ID'}
+                      ,{field:'depName',width:250, title: '部门名称'}
+                      ,{field:'parentId',width:250, title: '上级部门'}
+                      ,{field:'chairman',width:250, title: '部门负责人'}
+                      ,{field:'remark',width:350,title: '备注'}
+                      ,{fixed: 'right', title:'操作',width:200,toolbar: '#barDemo'}
+                  ]
+              ]
+              ,limits: [5,10,20,50]
+          });
+
+
+          table.on('tool(complainList)', function(obj) {
+              var data = obj.data;
+              json = JSON.stringify(data);
+              switch(obj.event) {
+                  case 'edit':
+                      var index = layer.open({
+                          type: 2,
+                          title: "编辑部门页面",
+                          area: ['30%', '60%'],
+                          fix: false,
+                          maxmin: true,
+                          shadeClose: true,
+                          shade: 0.4,
+                          skin: 'layui-layer-rim',
+                          content: ["${pageContext.request.contextPath}/dept/to_dept_add", "no"],
+                      });
+                      break;
+                  case 'del':
+                      var delIndex = layer.confirm('真的删除id为' + data.depid + "的信息吗?", function(delIndex) {
+                          $.ajax({
+                              url: '/medicaladmin/complain/delete/'+data.depid,
+                              type: "post",
+                              success: function(suc) {
+                                  if(suc.code == 200) {
+                                      obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                      layer.close(delIndex);
+                                      console.log(delIndex);
+                                      layer.msg("删除成功", {
+                                          icon: 1
+                                      });
+                                  } else {
+                                      layer.msg("删除失败", {
+                                          icon: 5
+                                      });
+                                  }
+                              }
+                          });
+                          layer.close(delIndex);
+                      });
+                      break;
+              }
+          });
+      });
+
+
 
 
       /*用户-删除*/
       function member_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
+              $.post("${pageContext.request.contextPath}/dept/delete",{
+                  depid:id
+              },function (data) {
+                  $(obj).parents("tr").remove();
+                  layer.msg('已删除!',{icon:1,time:1000});
+              });
           });
       }
 
 
 
       function delAll (argument) {
-
         var data = tableCheck.getData();
-  
         layer.confirm('确认要删除吗？'+data,function(index){
             //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
+            $.post("${pageContext.request.contextPath}/dept/deletes",data
+            ,function (data) {
+                layer.msg('删除成功', {icon: 1});
+                $(".layui-form-checked").not('.header').parents('tr').remove();
+            });
         });
-      }
+      };
+
+
+
+
     </script>
+
     <script>var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
