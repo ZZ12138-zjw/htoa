@@ -49,7 +49,9 @@ public class CourseTypeController {
     }
 
     @RequestMapping("/addcurriculum")
+    @ResponseBody
     public String addcurriculum(CourseTypeVo courseTypeVo){
+        System.out.println("添加");
         is.addCourseType(courseTypeVo);
         return "success";
     }

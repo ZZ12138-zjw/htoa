@@ -76,7 +76,7 @@
         });
 
 
-        table.on('tool(#complainTable)',function (obj) {
+        table.on('tool(coursetypeList)',function (obj) {
             var data = obj.data;
             json = JSON.stringify(data);
             switch (obj.event){
@@ -104,8 +104,8 @@
                 case 'del':
                     var delIndex = layer.confirm('真的删除id为' + data.courseTypeId + "的信息吗?", function(delIndex) {
                         $.ajax({
-                            url: '${pageContext.request.contextPath}/coursetype/',
-                            data:{depid:data.depid},
+                            url: '${pageContext.request.contextPath}/coursetype/delete',
+                            data:{courseTypeId:data.courseTypeId},
                             type: "post",
                             success: function(suc) {
                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
