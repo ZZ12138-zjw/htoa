@@ -18,6 +18,8 @@ public class RepairManageVo {
     private Date startDate;         //开始维修时间（申请维修时间）
     private Date endDate;           //结束时间（完成时间）
     private String repairStatus;     //当前状态
+    private String repairDept;     //部门或班级
+    private String repairName;      //报修名称
 
     @Override
     public String toString() {
@@ -29,7 +31,36 @@ public class RepairManageVo {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", repairStatus='" + repairStatus + '\'' +
+                ", repairDept='" + repairDept + '\'' +
+                ", repairName='" + repairName + '\'' +
+                ", repairIndex='" + repairIndex + '\'' +
                 '}';
+    }
+
+    public String getRepairName() {
+        return repairName;
+    }
+
+    public void setRepairName(String repairName) {
+        this.repairName = repairName;
+    }
+
+    public String getRepairIndex() {
+        return repairIndex;
+    }
+
+    public void setRepairIndex(String repairIndex) {
+        this.repairIndex = repairIndex;
+    }
+
+    private String repairIndex;     //备注
+
+    public String getRepairDept() {
+        return repairDept;
+    }
+
+    public void setRepairDept(String repairDept) {
+        this.repairDept = repairDept;
     }
 
     public Integer getID() {
