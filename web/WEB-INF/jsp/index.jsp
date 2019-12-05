@@ -243,9 +243,9 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/contro/repairapply">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>保修申请</cite>
+                            <cite>报修申请</cite>
                         </a>
                     </li>
                     <li>
