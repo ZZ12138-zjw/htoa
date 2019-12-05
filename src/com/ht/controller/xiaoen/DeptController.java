@@ -42,6 +42,11 @@ public class DeptController{
     }
 
 
+    @RequestMapping("/to_depList")
+    public String to_depList(){
+        return "dept_list";
+    }
+
     @RequestMapping("/to_dept_add")
     public String toDpetAdd(){
         return "dept_add";
