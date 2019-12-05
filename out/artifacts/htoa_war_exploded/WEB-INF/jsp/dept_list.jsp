@@ -133,6 +133,9 @@
                                       layer.msg("删除成功", {
                                           icon: 1
                                       });
+                                      table.reload("complainTable",{
+                                          url:'${pageContext.request.contextPath}/dept/depList',
+                                      });
                               }
                           });
                           layer.close(delIndex);
