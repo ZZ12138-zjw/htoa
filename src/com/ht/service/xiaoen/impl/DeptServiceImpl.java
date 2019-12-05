@@ -25,6 +25,7 @@ public class DeptServiceImpl  extends BaseDao implements IDeptService {
         delObject(deptVo);
     }
 
+
     @Override
     public void update(DeptVo deptVo) {
         updObject(deptVo);
