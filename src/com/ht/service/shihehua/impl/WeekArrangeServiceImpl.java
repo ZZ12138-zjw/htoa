@@ -16,4 +16,5 @@ public class WeekArrangeServiceImpl extends BaseDao implements IWeekArrangeServi
     public void addWeekArrange(WeekArrangeVo weekArrangeVo) {
         addObject(weekArrangeVo);
     }
+
 }
