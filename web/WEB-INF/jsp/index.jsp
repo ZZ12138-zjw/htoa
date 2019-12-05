@@ -101,7 +101,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="xx.html">
+                        <a _href="${pageContext.request.contextPath}/emp/to_emplist">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>员工列表</cite>
 

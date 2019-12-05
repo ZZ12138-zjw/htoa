@@ -13,12 +13,13 @@
   <body>
     <div class="x-body">
         <form class="layui-form" lay-filter="add">
+            <input type="hidden" name="depid" value="${deptVo.depid}">
           <div class="layui-form-item">
               <label for="depName" class="layui-form-label">
                   <span class="x-red">*</span>部门名称
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="depName" name="depName" required="" lay-verify="depName"
+                  <input type="text" id="depName" name="depName" required="" value="${deptVo.depName}"  lay-verify="depName"
                   autocomplete="off" class="layui-input">
               </div>
               <%--<div class="layui-form-mid layui-word-aux">
@@ -30,11 +31,11 @@
                   <span class="x-red">*</span>部门类别
               </label>
               <div class="layui-input-inline">
-                  <select id="deptType"  name="deptType" lay-verify="required">
-                      <option value="">不选择</option>
-                      <option value="后勤部">后勤部</option>
-                      <option value="人事部">人事部</option>
-                      <option value="财务部">财务部</option>
+                  <select id="deptType"   name="deptType" lay-verify="required">
+                      <option value=""  >不选择</option>
+                      <option value="后勤部" >后勤部</option>
+                      <option value="人事部" >人事部</option>
+                      <option value="财务部" >财务部</option>
                   </select>
               </div>
           </div>
@@ -57,7 +58,7 @@
             <div class="layui-input-inline">
                 <select id="chairman"  name="chairman" lay-verify="required">
                     <c:forEach items="${empList}" var="e">
-                        <option value="${e.empName}">${e.empName}</option>
+                        <option value="${e.empName}"  ${deptVo.depName==e.empName ? 'selected' : ''}>${e.empName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -67,7 +68,7 @@
                   <span class="x-red">*</span>备注
               </label>
               <div class="layui-input-inline">
-                  <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                  <textarea name="remark"  id="remark"  placeholder="请输入内容" class="layui-textarea">${deptVo.remark}</textarea>
               </div>
           </div>
           <div class="layui-form-item" style="margin-left: 100px;">
@@ -78,9 +79,10 @@
     </div>
     <script>
         layui.use(['form','layer'], function(){
-          var form = layui.form;
-          var layer = layui.layer;
-
+            var form = layui.form
+                ,layer = layui.layer
+                ,$=layui.jquery,
+                table= layui.table
           //表单校验
 
             form.verify({
@@ -104,20 +106,28 @@
           form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给后台
               $.ajax({
-                  url:'${pageContext.request.contextPath}/dept/add',
+                  url:'${pageContext.request.contextPath}/dept/update',
                   type:'post',
                   data:data.field,
                   dataType:'json',
                   success:function (data){
-                      layer.alert("增加成功", {icon: 6},function(){
-                          // 获得frame索引
-                          var index = parent.layer.getFrameIndex(window.name);
-                          //关闭当前frame
-                          parent.layer.close(index);
-                          setTimeout(function () {
-                              window.parent.location.reload(); //修改成功后刷新父界面
-                          })
-                      });
+                      var lindex = layer.load();
+                      if ('success'==data){
+                          layer.alert("修改成功", {icon: 6},function(){
+                              layer.close(lindex);
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                              setTimeout(function () {
+                                  window.parent.location.reload(); //修改成功后刷新父界面
+                              });
+                          });
+                      }else {
+                          layer.alert("修改失败",{icon: 1},function(){
+                          });
+                      }
+
                   }
               });
               return false;
