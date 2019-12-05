@@ -81,8 +81,8 @@
           var form = layui.form;
           var layer = layui.layer;
 
-
           //表单校验
+
             form.verify({
                 //value：表单的值，item表单的dom对象
                 depName:function (value,item) {
@@ -100,7 +100,6 @@
                     }
                 }
             });
-
           //监听提交
           form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给后台
@@ -109,7 +108,7 @@
                   type:'post',
                   data:data.field,
                   dataType:'json',
-                  success:function (data) {
+                  success:function (data){
                       alert(data);
                       layer.alert("增加成功", {icon: 6},function(){
                           // 获得frame索引
@@ -121,9 +120,8 @@
               });
               return false;
           });
-          
-          
         });
+
     </script>
 
 
