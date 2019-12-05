@@ -31,6 +31,7 @@ public class RepairApplyController {
         vo.setRepairAddress(repairAddress);
         vo.setRepairStatus("待维修");
         vo.setStartDate(new Date());
+
         service.addRepairMange(vo);
         return "success";
     }
