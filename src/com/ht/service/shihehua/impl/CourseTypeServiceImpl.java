@@ -18,7 +18,27 @@ public class CourseTypeServiceImpl extends BaseDao implements ICourseTypeService
     }
 
     @Override
-    public List selCourseType() {
+    public List selCourseTypeList() {
         return listByHql("from CourseTypeVo");
+    }
+
+    @Override
+    public List selCourseTypePage(Integer currPage, Integer pageSize) {
+        return pageByHql("from CourseTypeVo",currPage,pageSize);
+    }
+
+    @Override
+    public CourseTypeVo selCourseType(Integer courseTypeId) {
+        return (CourseTypeVo) getObject(CourseTypeVo.class,courseTypeId);
+    }
+
+    @Override
+    public int selCourseTypeCount() {
+        return selTotalRow("select count(*) from coursetype");
+    }
+
+    @Override
+    public void delCourseType(CourseTypeVo courseTypeVo) {
+        delObject(courseTypeVo);
     }
 }

@@ -10,5 +10,15 @@ import java.util.List;
 public interface ICourseTypeService {
 
     public void addCourseType(CourseTypeVo courseTypeVo);
-    public List selCourseType();
+
+    public List selCourseTypeList();
+
+    public List selCourseTypePage(Integer currPage,Integer pageSize);
+
+    public CourseTypeVo selCourseType(Integer courseTypeId);
+
+    public int selCourseTypeCount();
+
+    public void delCourseType(CourseTypeVo courseTypeVo);
+
 }

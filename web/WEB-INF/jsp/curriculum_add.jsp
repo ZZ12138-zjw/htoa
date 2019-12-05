@@ -12,38 +12,39 @@
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
-<div class="x-body">
-    <form class="layui-form">
-        <div class="layui-form-item">
-            <label for="username" class="layui-form-label">
-                <span class="x-red">*</span>类别名称：
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="username" name="courseTypeName" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+    <div class="x-body">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>类别名称：
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="username" name="courseTypeName" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
             </div>
-            <%--<div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>将会成为您唯一的登入名
-            </div>--%>
-        </div>
-        <div class="layui-form-item">
-            <label for="phone" class="layui-form-label">
-                <span class="x-red">*</span>说明：
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="phone" name="remark" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+            <div class="layui-form-item">
+                <label for="phone" class="layui-form-label">
+                    <span class="x-red">*</span>说明：
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="phone" name="remark" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            </label>
-            <button  class="layui-btn" lay-filter="add" lay-submit lay-filter="add">
-                增加
-            </button>
-        </div>
-    </form>
-</div>
+            <div class="layui-form-item">
+                </label>
+                <button  class="layui-btn" lay-filter="add" lay-submit lay-filter="add">
+                    增加
+                </button>
+            </div>
+        </form>
+    </div>
 <script>
+    layui.use('laydata',function () {
+        var laydata=layui.laydate;
+    })
+
     layui.use(['form','layer'], function(){
         $ = layui.jquery;
         var form = layui.form
@@ -69,14 +70,29 @@
             return false;
         });
     });
+
+
+
+    //批量删除
+    function delAll (argument) {
+        var data = tableCheck.getData();
+        layer.confirm('确认要删除吗？'+data,function(index){
+            //捉到所有被选中的，发异步进行删除
+            $.post("${pageContext.request.contextPath}/dept/deletes",data
+                ,function (data) {
+                    layer.msg('删除成功', {icon: 1});
+                    $(".layui-form-checked").not('.header').parents('tr').remove();
+                });
+        });
+    };
 </script>
-<script>
+<%--<script>
     var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
-</script>
+</script>--%>
 </body>
 </html>
