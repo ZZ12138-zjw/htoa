@@ -5,6 +5,8 @@ import com.ht.service.shihehua.ICourseTypeService;
 import com.ht.vo.educational.CourseTypeVo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by 华 on 2019/12/4.
  */
@@ -13,5 +15,10 @@ public class CourseTypeServiceImpl extends BaseDao implements ICourseTypeService
     @Override
     public void addCourseType(CourseTypeVo courseTypeVo) {
         addObject(courseTypeVo);
+    }
+
+    @Override
+    public List selCourseType() {
+        return listByHql("from CourseTypeVo");
     }
 }
