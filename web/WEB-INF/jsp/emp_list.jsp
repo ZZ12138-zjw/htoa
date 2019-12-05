@@ -80,7 +80,7 @@
               url: '${pageContext.request.contextPath}/emp/empList',
               height:450,
               cols: [[
-                  {checkbox:true, width:150, fixed: "left"},
+                  {checkbox:true, width:150},
                   {field: 'empId', width:150, title: 'ID', sort: true},
                   {field: 'empName', width:150, title: '员工姓名'},
                   {field: 'deptId', width:150, title: '部门'},

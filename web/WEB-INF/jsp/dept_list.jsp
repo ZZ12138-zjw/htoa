@@ -30,17 +30,11 @@
   </div>
   <div class="x-body">
       <xblock>
-          <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+          <button class="layui-btn layui-btn-danger" id="delSelect" ><i class="layui-icon"></i>批量删除</button>
           <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/dept/to_deptAdd')"><i class="layui-icon"></i>添加</button>
       </xblock>
-      <table class="layui-hide" id="complainTable" lay-filter="complainList"></table>
+      <table class="layui-hide" id="complainTable" lay-filter="complainList" lay-data="id:'info'"></table>
 
-      <script type="text/html" id="complain_toolbar">
-          <div class="layui-btn-container">
-              <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delBatchAll"><i class="layui-icon"></i>批量删除</button>
-              <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon"></i>添加</button>
-          </div>
-      </script>
 
       <script type="text/html" id="barDemo">
           <a class="layui-btn layui-btn-xs" lay-event="edit" >  编辑</a>
@@ -67,17 +61,18 @@
           var table = layui.table,
               layer = layui.layer,
               form = layui.form,
-              laypage = layui.laypage;
+              laypage = layui.laypage,
+              $=layer.jquery;
 
 
           table.render({
               id:"provinceReload"
-              ,elem: '#complainTable'
+              ,elem: '#complainTable'  //指定原始表格元素选择器(推荐id选择器)
               ,url:'${pageContext.request.contextPath}/dept/depList'
-              ,page: true
-              ,method:'post'
-              ,limit:10
-              ,cols: [
+              ,page: true   //开启分页
+              ,method:'post'  //请求方式
+              ,limit:10   //分页默认大小
+              ,cols: [   //标题栏
                   [
                        {checkbox:true}//开启多选框
                       ,{field:'depid', width:250,title: 'ID'}
@@ -91,7 +86,13 @@
               ,limits: [5,10,20,50]
           });
 
+            //监听表格复选框选择
+          table.on('checkbox(demo)',function (obj) {
+             console.log(res);
+          });
 
+
+            //监听工具条
           table.on('tool(complainList)', function(obj) {
               var data = obj.data;
               json = JSON.stringify(data);
@@ -132,11 +133,91 @@
                                       });
                               }
                           });
+                          //关闭弹窗
                           layer.close(delIndex);
                       });
                       break;
               }
           });
+
+            //批量删除
+          $("#delSelect").on('click',function () {
+              //获得表格CheckBox已经选中的行的信息
+              //lay-data="id:info"
+              var checkStatus=table.checkStatus('info'),
+              //返回的value
+              data=checkStatus.data;
+
+              if(data.length>0){
+                    layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
+                        //layui中找到Checkbox所在的行,并遍历行的顺序
+                        $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
+                               var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
+                                //移除行
+                                $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
+                                //如果是全选移除，就将全选CheckBox还原为未选中状态
+                                $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                        });
+                        //关闭弹窗
+                        layer.close(index);
+                    });
+              }else {
+                  layer.msg('请选择需要删除的行');
+              }
+          }); //批量删除操作结束
+
+
+
+          //添加采集设备
+          $("#bin-add").on('click',function () {
+              //打开窗口
+              layer.open({
+                  type: 2,
+                  title: '采集设备添加',
+                  maxmin: true,
+                  area: ['420px', '330px'],
+                  shadeClose: false, //点击遮罩关闭
+                  content: 'CollectorAdd-form.html' //你要跳往的地方
+              })
+          });
+
+          //搜索功能的实现
+          $('.demoTable .layui-btn').on('click', function () {
+              var type = $(this).data('type');
+              active[type] ? active[type].call(this) : '';
+          });
+
+          var $=layui.$,active={
+              reload:function(){
+
+                  //搜索框对象
+                 var demoReload=$("#demoReload");
+
+                 //执行重载
+                  table.reload('idTest',{
+                     whrer:{
+                         key:{
+                             //搜索框里面的值
+                             field:demoReload.val()
+                         }
+                     }
+                  });
+              }
+          };
+
+          $('.demoTable .layui-btn').on('click', function () {
+              var type = $(this).data('type');
+              active[type] ? active[type].call(this) : '';
+          });
+
+
+
+          //刷新
+          $('#btn-refresh').on('click',function () {
+              table.reload();
+          });
+
+
       });
 
 
