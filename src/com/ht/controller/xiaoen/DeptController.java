@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ht.service.xiaoen.IDeptService;
+import com.ht.service.xiaoen.IEmpService;
 import com.ht.vo.employee.DeptVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class DeptController{
     @Autowired
     private IDeptService dept;
 
+    @Autowired
+    private IEmpService emp;
 
     @RequestMapping("/depList")
     @ResponseBody
@@ -37,7 +40,6 @@ public class DeptController{
         map.put("count",dept.selectCount());
         JSONArray jsonArray=(JSONArray)JSON.toJSON(dept.selectPage(Integer.parseInt(page),Integer.parseInt(limit)));
         map.put("data",jsonArray);
-        System.out.println(map.toString());
         return map;
     }
 
@@ -47,8 +49,9 @@ public class DeptController{
         return "dept_list";
     }
 
-    @RequestMapping("/to_dept_add")
-    public String toDpetAdd(){
+    @RequestMapping("/to_deptAdd")
+    public String toDpetAdd(Map map){
+        map.put("empList",emp.selectAll());
         return "dept_add";
     }
 
@@ -70,9 +73,29 @@ public class DeptController{
     @RequestMapping("/deletes")
     @ResponseBody
     public String deletes(String[] depIds){
-        System.out.println(depIds.toString());
         return "success";
     }
+
+    @RequestMapping("/to_deptUpdate")
+    public String to_deptUpdate(Map map,String depId){
+        DeptVo deptVo=dept.select(Integer.parseInt(depId));
+        map.put("deptVo",deptVo);
+        map.put("empList",emp.selectAll());
+        return "dept_update";
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public String update(DeptVo deptVo){
+        dept.update(deptVo);
+        return  "success";
+    }
+
+
+
+
+
+
 
 
 

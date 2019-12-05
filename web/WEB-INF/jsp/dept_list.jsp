@@ -31,8 +31,7 @@
   <div class="x-body">
       <xblock>
           <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-          <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/dept/to_dept_add')"><i class="layui-icon"></i>添加</button>
-          <span class="x-right" style="line-height:40px">共有数据：${deptCount} 条</span>
+          <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/dept/to_deptAdd')"><i class="layui-icon"></i>添加</button>
       </xblock>
       <table class="layui-hide" id="complainTable" lay-filter="complainList"></table>
 
@@ -48,14 +47,11 @@
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
       </script>
 
-
   </div>
-
 
     <script>
       layui.use('laydate', function(){
         var laydate = layui.laydate;
-
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
@@ -73,7 +69,7 @@
               form = layui.form,
               laypage = layui.laypage;
 
-          
+
           table.render({
               id:"provinceReload"
               ,elem: '#complainTable'
@@ -118,7 +114,7 @@
                           shadeClose: true,
                           shade: 0.4,
                           skin: 'layui-layer-rim',
-                          content: ["${pageContext.request.contextPath}/dept/to_dept_add", "no"],
+                          content: ["${pageContext.request.contextPath}/dept/to_deptUpdate?depId="+data.depid, "no"],
                       });
                       break;
                   case 'del':
@@ -133,9 +129,6 @@
                                       console.log(delIndex);
                                       layer.msg("删除成功", {
                                           icon: 1
-                                      });
-                                      table.reload("complainTable",{
-                                          url:'${pageContext.request.contextPath}/dept/depList',
                                       });
                               }
                           });
