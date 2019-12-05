@@ -73,6 +73,7 @@
               form = layui.form,
               laypage = layui.laypage;
 
+
           table.render({
               id:"provinceReload"
               ,elem: '#complainTable'
