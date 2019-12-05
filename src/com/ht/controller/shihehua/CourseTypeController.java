@@ -1,6 +1,7 @@
 package com.ht.controller.shihehua;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ht.service.shihehua.ICourseTypeService;
 import com.ht.vo.educational.CourseTypeVo;
@@ -34,15 +35,16 @@ public class CourseTypeController {
 
     @RequestMapping("/coursetypeList")
     @ResponseBody
-    public Map coursetypeList(String page,  String limit){
-        List<CourseTypeVo> list = is.selCourseTypeList();
+    public Map coursetypeList(String page,String limit){
+        System.out.println("page:"+page+"          limit:"+limit);
+
         Map map = new HashMap();
         map.put("code",0);
         map.put("msg","");
         map.put("count",is.selCourseTypeCount());
-        JSONObject json = (JSONObject) JSON.toJSON(is.selCourseTypePage(Integer.parseInt(page), Integer.parseInt(limit)));
+        JSONArray json = (JSONArray) JSON.toJSON(is.selCourseTypePage(Integer.parseInt(page), Integer.parseInt(limit)));
         map.put("data",json);
-        System.out.println(map.toString());
+        System.out.println("map========"+map.toString()+map==null);
         return map;
     }
 

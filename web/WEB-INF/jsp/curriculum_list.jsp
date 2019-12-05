@@ -18,9 +18,10 @@
 </div>
 <div class="x-body">
     <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-    <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/coursetype/tocurriculum_list')"><i class="layui-icon"></i>添加</button>
-    <span class="x-right" style="line-height:40px">共有数据：${deptCount} 条</span>
-    <table class="layui-tab" id="coursetypeTable" lay-filter="coursetypeList"></table>
+    <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/coursetype/tocurriculum_add')"><i class="layui-icon"></i>添加</button>
+    <span class="x-right" style="line-height:40px">共有数据：${count} 条</span>
+
+    <table class="layui-hide" id="coursetypeTable" lay-filter="coursetypeList"></table>
 
     <script type="text/html" id="complain_toolbar">
         <div class="layui-btn-container">
@@ -57,22 +58,21 @@
             laypage = layui.laypage;
 
         table.render({
-            id:'provinceReload',
-            elem:'#complainTable',
+            elem:'#coursetypeTable',
             url:'${pageContext.request.contextPath}/coursetype/coursetypeList',
-            page:true,
-            method:'post',
-            limit:10,
+            page:true,  //开启分页
+            method:'post',  //post请求
+            limit:10,   //分页大小
             cols:[
                 [
                     {checkbox:true}
                     ,{field:'courseTypeId',width:250,title:'编号'}
                     ,{field:'courseTypeName',width:250,title:'类别名称'}
                     ,{field:'remark',width:250,title:'说明'}
-                    ,{fixed: 'right', title:'操作',width:200,toolbar: '#barDemo'}
+                    ,{fixed: 'right', title:'操作',width:200,toolbar:'#barDemo'}
                 ]
             ],
-            limits:[5,10,15]
+            limits:[5,10,15]  //分页大小
         });
 
 
