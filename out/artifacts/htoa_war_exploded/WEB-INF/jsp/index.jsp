@@ -318,7 +318,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/doc/documentList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>资料文档</cite>
                         </a>
@@ -352,7 +352,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="admin-list.html">
+                        <a _href="${pageContext.request.contextPath}/flow/flowList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>流程列表</cite>
                         </a>
