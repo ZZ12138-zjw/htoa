@@ -50,44 +50,17 @@
                 <div class="layui-input-inline">
                     <input type="text" name="repairAddress" id="repairAddress" required lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input">
                 </div>
-<%--                <div class="layui-form-mid layui-word-aux">辅助文字</div>--%>
             </div>
-
             <div class="layui-form-item">
-                <label class="layui-form-label">申请时间</label>
-                <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-                    <input type="text" id="startDate" name="startDate" required lay-verify="required" class="layui-input" id="test1" placeholder="请选择报修时间">
-                </div>
-            </div>
-
-
-
-
-            <%--<div class="layui-form-item">
-                <label class="layui-form-label">复选框</label>
-                <div class="layui-input-block">
-                    <input type="checkbox" name="like[write]" title="写作">
-                    <input type="checkbox" name="like[read]" title="阅读" checked>
-                    <input type="checkbox" name="like[dai]" title="发呆">
+                <label class="layui-form-label">报修名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="repairName" id="repairName" required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">开关</label>
-                <div class="layui-input-block">
-                    <input type="checkbox" name="switch" lay-skin="switch">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">单选框</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="sex" value="男" title="男">
-                    <input type="radio" name="sex" value="女" title="女" checked>
-                </div>
-            </div>--%>
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">备注</label>
-                <div class="layui-input-block">
-                    <textarea name="repairIndex" id="repairIndex" placeholder="请输入备注" class="layui-textarea"></textarea>
+                <label class="layui-form-label">部门或班级</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="repairDept" id="repairDept" required lay-verify="required" placeholder="请输入部门或班级" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -112,7 +85,8 @@
                 repairSort:$('#repairSort').val(),
                 repairAddress:$('#repairAddress').val(),
                 startDate:$('#startDate').val(),
-                repairIndex:$('#repairIndex').val()
+                repairDept:$('#repairDept').val(),
+                repairName:$('#repairName').val()
             },function (data) {
                 if (data=="success"){
                     layer.alert("增加成功", {icon: 6},function () {
@@ -124,14 +98,12 @@
             },"text");
             return false;
         });
-
-
         layui.use('laydate', function(){
             var laydate = layui.laydate;
-
             //执行一个laydate实例
             laydate.render({
-                elem: '#test1' //指定元素
+                elem: '#startDate' //指定元素
+                ,trigger:'click'
             });
         });
     });

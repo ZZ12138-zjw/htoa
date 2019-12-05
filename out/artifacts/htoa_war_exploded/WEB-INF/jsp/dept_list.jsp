@@ -100,11 +100,19 @@
               json = JSON.stringify(data);
               switch(obj.event) {
                   case 'edit':
+                      var w;
+                      var h;
+                      if (w == null || w == '') {
+                          w=($(window).width()*0.9);
+                      };
+                      if (h == null || h == '') {
+                          h=($(window).height() - 50);
+                      };
                       var index = layer.open({
                           type: 2,
                           title: "编辑部门页面",
-                          area: ['30%', '60%'],
-                          fix: false,
+                          area: [w+'px', h +'px'],
+                          fix: false, //不固定
                           maxmin: true,
                           shadeClose: true,
                           shade: 0.4,
@@ -115,21 +123,16 @@
                   case 'del':
                       var delIndex = layer.confirm('真的删除id为' + data.depid + "的信息吗?", function(delIndex) {
                           $.ajax({
-                              url: '/medicaladmin/complain/delete/'+data.depid,
+                              url: '${pageContext.request.contextPath}/dept/delete',
+                              data:{depid:data.depid},
                               type: "post",
                               success: function(suc) {
-                                  if(suc.code == 200) {
                                       obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                                       layer.close(delIndex);
                                       console.log(delIndex);
                                       layer.msg("删除成功", {
                                           icon: 1
                                       });
-                                  } else {
-                                      layer.msg("删除失败", {
-                                          icon: 5
-                                      });
-                                  }
                               }
                           });
                           layer.close(delIndex);
