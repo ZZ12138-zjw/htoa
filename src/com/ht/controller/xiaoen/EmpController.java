@@ -36,6 +36,7 @@ public class EmpController {
         JSONArray jsonArray= (JSONArray)JSON.toJSON(emp.selectAll());
         map.put("code",0);
         map.put("msg","");
+
         map.put("count",emp.selectCount());
         map.put("data",jsonArray);
         return map;
