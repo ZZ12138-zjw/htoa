@@ -36,7 +36,7 @@
     </script>
 </div>
 <script>
-
+    var popForm;
     //laydata日期时间选择器
     layui.use('laydata',function () {
         var laydata=layui.laydate;
@@ -90,7 +90,7 @@
                         h=($(window).height() - 50);
                     };
                     var index = layer.open({
-                        type: 2,
+                        type: 1,//可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                         title: "编辑课程类别页面",
                         area: [w+'px', h +'px'],
                         fix: false, //不固定
@@ -122,10 +122,7 @@
                         layer.close(delIndex);
                     });
                     break;
-
             }
-
-
         })
 
     });
