@@ -68,7 +68,7 @@
               ,cols: [   //标题栏
                   [
                        {checkbox:true}//开启多选框
-                      ,{field:'depid', width:250,title: 'ID'}
+                      ,{field:'depid', width:250,title: 'ID',sort:true}
                       ,{field:'depName',width:250, title: '部门名称'}
                       ,{field:'parentId',width:250, title: '上级部门'}
                       ,{field:'chairman',width:250, title: '部门负责人'}
@@ -93,26 +93,34 @@
                   //返回的val ue
                   data=checkStatus.data;
               var ids=[];
-              $()
+              $(data).each(function (i,val) { //o即为表格中一行的数据
+                 ids.push(val.depid);
+              });
               if(data.length>0){
                   layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
                       //layui中找到Checkbox所在的行,并遍历行的顺序
                       $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
                           $.post("${pageContext.request.contextPath}/dept/deletes",{
-                              deptVos:JSON.stringify(data)
-                          },function(res){
-                              if ('success'==res){
+                              depids:ids.toString()
+                          },function(data){
+                              if ('success'==data){
                                   var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
                                   //移除行
                                   $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
                                   //如果是全选移除，就将全选CheckBox还原为未选中状态
                                   $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                                  layer.alert("删除成功", {
+                                      icon: 6
+                                  });
+                                  /*setTimeout(function () {
+                                      window.location.reload(); //修改成功后刷新父界面
+                                  })*/
                               }else {
-                                  layer.msg('删除失败',{
+                                  layer.alert('删除失败',{
                                       icon:2
-                                  })
+                                  });
                               }
-                          });
+                          },'text');
 
                       });
                       //关闭弹窗
@@ -244,7 +252,6 @@
       }
 
 
-
       function delAll (argument) {
         var data = tableCheck.getData();
         layer.confirm('确认要删除吗？'+data,function(index){
@@ -257,8 +264,6 @@
             });
         });
       };
-
-
 
 
 

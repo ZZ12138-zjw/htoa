@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
@@ -72,15 +73,13 @@ public class DeptController{
 
     @RequestMapping("/deletes")
     @ResponseBody
-    public String deletes(DeptVo[] deptVos) {
-
+    public String deletes(String[] depids) {
         String tempDepIds="";
-        for (int i=0;i<deptVos.length;i++){
-            DeptVo d=deptVos[i];
-            tempDepIds+=d.getDepid()+",";
+        for (int i=0;i<depids.length;i++){
+            System.out.println(depids[i]);
+            tempDepIds+=depids[i]+",";
         }
         String dpeIds=tempDepIds.substring(0,tempDepIds.length()-1);
-        System.out.println(dpeIds);
         dept.delAll(dpeIds);
         return "success";
     }
