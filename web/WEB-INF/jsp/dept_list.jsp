@@ -6,21 +6,8 @@
   
   <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.0</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/xadmin.css">
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <title>部门列表</title>
+    <jsp:include page="top.jsp"/>
   </head>
 
   <body>
@@ -142,12 +129,12 @@
 
             //批量删除
           $("#delSelect").on('click',function () {
+              alert("我进来了");
               //获得表格CheckBox已经选中的行的信息
               //lay-data="id:info"
               var checkStatus=table.checkStatus('info'),
               //返回的value
               data=checkStatus.data;
-
               if(data.length>0){
                     layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
                         //layui中找到Checkbox所在的行,并遍历行的顺序
