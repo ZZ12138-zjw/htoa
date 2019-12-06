@@ -56,6 +56,12 @@ public class CourseTypeController {
         return "success";
     }
 
+    @RequestMapping("/tocurriculum_update")
+    public String tocurriculum_update(Map map,String courseTypeId){
+        CourseTypeVo courseTypeVo = is.selCourseType(Integer.parseInt(courseTypeId));
+        map.put("courseTypeVo",courseTypeVo);
+        return "curriculum_update";
+    }
 
     @RequestMapping("/delete")
     @ResponseBody
@@ -67,6 +73,12 @@ public class CourseTypeController {
     @ResponseBody
     public String deletes(String[] courseTypeid){
         System.out.println("--"+courseTypeid);
+        return "success";
+    }
+
+    @RequestMapping("/update")
+    public String update(CourseTypeVo courseTypeVo){
+        is.updateCourseType(courseTypeVo);
         return "success";
     }
 
