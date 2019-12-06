@@ -72,7 +72,16 @@ public class DeptController{
 
     @RequestMapping("/deletes")
     @ResponseBody
-    public String deletes(String[] depIds){
+    public String deletes(DeptVo[] deptVos) {
+
+        String tempDepIds="";
+        for (int i=0;i<deptVos.length;i++){
+            DeptVo d=deptVos[i];
+            tempDepIds+=d.getDepid()+",";
+        }
+        String dpeIds=tempDepIds.substring(0,tempDepIds.length()-1);
+        System.out.println(dpeIds);
+        dept.delAll(dpeIds);
         return "success";
     }
 

@@ -51,5 +51,10 @@ public class DeptServiceImpl  extends BaseDao implements IDeptService {
         addObject(deptVo);
     }
 
+    @Override
+    public void delAll(String depIds) {
+        executeSQL("delete from t_dept where depid in ("+depIds+")");
+    }
+
 
 }

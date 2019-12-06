@@ -20,7 +20,7 @@
           <button class="layui-btn layui-btn-danger" id="delSelect" ><i class="layui-icon"></i>批量删除</button>
           <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/dept/to_deptAdd')"><i class="layui-icon"></i>添加</button>
       </xblock>
-      <table class="layui-hide" id="complainTable" lay-filter="complainList" lay-data="id:'info'"></table>
+      <table class="layui-hide" id="complainTable" lay-filter="complainList" ></table>
 
 
       <script type="text/html" id="barDemo">
@@ -44,12 +44,12 @@
         });
       });
 
-      layui.use(['table','layer','form','laypage'], function(){
+      layui.use(['table','layer','form','laypage','jquery'], function(){
           var table = layui.table,
               layer = layui.layer,
               form = layui.form,
               laypage = layui.laypage,
-              $=layer.jquery;
+              $ =layui.jquery;
 
 
           table.render({
@@ -59,6 +59,12 @@
               ,page: true   //开启分页
               ,method:'post'  //请求方式
               ,limit:10   //分页默认大小
+              ,toolbar:true, //开启头部工具栏，并为其绑定左侧模板
+              defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                  title: '提示',
+                  layEvent: 'LAYTABLE_TIPS',
+                  icon: 'layui-icon-tips'
+              }]
               ,cols: [   //标题栏
                   [
                        {checkbox:true}//开启多选框
@@ -73,10 +79,49 @@
               ,limits: [5,10,20,50]
           });
 
-            //监听表格复选框选择
+          //监听表格复选框选择
           table.on('checkbox(demo)',function (obj) {
-              alert(res);
+              alert("res");
           });
+
+
+          //批量删除
+          $('#delSelect').on('click',function () {
+              //获得表格CheckBox已经选中的行的信息
+              //lay-data="id:info"
+              var checkStatus=table.checkStatus('provinceReload'),
+                  //返回的val ue
+                  data=checkStatus.data;
+              var ids=[];
+              $()
+              if(data.length>0){
+                  layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
+                      //layui中找到Checkbox所在的行,并遍历行的顺序
+                      $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
+                          $.post("${pageContext.request.contextPath}/dept/deletes",{
+                              deptVos:JSON.stringify(data)
+                          },function(res){
+                              if ('success'==res){
+                                  var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
+                                  //移除行
+                                  $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
+                                  //如果是全选移除，就将全选CheckBox还原为未选中状态
+                                  $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                              }else {
+                                  layer.msg('删除失败',{
+                                      icon:2
+                                  })
+                              }
+                          });
+
+                      });
+                      //关闭弹窗
+                      layer.close(index);
+                  });
+              }else {
+                  layer.msg('请选择需要删除的行');
+              }
+          }); //批量删除操作结束
 
 
             //监听工具条
@@ -127,31 +172,6 @@
               }
           });
 
-            //批量删除
-          $("#delSelect").on('click',function () {
-              alert("我进来了");
-              //获得表格CheckBox已经选中的行的信息
-              //lay-data="id:info"
-              var checkStatus=table.checkStatus('info'),
-              //返回的value
-              data=checkStatus.data;
-              if(data.length>0){
-                    layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
-                        //layui中找到Checkbox所在的行,并遍历行的顺序
-                        $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
-                               var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
-                                //移除行
-                                $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
-                                //如果是全选移除，就将全选CheckBox还原为未选中状态
-                                $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
-                        });
-                        //关闭弹窗
-                        layer.close(index);
-                    });
-              }else {
-                  layer.msg('请选择需要删除的行');
-              }
-          }); //批量删除操作结束
 
 
 
@@ -228,6 +248,7 @@
       function delAll (argument) {
         var data = tableCheck.getData();
         layer.confirm('确认要删除吗？'+data,function(index){
+            alert(data);
             //捉到所有被选中的，发异步进行删除
             $.post("${pageContext.request.contextPath}/dept/deletes",data
             ,function (data) {
@@ -236,6 +257,7 @@
             });
         });
       };
+
 
 
 

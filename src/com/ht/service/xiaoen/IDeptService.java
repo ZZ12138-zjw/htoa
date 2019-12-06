@@ -52,4 +52,12 @@ public interface IDeptService {
      */
     void save(DeptVo deptVo);
 
+    /**
+     * 删除多个部门
+     * @param depIds
+     *         多个部门id拼成的字符串
+     *              1,2,3,4
+     */
+    void delAll(String depIds);
+
 }
