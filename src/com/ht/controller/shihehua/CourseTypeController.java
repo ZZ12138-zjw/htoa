@@ -58,6 +58,7 @@ public class CourseTypeController {
 
     @RequestMapping("/tocurriculum_update")
     public String tocurriculum_update(Map map,String courseTypeId){
+        System.out.println("进来了修改方法！");
         CourseTypeVo courseTypeVo = is.selCourseType(Integer.parseInt(courseTypeId));
         map.put("courseTypeVo",courseTypeVo);
         return "curriculum_update";
@@ -77,6 +78,7 @@ public class CourseTypeController {
     }
 
     @RequestMapping("/update")
+    @ResponseBody
     public String update(CourseTypeVo courseTypeVo){
         is.updateCourseType(courseTypeVo);
         return "success";

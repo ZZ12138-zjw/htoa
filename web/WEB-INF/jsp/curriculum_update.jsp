@@ -54,14 +54,16 @@
                 success:function(data){
                     var lindex = layer.load();
                     if ('success'==data){
+                        alert(data);
                         layer.alert("修改成功", {icon: 6},function () {
+                            layer.close(lindex);
                             // 获得frame索引
                             var index = parent.layer.getFrameIndex(window.name);
                             //关闭当前frame
                             parent.layer.close(index);
                             setTimeout(function () {
                                 window.parent.location.reload();
-                            })
+                            });
                         });
                     }else {
                         layer.alert("修改失败",{icon:1},function () {
