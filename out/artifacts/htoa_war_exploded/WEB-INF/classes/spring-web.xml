@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <import resource="spring-activit.xml"/>
+
+    <!--1.开启SpringMVC注解模式-->
+    <!--
+    a.自动注册
+    DefaultAnnotationHandlerMapping,AnnotationMethodHandlerAdapter
+    b.默认提供一系列的功能，数据绑定，数字和日期的format@NumberFormat,@DateTimeFormat
+    c.xml，json的默认读写支持
+    -->
+    <mvc:annotation-driven/>
+
+    <!--2.静态资源默认servlet配置-->
+    <!--
+        1>加入对静态资源的处理：js,gif,png
+        2>允许使用“/"做整天映射
+    -->
+    <mvc:default-servlet-handler/>
+
+    
+    <mvc:resources mapping="/**" location="WEB-INF/static/"/>
+
+    <!--用于ajax请求返回json数据-->
+    <!--FastJson注入-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <!--避免IE执行ajax时，返回JSON出现下载文件-->
+            <!--FastJson注入-->
+            <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <!--这里顺序不能反,一定先写text/HTML，不然会出现下载提示-->
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--配置JSP显示ViewResolver-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--4.扫描web相关的conteoller控制器-->
+    <context:component-scan base-package="com.ht.controller"/>
+
+    <!--文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--配置文件上传的最大大小(字节)这里是1M-->
+        <property name="maxUploadSize" value="3048576"/>
+        <!--
+          1048576kb == 1024kb
+          1048576/1024=1024
+          1mb=1024kb
+          1g=1024mb
+        -->
+    </bean>
+
+
+</beans>
