@@ -15,8 +15,8 @@ public class RepairManageVo {
     private String repairSort;      //维修类别
     private String repairMan;       //报修人
     private String repairAddress;            //保修部门或班级
-    private Date startDate;         //开始维修时间（申请维修时间）
-    private Date endDate;           //结束时间（完成时间）
+    private String startDate;         //开始维修时间（申请维修时间）
+    private String endDate;           //结束时间（完成时间）
     private String repairStatus;     //当前状态
     private String repairDept;     //部门或班级
     private String repairName;      //报修名称
@@ -95,19 +95,19 @@ public class RepairManageVo {
         this.repairAddress = repairAddress;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

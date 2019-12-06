@@ -73,12 +73,13 @@
 
         //监听提交
         form.on('submit(formDemo)', function(data) {
-            $.post("${pageContext.request.contextPath}/contro/repairmanage",{
+            $.post("${pageContext.request.contextPath}/repaircontro/repairmanage",{
                 repairMan:$('#repairMan').val(),
                 repairSort:$('#repairSort').val(),
                 repairAddress:$('#repairAddress').val(),
                 repairDept:$('#repairDept').val(),
-                repairName:$('#repairName').val()
+                repairName:$('#repairName').val(),
+                repairStatus:'待维修'
             },function (data) {
                 if (data=="success"){
                     layer.alert("增加成功", {icon: 6},function () {

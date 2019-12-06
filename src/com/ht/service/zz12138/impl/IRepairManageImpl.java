@@ -23,4 +23,9 @@ public class IRepairManageImpl extends BaseDao implements IRepairManageService {
     public void addRepairMange(RepairManageVo repairManageVo) {
         addObject(repairManageVo);
     }
+
+    @Override
+    public int selTotal() {
+        return selTotalRow("select count(*) from repairmanage");
+    }
 }

@@ -13,4 +13,6 @@ public interface IRepairManageService {
     public List listRepairManage(int currPage,int pageSize);
 
     public void addRepairMange(RepairManageVo repairManageVo);
+
+    public int selTotal();
 }
