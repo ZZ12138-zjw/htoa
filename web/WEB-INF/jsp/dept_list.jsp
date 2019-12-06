@@ -88,7 +88,7 @@
 
             //监听表格复选框选择
           table.on('checkbox(demo)',function (obj) {
-             console.log(res);
+              alert(res);
           });
 
 
