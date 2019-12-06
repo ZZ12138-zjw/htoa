@@ -22,16 +22,13 @@ public class RepairApplyController {
 
     @ResponseBody
     @RequestMapping("/repairmanage")
-    public String repairmanage(String repairMan,String repairSort,String repairAddress,String repairName,String repairDept){
-        RepairManageVo vo = new RepairManageVo();
-        vo.setRepairName(repairName);
-        vo.setRepairMan(repairMan);
-        vo.setRepairDept(repairDept);
-        vo.setRepairSort(repairSort);
-        vo.setRepairAddress(repairAddress);
-        vo.setRepairStatus("待维修");
-        vo.setStartDate(new Date());
-
+    public String repairmanage(RepairManageVo vo){
+        if (vo.getStartDate()==null){
+            vo.setStartDate(new Date());
+        }else if(vo.getRepairStatus()==null){
+            vo.setRepairStatus("待维修");
+        }
+        System.out.println(vo.toString());
         service.addRepairMange(vo);
         return "success";
     }
