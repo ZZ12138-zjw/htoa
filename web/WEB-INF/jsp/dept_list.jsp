@@ -142,12 +142,12 @@
 
             //批量删除
           $("#delSelect").on('click',function () {
+              alert("我进来了");
               //获得表格CheckBox已经选中的行的信息
               //lay-data="id:info"
               var checkStatus=table.checkStatus('info'),
               //返回的value
               data=checkStatus.data;
-
               if(data.length>0){
                     layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
                         //layui中找到Checkbox所在的行,并遍历行的顺序
