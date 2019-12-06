@@ -41,4 +41,9 @@ public class CourseTypeServiceImpl extends BaseDao implements ICourseTypeService
     public void delCourseType(CourseTypeVo courseTypeVo) {
         delObject(courseTypeVo);
     }
+
+    @Override
+    public void updateCourseType(CourseTypeVo courseTypeVo) {
+        updObject(courseTypeVo);
+    }
 }

@@ -17,11 +17,11 @@
         <i class="layui-icon" style="line-height:38px">ဂ</i></a>
 </div>
 <div class="x-body">
-    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+    <button class="layui-btn layui-btn-danger" id="delSelect"><i class="layui-icon"></i>批量删除</button>
     <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/coursetype/tocurriculum_add')"><i class="layui-icon"></i>添加</button>
     <span class="x-right" style="line-height:40px">共有数据：${count} 条</span>
 
-    <table class="layui-hide" id="coursetypeTable" lay-filter="coursetypeList"></table>
+    <table class="layui-hide" id="coursetypeTable" lay-filter="coursetypeList" lay-data="id:'info'"></table>
 
     <script type="text/html" id="complain_toolbar">
         <div class="layui-btn-container">
@@ -98,7 +98,7 @@
                         shadeClose: true,
                         shade: 0.4,
                         skin: 'layui-layer-rim',
-                        content: ["${pageContext.request.contextPath}/coursetype/tocurriculum_add", "no"],
+                        content: ["${pageContext.request.contextPath}/coursetype/tocurriculum_update?courseTypeId="+data.courseTypeId, "no"],
                     });
                     break;
                 case 'del':
@@ -119,20 +119,47 @@
                                 });
                             }
                         });
+                        //关闭弹窗
                         layer.close(delIndex);
                     });
                     break;
             }
-        })
-
+        });
+        /*批量删除*/
+        $("#delSelect").on("ckeck",function () {
+            //获得表格CheckBox已经选中的行的信息
+            var checkStatus = table.checkStatus('info'),
+            //返回的value
+            data=checkStatus.data;
+            if (data.length>0){
+                layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
+                    //layui中找到Checkbox所在的行,并遍历行的顺序
+                    $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
+                        var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
+                        //移除行
+                        $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
+                        //如果是全选移除，就将全选CheckBox还原为未选中状态
+                        $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                    });
+                    //关闭弹窗
+                    layer.close(index);
+                });
+            }else{
+                layer.msg('请选择需要删除的行');
+            }
+        });//批量删除操作结束
     });
+
+
+
+
 
     /*用户-删除*/
     function member_del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
-            /*$(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});*/
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
             $.post("${pageContext.request.contextPath}/coursetype/delete",{
                 courseTypeId:id
             },function (data) {
@@ -141,6 +168,7 @@
             });
         });
     }
+
     /*批量删除*/
     function delAll (argument) {
         var data = tableCheck.getData();

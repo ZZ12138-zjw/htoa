@@ -21,4 +21,6 @@ public interface ICourseTypeService {
 
     public void delCourseType(CourseTypeVo courseTypeVo);
 
+    public void updateCourseType(CourseTypeVo courseTypeVo);
+
 }
