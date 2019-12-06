@@ -6,7 +6,7 @@
   
   <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.0</title>
+    <title>员工列表</title>
     <jsp:include page="top.jsp"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/public.css">
   </head>
@@ -21,27 +21,44 @@
                   <form class="layui-form layui-form-pane" action="">
                       <div class="layui-form-item">
                           <div class="layui-inline">
+                          <label class="layui-form-label">部门名称</label>
+                          <div class="layui-input-inline">
+                              <select name="depName">
+                                <option value="" class="layui-input">未选择</option>
+                                <option value="宏图软件" class="layui-input">宏图软件</option>
+                              </select>
+                          </div>
+                      </div>
+                          <div class="layui-inline">
                               <label class="layui-form-label">员工姓名</label>
                               <div class="layui-input-inline">
-                                  <input type="text" name="username" autocomplete="off" class="layui-input">
+                                  <input type="text" name="empName" autocomplete="off" class="layui-input">
                               </div>
                           </div>
                           <div class="layui-inline">
-                              <label class="layui-form-label">员工性别</label>
+                              <label class="layui-form-label">手机号码</label>
                               <div class="layui-input-inline">
-                                  <input type="text" name="sex" autocomplete="off" class="layui-input">
+                                  <input type="number" name="phone" autocomplete="off" class="layui-input">
                               </div>
                           </div>
                           <div class="layui-inline">
-                              <label class="layui-form-label">员工城市</label>
+                              <label class="layui-form-label">员工状态</label>
                               <div class="layui-input-inline">
-                                  <input type="text" name="city" autocomplete="off" class="layui-input">
+                                  <select name="status">
+                                      <option value="" class="layui-input">未选择</option>
+                                      <option value="启用" class="layui-input">启用</option>
+                                      <option value="禁用" class="layui-input">禁用</option>
+                                  </select>
                               </div>
                           </div>
                           <div class="layui-inline">
                               <label class="layui-form-label">员工职务</label>
                               <div class="layui-input-inline">
-                                  <input type="text" name="classify" autocomplete="off" class="layui-input">
+                                  <select name="postName">
+                                      <option value="" class="layui-input">未选择</option>
+                                      <option value="教师" class="layui-input">教师</option>
+                                      <option value="班主任" class="layui-input">班主任</option>
+                                  </select>
                               </div>
                           </div>
                           <div class="layui-inline">
@@ -52,10 +69,10 @@
               </div>
           </fieldset>
 
-          <div class="layui-btn-group">
-              <button class="layui-btn data-add-btn">添加</button>
-              <button class="layui-btn layui-btn-danger data-delete-btn">删除</button>
-          </div>
+          <xblock>
+              <button class="layui-btn layui-btn-danger" id="delSelect" ><i class="layui-icon"></i>批量删除</button>
+              <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/dept/to_deptAdd')"><i class="layui-icon"></i>添加</button>
+          </xblock>
           <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
           <script type="text/html" id="currentTableBar">
               <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
@@ -63,8 +80,21 @@
           </script>
           <script type="text/html" id="toolbarDemo">
               <div class="layui-btn-container">
-                  <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+                  <button class="layui-btn layui-btn-xs" lay-event="add">添加</button>
               </div>
+          </script>
+
+          <script type="text/html" id="reset-btn">
+               <a class="layui-btn layui-btn-xs" >
+                   <i class="layui-icon  layui-icon-refresh"></i>
+                    重置密码
+               </a>
+          </script>
+          <script type="text/html" id="prohibit">
+              <a class="layui-btn layui-btn-xs layui-btn-danger" >
+                  <i class="layui-icon layui-icon-password"></i>
+                  禁用
+              </a>
           </script>
       </div>
   </div>
@@ -83,14 +113,14 @@
                   {checkbox:true, width:150},
                   {field: 'empId', width:150, title: 'ID', sort: true},
                   {field: 'empName', width:150, title: '员工姓名'},
-                  {field: 'deptId', width:150, title: '部门'},
+                  {field: 'depName', width:150, title: '部门'},
                   {field: 'postName', width:150, title: '职务'},
                   {field: 'sex', width:150, title: '性别'},
-                  {field: 'phone', width:150, title: '手机号码', sort: true},
-                  {field: 'address', width:150, title: '家庭地址'},
-                  {field: 'left', title: '设置状态', width:150},
-                  {field: 'left', width:150, title: '重置密码'},
-                  {field: 'right', width:250, title: '操作',templet: '#currentTableBar'}
+                  {field: 'phone', width:150, title: '手机号码'},
+                  {field: 'address', width:100, title: '家庭地址'},
+                  {field: 'center', title: '设置状态', width:150,toolbar:'#prohibit'},
+                  {field: 'center', width:150, title: '重置密码',toolbar:'#reset-btn'},
+                  {field: 'right', width:250, title: '操作',toolbar: '#currentTableBar'}
               ]],
               limits: [10, 15, 20, 25, 50, 100],
               limit: 15,
@@ -103,14 +133,17 @@
               layer.alert(result, {
                   title: '最终的搜索信息'
               });
-
               //执行搜索重载
               table.reload('currentTableId', {
                   page: {
                       curr: 1
                   }
                   , where: {
-                      searchParams: result
+                      depName:data.field.depName,
+                      postName:data.field.postName,
+                      status:data.field.status,
+                      phone:data.field.phone,
+                      empName:data.field.empName
                   }
               }, 'data');
 

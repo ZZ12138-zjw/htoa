@@ -26,4 +26,5 @@ public interface IEmpService  {
 
     void save(EmpVo empVo);
 
+
 }

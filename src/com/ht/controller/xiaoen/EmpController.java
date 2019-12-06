@@ -1,8 +1,7 @@
 package com.ht.controller.xiaoen;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.ht.service.xiaoen.IEmpService;
+import com.ht.vo.employee.EmpCkBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,16 +30,17 @@ public class EmpController {
 
     @RequestMapping("/empList")
     @ResponseBody
-    public Map empList(){
+    public Map empList(int page, int limit, EmpCkBean empCk){
+        System.out.println(empCk.toString());
         Map map=new HashMap();
-        JSONArray jsonArray= (JSONArray)JSON.toJSON(emp.selectAll());
+       /* JSONArray jsonArray= (JSONArray)JSON.toJSON(emp.selectAll());*/
         map.put("code",0);
         map.put("msg","");
-
         map.put("count",emp.selectCount());
-        map.put("data",jsonArray);
+        map.put("data",emp.selectPage(page,limit));
         return map;
     }
+
 
 
 

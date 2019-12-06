@@ -38,7 +38,7 @@ public class EmpServiceImpl extends BaseDao implements IEmpService {
 
     @Override
     public List<EmpVo> selectPage(int currPage, int pageSize) {
-        return pageByHql("from EmpVo",currPage,pageSize);
+        return pageBySQL("select e.*,d.depName from t_emp e left join t_dept d on e.deptid=d.depid",currPage,pageSize);
     }
 
     @Override
