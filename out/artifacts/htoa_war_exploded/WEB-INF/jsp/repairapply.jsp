@@ -98,6 +98,7 @@
                 elem: '#startDate' //指定元素
                 ,trigger:'click'
             });
+
         });
     });
 </script>

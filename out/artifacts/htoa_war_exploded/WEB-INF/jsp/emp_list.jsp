@@ -1,4 +1,4 @@
-
+<%@ page import="com.ht.vo.employee.PostName" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -56,8 +56,9 @@
                               <div class="layui-input-inline">
                                   <select name="postName">
                                       <option value="" class="layui-input">未选择</option>
-                                      <option value="教师" class="layui-input">教师</option>
-                                      <option value="班主任" class="layui-input">班主任</option>
+                                 <% for(int i=0;i<PostName.postNames().size();i++){%>
+                                      <option value="<%=PostName.postNames().get(i)%>" class="layui-input"><%=PostName.postNames().get(i)%></option>
+                                <%}%>
                                   </select>
                               </div>
                           </div>

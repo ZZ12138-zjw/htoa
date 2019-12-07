@@ -179,7 +179,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="<%=request.getContextPath()%>/student/studentInfo">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>学生列表</cite>
                         </a>
@@ -214,7 +214,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/course/tocourse_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>课程管理</cite>
                         </a>

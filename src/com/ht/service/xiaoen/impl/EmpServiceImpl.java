@@ -41,6 +41,8 @@ public class EmpServiceImpl extends BaseDao implements IEmpService {
         String sql="select e.*,d.depName from t_emp e left join t_dept d on e.deptid=d.depid";
         if (empCk.getDepName()!=null && !"".equals(empCk.getDepName())){
             sql+=" where d.depName='"+empCk.getDepName()+"'";
+        }else {
+            sql+=" where 1=1";
         }
         if (empCk.getEmpName()!=null && !"".equals(empCk.getEmpName())){
             sql+=" and e.empName='"+empCk.getEmpName()+"'";
