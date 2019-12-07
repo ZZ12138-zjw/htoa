@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>维修申请</title>
+    <title>添加维修管理</title>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,13 +22,13 @@
         <form class="layui-form" id="layuiform">
             <div class="layui-form-item">
                 <label class="layui-form-label">报修人</label>
-                <div class="layui-input-block">
+                <div class="layui-input-inline">
                     <input type="text" id="repairMan" name="repairMan" required  lay-verify="required" placeholder="请输入报修人姓名" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">故障报修类别</label>
-                <div class="layui-input-block">
+                <div class="layui-input-inline">
                     <select name="repairSort" id="repairSort" lay-verify="required">
                         <option value=""></option>
                         <option value="水电报修">水电报修</option>
@@ -57,6 +57,35 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">选择维修状态</label>
+                <div class="layui-input-inline">
+                    <select name="repairSort" id="repairStatus" lay-verify="required">
+                        <option value=""></option>
+                        <option value="待维修">待维修</option>
+                        <option value="维修中">维修中</option>
+                        <option value="已维修">已维修</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">开始日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" lay-verify="required" class="layui-input" autocomplete="off" name="startDate" id="startDate" placeholder="请选择开始日期">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">结束日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" autocomplete="off" name="endDate" id="endDate" placeholder="请选择结束日期">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">维修备注</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入备注" id="repairIndex" name="repairIndex" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn" type="submit" lay-submit lay-filter="formDemo">立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -66,7 +95,7 @@
     </div>
 <script>
     //Demo
-    layui.use(['form','layer'], function(){
+    layui.use(['form','layer','laydate'], function(){
         $ = layui.jquery;
         var form = layui.form
             ,layer = layui.layer;
@@ -79,13 +108,20 @@
                 repairAddress:$('#repairAddress').val(),
                 repairDept:$('#repairDept').val(),
                 repairName:$('#repairName').val(),
-                repairStatus:'待维修'
+                repairStatus:$('#repairStatus').val(),
+                startDate:$('#startDate').val(),
+                endDate:$('#endDate').val(),
+                repairIndex:$('#repairIndex').val(),
             },function (data) {
                 if (data=="success"){
                     layer.alert("增加成功", {icon: 6},function () {
-                        document.getElementById("layuiform").reset();
-                        var index = layer.alert();
-                        layer.close(index);
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                        setTimeout(function () {
+                            window.parent.location.reload(); //修改成功后刷新父界面
+                        })
+
                     });
                 }
             },"text");
@@ -99,6 +135,10 @@
                 ,trigger:'click'
             });
 
+            laydate.render({
+                elem: '#endDate' //指定元素
+                ,trigger:'click'
+            });
         });
     });
 </script>

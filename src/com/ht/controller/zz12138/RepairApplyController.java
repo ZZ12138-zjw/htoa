@@ -70,4 +70,11 @@ public class RepairApplyController {
         System.out.println("进入维修管理页面");
         return "repairmanage";
     }
+
+    @RequestMapping("/to_addrepairmanage")
+    public String to_addrepairmanage(){
+        System.out.println("进入维修管理页面");
+        return "addrepairmanage";
+    }
+
 }
