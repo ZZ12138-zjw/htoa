@@ -1,4 +1,4 @@
-
+<%@ page import="com.ht.vo.employee.PostName" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
                           <div class="layui-input-inline">
                               <select name="depName">
                                 <option value="" class="layui-input">未选择</option>
-                                <option value="宏图软件" class="layui-input">宏图软件</option>
+                                <option value="宏图软件教育" class="layui-input">宏图软件教育</option>
                               </select>
                           </div>
                       </div>
@@ -46,8 +46,8 @@
                               <div class="layui-input-inline">
                                   <select name="status">
                                       <option value="" class="layui-input">未选择</option>
-                                      <option value="启用" class="layui-input">启用</option>
-                                      <option value="禁用" class="layui-input">禁用</option>
+                                      <option value="1" class="layui-input">启用</option>
+                                      <option value="0" class="layui-input">禁用</option>
                                   </select>
                               </div>
                           </div>
@@ -56,8 +56,9 @@
                               <div class="layui-input-inline">
                                   <select name="postName">
                                       <option value="" class="layui-input">未选择</option>
-                                      <option value="教师" class="layui-input">教师</option>
-                                      <option value="班主任" class="layui-input">班主任</option>
+                                 <% for(int i=0;i<PostName.postNames().size();i++){%>
+                                      <option value="<%=PostName.postNames().get(i)%>" class="layui-input"><%=PostName.postNames().get(i)%></option>
+                                <%}%>
                                   </select>
                               </div>
                           </div>
@@ -145,6 +146,7 @@
                       phone:data.field.phone,
                       empName:data.field.empName
                   }
+                  ,text:{none:'无数据'}
               }, 'data');
 
               return false;
