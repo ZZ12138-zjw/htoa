@@ -214,7 +214,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/course/tocourse_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>课程管理</cite>
                         </a>
@@ -243,13 +243,13 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="${pageContext.request.contextPath}/contro/repairapply">
+                        <a _href="${pageContext.request.contextPath}/repaircontro/repairapply">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>报修申请</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/repaircontro/to_repairmanage">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>维修管理</cite>
                         </a>

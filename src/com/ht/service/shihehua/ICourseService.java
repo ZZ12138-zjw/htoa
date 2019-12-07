@@ -22,4 +22,6 @@ public interface ICourseService {
     public void updateCourse(CourseVo courseVo);
 
     public void delCourse(CourseVo courseVo);
+
+    public void delCourses(String ids);
 }
