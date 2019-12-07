@@ -1,6 +1,7 @@
 package com.ht.service.xiaoen;
 
 import com.ht.vo.employee.DeptVo;
+import com.ht.vo.employee.EmpCkBean;
 import com.ht.vo.employee.EmpVo;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface IEmpService  {
 
     EmpVo select(EmpVo empVo);
 
-    List<EmpVo> selectPage(int currPage,int pageSize);
+    List<EmpVo> selectPage(int currPage, int pageSize, EmpCkBean empCk);
 
     int selectCount();
 

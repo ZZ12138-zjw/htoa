@@ -25,7 +25,7 @@
                           <div class="layui-input-inline">
                               <select name="depName">
                                 <option value="" class="layui-input">未选择</option>
-                                <option value="宏图软件" class="layui-input">宏图软件</option>
+                                <option value="宏图软件教育" class="layui-input">宏图软件教育</option>
                               </select>
                           </div>
                       </div>
@@ -46,8 +46,8 @@
                               <div class="layui-input-inline">
                                   <select name="status">
                                       <option value="" class="layui-input">未选择</option>
-                                      <option value="启用" class="layui-input">启用</option>
-                                      <option value="禁用" class="layui-input">禁用</option>
+                                      <option value="1" class="layui-input">启用</option>
+                                      <option value="0" class="layui-input">禁用</option>
                                   </select>
                               </div>
                           </div>
@@ -145,6 +145,7 @@
                       phone:data.field.phone,
                       empName:data.field.empName
                   }
+                  ,text:{none:'无数据'}
               }, 'data');
 
               return false;

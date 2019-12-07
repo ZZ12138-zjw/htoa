@@ -3,9 +3,9 @@ package com.ht.service.xiaoen.impl;
 import com.ht.dao.BaseDao;
 import com.ht.service.xiaoen.IEmpService;
 import com.ht.vo.employee.DeptVo;
+import com.ht.vo.employee.EmpCkBean;
 import com.ht.vo.employee.EmpVo;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
@@ -37,8 +37,24 @@ public class EmpServiceImpl extends BaseDao implements IEmpService {
     }
 
     @Override
-    public List<EmpVo> selectPage(int currPage, int pageSize) {
-        return pageBySQL("select e.*,d.depName from t_emp e left join t_dept d on e.deptid=d.depid",currPage,pageSize);
+    public List<EmpVo> selectPage(int currPage, int pageSize, EmpCkBean empCk) {
+        String sql="select e.*,d.depName from t_emp e left join t_dept d on e.deptid=d.depid";
+        if (empCk.getDepName()!=null && !"".equals(empCk.getDepName())){
+            sql+=" where d.depName='"+empCk.getDepName()+"'";
+        }
+        if (empCk.getEmpName()!=null && !"".equals(empCk.getEmpName())){
+            sql+=" and e.empName='"+empCk.getEmpName()+"'";
+        }
+        if (empCk.getPhone()!=null && !"".equals(empCk.getPhone())){
+            sql+=" and e.phone='"+empCk.getPhone()+"'";
+        }
+        if (empCk.getStatus()!=null && !"".equals(empCk.getStatus())){
+            sql+=" and e.status="+empCk.getStatus();
+        }
+        if (empCk.getPostName()!=null && !"".equals(empCk.getPostName())){
+            sql+=" and e.postName='"+empCk.getPostName()+"'";
+        }
+        return pageBySQL(sql,currPage,pageSize);
     }
 
     @Override

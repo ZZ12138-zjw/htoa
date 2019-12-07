@@ -31,13 +31,18 @@ public class EmpController {
     @RequestMapping("/empList")
     @ResponseBody
     public Map empList(int page, int limit, EmpCkBean empCk){
-        System.out.println(empCk.toString());
         Map map=new HashMap();
        /* JSONArray jsonArray= (JSONArray)JSON.toJSON(emp.selectAll());*/
+        map.put("data",emp.selectPage(page,limit,empCk));
         map.put("code",0);
-        map.put("msg","");
+        if (emp.selectPage(page,limit,empCk).size()==0){
+            map.put("msg","无数据");
+        }else {
+            map.put("msg","");
+        }
+
         map.put("count",emp.selectCount());
-        map.put("data",emp.selectPage(page,limit));
+
         return map;
     }
 
