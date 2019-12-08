@@ -19,7 +19,7 @@
                     <span class="x-red">*</span>类别名称：
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="courseTypeName" name="courseTypeName" required="" lay-verify="required"
+                    <input type="text" id="courseTypeName" name="courseTypeName" required="" lay-verify="courseTypeName"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -42,6 +42,24 @@
     layui.use(['form','layer'], function(){
         var form = layui.form
             ,layer = layui.layer;
+
+        form.verify({
+            //value：表单的值，item表单的dom对象
+            courseTypeName:function (value,item) {
+                if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                    return '类别名称不能有特殊字符';
+                }
+                if (/(^\_)|(\__)|(\_+$)/.test(value)){
+                    return '类别名称首尾不能出现下划线\'_\'';
+                }
+                if (/^\d+\d+\d$/.test(value)){
+                    return '类别名称不能为全数字';
+                }
+                if (value.length<3){
+                    return '类别名称至少得3个字符';
+                }
+            }
+        });
         //监听提交
        form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给php
@@ -51,7 +69,6 @@
                 data:data.field,
                 dataType:'json',
                 success:function(data){
-                    alert(data);
                     layer.alert("增加成功", {icon: 6},function () {
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
