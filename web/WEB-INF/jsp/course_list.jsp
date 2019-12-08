@@ -12,12 +12,15 @@
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
+<div class="x-nav">
+    <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:38px">ဂ</i></a>
+</div>
     <div class="x-body">
         <button class="layui-btn layui-btn-danger" id="delSelect"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/course/tocourse_add')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：${count} 条</span>
 
-        <table class="layui-hide" id="courseTable" lay-filter="coursetypeList" lay-data="id:'info'"></table>
+        <table class="layui-hide" id="courseTable" lay-filter="courseList" lay-data="id:'info'"></table>
 
         <script type="text/html" id="complain_toolbar">
             <div class="layui-btn-container">
@@ -54,17 +57,12 @@
 
 
             table.render({
-                elem: '#courseTable'  //指定原始表格元素选择器(推荐id选择器)
+                id:'provinceReload'
+                ,elem: '#courseTable'  //指定原始表格元素选择器(推荐id选择器)
                 ,url:'${pageContext.request.contextPath}/course/courseList'
                 ,page: true   //开启分页
                 ,method:'post'  //请求方式
                 ,limit:10   //分页默认大小
-                ,toolbar:true, //开启头部工具栏，并为其绑定左侧模板
-                defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-                    title: '提示',
-                    layEvent: 'LAYTABLE_TIPS',
-                    icon: 'layui-icon-tips'
-                }]
                 ,cols: [   //标题栏
                     [
                         {checkbox:true}//开启多选框
@@ -93,26 +91,34 @@
                     //返回的val ue
                     data=checkStatus.data;
                 var ids=[];
-                $()
+                $(data).each(function (i,val) { //o即为表格中一行的数据
+                    ids.push(val.courseid);
+                });
                 if(data.length>0){
                     layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
                         //layui中找到Checkbox所在的行,并遍历行的顺序
                         $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
-                            $.post("${pageContext.request.contextPath}/dept/deletes",{
-                                deptVos:JSON.stringify(data)
-                            },function(res){
-                                if ('success'==res){
+                            $.post("${pageContext.request.contextPath}/course/deletes",{
+                                courseid:ids.toString()
+                            },function(data){
+                                if ('success'==data){
                                     var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
                                     //移除行
                                     $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
                                     //如果是全选移除，就将全选CheckBox还原为未选中状态
                                     $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                                    layer.alert("删除成功", {
+                                        icon: 6
+                                    });
+                                    /*setTimeout(function () {
+                                     window.location.reload(); //修改成功后刷新父界面
+                                     })*/
                                 }else {
-                                    layer.msg('删除失败',{
+                                    layer.alert('删除失败',{
                                         icon:2
-                                    })
+                                    });
                                 }
-                            });
+                            },'text');
 
                         });
                         //关闭弹窗
@@ -125,7 +131,7 @@
 
 
             //监听工具条
-            table.on('tool(complainList)', function(obj) {
+            table.on('tool(courseList)', function(obj) {
                 var data = obj.data;
                 json = JSON.stringify(data);
                 switch(obj.event) {

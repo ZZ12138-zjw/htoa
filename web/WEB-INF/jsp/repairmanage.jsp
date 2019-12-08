@@ -39,7 +39,7 @@
                 ,url: '${pageContext.request.contextPath}/repaircontro/listrepair' //数据接口
                 ,page: true //开启分页
                 ,cols: [[ //表头
-                    {field: 'iD', title: 'ID', width:80, sort: true, fixed: 'left'}
+                    {field: 'repairID', title: 'ID', width:80, sort: true, fixed: 'left'}
                     ,{field: 'repairMan', title: '报修人', width:100}
                     ,{field: 'repairName', title: '报修名称', width: 100}
                     ,{field: 'repairSort', title: '报修类别', width:100, sort: true}
@@ -62,7 +62,7 @@
                        title: '新增维修管理',
                        shadeClose: true,
                        shade: 0.8,
-                       area: ['450px', '90%'],
+                       area: ['600px', '90%'],
                        content: '${pageContext.request.contextPath}/repaircontro/to_addrepairmanage' //iframe的url
                    })
                }
@@ -71,7 +71,43 @@
             table.on('tool(test)',function(obj2){
                 var data = obj2.data;
                 if(obj2.event == "edit"){
-                    layer.msg(data.repairMan);
+                    var w;
+                    var h;
+                    if (w == null || w == '') {
+                        w=($(window).width()*0.9);
+                    };
+                    if (h == null || h == '') {
+                        h=($(window).height() - 50);
+                    };
+                    var index = layer.open({
+                        type: 2,
+                        title: "编辑维修管理",
+                        area: [w+'px', h +'px'],
+                        fix: false, //不固定
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        skin: 'layui-layer-rim',
+                        content: ["${pageContext.request.contextPath}/repaircontro/to_editrepairmanage?repairid="+data.repairID],
+                    });
+                }else if(obj2.event == "del"){
+                    var delIndex = layer.confirm('真的删除id为' + data.repairID + "的信息吗?", function(delIndex) {
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/repaircontro/delrepairmanage',
+                            data:{repairID:data.repairID},
+                            type: "post",
+                            success: function(suc) {
+                                obj2.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                layer.close(delIndex);
+                                console.log(delIndex);
+                                layer.msg("删除成功", {
+                                    icon: 1
+                                });
+                            }
+                        });
+                        //关闭弹窗
+                        layer.close(delIndex);
+                    });
                 }
             });
 

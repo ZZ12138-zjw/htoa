@@ -23,16 +23,30 @@ public class CourseTypeController {
     @Resource
     ICourseTypeService is;
 
+    /**
+     * 去list页面
+     * @return
+     */
     @RequestMapping("/tocurriculum_list")
     public String tocurriculum_list(){
         return "curriculum_list";
     }
 
+    /**
+     * 去添加页面
+     * @return
+     */
     @RequestMapping("/tocurriculum_add")
     public String tocurriculum_add(){
         return "curriculum_add";
     }
 
+    /**
+     * 从数据库查询数据传到list页面展示
+     * @param page
+     * @param limit
+     * @return
+     */
     @RequestMapping("/coursetypeList")
     @ResponseBody
     public Map coursetypeList(String page,String limit){
@@ -48,6 +62,11 @@ public class CourseTypeController {
         return map;
     }
 
+    /**
+     * 添加数据到数据库
+     * @param courseTypeVo
+     * @return
+     */
     @RequestMapping("/addcurriculum")
     @ResponseBody
     public String addcurriculum(CourseTypeVo courseTypeVo){
@@ -56,6 +75,12 @@ public class CourseTypeController {
         return "success";
     }
 
+    /**
+     * 去修改页面
+     * @param map
+     * @param courseTypeId
+     * @return
+     */
     @RequestMapping("/tocurriculum_update")
     public String tocurriculum_update(Map map,String courseTypeId){
         System.out.println("进来了修改方法！");
@@ -64,19 +89,40 @@ public class CourseTypeController {
         return "curriculum_update";
     }
 
+    /**
+     * 删除单条数据
+     * @param courseTypeVo
+     * @return
+     */
     @RequestMapping("/delete")
     @ResponseBody
     public String delete(CourseTypeVo courseTypeVo){
         is.delCourseType(courseTypeVo);
         return "success";
     }
+
+    /**
+     * 批量删除
+     * @param courseTypeId
+     * @return
+     */
     @RequestMapping("/deletes")
     @ResponseBody
-    public String deletes(String[] courseTypeid){
-        System.out.println("--"+courseTypeid);
+    public String deletes(String[] courseTypeId){
+        String ids = "";
+        for (int i=0;i<courseTypeId.length;i++){
+            ids+=courseTypeId[i]+",";
+        }
+        ids = ids.substring(0,ids.length()-1);
+        is.delCourseTypes(ids);
         return "success";
     }
 
+    /**
+     * 修改数据
+     * @param courseTypeVo
+     * @return
+     */
     @RequestMapping("/update")
     @ResponseBody
     public String update(CourseTypeVo courseTypeVo){

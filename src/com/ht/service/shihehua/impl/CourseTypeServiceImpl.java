@@ -43,6 +43,11 @@ public class CourseTypeServiceImpl extends BaseDao implements ICourseTypeService
     }
 
     @Override
+    public void delCourseTypes(String ids) {
+        executeSQL("delete from coursetype where courseTypeId in ("+ids+") ");
+    }
+
+    @Override
     public void updateCourseType(CourseTypeVo courseTypeVo) {
         updObject(courseTypeVo);
     }
