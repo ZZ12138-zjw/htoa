@@ -49,7 +49,7 @@ public class CourseController {
      * @param courseVo
      * @return
      */
-    @RequestMapping("courseadd")
+    @RequestMapping("/courseadd")
     @ResponseBody
     public String courseadd(CourseVo courseVo){
         is.addCourse(courseVo);
@@ -83,6 +83,48 @@ public class CourseController {
     @ResponseBody
     public String delete(CourseVo courseVo){
         is.delCourse(courseVo);
+        return "success";
+    }
+
+    /**
+     * 去修改页面
+     * @param map
+     * @param courseid
+     * @return
+     */
+    @RequestMapping("/to_courseUpdate")
+    public String to_courseUpdate(Map map,String courseid){
+        CourseVo courseVo = is.selCourse(Integer.parseInt(courseid));
+        map.put("courseVo",courseVo);
+        map.put("courseTypeList",its.selCourseTypeList());
+        return "course_update";
+    }
+
+    /**
+     * 修改方法
+     * @param courseVo
+     * @return
+     */
+    @RequestMapping("/update")
+    @ResponseBody
+    public String update(CourseVo courseVo){
+        System.out.println(courseVo.toString());
+        is.updateCourse(courseVo);
+        return "success";
+    }
+
+    /**
+     * 批量删除
+     */
+    @RequestMapping("/deletes")
+    @ResponseBody
+    public String deletes(String[] courseid){
+        String ids = "";
+        for (int i=0;i<courseid.length;i++){
+            ids+=courseid[i]+",";
+        }
+        ids = ids.substring(0,ids.length()-1);
+
         return "success";
     }
 

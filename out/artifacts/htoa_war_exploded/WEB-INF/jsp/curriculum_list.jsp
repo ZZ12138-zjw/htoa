@@ -58,6 +58,7 @@
             laypage = layui.laypage;
 
         table.render({
+            id:'provinceReload',
             elem:'#coursetypeTable',
             url:'${pageContext.request.contextPath}/coursetype/coursetypeList',
             page:true,  //开启分页
@@ -125,29 +126,58 @@
                     break;
             }
         });
-        /*批量删除*/
-        $("#delSelect").on("ckeck",function () {
+
+
+
+        //批量删除
+        $('#delSelect').on('click',function () {
             //获得表格CheckBox已经选中的行的信息
-            var checkStatus = table.checkStatus('info'),
-            //返回的value
-            data=checkStatus.data;
-            if (data.length>0){
+            //lay-data="id:info"
+            var checkStatus=table.checkStatus('provinceReload'),
+                //返回的val ue
+                data=checkStatus.data;
+            var ids=[];
+            $(data).each(function (i,val) { //o即为表格中一行的数据
+                ids.push(val.courseTypeId);
+            });
+            if(data.length>0){
                 layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
                     //layui中找到Checkbox所在的行,并遍历行的顺序
                     $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
-                        var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
-                        //移除行
-                        $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
-                        //如果是全选移除，就将全选CheckBox还原为未选中状态
-                        $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                        $.post("${pageContext.request.contextPath}/coursetype/deletes",{
+                            courseTypeId:ids.toString()
+                        },function(data){
+                            if ('success'==data){
+                                var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
+                                //移除行
+                                $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
+                                //如果是全选移除，就将全选CheckBox还原为未选中状态
+                                $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                                layer.alert("删除成功", {
+                                    icon: 6
+                                });
+                                /*setTimeout(function () {
+                                 window.location.reload(); //修改成功后刷新父界面
+                                 })*/
+                            }else {
+                                layer.alert('删除失败',{
+                                    icon:2
+                                });
+                            }
+                        },'text');
+
                     });
                     //关闭弹窗
                     layer.close(index);
                 });
-            }else{
+            }else {
                 layer.msg('请选择需要删除的行');
             }
-        });//批量删除操作结束
+        }); //批量删除操作结束
+
+
+
+
     });
 
 

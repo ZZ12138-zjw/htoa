@@ -46,4 +46,10 @@ public class CourseServiceImpl extends BaseDao implements ICourseService{
     public void delCourse(CourseVo courseVo) {
         delObject(courseVo);
     }
+
+    @Override
+    public void delCourses(String ids) {
+        executeSQL("delete from course where courseid in ("+ids+")");
+    }
+
 }
