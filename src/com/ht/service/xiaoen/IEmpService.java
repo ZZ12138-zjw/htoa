@@ -27,5 +27,7 @@ public interface IEmpService  {
 
     void save(EmpVo empVo);
 
+    void udtStatus(int empId,int status);
 
+    void resetPwd(int empId);
 }

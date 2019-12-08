@@ -10,8 +10,8 @@ import java.util.Date;
 @Table(name = "repairManage")
 public class RepairManageVo {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer ID;             //标识列
+    @GeneratedValue
+    private Integer repairID;
     private String repairSort;      //维修类别
     private String repairMan;       //报修人
     private String repairAddress;            //保修部门或班级
@@ -24,7 +24,7 @@ public class RepairManageVo {
     @Override
     public String toString() {
         return "RepairManageVo{" +
-                "ID=" + ID +
+                "repairID=" + repairID +
                 ", repairSort='" + repairSort + '\'' +
                 ", repairMan='" + repairMan + '\'' +
                 ", repairAddress='" + repairAddress + '\'' +
@@ -63,12 +63,12 @@ public class RepairManageVo {
         this.repairDept = repairDept;
     }
 
-    public Integer getID() {
-        return ID;
+    public Integer getRepairID() {
+        return repairID;
     }
 
-    public void setID(Integer ID) {
-        this.ID = ID;
+    public void setRepairID(Integer ID) {
+        this.repairID = repairID;
     }
 
     public String getRepairSort() {

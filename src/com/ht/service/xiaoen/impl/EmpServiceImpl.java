@@ -68,4 +68,17 @@ public class EmpServiceImpl extends BaseDao implements IEmpService {
     public void save(EmpVo empVo) {
         addObject(empVo);
     }
+
+    @Override
+    public void udtStatus(int empId,int status) {
+        executeSQL("update t_emp set status='"+status+"' where empid="+empId);
+    }
+
+    @Override
+    public void resetPwd(int empId) {
+        executeSQL("update t_emp set password='"+123456+"' where empid="+empId);
+    }
+
+
+
 }

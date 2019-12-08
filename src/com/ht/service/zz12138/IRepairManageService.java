@@ -15,4 +15,10 @@ public interface IRepairManageService {
     public void addRepairMange(RepairManageVo repairManageVo);
 
     public int selTotal();
+
+    public void delRepairManage(int repairID);
+
+    public RepairManageVo listRepair(int repaieID);
+
+    public List<RepairManageVo> allList();
 }
