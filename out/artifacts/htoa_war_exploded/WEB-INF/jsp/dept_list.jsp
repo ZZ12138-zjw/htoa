@@ -11,15 +11,15 @@
   </head>
 
   <body>
-  <div class="x-nav">
+  <%--<div class="x-nav">
       <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
           <i class="layui-icon" style="line-height:38px">ဂ</i></a>
-  </div>
+  </div>--%>
   <div class="x-body">
-      <xblock>
+      <script type="text/html" id="barDemo2">
           <button class="layui-btn layui-btn-danger" id="delSelect" ><i class="layui-icon"></i>批量删除</button>
           <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/dept/to_deptAdd')"><i class="layui-icon"></i>添加</button>
-      </xblock>
+      </script>
       <table class="layui-hide" id="complainTable" lay-filter="complainList" ></table>
 
 
@@ -59,7 +59,8 @@
               ,page: true   //开启分页
               ,method:'post'  //请求方式
               ,limit:10   //分页默认大小
-              ,toolbar:true, //开启头部工具栏，并为其绑定左侧模板
+              ,height:450
+              ,toolbar:"#barDemo2", //开启头部工具栏，并为其绑定左侧模板
               defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                   title: '提示',
                   layEvent: 'LAYTABLE_TIPS',
@@ -68,12 +69,12 @@
               ,cols: [   //标题栏
                   [
                        {checkbox:true}//开启多选框
-                      ,{field:'depid', width:250,title: 'ID',sort:true}
-                      ,{field:'depName',width:250, title: '部门名称'}
-                      ,{field:'parentId',width:250, title: '上级部门'}
-                      ,{field:'chairman',width:250, title: '部门负责人'}
-                      ,{field:'remark',width:350,title: '备注'}
-                      ,{fixed: 'right', title:'操作',width:200,toolbar: '#barDemo'}
+                      ,{field:'depid', width:100,title: 'ID',sort:true}
+                      ,{field:'depName',width:150, title: '部门名称'}
+                      ,{field:'parentId',width:150, title: '上级部门'}
+                      ,{field:'chairman',width:150, title: '部门负责人'}
+                      ,{field:'remark',width:450,title: '备注'}
+                      ,{field: 'right', title:'操作',width:200,toolbar: '#barDemo'}
                   ]
               ]
               ,limits: [5,10,20,50]
@@ -98,6 +99,7 @@
               });
               if(data.length>0){
                   layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
+
                       //layui中找到Checkbox所在的行,并遍历行的顺序
                       $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
                           $.post("${pageContext.request.contextPath}/dept/deletes",{
@@ -109,9 +111,6 @@
                                   $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
                                   //如果是全选移除，就将全选CheckBox还原为未选中状态
                                   $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
-                                  layer.alert("删除成功", {
-                                      icon: 6
-                                  });
                                   /*setTimeout(function () {
                                       window.location.reload(); //修改成功后刷新父界面
                                   })*/
@@ -121,7 +120,9 @@
                                   });
                               }
                           },'text');
-
+                      });
+                      layer.alert("删除成功", {
+                          icon: 6
                       });
                       //关闭弹窗
                       layer.close(index);
