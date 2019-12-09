@@ -7,6 +7,7 @@ import com.ht.service.xiaoen.IDeptService;
 import com.ht.service.xiaoen.IEmpService;
 import com.ht.vo.employee.DeptVo;
 import com.ht.vo.employee.EmpCkBean;
+import com.ht.vo.employee.EmpVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,6 +109,11 @@ public class EmpController {
     }
 
 
+    /**
+     * 跳往登录页面
+     * @param map
+     * @return
+     */
     @RequestMapping("/to_empAdd")
     public String toEmpAdd(Map map){
         map.put("depList",dept.selectAll());
@@ -112,7 +121,35 @@ public class EmpController {
     }
 
 
+    /**
+     * 新增员工
+     * @param empVo
+     * @return
+     *      返回成功标识
+     */
+    @RequestMapping("/empAdd")
+    @ResponseBody
+    public String empAdd(EmpVo empVo,String hireday,String birt){
 
+        //layui的控件向后台传值都是String类型
+        System.out.println("入职时间"+hireday+" 员工生日"+birt);
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        //ParsePosition用来标明解析的开始位，其实也可以不传 index--输出类型
+        ParsePosition position1=new ParsePosition(0);
+        ParsePosition position2=new ParsePosition(0);
+        Date hiredayDate= format.parse(hireday,position1);
+        Date birtDate= format.parse(birt,position2);
+
+        //分别是入职日期和出生日期
+        empVo.setHireDay(hiredayDate);
+        empVo.setBirthday(birtDate);
+        //状态
+        empVo.setStatus(1);
+        //默认密码
+        empVo.setPassword("123456");
+        emp.save(empVo);
+        return "success";
+    }
 
 
 }
