@@ -86,25 +86,7 @@
             json = JSON.stringify(data);
             switch (obj.event){
                 case 'edit':
-                    var w;
-                    var h;
-                    if (w == null || w == '') {
-                        w=($(window).width()*0.9);
-                    };
-                    if (h == null || h == '') {
-                        h=($(window).height() - 50);
-                    };
-                    var index = layer.open({
-                        type: 2,//可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                        title: "编辑课程类别页面",
-                        area: [w+'px', h +'px'],
-                        fix: false, //不固定
-                        maxmin: true,
-                        shadeClose: true,
-                        shade: 0.4,
-                        skin: 'layui-layer-rim',
-                        content: ["${pageContext.request.contextPath}/trial/totrial_update?trialid="+data.trialid, "no"],
-                    });
+                    x_admin_show('修改试讲培训内容',"${pageContext.request.contextPath}/trial/totrial_update?trialid="+data.trialid);
                     break;
                 case 'del':
                     var delIndex = layer.confirm('真的删除id为' + data.trialid + "的信息吗?", function(delIndex) {

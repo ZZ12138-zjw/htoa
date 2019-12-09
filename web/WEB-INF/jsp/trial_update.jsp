@@ -13,12 +13,13 @@
   <body>
     <div class="x-body">
         <form class="layui-form" lay-filter="add">
+            <input type="hidden" name="trialid" value="${trialList.trialid}">
               <div class="layui-form-item">
                   <label for="date" class="layui-form-label">
                       <span class="x-red">*</span>日期
                   </label>
                   <div class="layui-input-inline">
-                      <input type="text" id="date" name="date" required=""
+                      <input type="text" id="date" name="date" required="" value="${trialList.date}"
                       autocomplete="off" class="layui-input">
                   </div>
               </div>
@@ -28,13 +29,13 @@
                   </label>
                   <div class="layui-input-inline">
                       <select id="time"  name="time" lay-verify="required">
-                          <option value="星期一">星期一</option>
-                          <option value="星期二">星期二</option>
-                          <option value="星期三">星期三</option>
-                          <option value="星期四">星期四</option>
-                          <option value="星期五">星期五</option>
-                          <option value="星期六">星期六</option>
-                          <option value="星期天">星期天</option>
+                          <option value="星期一" <c:if test="${trialList.time}">selected</c:if>>星期一</option>
+                          <option value="星期二" <c:if test="${trialList.time}">selected</c:if>>星期二</option>
+                          <option value="星期三" <c:if test="${trialList.time}">selected</c:if>>星期三</option>
+                          <option value="星期四" <c:if test="${trialList.time}">selected</c:if>>星期四</option>
+                          <option value="星期五" <c:if test="${trialList.time}">selected</c:if>>星期五</option>
+                          <option value="星期六" <c:if test="${trialList.time}">selected</c:if>>星期六</option>
+                          <option value="星期天" <c:if test="${trialList.time}">selected</c:if>>星期天</option>
                       </select>
                   </div>
               </div>
@@ -45,7 +46,7 @@
                 <div class="layui-input-inline">
                     <select id="courseid"  name="courseid" lay-verify="required">
                         <c:forEach items="${courseList}" var="cou">
-                            <option value="${cou.courseid}">${cou.courseName}</option>
+                            <option value="${cou.courseid}" ${trialList.courseid ==cou.courseid ?  'selected' : ''} >${cou.courseName}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -56,8 +57,8 @@
                 </label>
                 <div class="layui-input-inline">
                     <select id="type"  name="type" lay-verify="required">
-                        <option value="试讲">试讲</option>
-                        <option value="培训">培训</option>
+                        <option value="试讲" <c:if test="${trialList.type}">selected</c:if>>试讲</option>
+                        <option value="培训" <c:if test="${trialList.type}">selected</c:if>>培训</option>
                     </select>
                 </div>
             </div>
@@ -68,7 +69,7 @@
                 <div class="layui-input-inline">
                     <select id="empid"  name="empid" lay-verify="required">
                         <c:forEach items="${empList}" var="e">
-                            <option value="${e.empId}">${e.empName}</option>
+                            <option value="${e.empId}" ${trialList.empid==e.empId ? 'selected' : ''}>${e.empName}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -78,7 +79,7 @@
                   <span class="x-red">*</span>说明
               </label>
               <div class="layui-input-inline">
-                  <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                  <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea">${trialList.remark}</textarea>
               </div>
           </div>
           <div class="layui-form-item" style="margin-left: 100px;">
@@ -116,28 +117,36 @@
                     }
                 }
             });*/
-          //监听提交
-          form.on('submit(formDemo)',function(data){
-            //发异步，把数据提交给后台
-              $.ajax({
-                  url:'${pageContext.request.contextPath}/trial/trialadd',
-                  type:'post',
-                  data:data.field,
-                  dataType:'json',
-                  success:function (data){
-                      layer.alert("增加成功", {icon: 6},function(){
-                          // 获得frame索引
-                          var index = parent.layer.getFrameIndex(window.name);
-                          //关闭当前frame
-                          parent.layer.close(index);
-                          setTimeout(function () {
-                              window.parent.location.reload(); //修改成功后刷新父界面
-                          })
-                      });
-                  }
-              });
-              return false;
-          });
+            //监听提交
+            form.on('submit(formDemo)',function(data){
+                //发异步，把数据提交给后台
+                $.ajax({
+                    url:'${pageContext.request.contextPath}/trial/update',
+                    type:'post',
+                    data:data.field,
+                    dataType:'json',
+                    success:function (data){
+                        var lindex = layer.load();
+                        if ('success'==data){
+                            layer.alert("修改成功", {icon: 6},function(){
+                                layer.close(lindex);
+                                // 获得frame索引
+                                var index = parent.layer.getFrameIndex(window.name);
+                                //关闭当前frame
+                                parent.layer.close(index);
+                                setTimeout(function () {
+                                    window.parent.location.reload(); //修改成功后刷新父界面
+                                });
+                            });
+                        }else {
+                            layer.alert("修改失败",{icon: 1},function(){
+                            });
+                        }
+
+                    }
+                });
+                return false;
+            });
         });
 
     </script>
