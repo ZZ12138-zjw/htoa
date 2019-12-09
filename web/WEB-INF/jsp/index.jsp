@@ -452,13 +452,13 @@
     <!-- 左侧菜单结束 -->
     <!-- 右侧主体开始 -->
     <div class="page-content">
-        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowClose="true">
           <ul class="layui-tab-title">
             <li>我的桌面</li>
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='${pageContext.request.contextPath}/to_welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
           </div>
         </div>

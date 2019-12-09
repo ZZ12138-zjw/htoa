@@ -202,34 +202,71 @@
           });
 
 
-
-          // 监听添加操作
-          $(".data-add-btn").on("click", function () {
-              layer.msg('添加数据');
-          });
-
-          // 监听删除操作
-          $(".data-delete-btn").on("click", function () {
-              var checkStatus = table.checkStatus('currentTableId')
-                  , data = checkStatus.data;
-              layer.alert(JSON.stringify(data));
-          });
-
-          //监听表格复选框选择
-          table.on('checkbox(currentTableFilter)', function (obj) {
-              console.log(obj)
-          });
+          //批量删除
+          $('#delSelect').on('click',function () {
+              //获得表格CheckBox已经选中的行的信息
+              //lay-data="id:info"
+              var checkStatus=table.checkStatus('currentTableId'),
+                  //返回的val ue
+                  data=checkStatus.data;
+              var ids=[];
+              $(data).each(function (i,val) { //o即为表格中一行的数据
+                  ids.push(val.empId);
+              });
+              if(data.length>0){
+                  layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
+                      //layui中找到Checkbox所在的行,并遍历行的顺序
+                      $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
+                          $.post("${pageContext.request.contextPath}/emp/deletes",{
+                              empIds:ids.toString()
+                          },function(data){
+                              if ('success'==data){
+                                  var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
+                                  //移除行
+                                  $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
+                                  //如果是全选移除，就将全选CheckBox还原为未选中状态
+                                  $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                                  /*setTimeout(function () {
+                                      window.location.reload(); //修改成功后刷新父界面
+                                  })*/
+                              }else {
+                                  layer.alert('删除失败',{
+                                      icon:2
+                                  });
+                              }
+                          },'text');
+                      });
+                      layer.alert("删除成功", {
+                          icon: 6
+                      });
+                      //关闭弹窗
+                      layer.close(index);
+                  });
+              }else {
+                  layer.msg('请选择需要删除的行');
+              }
+          }); //批量删除操作结束
 
 
 
           table.on('tool(currentTableFilter)', function (obj) {
               var data = obj.data;
               if (obj.event === 'edit') {
-                  layer.alert('编辑行：<br>' + JSON.stringify(data))
+                  x_admin_show('修改员工信息','<%=request.getContextPath()%>/emp/to_empUpdate?empId='+data.empId);
               } else if (obj.event === 'delete') {
                   layer.confirm('真的删除行么', function (index) {
-                      obj.del();
-                      layer.close(index);
+                      $.ajax({
+                          url: '${pageContext.request.contextPath}/emp/delete',
+                          data:{empId:data.empId},
+                          type: "post",
+                          success: function(suc) {
+                              obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                              layer.close(index);
+                              layer.msg("删除成功", {
+                                  icon: 1
+                              });
+                          }
+                      });
                   });
               }else if (obj.event =="enable"){
                   layer.confirm('真的启用么', function (index) {

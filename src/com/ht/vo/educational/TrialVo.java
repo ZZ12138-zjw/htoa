@@ -17,7 +17,7 @@ public class TrialVo {
     public Integer trialid; //主键，标识列，自动生成
     public String date; //日期
     public String time; //时间(星期一---星期日)
-    public Integer Courseid; //关联课程/章节id
+    public Integer courseid; //关联课程/章节id
     public String type; //授课类型(试讲/培训)
     public Integer empid; //员工id关联员工表(授课老师)
     public String remark; //备注(针对课程重要内容)
@@ -28,7 +28,7 @@ public class TrialVo {
                 "trialid=" + trialid +
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
-                ", Courseid=" + Courseid +
+                ", Courseid=" + courseid +
                 ", type=" + type +
                 ", empid=" + empid +
                 ", remark='" + remark + '\'' +
@@ -60,11 +60,11 @@ public class TrialVo {
     }
 
     public Integer getCourseid() {
-        return Courseid;
+        return courseid;
     }
 
     public void setCourseid(Integer courseid) {
-        Courseid = courseid;
+        this.courseid = courseid;
     }
 
     public String getType() {
