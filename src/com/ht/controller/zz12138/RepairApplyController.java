@@ -37,6 +37,7 @@ public class RepairApplyController {
             vo.setStartDate(dateString);
         }
         service.addRepairMange(vo);
+        System.out.println();
         return "success";
     }
 
@@ -126,4 +127,22 @@ public class RepairApplyController {
         return "editrepairmanage";
     }
 
+    @ResponseBody
+    @RequestMapping("/alldelete")
+    public String alldelete(String repairID[]){
+        String temp = "";
+        for (int i=0;i<repairID.length;i++){
+             temp+=repairID[i]+",";
+        }
+        String id=temp.substring(0,temp.length()-1);
+        service.alldelete(id);
+        return "success";
+    }
+
+    @ResponseBody
+    @RequestMapping("/editrepairmanage")
+    public String editrepairmanage(RepairManageVo vo){
+        service.editrepairmanage(vo);
+        return "success";
+    }
 }

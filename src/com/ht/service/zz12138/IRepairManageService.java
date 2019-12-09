@@ -21,4 +21,8 @@ public interface IRepairManageService {
     public RepairManageVo listRepair(int repaieID);
 
     public List<RepairManageVo> allList();
+
+    public void alldelete(String repairID);
+
+    public void editrepairmanage(RepairManageVo vo);
 }

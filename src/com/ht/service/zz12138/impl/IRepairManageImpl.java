@@ -43,4 +43,13 @@ public class IRepairManageImpl extends BaseDao implements IRepairManageService {
     public List<RepairManageVo> allList() {
         return listByHql("from RepairManageVo");
     }
+
+    @Override
+    public void alldelete(String repairID) {
+        executeSQL("delete from repairManage where repairID in ("+repairID+")");    }
+
+    @Override
+    public void editrepairmanage(RepairManageVo vo) {
+        updObject(vo);
+    }
 }

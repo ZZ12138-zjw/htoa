@@ -69,13 +69,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">开始日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" value="${listRepair.startDate}" id="startDate" name="startDate" required  lay-verify="required" autocomplete="off" class="layui-input">
+                    <input type="text" value="${listRepair.startDate}" id="startDate" name="startDate" required  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">结束日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" value="${listRepair.endDate}" placeholder="请选择结束日期" id="endDate" name="endDate" required  lay-verify="required" autocomplete="off" class="layui-input">
+                    <input type="text" value="${listRepair.endDate}" placeholder="请选择结束日期" id="endDate" name="endDate" required autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">如果结束时间为空则表示维修未完成或未开始</div>
             </div>
@@ -102,7 +102,8 @@
 
         //监听提交
         form.on('submit(formDemo)', function(data) {
-            $.post("${pageContext.request.contextPath}/repaircontro/repairmanage",{
+            $.post("${pageContext.request.contextPath}/repaircontro/editrepairmanage",{
+                repairID:${listRepair.repairID},
                 repairMan:$('#repairMan').val(),
                 repairSort:$('#repairSort').val(),
                 repairAddress:$('#repairAddress').val(),
@@ -114,7 +115,7 @@
                 repairIndex:$('#repairIndex').val(),
             },function (data) {
                 if (data=="success"){
-                    layer.alert("增加成功", {icon: 6},function () {
+                    layer.alert("编辑成功", {icon: 6},function () {
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
                         parent.layer.close(index);
@@ -130,7 +131,7 @@
         layui.use('laydate', function(){
             var laydate = layui.laydate;
             //执行一个laydate实例
-            laydate.render({
+            /*laydate.render({
                 elem: '#startDate' //指定元素
                 ,trigger:'click'
             });
@@ -138,7 +139,7 @@
             laydate.render({
                 elem: '#endDate' //指定元素
                 ,trigger:'click'
-            });
+            });*/
         });
     });
 </script>
