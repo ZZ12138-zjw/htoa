@@ -52,9 +52,21 @@ public class TrialController {
      * @return
      */
     @RequestMapping("totrial_update")
-    public String totrial_update(Map map){
-
+    public String totrial_update(Map map,String trialid){
+        TrialVo trialVo = its.selTrial(Integer.parseInt(trialid));
+        System.out.println(trialVo.toString());
+        map.put("trialList",trialVo);
+        map.put("courseList",ics.selCourseList());
+        map.put("empList",ies.selectAll());
+        System.out.println(map.toString());
         return "trial_update";
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public String update(TrialVo trialVo){
+        its.updateTrials(trialVo);
+        return "success";
     }
 
     @RequestMapping("/trialList")
