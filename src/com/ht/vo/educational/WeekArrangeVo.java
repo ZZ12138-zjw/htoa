@@ -20,7 +20,7 @@ public class WeekArrangeVo {
     public String week; //一个星期中的那一天
     public String empId; //关联Emp主键
     public Integer orderId; //排序
-    public Integer duty; //总值班 1：是 2：否
+    public String duty; //总值班 1：是 2：否
     public String startTime; //开始时间
     public String endTime; //结束时间
     public String remark; //说明
@@ -89,11 +89,11 @@ public class WeekArrangeVo {
         this.orderId = orderId;
     }
 
-    public Integer getDuty() {
+    public String getDuty() {
         return duty;
     }
 
-    public void setDuty(Integer duty) {
+    public void setDuty(String duty) {
         this.duty = duty;
     }
 
