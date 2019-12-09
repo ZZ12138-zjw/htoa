@@ -1,16 +1,17 @@
 package com.ht.vo.LogisticsCheck;
 
 import javax.persistence.*;
-import java.util.Date;
 
-/**维修管理vo
- * Created by @ZhangJiaWen on 2019/12/3.
+/**
+ * @author @ZZ12138-zjw
+ * @date 2019/12/8 20:35
  */
 @Entity
 @Table(name = "repairManage")
 public class RepairManageVo {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer repairID;
     private String repairSort;      //维修类别
     private String repairMan;       //报修人
@@ -20,6 +21,7 @@ public class RepairManageVo {
     private String repairStatus;     //当前状态
     private String repairDept;     //部门或班级
     private String repairName;      //报修名称
+    private String repairIndex;     //备注
 
     @Override
     public String toString() {
@@ -28,8 +30,8 @@ public class RepairManageVo {
                 ", repairSort='" + repairSort + '\'' +
                 ", repairMan='" + repairMan + '\'' +
                 ", repairAddress='" + repairAddress + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
                 ", repairStatus='" + repairStatus + '\'' +
                 ", repairDept='" + repairDept + '\'' +
                 ", repairName='" + repairName + '\'' +
@@ -37,37 +39,11 @@ public class RepairManageVo {
                 '}';
     }
 
-    public String getRepairName() {
-        return repairName;
-    }
-
-    public void setRepairName(String repairName) {
-        this.repairName = repairName;
-    }
-
-    public String getRepairIndex() {
-        return repairIndex;
-    }
-
-    public void setRepairIndex(String repairIndex) {
-        this.repairIndex = repairIndex;
-    }
-
-    private String repairIndex;     //备注
-
-    public String getRepairDept() {
-        return repairDept;
-    }
-
-    public void setRepairDept(String repairDept) {
-        this.repairDept = repairDept;
-    }
-
     public Integer getRepairID() {
         return repairID;
     }
 
-    public void setRepairID(Integer ID) {
+    public void setRepairID(Integer repairID) {
         this.repairID = repairID;
     }
 
@@ -117,5 +93,29 @@ public class RepairManageVo {
 
     public void setRepairStatus(String repairStatus) {
         this.repairStatus = repairStatus;
+    }
+
+    public String getRepairDept() {
+        return repairDept;
+    }
+
+    public void setRepairDept(String repairDept) {
+        this.repairDept = repairDept;
+    }
+
+    public String getRepairName() {
+        return repairName;
+    }
+
+    public void setRepairName(String repairName) {
+        this.repairName = repairName;
+    }
+
+    public String getRepairIndex() {
+        return repairIndex;
+    }
+
+    public void setRepairIndex(String repairIndex) {
+        this.repairIndex = repairIndex;
     }
 }

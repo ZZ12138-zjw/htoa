@@ -18,7 +18,7 @@
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-normal" lay-event="add">添加</button>
-            <button  class="layui-btn layui-btn-warm" lay-event="allDelete">批量删除</button>
+            <button  class="layui-btn layui-btn-warm" id="allDelete">批量删除</button>
         </div>
     </script>
 
@@ -29,7 +29,8 @@
     </script>
 
     <script>
-        layui.use('table', function(){
+
+        layui.use(['table','layer','jquery'], function(){
             var table = layui.table;
 
             //第一个实例
@@ -39,11 +40,12 @@
                 ,url: '${pageContext.request.contextPath}/repaircontro/listrepair' //数据接口
                 ,page: true //开启分页
                 ,cols: [[ //表头
-                    {field: 'repairID', title: 'ID', width:80, sort: true, fixed: 'left'}
-                    ,{field: 'repairMan', title: '报修人', width:100}
-                    ,{field: 'repairName', title: '报修名称', width: 100}
-                    ,{field: 'repairSort', title: '报修类别', width:100, sort: true}
-                    ,{field: 'repairStatus', title: '报修状态', width:100, sort: true}
+                    {type:'checkbox'}
+                    ,{field: 'repairID', title: 'ID', width:80, sort: true}
+                    ,{field: 'repairMan', title: '报修人', width:80}
+                    ,{field: 'repairName', title: '报修名称', width: 120}
+                    ,{field: 'repairSort', title: '报修类别', width:90, sort: true}
+                    ,{field: 'repairStatus', title: '报修状态', width:90, sort: true}
                     ,{field: 'repairAddress', title: '报修地址', width: 100}
                     ,{field: 'repairDept', title: '部门或班级', width: 100}
                     ,{field: 'startDate', title: '申请时间', width: 100, sort: true}
@@ -54,6 +56,49 @@
                 toolbar:'#toolbarDemo'
             });
 
+            //批量删除
+            $('#allDelete').on('click',function(){
+                var checkStatus=table.checkStatus('demo'),
+                    //返回的val ue
+                    data=checkStatus.data;
+                var ids=[];
+                $(data).each(function (i,val) { //o即为表格中一行的数据
+                    ids.push(val.repairID);
+                });
+                if(data.length>0){
+                    layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
+                        //layui中找到Checkbox所在的行,并遍历行的顺序
+                        $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
+                            $.post("${pageContext.request.contextPath}/repaircontro/alldelete",{
+                                repairID:ids.toString()
+                            },function(data){
+                                if ('success'==data){
+                                    var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
+                                    //移除行
+                                    $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
+                                    //如果是全选移除，就将全选CheckBox还原为未选中状态
+                                    $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                                    layer.alert("删除成功", {
+                                        icon: 6
+                                    });
+                                    /*setTimeout(function () {
+                                        window.location.reload(); //修改成功后刷新父界面
+                                    })*/
+                                }else {
+                                    layer.alert('删除失败',{
+                                        icon:2
+                                    });
+                                }
+                            },'text');
+
+                        });
+                        //关闭弹窗
+                        layer.close(index);
+                    });
+                }else {
+                    layer.msg('请至少选择一条数据后再执行批量删除！');
+                }
+            });
 
             table.on('toolbar(test)',function(obj){
                if (obj.event == "add"){
@@ -68,21 +113,15 @@
                }
             });
 
+
+
             table.on('tool(test)',function(obj2){
                 var data = obj2.data;
                 if(obj2.event == "edit"){
-                    var w;
-                    var h;
-                    if (w == null || w == '') {
-                        w=($(window).width()*0.9);
-                    };
-                    if (h == null || h == '') {
-                        h=($(window).height() - 50);
-                    };
                     var index = layer.open({
                         type: 2,
                         title: "编辑维修管理",
-                        area: [w+'px', h +'px'],
+                        area: ['600px', '90%'],
                         fix: false, //不固定
                         maxmin: true,
                         shadeClose: true,

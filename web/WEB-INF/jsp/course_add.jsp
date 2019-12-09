@@ -18,7 +18,7 @@
                       <span class="x-red">*</span>课程名称
                   </label>
                   <div class="layui-input-inline">
-                      <input type="text" id="courseName" name="courseName" required="" lay-verify="depName"
+                      <input type="text" id="courseName" name="courseName" required="" lay-verify="courseName"
                       autocomplete="off" class="layui-input">
                   </div>
                   <%--<div class="layui-form-mid layui-word-aux">
@@ -71,15 +71,18 @@
 
             form.verify({
                 //value：表单的值，item表单的dom对象
-                depName:function (value,item) {
+                courseName:function (value,item) {
                     if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-                        return '部门名称不能有特殊字符';
+                        return '课程名称不能有特殊字符';
                     }
                     if (/(^\_)|(\__)|(\_+$)/.test(value)){
-                        return '部门名称首尾不能出现下划线\'_\'';
+                        return '课程名称首尾不能出现下划线\'_\'';
                     }
                     if (/^\d+\d+\d$/.test(value)){
-                        return '部门名称不能为全数字';
+                        return '课程名称不能为全数字';
+                    }
+                    if (value.length<3){
+                        return '课程名称至少得3个字符';
                     }
                 }
             });

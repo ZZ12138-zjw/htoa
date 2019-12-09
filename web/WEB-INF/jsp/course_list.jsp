@@ -12,13 +12,11 @@
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
-<div class="x-nav">
-    <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:38px">ဂ</i></a>
-</div>
     <div class="x-body">
-        <button class="layui-btn layui-btn-danger" id="delSelect"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/course/tocourse_add')"><i class="layui-icon"></i>添加</button>
+        <script type="text/html" id="toobalDemo">
+            <button class="layui-btn layui-btn-danger" id="delSelect"><i class="layui-icon"></i>批量删除</button>
+            <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/course/tocourse_add')"><i class="layui-icon"></i>添加</button>
+        </script>
 
         <table class="layui-hide" id="courseTable" lay-filter="courseList" lay-data="id:'info'"></table>
 
@@ -63,6 +61,7 @@
                 ,page: true   //开启分页
                 ,method:'post'  //请求方式
                 ,limit:10   //分页默认大小
+                ,toolbar:"#toobalDemo"
                 ,cols: [   //标题栏
                     [
                         {checkbox:true}//开启多选框
@@ -107,9 +106,6 @@
                                     $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
                                     //如果是全选移除，就将全选CheckBox还原为未选中状态
                                     $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
-                                    layer.alert("删除成功", {
-                                        icon: 6
-                                    });
                                     /*setTimeout(function () {
                                      window.location.reload(); //修改成功后刷新父界面
                                      })*/
@@ -119,7 +115,9 @@
                                     });
                                 }
                             },'text');
-
+                        });
+                        layer.alert("删除成功", {
+                            icon: 6
                         });
                         //关闭弹窗
                         layer.close(index);
@@ -190,20 +188,6 @@
                 });
             });
         }
-
-        function delAll (argument) {
-            var data = tableCheck.getData();
-            layer.confirm('确认要删除吗？'+data,function(index){
-                alert(data);
-                //捉到所有被选中的，发异步进行删除
-                $.post("${pageContext.request.contextPath}/dept/deletes",data
-                    ,function (data) {
-                        layer.msg('删除成功', {icon: 1});
-                        $(".layui-form-checked").not('.header').parents('tr').remove();
-                    });
-            });
-        };
-
     </script>
 </body>
 </html>

@@ -20,7 +20,7 @@
                     <span class="x-red">*</span>类别名称：
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="courseTypeName" name="courseTypeName" required="" value="${courseTypeVo.courseTypeName}" lay-verify="required"
+                    <input type="text" id="courseTypeName" name="courseTypeName" required="" value="${courseTypeVo.courseTypeName}" lay-verify="courseTypeName"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="layui-form-item" style="margin-left: 100px;">
-                <button  class="layui-btn" lay-submit lay-filter="formDemo">增加</button>
+                <button  class="layui-btn" lay-submit lay-filter="formDemo">立刻提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </form>
@@ -43,6 +43,23 @@
     layui.use(['form','layer'], function(){
         var form = layui.form
             ,layer = layui.layer;
+        form.verify({
+            //value：表单的值，item表单的dom对象
+            courseTypeName:function (value,item) {
+                if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                    return '类别名称不能有特殊字符';
+                }
+                if (/(^\_)|(\__)|(\_+$)/.test(value)){
+                    return '类别名称首尾不能出现下划线\'_\'';
+                }
+                if (/^\d+\d+\d$/.test(value)){
+                    return '类别名称不能为全数字';
+                }
+                if (value.length<3){
+                    return '类别名称至少得3个字符';
+                }
+            }
+        });
         //监听提交
        form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给php
