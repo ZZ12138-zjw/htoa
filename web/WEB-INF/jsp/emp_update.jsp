@@ -13,6 +13,8 @@
   <body>
     <div class="x-body">
         <form class="layui-form" lay-filter="add">
+           <input name="empId" value="${empVo.empId}" type="hidden">
+           <input name="status" type="hidden" value="${empVo.status}">
           <div class="layui-form-item">
               <label for="empName" class="layui-form-label">
                   <span class="x-red">*</span>员工姓名
@@ -30,11 +32,11 @@
                   <span class="x-red">*</span>部门名称
               </label>
               <div class="layui-input-inline">
-                  <select id="selectDep"  name="deptId" lay-verify="required">
+                  <select id="selectDep"  name="deptId" lay-verify="required" >
                       <option value="" >无选择</option>
-                  <c:forEach items="${depList}" var="d">
-                      <option value="${d.depid}" ${empVo.depid==d.depid ? 'selected' : ''} >${d.depName}</option>
-                  </c:forEach>
+                      <c:forEach items="${depList}" var="d">
+                          <option value="${d.depid}" ${d.depid==empVo.deptId ? 'selected' : ''} >${d.depName}</option>
+                      </c:forEach>
                   </select>
               </div>
           </div>
@@ -43,7 +45,7 @@
                 <span class="x-red">*</span>职务名称
             </label>
             <div class="layui-input-inline">
-                <select name="postName" id="postName">
+                <select name="postName" id="postName" lay-verify="required">
                     <option value="" class="layui-input">未选择</option>
                     <% for(int i=0;i<PostName.postNames().size();i++){%>
                     <option value="<%=PostName.postNames().get(i)%>"><%=PostName.postNames().get(i)%></option>
@@ -158,8 +160,8 @@
                 <span class="x-red">*</span>学历
             </label>
             <div class="layui-input-inline">
-                <select name="education" id="education">
-                    <option value="">无选择</option>
+                <select name="education" id="education" >
+                   <option value="">无选择</option>
                     <option value="高中以下" ${empVo.education=='高中以下' ? 'selected' : ''}>高中以下</option>
                     <option value="专科" ${empVo.education=='专科' ? 'selected' : ''}>专科</option>
                     <option value="本科" ${empVo.education=='本科' ? 'selected' : ''}>本科</option>
@@ -188,7 +190,7 @@
                 <span class="x-red">*</span>入职时间
             </label>
             <div class="layui-input-inline">
-                <input  placeholder="入职时间" id="hireDay"  value="${empVo.hireday}" lay-verify="required" class="layui-input" name="hireday">
+                <input  placeholder="入职时间" id="hireDay"  value="${empVo.hireDay}" lay-verify="required" class="layui-input" name="hireday">
             </div>
         </div>
         <div class="layui-form-item">
@@ -258,23 +260,31 @@
             });
           //监听提交
           form.on('submit(formDemo)',function(data){
-              alert(JSON.stringify(data.field));
             //发异步，把数据提交给后台
               $.ajax({
-                  url:'${pageContext.request.contextPath}/emp/empAdd',
+                  url:'${pageContext.request.contextPath}/emp/empUpdate',
                   type:'post',
                   data:data.field,
                   dataType:'json',
                   success:function (data){
-                      layer.alert("增加成功", {icon: 6},function(){
-                          // 获得frame索引
-                          var index = parent.layer.getFrameIndex(window.name);
-                          //关闭当前frame
-                          parent.layer.close(index);
-                          setTimeout(function () {
-                              window.parent.location.reload(); //修改成功后刷新父界面
+                      if ("success"==data){
+                          layer.alert("修改成功", {icon: 6},function(){
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                              setTimeout(function () {
+                                  window.parent.location.reload(); //修改成功后刷新父界面
+                              });
                           });
-                      });
+                      }else {
+                          layer.alert("修改失败", {icon: 2},function(){
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                          });
+                      }
                   }
               });
               return false;

@@ -79,6 +79,10 @@ public class EmpServiceImpl extends BaseDao implements IEmpService {
         executeSQL("update t_emp set password='"+123456+"' where empid="+empId);
     }
 
+    @Override
+    public void delAll(String empIds) {
+        executeSQL("delete from t_emp where empid in ("+empIds+")");
+    }
 
 
 }
