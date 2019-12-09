@@ -96,7 +96,7 @@
                         layer.close(index);
                     });
                 }else {
-                    layer.msg('请选择需要删除的行');
+                    layer.msg('请至少选择一条数据后再执行批量删除！');
                 }
             });
 
