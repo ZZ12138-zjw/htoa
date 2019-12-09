@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class CourseServiceImpl extends BaseDao implements ICourseService{
     @Override
-    public List selCourse() {
+    public List selCourseList() {
         return listByHql("from CourseVo");
     }
 

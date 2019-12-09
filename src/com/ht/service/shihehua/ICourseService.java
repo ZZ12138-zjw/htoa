@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ICourseService {
 
-    public List selCourse();
+    public List selCourseList();
 
     public void addCourse(CourseVo courseVo);
 
