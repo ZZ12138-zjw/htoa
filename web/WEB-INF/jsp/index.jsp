@@ -266,7 +266,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/checkcontro/to_checkindex">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考核指标</cite>
                         </a>

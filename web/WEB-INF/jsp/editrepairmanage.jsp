@@ -82,7 +82,7 @@
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">维修备注</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入备注" id="repairIndex" name="repairIndex" lay-verify="required" autocomplete="off" class="layui-textarea"></textarea>
+                    <input type="text" value="${listRepair.repairIndex}" placeholder="请输入备注" id="repairIndex" name="repairIndex" required autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -131,7 +131,7 @@
         layui.use('laydate', function(){
             var laydate = layui.laydate;
             //执行一个laydate实例
-            /*laydate.render({
+            laydate.render({
                 elem: '#startDate' //指定元素
                 ,trigger:'click'
             });
@@ -139,7 +139,7 @@
             laydate.render({
                 elem: '#endDate' //指定元素
                 ,trigger:'click'
-            });*/
+            });
         });
     });
 </script>
