@@ -24,4 +24,24 @@ public class ICheckIndexImpl extends BaseDao implements ICheckIndex {
         addObject(checkIndex);
     }
 
+    @Override
+    public int selAllCheck() {
+        return selTotalRow("select count(*) from checkindex");
+    }
+
+    @Override
+    public CheckIndexVo selCheckIndex(int checkIndexID) {
+        return (CheckIndexVo) getObject(CheckIndexVo.class,checkIndexID);
+    }
+
+    @Override
+    public void updateCheckIndex(CheckIndexVo vo) {
+        updObject(vo);
+    }
+
+    @Override
+    public void delcheckindex(String iD) {
+        executeSQL("delete from checkindex where ID in("+iD+")");
+    }
+
 }

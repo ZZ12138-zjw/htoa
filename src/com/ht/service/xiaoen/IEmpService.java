@@ -30,4 +30,6 @@ public interface IEmpService  {
     void udtStatus(int empId,int status);
 
     void resetPwd(int empId);
+
+    void delAll(String empIds);
 }

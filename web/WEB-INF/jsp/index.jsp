@@ -272,7 +272,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/checkinsertcontro/to_checkinsert">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考核录入</cite>
                         </a>
@@ -452,7 +452,7 @@
     <!-- 左侧菜单结束 -->
     <!-- 右侧主体开始 -->
     <div class="page-content">
-        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowClose="true">
           <ul class="layui-tab-title">
             <li>我的桌面</li>
           </ul>

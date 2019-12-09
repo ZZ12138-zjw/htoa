@@ -59,12 +59,12 @@ public class EmpController {
 
     /**
      * 查询所有部门名称
-     * @param response
+     *
      * @return
      */
     @RequestMapping("/depName")
     @ResponseBody
-    public List depName(HttpServletResponse response) {
+    public List depName() {
         Map map=new HashMap();
         List<DeptVo> deptVos = dept.selectAll();
         List<String> dpeNames = new ArrayList();
@@ -132,7 +132,6 @@ public class EmpController {
     public String empAdd(EmpVo empVo,String hireday,String birt){
 
         //layui的控件向后台传值都是String类型
-        System.out.println("入职时间"+hireday+" 员工生日"+birt);
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
         //ParsePosition用来标明解析的开始位，其实也可以不传 index--输出类型
         ParsePosition position1=new ParsePosition(0);
@@ -154,8 +153,20 @@ public class EmpController {
     @RequestMapping("/delete")
     @ResponseBody
     public String delete(EmpVo empVo){
-        System.out.println(empVo.getEmpId());
         emp.delete(empVo);
+        return "success";
+    }
+
+    @ResponseBody
+    @RequestMapping("/deletes")
+    public String deletes(String[] empIds){
+        String tempEmpIds="";
+        for (int i=0;i<empIds.length;i++){
+            System.out.println(empIds[i]);
+            tempEmpIds+=empIds[i]+",";
+        }
+        String empId=tempEmpIds.substring(0,tempEmpIds.length()-1);
+        emp.delAll(empId);
         return "success";
     }
 
@@ -163,7 +174,29 @@ public class EmpController {
     public String toEmpUpdate(EmpVo empVo,Map map){
         EmpVo e = emp.select(empVo);
         map.put("empVo",e);
+        map.put("depList",dept.selectAll());
         return "emp_update";
+    }
+
+    @RequestMapping("/empUpdate")
+    @ResponseBody
+    public String empUpdate(EmpVo empVo,String hireday,String birt){
+
+        System.out.println("入职时间"+hireday+" 员工生日"+birt);
+        //layui的控件向后台传值都是String类型
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        //ParsePosition用来标明解析的开始位，其实也可以不传 index--输出类型
+        ParsePosition position1=new ParsePosition(0);
+        ParsePosition position2=new ParsePosition(0);
+        Date hiredayDate= format.parse(hireday,position1);
+        Date birtDate= format.parse(birt,position2);
+
+        //分别是入职日期和出生日期
+        empVo.setHireDay(hiredayDate);
+        empVo.setBirthday(birtDate);
+
+        emp.update(empVo);
+        return "success";
     }
 
 
