@@ -16,8 +16,8 @@ public class CheckIndexVo {
     private Integer ID;             //标识列，自增
     private String checkContent;    //考核内容
     private Integer checkScore;     //考核分数，整数加分，负数则减分
-    private String deptName;        //部门名称
-    private String checkExplain;    //考核说明可以理解为备注
+    private String depName;         //部门名称
+    private String checkExplain;    //考核说明
 
     @Override
     public String toString() {
@@ -25,7 +25,7 @@ public class CheckIndexVo {
                 "ID=" + ID +
                 ", checkContent='" + checkContent + '\'' +
                 ", checkScore=" + checkScore +
-                ", deptName='" + deptName + '\'' +
+                ", depName='" + depName + '\'' +
                 ", checkExplain='" + checkExplain + '\'' +
                 '}';
     }
@@ -54,12 +54,12 @@ public class CheckIndexVo {
         this.checkScore = checkScore;
     }
 
-    public String getDeptName() {
-        return deptName;
+    public String getDepName() {
+        return depName;
     }
 
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
+    public void setDepName(String depName) {
+        this.depName = depName;
     }
 
     public String getCheckExplain() {
