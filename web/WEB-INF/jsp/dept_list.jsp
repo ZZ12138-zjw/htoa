@@ -181,9 +181,6 @@
               }
           });
 
-
-
-
           //添加采集设备
           $("#bin-add").on('click',function () {
               //打开窗口
@@ -226,8 +223,6 @@
               active[type] ? active[type].call(this) : '';
           });
 
-
-
           //刷新
           $('#btn-refresh').on('click',function () {
               table.reload();
@@ -235,9 +230,6 @@
 
 
       });
-
-
-
 
       /*用户-删除*/
       function member_del(obj,id){
@@ -251,22 +243,6 @@
               });
           });
       }
-
-
-      function delAll (argument) {
-        var data = tableCheck.getData();
-        layer.confirm('确认要删除吗？'+data,function(index){
-            alert(data);
-            //捉到所有被选中的，发异步进行删除
-            $.post("${pageContext.request.contextPath}/dept/deletes",data
-            ,function (data) {
-                layer.msg('删除成功', {icon: 1});
-                $(".layui-form-checked").not('.header').parents('tr').remove();
-            });
-        });
-      };
-
-
 
     </script>
 

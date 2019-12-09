@@ -71,7 +71,7 @@
 
           <script type="text/html" id="currentTableBar2">
               <button class="layui-btn layui-btn-danger" id="delSelect" ><i class="layui-icon"></i>批量删除</button>
-              <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
+              <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
           </script>
 
           <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
@@ -105,6 +105,35 @@
               </a>
               {{# } }}
           </script>
+          <div class="layui-tab layui-tab-card">
+              <ul class="layui-tab-title">
+                  <li class="layui-this">工作经历</li>
+                  <li>教育背景</li>
+                  <li>家庭联系信息</li>
+                  <li>员工考核</li>
+                  <li>证件上传</li>
+              </ul>
+              <div class="layui-tab-content" style="height: 100px;">
+                  <div class="layui-tab-item layui-show">
+
+                  </div>
+                  <div class="layui-tab-item">
+
+                  </div>
+                  <div class="layui-tab-item">
+
+                  </div>
+                  <div class="layui-tab-item">
+
+                  </div>
+                  <div class="layui-tab-item">
+
+                  </div>
+                  <div class="layui-tab-item">
+
+                  </div>
+              </div>
+          </div>
       </div>
   </div>
 
@@ -128,6 +157,7 @@
               table = layui.table;
 
           table.render({
+              id:"currentTableId",
               elem: '#currentTableId',
               url: '${pageContext.request.contextPath}/emp/empList',
               height:450,
@@ -145,7 +175,7 @@
                   {field: 'right', width:250, title: '操作',toolbar: '#currentTableBar'}
               ]],
               limits: [10, 15, 20, 25, 50, 100],
-              limit: 15,
+              limit: 10,
               page: true,
               toolbar:"#currentTableBar2"
           });

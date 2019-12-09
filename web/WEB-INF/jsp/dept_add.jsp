@@ -1,4 +1,4 @@
-
+<%@ page import="com.ht.vo.employee.DeptType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -30,11 +30,13 @@
                   <span class="x-red">*</span>部门类别
               </label>
               <div class="layui-input-inline">
-                  <select id="deptType"  name="deptType" lay-verify="required">
+                  <select id="deptType"  name="deptType" >
                       <option value="">不选择</option>
-                      <option value="后勤部">后勤部</option>
-                      <option value="人事部">人事部</option>
-                      <option value="财务部">财务部</option>
+                      <%
+                        for(int i=0;i<DeptType.DeptTypeVal().size();i++){%>
+                          <option value="<%=DeptType.DeptTypeVal().get(i)%>%>"><%=DeptType.DeptTypeVal().get(i)%></option>
+                      <%  }
+                      %>
                   </select>
               </div>
           </div>
@@ -52,7 +54,7 @@
         <div class="layui-form-item">
             <%--从后台查询员工表,然后遍历出来--%>
             <label for="chairman" class="layui-form-label">
-                <span class="x-red">*</span>部门负责人
+                <span class="x-red"></span>部门负责人
             </label>
             <div class="layui-input-inline">
                 <select id="chairman"  name="chairman" lay-verify="required">
@@ -64,7 +66,7 @@
         </div>
           <div class="layui-form-item">
               <label for="remark" class="layui-form-label">
-                  <span class="x-red">*</span>备注
+                  <span class="x-red"></span>备注
               </label>
               <div class="layui-input-inline">
                   <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
@@ -95,8 +97,8 @@
                     if (/^\d+\d+\d$/.test(value)){
                         return '部门名称不能为全数字';
                     }
-                    if (value.length<5){
-                        return '部门名称至少得5个字符';
+                    if (value.length<4){
+                        return '部门名称至少得4个字符';
                     }
                 }
             });

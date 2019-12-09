@@ -15,85 +15,27 @@ import java.util.Date;
 @Table(name = "t_emp")
 public class EmpVo {
 
-    /**
-     *  主键，员工编号输入编号
-     */
-
     @Id
-    private String empId;
-    /**
-     * 员工姓名
-     */
-    private String empName;
-    /**
-     * 关联部门表depid字段
-     */
-    private Integer deptId;
-
-    /**
-     * 性别(男,女)
-     */
-    private String sex;
-    /**
-     * 出生日期
-     */
-    private Date birthday;
-    /**
-     * 身份证号码(唯一)
-     */
-    private String cardno;
-    /**
-     * 籍贯
-     */
-    private String nation;
-    /**
-     * 手机号码
-     */
-    private String phone;
-    /**
-     * qq号码
-     */
-    private String qqCode;
-    /**
-     * 微信号码
-     */
-    private String weiXin;
-    /**
-     * 邮箱地址
-     */
-    private String email;
-    /**
-     * 婚姻情况(已婚，单身)
-     */
-    private String married;
-    /**
-     * 毕业学校
-     */
-    private String university;
-    /**
-     * 专业
-     */
-    private String major;
-    /**
-     * 学历
-     */
-    private String education;
-    /**
-     * 家庭地址
-     */
-    private String address;
-    /**
-     * 说明
-     */
-    private String remark;
-    /**
-     * 开户银行
-     */
-    private String bank;
-    /**
-     * 账号名称
-     */
-    private String accountName;
+    @GeneratedValue
+    private Integer empId; //员工编号
+    private String empName; //员工姓名
+    private Integer deptId; //关联部门
+    private String sex; //性别
+    private Date birthday; //出生日期
+    private String cardno; //身份证号码
+    private String nation; //籍贯
+    private String phone; //手机号码
+    private String qqCode; //qq号码
+    private String weiXin; //微信号码
+    private String email; //邮箱地址
+    private String married; //婚姻情况
+    private String university;//毕业学校
+    private String major; //专业
+    private String education; //学历
+    private String address; //家庭地址
+    private String remark; //说明
+    private String bank; //开户银行
+    private String accountName; //账号名称
     private String bankNumber;//账号
     private String alipay;//支付宝账号(唯一）
     private Date hireDay;//入职日期
@@ -104,11 +46,11 @@ public class EmpVo {
     private String postName; //职务名称
 
 
-    public String getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
 
-    public void setEmpId(String empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
 

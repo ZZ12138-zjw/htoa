@@ -33,7 +33,7 @@ public class EmpServiceImpl extends BaseDao implements IEmpService {
 
     @Override
     public EmpVo select(EmpVo empVo) {
-        return (EmpVo)getObject(EmpVo.class,Integer.parseInt(empVo.getEmpId()));
+        return (EmpVo)getObject(EmpVo.class,empVo.getEmpId());
     }
 
     @Override
