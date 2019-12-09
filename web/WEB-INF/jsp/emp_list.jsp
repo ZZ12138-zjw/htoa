@@ -225,11 +225,21 @@
           table.on('tool(currentTableFilter)', function (obj) {
               var data = obj.data;
               if (obj.event === 'edit') {
-                  layer.alert('编辑行：<br>' + JSON.stringify(data))
+                  x_admin_show('修改员工信息','<%=request.getContextPath()%>/emp/to_empUpdate?empId='+data.empId);
               } else if (obj.event === 'delete') {
                   layer.confirm('真的删除行么', function (index) {
-                      obj.del();
-                      layer.close(index);
+                      $.ajax({
+                          url: '${pageContext.request.contextPath}/emp/delete',
+                          data:{empId:data.empId},
+                          type: "post",
+                          success: function(suc) {
+                              obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                              layer.close(index);
+                              layer.msg("删除成功", {
+                                  icon: 1
+                              });
+                          }
+                      });
                   });
               }else if (obj.event =="enable"){
                   layer.confirm('真的启用么', function (index) {

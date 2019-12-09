@@ -133,7 +133,7 @@
           }); //批量删除操作结束
 
 
-            //监听工具条
+          //监听工具条
           table.on('tool(complainList)', function(obj) {
               var data = obj.data;
               json = JSON.stringify(data);
@@ -168,7 +168,6 @@
                               success: function(suc) {
                                       obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                                       layer.close(delIndex);
-                                      console.log(delIndex);
                                       layer.msg("删除成功", {
                                           icon: 1
                                       });

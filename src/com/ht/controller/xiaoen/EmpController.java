@@ -151,5 +151,21 @@ public class EmpController {
         return "success";
     }
 
+    @RequestMapping("/delete")
+    @ResponseBody
+    public String delete(EmpVo empVo){
+        System.out.println(empVo.getEmpId());
+        emp.delete(empVo);
+        return "success";
+    }
+
+    @RequestMapping("/to_empUpdate")
+    public String toEmpUpdate(EmpVo empVo,Map map){
+        EmpVo e = emp.select(empVo);
+        map.put("empVo",e);
+        return "emp_update";
+    }
+
+
 
 }
