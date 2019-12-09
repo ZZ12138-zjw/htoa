@@ -18,7 +18,7 @@ public class TrialVo {
     public String date; //日期
     public String time; //时间(星期一---星期日)
     public Integer Courseid; //关联课程/章节id
-    public Integer type; //授课类型(试讲/培训)
+    public String type; //授课类型(试讲/培训)
     public Integer empid; //员工id关联员工表(授课老师)
     public String remark; //备注(针对课程重要内容)
 
@@ -67,11 +67,11 @@ public class TrialVo {
         Courseid = courseid;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 
