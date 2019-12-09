@@ -248,7 +248,6 @@
           }); //批量删除操作结束
 
 
-
           table.on('tool(currentTableFilter)', function (obj) {
               var data = obj.data;
               if (obj.event === 'edit') {

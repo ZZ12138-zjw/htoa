@@ -21,6 +21,8 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+
+
     <!--乱码处理-->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -34,5 +36,7 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
 
 </web-app>
