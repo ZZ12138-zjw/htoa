@@ -21,7 +21,7 @@
     <div class="layui-container" style="padding: 20px 0;">
         <form class="layui-form" id="layuiform">
             <div class="layui-form-item">
-                <label class="layui-form-label">报修人</label>
+                <label class="layui-form-label">申请人</label>
                 <div class="layui-input-inline">
                     <input type="text" id="repairMan" name="repairMan" required  lay-verify="required" placeholder="请输入报修人姓名" autocomplete="off" class="layui-input">
                 </div>
@@ -114,7 +114,7 @@
                 repairIndex:$('#repairIndex').val(),
             },function (data) {
                 if (data=="success"){
-                    layer.alert("增加成功", {icon: 6},function () {
+                    layer.alert("添加成功", {icon: 6},function () {
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
                         parent.layer.close(index);

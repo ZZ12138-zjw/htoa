@@ -272,7 +272,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/checkinsertcontro/to_checkinsert">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考核录入</cite>
                         </a>
