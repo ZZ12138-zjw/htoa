@@ -68,6 +68,7 @@
 <!--      定义拦截器-->
    <mvc:interceptors>
        <mvc:interceptor>
+
 <!--         拦截所有路径-->
        <mvc:mapping path="/**"/>
            <!--以下资源不拦截-->

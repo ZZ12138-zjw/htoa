@@ -24,42 +24,86 @@
 
 </head>
 <body>
-届别:<select name="jiebie">
+<label class="layui-form-label">届别</label>
+</label>
+<div class="layui-input-block">
+    <select name="jiebie">
         <option value="" selected>--不选择--</option>
     </select>
-<table class="layui-table">
-    <colgroup>
-        <col width="150">
-        <col width="200">
-        <col>
-    </colgroup>
-    <thead>
-        <tr>
-            <th>序号</th>
-            <th>班级编号</th>
-            <th>班级名称</th>
-            <th>授课老师</th>
-            <th>班主任</th>
-            <th>班级类别</th>
-            <th>届别</th>
-            <th>系名称</th>
-            <th>专业名称</th>
-            <th>操作</th>
-            <th>说明</th>
-        </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>贤心</td>
-        <td>2016-11-29</td>
-        <td>人生就像是一场修行</td>
-    </tr>
-    <tr>
-        <td>许闲心</td>
-        <td>2016-11-28</td>
-        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-    </tr>
-    </tbody>
-</table>
+</div>
+<table id="demo" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加学生','<%=request.getContextPath()%>/student/toAdd')"><i class="layui-icon"></i>添加</button>
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script src="${pageContext.request.contextPath}/lib/layui/layui.js"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,url:'<%=request.getContextPath()%>/student/classAll'
+            ,toolbar: '#toolbarDemo'//开启头部工具栏，并为其绑定左侧模板
+            ,page: true //开启分页
+            ,method:'post'
+            ,limit:10
+            ,cols: [[ //表头
+                {checkbox:true}//开启多选框
+                ,{field: 'classId', title: '序号', width:70, sort: true}
+                ,{field: 'classNo', title: '班级编号', width:90, sort: true}
+                ,{field: 'className', title: '班级名称', width:220}
+                ,{field: 'classTeacher', title: '班主任', width:100, sort: true}
+                ,{field: 'teacher', title: '任课老师', width:100}
+                ,{field: 'typeName', title: '班级类别', width: 100}
+                ,{field: 'level', title: '届别', width: 100}
+                ,{field: 'right', title: '系名称', width: 140,templet:function (d) {
+                        return "<span>宏图软件教育中心</span>"
+                    }}
+                ,{field: 'state', title: '专业名称', width: 140,templet:function (d) {
+                        return "<span>计算机程序设计</span>"
+                    }}
+                ,{field: 'right',align:'center', title:'操作', toolbar: '#barDemo', width:200}
+                ,{field: 'remark', title: '说明', width: 100}
+            ]],limits: [5,10,20,50]
+        });
+        table.on('tool(test)',function (obj) {
+            var data = obj.data; //获取当前行的数据
+            var layEvent =  obj.event; //获取lay-event对应的值
+            var tr = obj.tr;//获取当前行
+
+            if(layEvent == 'del'){//删除
+                layer.confirm('真的删除么',function (index) {
+                    alert(data.stuId);
+                    $.ajax({
+                        url:'${pageContext.request.contextPath}/student/delCla',
+                        type:'post',
+                        data:{
+                            stuId:data.stuId
+                        },
+                        dataType:'json',
+                        success:function (data){
+                            layer.alert("删除成功", {icon: 6});
+                        }
+                    });
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新 缓存
+                    layer.close(index);
+                });
+            }else if(layEvent == 'edit'){//编辑
+                x_admin_show('修改学生信息','<%=request.getContextPath()%>/student/toUpdate?stuId='+data.stuId);
+            }
+        })
+    });
+</script>
 </body>
 </html>
