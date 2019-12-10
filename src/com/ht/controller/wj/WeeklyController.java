@@ -21,8 +21,8 @@ public class WeeklyController {
 
     @Resource
     private IDeptService iDeptService;
-    @Resource
-    private WeekService weekService;
+    /*@Resource
+    private WeekService weekService;*/
 
     @RequestMapping("/weeklyList")
     public String weekly_list(){
@@ -42,7 +42,7 @@ public class WeeklyController {
     }
 
     //查询所有周报
-    @RequestMapping("/weekLists")
+    /*@RequestMapping("/weekLists")
     @ResponseBody
     public Map weekLists(String page, String limit){
         Map map=new HashMap();
@@ -53,5 +53,5 @@ public class WeeklyController {
         map.put("data",jsonArray);
         System.out.println(map.toString());
         return map;
-    }
+    }*/
 }

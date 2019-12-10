@@ -6,6 +6,9 @@
         <element id="directory" name="classes">
           <element id="module-output" name="htoa" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="spring_hiberante_activit" />
+        </element>
       </element>
       <element id="javaee-facet-resources" facet="htoa/web/Web" />
     </root>
