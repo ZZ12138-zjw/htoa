@@ -66,7 +66,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="member-del.html">
+                        <a _href="${pageContext.request.contextPath}/myweek/myweekpage">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>我的周报</cite>
                             
@@ -108,7 +108,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="xx.html">
+                        <a _href="${pageContext.request.contextPath}/week/weeklyList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>周报管理</cite>
                         </a>
@@ -226,7 +226,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/weekarrange/to_weekarrange_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>值班管理</cite>
                         </a>
@@ -272,7 +272,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/checkinsertcontro/to_checkinsert">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考核录入</cite>
                         </a>
