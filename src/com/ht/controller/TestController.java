@@ -18,7 +18,7 @@ public class TestController {
 
     @RequestMapping("/to_welcome")
     public String to_welcome(){
-        return "welcome";
+        return "welcome2";
     }
 
     @RequestMapping("/to_top")
