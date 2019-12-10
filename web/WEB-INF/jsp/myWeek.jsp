@@ -27,7 +27,7 @@
 
         <script type="text/html" id="barDemo2">
             <button class="layui-btn layui-btn-danger" id="delsel"><i class="layui-icon"></i>批量删除</button>
-            <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/doc/uploadoc')"><i class="layui-icon"></i>添加资料</button>
+            <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/myweek/weekAdd')"><i class="layui-icon"></i>添加周报</button>
         </script>
         <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
 
@@ -69,6 +69,17 @@
                 ]
                 ,limits: [5,10,20,50]
             });
+
+            function createTime(v){
+                var date = new Date(v);
+                var y = date.getFullYear();
+                var m = date.getMonth()+1;
+                m = m<10?'0'+m:m;
+                var d = date.getDate();
+                d = d<10?("0"+d):d;
+                var str = y+"-"+m+"-"+d;
+                return str;
+            }
 
 
             //批量删除
