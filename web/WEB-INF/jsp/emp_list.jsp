@@ -124,14 +124,16 @@
                       <table class="layui-hide" id="educationTable" lay-filter="educationTableFilter"></table>
                   </div>
                   <%--教育背景end--%>
-                   <%--家庭背景--%>
+                   <%--家庭背景begin--%>
                   <div class="layui-tab-item">
                       <table class="layui-hide" id="familyInfoTable" lay-filter="familyInfoTableFilter"></table>
                   </div>
-                  <%----%>
+                  <%--家庭背景end--%>
+                  <%--考核管理begin--%>
                   <div class="layui-tab-item">
                       <table class="layui-hide" id="assessmentTable" lay-filter="assessmentTableFilter"></table>
                   </div>
+                   <%--考核管理end--%>
                   <div class="layui-tab-item">
                       <table class="layui-hide" id="certificatesTable" lay-filter="certificatesTableFilter"></table>
                   </div>
