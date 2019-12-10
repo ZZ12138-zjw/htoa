@@ -14,22 +14,13 @@
 <body>
     <div class="x-body">
         <form class="layui-form">
-            <input type="hidden" name="courseTypeId" value="${courseTypeVo.courseTypeId}">
+            <input type="hidden" name="floorId" value="${FloorVo.floorId}">
             <div class="layui-form-item">
-                <label for="courseTypeName" class="layui-form-label">
+                <label for="floorName" class="layui-form-label">
                     <span class="x-red">*</span>类别名称：
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="courseTypeName" name="courseTypeName" required="" value="${courseTypeVo.courseTypeName}" lay-verify="courseTypeName"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="remark" class="layui-form-label">
-                    <span class="x-red">*</span>说明：
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="remark" name="remark" required="" value="${courseTypeVo.remark}" lay-verify="required"
+                    <input type="text" id="floorName" name="floorName" required="" value="${FloorVo.floorName}" lay-verify="floorName"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -45,7 +36,7 @@
             ,layer = layui.layer;
         form.verify({
             //value：表单的值，item表单的dom对象
-            courseTypeName:function (value,item) {
+            floorName:function (value,item) {
                 if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
                     return '类别名称不能有特殊字符';
                 }
@@ -55,8 +46,8 @@
                 if (/^\d+\d+\d$/.test(value)){
                     return '类别名称不能为全数字';
                 }
-                if (value.length<3){
-                    return '类别名称至少得3个字符';
+                if (value.length<1){
+                    return '类别名称至少得1个字符';
                 }
             }
         });
@@ -64,7 +55,7 @@
        form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给php
             $.ajax({
-                url:'${pageContext.request.contextPath}/coursetype/update',
+                url:'${pageContext.request.contextPath}/floor/floorupdate',
                 type:'post',
                 data:data.field,
                 dataType:'json',
