@@ -18,11 +18,10 @@
         <i class="layui-icon" style="line-height:38px">ဂ</i></a>
 </div>
 <div class="x-body">
-    <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="dele()"><i class="layui-icon"></i>批量删除</button>
+    <script type="text/html" id="barDemo2">
+        <button class="layui-btn layui-btn-danger" id="delsel"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/doc/uploadoc')"><i class="layui-icon"></i>添加资料</button>
-        <span class="x-right" style="line-height:40px">共有数据：${count} 条</span>
-    </xblock>
+    </script>
     <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
 
     <script type="text/html" id="barDemo">
@@ -57,6 +56,7 @@
             ,url:'${pageContext.request.contextPath}/doc/docList'
             ,page: true
             ,method:'post'
+            ,toolbar:"#barDemo2"
             ,limit:10
             ,cols: [
                 [
@@ -64,13 +64,56 @@
                     ,{field:'docId', width:100,title: '编号'}
                     ,{field:'dataName',width:150, title: '资料名'}
                     ,{field:'url',width:150, title: '资料地址'}
-                    ,{field:'optime',width:150, title: '上传时间'}
+                    ,{field:'optime',width:150, title: '上传时间', templet:function (row){
+                        return createTime(row.optime);
+                    }}
                     ,{field:'remark',width:100,title: '备注'}
                     ,{field:'empId',width:150,title: '上传人员'}
                     ,{fixed: 'right', title:'操作',width:300,toolbar: '#barDemo'}
                 ]
             ]
             ,limits: [5,10,20,50]
+        });
+
+        //批量删除
+        $("#delsel").on("click",function () {
+            var checkStatus=table.checkStatus('provinceReload'),
+            data=checkStatus.data;
+            var ids=[];
+            $(data).each(function (i,val) { //o即为表格中一行的数据
+                ids.push(val.docId);
+            });
+
+            if (data.length > 0){
+                layer.confirm('确定要删除选中的资料?',{icon:3,title:'提示信息'},function (index) {
+
+                    //layui中找到Checkbox所在的行,并遍历行的顺序
+                    $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
+                        $.post("${pageContext.request.contextPath}/doc/deletes",{
+                            id:ids.toString()
+                        },function(data){
+                            if ('success'==data){
+                                var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
+                                //移除行
+                                $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
+                                //如果是全选移除，就将全选CheckBox还原为未选中状态
+                                $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
+                            }else {
+                                layer.alert('删除失败',{
+                                    icon:2
+                                });
+                            }
+                        },'text');
+                    });
+                    layer.alert("删除成功", {
+                        icon: 6
+                    });
+                    //关闭弹窗
+                    layer.close(index);
+                });
+            }else {
+                layer.msg('请选择需要删除的行');
+            }
         });
 
         table.on('tool(complainList)', function(obj) {
@@ -95,12 +138,39 @@
                         layer.close(delIndex);
                     });
                     break;
+                case 'download':
+                    //获取xmlhttprequest
+                    var xmlRequest = new XMLHttpRequest();
+                    //发起请求
+                    xmlRequest.open("post","${pageContext.request.contextPath}/doc",true);
+                    //设置请求头类型
+                    xmlRequest.setRequestHeader("Content-type","application/json");
+                    xmlRequest.setRequestHeader("id",data.docId);
+                    xmlRequest.responseType = "blob";
+                    //返回
+                    xmlRequest.onload = function (ev) {
+                        var content = xmlRequest.response;
+                        //组装a标签
+                        var elink = document.createElement("a");
 
+                        //获取文件文件格式,截取文件后缀
+                        var fileaddr = data.file
+                    }
             }
         });
 
     });
 
+    function createTime(v){
+        var date = new Date(v);
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        m = m<10?'0'+m:m;
+        var d = date.getDate();
+        d = d<10?("0"+d):d;
+        var str = y+"-"+m+"-"+d;
+        return str;
+    }
 </script>
 </body>
 </html>

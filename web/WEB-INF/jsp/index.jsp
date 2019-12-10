@@ -66,7 +66,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="member-del.html">
+                        <a _href="${pageContext.request.contextPath}/myweek/myweekpage">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>我的周报</cite>
                             
@@ -108,7 +108,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="xx.html">
+                        <a _href="${pageContext.request.contextPath}/week/weeklyList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>周报管理</cite>
                         </a>
