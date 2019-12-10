@@ -65,17 +65,19 @@
         -->
     </bean>
 
-<!--      定义拦截器
+<!--      定义拦截器-->
    <mvc:interceptors>
        <mvc:interceptor>
-         拦截所有路径
+
+<!--         拦截所有路径-->
        <mvc:mapping path="/**"/>
-           以下资源不拦截
+           <!--以下资源不拦截-->
            <mvc:exclude-mapping path="/WEN-INF/static/**"/>
-             使用哪个类来做为拦截器 LoginInterceptor
+            <!-- 使用哪个类来做为拦截器 LoginInterceptor-->
            <bean class="com.ht.global.LoginInterceptor"/>
       </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
+
 
 
 </beans>
