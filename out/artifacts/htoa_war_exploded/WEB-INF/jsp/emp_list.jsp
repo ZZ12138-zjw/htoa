@@ -116,61 +116,25 @@
               <div class="layui-tab-content" style="height: 100px;">
                   <%--工作经历begin--%>
                   <div class="layui-tab-item layui-show">
-                      <script type="text/html" id="jobTableBar2">
-                          <button class="layui-btn layui-btn-danger" id="jobDelSelect" ><i class="layui-icon"></i>批量删除</button>
-                          <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-                      </script>
-                      <script type="text/html" id="jobTableBar">
-                          <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-                          <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-                      </script>
                       <table class="layui-hide" id="jobTable" lay-filter="jobTableFilter"></table>
                   </div>
                   <%--工作经历end--%>
                   <%--教育背景begin--%>
                   <div class="layui-tab-item">
-                      <script type="text/html" id="educationTableBar2">
-                          <button class="layui-btn layui-btn-danger" id="educationDelSelect" ><i class="layui-icon"></i>批量删除</button>
-                          <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-                      </script>
-                      <script type="text/html" id="educationTableBar">
-                          <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-                          <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-                      </script>
                       <table class="layui-hide" id="educationTable" lay-filter="educationTableFilter"></table>
                   </div>
                   <%--教育背景end--%>
+                   <%--家庭背景begin--%>
                   <div class="layui-tab-item">
-                      <script type="text/html" id="familyInfoTabBar2">
-                          <button class="layui-btn layui-btn-danger" id="familyInfoDelSelect" ><i class="layui-icon"></i>批量删除</button>
-                          <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-                      </script>
-                      <script type="text/html" id="familyInfoTabBar">
-                          <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-                          <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-                      </script>
                       <table class="layui-hide" id="familyInfoTable" lay-filter="familyInfoTableFilter"></table>
                   </div>
+                  <%--家庭背景end--%>
+                  <%--考核管理begin--%>
                   <div class="layui-tab-item">
-                      <script type="text/html" id="assessmentTableBar2">
-                          <button class="layui-btn layui-btn-danger" id="assessmentDelSelect" ><i class="layui-icon"></i>批量删除</button>
-                          <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-                      </script>
-                      <script type="text/html" id="assessmentTableBar">
-                          <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-                          <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-                      </script>
                       <table class="layui-hide" id="assessmentTable" lay-filter="assessmentTableFilter"></table>
                   </div>
+                   <%--考核管理end--%>
                   <div class="layui-tab-item">
-                      <script type="text/html" id="certificatesTableBar2">
-                          <button class="layui-btn layui-btn-danger" id="certificatesDelSelect" ><i class="layui-icon"></i>批量删除</button>
-                          <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-                      </script>
-                      <script type="text/html" id="certificatesTableBar">
-                          <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-                          <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-                      </script>
                       <table class="layui-hide" id="certificatesTable" lay-filter="certificatesTableFilter"></table>
                   </div>
               </div>
@@ -178,6 +142,46 @@
       </div>
   </div>
 
+  <script type="text/html" id="jobTableBar2">
+      <button class="layui-btn layui-btn-danger" id="jobDelSelect" ><i class="layui-icon"></i>批量删除</button>
+      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
+  </script>
+  <script type="text/html" id="jobTableBar">
+      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+  </script>
+  <script type="text/html" id="educationTableBar2">
+      <button class="layui-btn layui-btn-danger" id="educationDelSelect" ><i class="layui-icon"></i>批量删除</button>
+      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
+  </script>
+  <script type="text/html" id="educationTableBar">
+      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+  </script>
+  <script type="text/html" id="familyInfoTabBar2">
+      <button class="layui-btn layui-btn-danger" id="familyInfoDelSelect" ><i class="layui-icon"></i>批量删除</button>
+      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
+  </script>
+  <script type="text/html" id="familyInfoTabBar">
+      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+  </script>
+  <script type="text/html" id="assessmentTableBar2">
+      <button class="layui-btn layui-btn-danger" id="assessmentDelSelect" ><i class="layui-icon"></i>批量删除</button>
+      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
+  </script>
+  <script type="text/html" id="assessmentTableBar">
+      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+  </script>
+  <script type="text/html" id="certificatesTableBar2">
+      <button class="layui-btn layui-btn-danger" id="certificatesDelSelect" ><i class="layui-icon"></i>批量删除</button>
+      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
+  </script>
+  <script type="text/html" id="certificatesTableBar">
+      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+  </script>
   <script type="text/javascript">
 
         //选择部门下拉框赋值

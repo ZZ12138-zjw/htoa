@@ -1,15 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2019/12/6
-  Time: 19:55
+  Date: 2019/12/9
+  Time: 20:01
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="top.jsp"></jsp:include>
 <html>
 <head>
-    <title>维修管理</title>
-    <jsp:include page="top.jsp"></jsp:include>
+    <title>考核录入</title>
 </head>
 <body>
     <table id="demo" lay-filter="test"></table>
@@ -17,43 +17,54 @@
     <%--定义头部按钮--%>
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-normal" lay-event="add">添加</button>
-            <button  class="layui-btn layui-btn-warm" id="allDelete">批量删除</button>
+            <button class="layui-btn layui-btn-normal" lay-event="add"><i class="layui-icon">&#xe654;</i>添加</button>
+            <button  class="layui-btn layui-btn-warm" id="allDelete"><i class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
     </script>
 
     <%--定义行按钮--%>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     </script>
 
     <script>
+        layui.use(['table','form','layer'],function () {
 
-        layui.use(['table','layer','jquery'], function(){
             var table = layui.table;
+            var form = layui.form;
 
-            //第一个实例
             table.render({
-                elem: '#demo'
+                elem:'#demo'
                 ,height: 460
-                ,url: '${pageContext.request.contextPath}/repaircontro/listrepair' //数据接口
+                ,cellMinWidth: 100 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,url: '${pageContext.request.contextPath}/checkinsertcontro/listcheckinsert' //数据接口
                 ,page: true //开启分页
                 ,cols: [[ //表头
-                    {type:'checkbox'}
-                    ,{field: 'repairID', title: 'ID', width:80, sort: true}
-                    ,{field: 'repairMan', title: '申请人', width:80}
-                    ,{field: 'repairName', title: '报修名称', width: 120}
-                    ,{field: 'repairSort', title: '报修类别', width:90, sort: true}
-                    ,{field: 'repairStatus', title: '报修状态', width:90, sort: true}
-                    ,{field: 'repairAddress', title: '报修地址', width: 100}
-                    ,{field: 'repairDept', title: '部门或班级', width: 100}
-                    ,{field: 'startDate', title: '申请时间', width: 100, sort: true}
-                    ,{field: 'endDate', title: '结束时间', width: 100, sort: true}
-                    ,{field: 'repairIndex', title: '备注', width: 100}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:110}
-                ]],
+                {type:'checkbox',align:'center'}
+                ,{field: 'iD', title: '编号', sort: true,fit:'left',align:'center'}
+                ,{field: 'checkContent', title: '考核内容',align:'center'}
+                ,{field: 'empName', title: '员工姓名',align:'center'}
+                ,{field: 'checkDate', title: '考核日期',align:'center',width:150,sort:true}
+                ,{field: 'checkScore', title: '考核分数', sort: true,align:'center'}
+                ,{field: 'inputEmp', title: '录入人员',align:'center'}
+                ,{field: 'checkExplain', title: '考核说明',align:'center'}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo',align:'center',width:140}
+            ]],
                 toolbar:'#toolbarDemo'
+            });
+
+            table.on('toolbar(test)',function(obj){
+                if (obj.event == "add"){
+                    layer.open({
+                        type: 2,
+                        title: '考核录入',
+                        shadeClose: true,
+                        shade: 0.8,
+                        area: ['600px', '90%'],
+                        content: '${pageContext.request.contextPath}/checkinsertcontro/to_addcheckinsert' //iframe的url
+                    })
+                }
             });
 
             //批量删除
@@ -63,16 +74,16 @@
                     data=checkStatus.data;
                 var ids=[];
                 $(data).each(function (i,val) { //o即为表格中一行的数据
-                    ids.push(val.repairID);
+                    ids.push(val.iD);
                 });
                 if(data.length>0){
                     layer.confirm('确定要删除选中的信息吗?',{icon:3,title:'提示信息'},function (index) {
                         //layui中找到Checkbox所在的行,并遍历行的顺序
                         $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
-                            $.post("${pageContext.request.contextPath}/checkinsertcontro/alldelete",{
-                                repairID:ids.toString()
+                            $.post("${pageContext.request.contextPath}/checkinsertcontro/alldelcheckinsert",{
+                                iD:ids.toString()
                             },function(data){
-                                if ('success'==data){
+                                if ('true'==data){
                                     var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
                                     //移除行
                                     $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
@@ -100,43 +111,16 @@
                 }
             });
 
-            table.on('toolbar(test)',function(obj){
-               if (obj.event == "add"){
-                   layer.open({
-                       type: 2,
-                       title: '新增维修管理',
-                       shadeClose: true,
-                       shade: 0.8,
-                       area: ['600px', '90%'],
-                       content: '${pageContext.request.contextPath}/repaircontro/to_addrepairmanage' //iframe的url
-                   })
-               }
-            });
-
-
-
-            table.on('tool(test)',function(obj2){
-                var data = obj2.data;
-                if(obj2.event == "edit"){
-                    var index = layer.open({
-                        type: 2,
-                        title: "编辑维修管理",
-                        area: ['600px', '90%'],
-                        fix: false, //不固定
-                        maxmin: true,
-                        shadeClose: true,
-                        shade: 0.4,
-                        skin: 'layui-layer-rim',
-                        content: ["${pageContext.request.contextPath}/repaircontro/to_editrepairmanage?repairid="+data.repairID],
-                    });
-                }else if(obj2.event == "del"){
-                    var delIndex = layer.confirm('真的删除编号为' + data.repairID + "的信息吗?", function(delIndex) {
+            table.on('tool(test)',function (obj) {
+                var data = obj.data;
+                if (obj.event == "del"){
+                    var delIndex = layer.confirm('真的删除编号为' + data.iD + "的信息吗?", function(delIndex) {
                         $.ajax({
-                            url: '${pageContext.request.contextPath}/repaircontro/delrepairmanage',
-                            data:{repairID:data.repairID},
+                            url: '${pageContext.request.contextPath}/checkinsertcontro/delcheckinsert',
+                            data:{iD:data.iD},
                             type: "post",
                             success: function(suc) {
-                                obj2.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                                 layer.close(delIndex);
                                 console.log(delIndex);
                                 layer.msg("删除成功", {
@@ -147,10 +131,21 @@
                         //关闭弹窗
                         layer.close(delIndex);
                     });
+                }else if(obj.event == "edit"){
+                    var index = layer.open({
+                        type: 2,
+                        title: "编辑考核录入",
+                        area: ['600px', '90%'],
+                        fix: false, //不固定
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        skin: 'layui-layer-rim',
+                        content: ["${pageContext.request.contextPath}/checkinsertcontro/to_editcheckinsert?iD="+data.iD],
+                    });
                 }
             });
-
-        });
+        })
     </script>
 </body>
 </html>

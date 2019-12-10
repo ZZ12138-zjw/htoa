@@ -70,7 +70,8 @@
        <mvc:interceptor>
 
 <!--         拦截所有路径-->
-           <mvc:mapping path="/**"/>
+       <mvc:mapping path="/**"/>
+           <!--以下资源不拦截-->
            <mvc:exclude-mapping path="/**/fonts/*"/>
            <mvc:exclude-mapping path="/**/*.css"/>
            <mvc:exclude-mapping path="/**/*.js"/>
