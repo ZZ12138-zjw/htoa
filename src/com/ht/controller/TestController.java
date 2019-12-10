@@ -14,10 +14,8 @@ import javax.servlet.http.HttpSession;
 public class TestController {
 
     @RequestMapping("/test")
-    public String test(HttpServletRequest request, HttpSession session){
+    public String test(){
         System.out.println("我进来了");
-        String username = request.getParameter("username");
-        session.setAttribute("username",username);
         return "index";
     }
 

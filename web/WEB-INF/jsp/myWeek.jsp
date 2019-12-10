@@ -70,6 +70,7 @@
                 ,limits: [5,10,20,50]
             });
 
+
             //批量删除
             $("#delsel").on("click",function () {
                 var checkStatus=table.checkStatus('provinceReload'),
