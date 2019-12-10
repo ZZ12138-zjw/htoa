@@ -21,5 +21,17 @@ public class TestController {
         return "index";
     }
 
+    @RequestMapping("/to_welcome")
+    public String to_welcome(){
+        return "welcome";
+    }
+
+    @RequestMapping("/to_top")
+    public String toTop(){
+        return "top";
+    }
+
+
+
 
 }

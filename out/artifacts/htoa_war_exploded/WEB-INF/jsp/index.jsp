@@ -220,13 +220,13 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/trial/to_trial_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>试讲培训</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/weekarrange/to_weekarrange_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>值班管理</cite>
                         </a>
@@ -266,13 +266,13 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/checkcontro/to_checkindex">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考核指标</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/checkinsertcontro/to_checkinsert">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考核录入</cite>
                         </a>
@@ -452,13 +452,13 @@
     <!-- 左侧菜单结束 -->
     <!-- 右侧主体开始 -->
     <div class="page-content">
-        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowClose="true">
           <ul class="layui-tab-title">
             <li>我的桌面</li>
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='${pageContext.request.contextPath}/to_welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
           </div>
         </div>

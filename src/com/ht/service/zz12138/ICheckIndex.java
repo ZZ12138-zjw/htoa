@@ -13,4 +13,12 @@ public interface ICheckIndex {
     public List listCheckIndex(int currPage,int pageSize);
 
     public void addCheckIndex(CheckIndexVo checkIndex);
+
+    public int selAllCheck();
+
+    public CheckIndexVo selCheckIndex(int checkIndexID);
+
+    public void updateCheckIndex(CheckIndexVo vo);
+
+    public void delcheckindex(String iD);
 }

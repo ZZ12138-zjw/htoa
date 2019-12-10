@@ -22,7 +22,7 @@
     <div class="layui-container" style="padding: 20px 0;">
         <form class="layui-form" id="layuiform">
             <div class="layui-form-item">
-                <label class="layui-form-label">报修人</label>
+                <label class="layui-form-label">申请人</label>
                 <div class="layui-input-inline">
                     <input type="text" value="${listRepair.repairMan}" id="repairMan" name="repairMan" required  lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
@@ -82,7 +82,7 @@
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">维修备注</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入备注" id="repairIndex" name="repairIndex" lay-verify="required" autocomplete="off" class="layui-textarea"></textarea>
+                    <input type="text" value="${listRepair.repairIndex}" placeholder="请输入备注" id="repairIndex" name="repairIndex" required autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -115,7 +115,7 @@
                 repairIndex:$('#repairIndex').val(),
             },function (data) {
                 if (data=="success"){
-                    layer.alert("编辑成功", {icon: 6},function () {
+                    layer.alert("修改成功", {icon: 6},function () {
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
                         parent.layer.close(index);
@@ -124,6 +124,9 @@
                         })
 
                     });
+                }else{
+                    layer.alert("修改失败",{icon: 1},function(){
+                    });
                 }
             },"text");
             return false;
@@ -131,7 +134,7 @@
         layui.use('laydate', function(){
             var laydate = layui.laydate;
             //执行一个laydate实例
-            /*laydate.render({
+            laydate.render({
                 elem: '#startDate' //指定元素
                 ,trigger:'click'
             });
@@ -139,7 +142,7 @@
             laydate.render({
                 elem: '#endDate' //指定元素
                 ,trigger:'click'
-            });*/
+            });
         });
     });
 </script>

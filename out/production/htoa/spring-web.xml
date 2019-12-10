@@ -23,8 +23,6 @@
         2>允许使用“/"做整天映射
     -->
     <mvc:default-servlet-handler/>
-
-    
     <mvc:resources mapping="/**" location="WEB-INF/static/"/>
 
     <!--用于ajax请求返回json数据-->
@@ -66,6 +64,16 @@
           1g=1024mb
         -->
     </bean>
+
+    <!--   定义拦截器-->
+   <mvc:interceptors>
+       <mvc:interceptor>
+         <!--拦截所有路径-->
+       <mvc:mapping path="/**"/>
+       <!--使用哪个类来做为拦截器 LoginInterceptor-->
+           <bean class="com.ht.global.LoginInterceptor"/>
+      </mvc:interceptor>
+    </mvc:interceptors>
 
 
 </beans>

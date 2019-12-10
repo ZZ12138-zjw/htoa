@@ -133,31 +133,13 @@
           }); //批量删除操作结束
 
 
-            //监听工具条
+          //监听工具条
           table.on('tool(complainList)', function(obj) {
               var data = obj.data;
               json = JSON.stringify(data);
               switch(obj.event) {
                   case 'edit':
-                      var w;
-                      var h;
-                      if (w == null || w == '') {
-                          w=($(window).width()*0.9);
-                      };
-                      if (h == null || h == '') {
-                          h=($(window).height() - 50);
-                      };
-                      var index = layer.open({
-                          type: 2,
-                          title: "编辑部门页面",
-                          area: [w+'px', h +'px'],
-                          fix: false, //不固定
-                          maxmin: true,
-                          shadeClose: true,
-                          shade: 0.4,
-                          skin: 'layui-layer-rim',
-                          content: ["${pageContext.request.contextPath}/dept/to_deptUpdate?depId="+data.depid, "no"],
-                      });
+                      x_admin_show('修改员工信息',"${pageContext.request.contextPath}/dept/to_deptUpdate?depId="+data.depid);
                       break;
                   case 'del':
                       var delIndex = layer.confirm('真的删除id为' + data.depid + "的信息吗?", function(delIndex) {
@@ -168,7 +150,6 @@
                               success: function(suc) {
                                       obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                                       layer.close(delIndex);
-                                      console.log(delIndex);
                                       layer.msg("删除成功", {
                                           icon: 1
                                       });

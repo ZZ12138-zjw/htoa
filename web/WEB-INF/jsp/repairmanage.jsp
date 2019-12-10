@@ -42,7 +42,7 @@
                 ,cols: [[ //表头
                     {type:'checkbox'}
                     ,{field: 'repairID', title: 'ID', width:80, sort: true}
-                    ,{field: 'repairMan', title: '报修人', width:80}
+                    ,{field: 'repairMan', title: '申请人', width:80}
                     ,{field: 'repairName', title: '报修名称', width: 120}
                     ,{field: 'repairSort', title: '报修类别', width:90, sort: true}
                     ,{field: 'repairStatus', title: '报修状态', width:90, sort: true}
@@ -66,7 +66,7 @@
                     ids.push(val.repairID);
                 });
                 if(data.length>0){
-                    layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
+                    layer.confirm('确定要删除选中的信息吗?',{icon:3,title:'提示信息'},function (index) {
                         //layui中找到Checkbox所在的行,并遍历行的顺序
                         $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
                             $.post("${pageContext.request.contextPath}/repaircontro/alldelete",{
@@ -130,7 +130,7 @@
                         content: ["${pageContext.request.contextPath}/repaircontro/to_editrepairmanage?repairid="+data.repairID],
                     });
                 }else if(obj2.event == "del"){
-                    var delIndex = layer.confirm('真的删除id为' + data.repairID + "的信息吗?", function(delIndex) {
+                    var delIndex = layer.confirm('真的删除编号为' + data.repairID + "的信息吗?", function(delIndex) {
                         $.ajax({
                             url: '${pageContext.request.contextPath}/repaircontro/delrepairmanage',
                             data:{repairID:data.repairID},

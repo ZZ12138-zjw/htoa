@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 /**
  * @author @ZZ12138-zjw
- * @date 2019/12/8 20:35
+ * @date 2019/12/9 14:29
  */
+
 @Entity
 @Table(name = "repairManage")
 public class RepairManageVo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer repairID;

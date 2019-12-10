@@ -21,7 +21,7 @@
     <div class="layui-container" style="padding: 20px 0;">
         <form class="layui-form" id="layuiform">
             <div class="layui-form-item">
-                <label class="layui-form-label">报修人</label>
+                <label class="layui-form-label">申请人</label>
                 <div class="layui-input-block">
                     <input type="text" id="repairMan" name="repairMan" required  lay-verify="required" placeholder="请输入报修人姓名" autocomplete="off" class="layui-input">
                 </div>
