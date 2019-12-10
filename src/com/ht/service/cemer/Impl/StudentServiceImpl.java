@@ -117,4 +117,9 @@ public class StudentServiceImpl extends BaseDao implements StudentService {
     public List selectAllEmp() {
         return listByHql("from EmpVo");
     }
+
+    @Override
+    public List selectAllReplyScore() {
+        return listByHql("from ReplyScoreVo");
+    }
 }

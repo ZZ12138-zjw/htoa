@@ -52,4 +52,6 @@ public interface StudentService {
 
     List selectAllEmp();
 
+    List selectAllReplyScore();
+
 }

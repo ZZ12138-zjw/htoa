@@ -259,7 +259,7 @@
                 ,method:'post'
                 ,url:'<%=request.getContextPath()%>/student/replyScore/select?stuId='+studentId
                 ,cols:[[
-                    {field: 'proName', title: '项目答辩名称', width:100, sort: true}
+                    {field: 'proName', title: '项目答辩名称', width:120, sort: true}
                     ,{field: 'empName', title: '打分老师', width:100, sort: true}
                     ,{field: 'score1', title: '功能完善(满分50)', width:150}
                     ,{field: 'score2', title: '技术难度(满分10)', width:150, sort: true}
