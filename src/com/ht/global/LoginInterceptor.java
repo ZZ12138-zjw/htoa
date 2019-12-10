@@ -30,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
        }
        //转发到登录页面
-       httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/to_login");
+       httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login.jsp");
 
        return false;
     }
