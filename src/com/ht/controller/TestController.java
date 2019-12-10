@@ -3,6 +3,9 @@ package com.ht.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by shkstart on 2019/12/3
  * @author LaIWeiChun

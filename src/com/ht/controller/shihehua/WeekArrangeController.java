@@ -73,7 +73,7 @@ public class WeekArrangeController {
     @RequestMapping("/toweekarrange_update")
     public String toweekarrange_update(Map map,String weekArrangeid){
         WeekArrangeVo weekArrangeVo = iw.selWeekArrange(Integer.parseInt(weekArrangeid));
-        map.put("weekarrangeList",weekArrangeid);
+        map.put("weekarrangeList",weekArrangeVo);
         map.put("empList",ie.selectAll());
         return "weekarrange_update";
     }

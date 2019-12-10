@@ -45,6 +45,7 @@
             elem: '#uploadFile'
             ,auto: false
             ,bindAction: '#get'
+            ,accept:'file'
             ,drag:true
             ,auto: false
             ,done: function(res){

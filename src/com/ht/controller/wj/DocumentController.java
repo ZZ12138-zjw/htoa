@@ -51,7 +51,7 @@ public class DocumentController {
 
     @ResponseBody
     @RequestMapping("/touploadoc")
-    public JSONObject touploadoc(MultipartFile file, dataDocVo docVo, HttpServletRequest request) throws IOException {
+    public Map<String, Object> touploadoc(MultipartFile file, dataDocVo docVo, HttpServletRequest request) throws IOException {
         System.out.println("进入服务器");
         //获取原文件名
         String oldName = file.getOriginalFilename();
@@ -93,9 +93,10 @@ public class DocumentController {
         docVo.setEmpId(12);
         docVo.setUrl(filepath);
         documentService.addDoc(docVo);
-        JSONObject resObj = new JSONObject();
-        resObj.put("msg", "ok");
-        return resObj;
+        Map map = new HashMap<String,Object>();
+        map.put("code",200);
+        map.put("msg", "ok");
+        return map;
     }
 
     @ResponseBody
@@ -107,11 +108,14 @@ public class DocumentController {
 
     @ResponseBody
     @RequestMapping("/deletes")
-    public String deletes(String id){
+    public String deletes(String[] id){
         System.out.println("删除");
-        id=id.substring(0,id.length()-1);
-        System.out.println("sid "+id);
-        documentService.deletes(id);
+        String docIds = "";
+        for (int i=0;i<id.length;i++){
+            docIds+=id[i]+",";
+        }
+        String docid = docIds.substring(0,docIds.length()-1);
+        documentService.deletes(docid);
         return "success";
     }
 }
