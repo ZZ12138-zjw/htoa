@@ -75,7 +75,6 @@
                         setTimeout(function () {
                             window.parent.location.reload(); //修改成功后刷新父界面
                         })
-
                     });
                 }
             },"text");
