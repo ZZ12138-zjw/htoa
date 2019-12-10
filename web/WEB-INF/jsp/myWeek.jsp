@@ -27,7 +27,7 @@
 
         <script type="text/html" id="barDemo2">
             <button class="layui-btn layui-btn-danger" id="delsel"><i class="layui-icon"></i>批量删除</button>
-            <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/myweek/weekAdd')"><i class="layui-icon"></i>添加周报</button>
+            <button class="layui-btn" onclick="x_admin_show('添加周报','${pageContext.request.contextPath}/myweek/weekAdd')"><i class="layui-icon"></i>添加周报</button>
         </script>
         <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
 
@@ -64,7 +64,7 @@
                         ,{field:'studentQuestion',width:200,title: '问题学生情况反馈'}
                         ,{field:'idea',width:150,title: '意见建议'}
                         ,{field:'weekNext',width:200,title: '下周工作计划'}
-                        ,{fixed: 'right', title:'操作',width:200,toolbar: '#barDemo'}
+                        ,{fixed: 'right', title:'操作',width:300,toolbar: '#barDemo'}
                     ]
                 ]
                 ,limits: [5,10,20,50]
