@@ -25,9 +25,6 @@
 </head>
 <body>
 
-<xblock>
-    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-</xblock>
 <div class="layui-row">
     <table id="demo" lay-filter="test"></table>
 </div>
@@ -65,6 +62,7 @@
 </div>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加学生','<%=request.getContextPath()%>/student/toAdd')"><i class="layui-icon"></i>添加</button>
     </div>
 </script>
