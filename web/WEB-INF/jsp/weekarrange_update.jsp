@@ -12,7 +12,7 @@
   
   <body>
     <div class="x-body">
-        <form class="layui-form" lay-filter="add">
+        <form class="layui-form" lay-filter="update">
             <input type="hidden" name="weekArrangeid" value="${weekarrangeList.weekArrangeid}">
               <div class="layui-form-item">
                   <label for="orderId" class="layui-form-label">
@@ -55,7 +55,7 @@
                 <div class="layui-input-inline">
                     <select id="empId"  name="empId" lay-verify="required">
                         <c:forEach items="${empList}" var="e">
-                            <option value="${e.empId}" ${weekarrangeList.empId==e.empId ? 'selected' : ''}>${e.empNane}</option>
+                            <option value="${e.empId}" ${weekarrangeList.empId==e.empId ? 'selected' : ''}>${e.empName}</option>
                         </c:forEach>
                     </select>
                 </div>
