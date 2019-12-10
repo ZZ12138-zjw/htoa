@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface MyWeekService {
-    List selweek(String empName, int currPage, int pageSize,HttpSession session);
+    List selweek(int currPage,int pageSize);
     void addDoc(WeeklyVo weeklyVo);
-    int selCount(HttpSession session);
+    int selCount();
 }

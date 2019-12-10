@@ -46,12 +46,12 @@ public class MyWeekController {
     //查询所有周报
     @RequestMapping("/myweekList")
     @ResponseBody
-    public Map myweekList(String page, String limit,HttpSession session,String empName){
+    public Map myweekList(String page, String limit){
         Map map=new HashMap();
         map.put("code",0);
         map.put("msg"," ");
-        map.put("count",myWeekService.selCount(session));
-        JSONArray jsonArray=(JSONArray) JSON.toJSON(myWeekService.selweek(empName,Integer.parseInt(page),Integer.parseInt(limit),session));
+        map.put("count",myWeekService.selCount());
+        JSONArray jsonArray=(JSONArray) JSON.toJSON(myWeekService.selweek(Integer.parseInt(page),Integer.parseInt(limit)));
         map.put("data",jsonArray);
         System.out.println(map.toString());
         return map;
