@@ -53,7 +53,7 @@
             <label class="layui-form-label"><span class="x-red">*</span>性别</label>
             <div class="layui-input-block">
                 <input type="radio"  name="sex" required="" lay-verify="required"
-                   value="男" autocomplete="off" class="layui-input" title="男">
+                   value="男" autocomplete="off" class="layui-input" title="男" checked>
                 <input type="radio"  name="sex" required="" lay-verify="required"
                        value="女" autocomplete="off" class="layui-input" title="女">
             </div>

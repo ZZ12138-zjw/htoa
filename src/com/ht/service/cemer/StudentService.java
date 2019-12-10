@@ -5,7 +5,8 @@
 
 package com.ht.service.cemer;
 
-import com.ht.vo.student.StudentVo;
+import com.ht.vo.student.*;
+
 import java.util.List;
 
 public interface StudentService {
@@ -22,4 +23,33 @@ public interface StudentService {
     StudentVo getById(int stuId);
 
     void updStu(StudentVo studentVo);
+
+    void delStu(StudentVo studentVo);
+
+    List selectStuFamily(int stuId);
+
+    List selectStuEdu(int stuId);
+
+    List selectStuHap(int stuId);
+
+    List selectHoliday(int stuId);
+
+    List selectReplyScore(int stuId);
+
+    List selectScore(int stuId);
+
+    void addStuFal(StudentFamily studentFamily);
+
+    void addStuEdu(StudentEduVo studentEduVo);
+
+    void addStuHap(StudentHappeningVo studentHappeningVo);
+
+    void addStuHoliday(holidayStudentVo holidayStudentVo);
+
+    void addStuReScore(StudentReplyScoreVo studentReplyScoreVo);
+
+    void addStuScore(StudentScoreVo studentScoreVo);
+
+    List selectAllEmp();
+
 }

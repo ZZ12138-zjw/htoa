@@ -20,7 +20,7 @@ public class FamilyInfoVo {
     private String contactName; //联系人名称
     private String relationship; //与员工关系
     private String Phone; //联系电话
-    private String Remark; //说明
+    private String remark; //说明
 
     public Integer getFamilyid() {
         return familyid;
@@ -63,11 +63,11 @@ public class FamilyInfoVo {
     }
 
     public String getRemark() {
-        return Remark;
+        return remark;
     }
 
     public void setRemark(String remark) {
-        Remark = remark;
+        remark = remark;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class FamilyInfoVo {
                 ", contactName='" + contactName + '\'' +
                 ", relationship='" + relationship + '\'' +
                 ", Phone='" + Phone + '\'' +
-                ", Remark='" + Remark + '\'' +
+                ", Remark='" + remark + '\'' +
                 '}';
     }
 }
