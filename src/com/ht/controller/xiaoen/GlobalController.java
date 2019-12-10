@@ -38,5 +38,13 @@ public class GlobalController {
         return  "success";
     }
 
+    @RequestMapping("/sign_out")
+    public String sign_out(HttpSession session){
+        session.invalidate();
+        return "redirect:login.jsp";
+    }
+
+
+
 
 }
