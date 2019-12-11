@@ -3,8 +3,7 @@ package com.ht.controller.xiaoen;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.ht.service.xiaoen.IDeptService;
-import com.ht.service.xiaoen.IEmpService;
+import com.ht.service.xiaoen.*;
 import com.ht.vo.employee.DeptVo;
 import com.ht.vo.employee.EmpCkBean;
 import com.ht.vo.employee.EmpVo;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParsePosition;
@@ -37,6 +35,22 @@ public class EmpController {
 
     @Autowired
     private IDeptService dept;
+
+    @Autowired
+    private IJobService job;
+
+    @Autowired
+    private IFamilyInfoService familyInfo;
+
+    @Autowired
+    private ICertificatesService certificates;
+
+    @Autowired
+    private IEducationService education;
+
+    @Autowired
+    private IDocumentService documentEmpService;
+
 
 
     @RequestMapping("/to_emplist")
@@ -198,6 +212,56 @@ public class EmpController {
         emp.update(empVo);
         return "success";
     }
+
+    @RequestMapping("/jobList")
+    @ResponseBody
+    public Map jobList(int empId){
+        Map map=new HashMap();
+        map.put("code",0);
+        map.put("msg","无数据");
+        map.put("count",job.selectCount());
+        map.put("data",job.selectAll(empId));
+        return  map;
+    }
+
+    @RequestMapping("/educationList")
+    @ResponseBody
+    public Map educationList(int empId){
+        Map map=new HashMap();
+        map.put("code",0);
+        map.put("msg","无数据");
+        map.put("count",education.selectCount());
+        map.put("data",education.selectAll(empId));
+        return  map;
+    }
+
+    @RequestMapping("/familylnfoList")
+    @ResponseBody
+    public Map familylnfoList(int empId){
+
+        Map map=new HashMap();
+        map.put("code",0);
+        map.put("msg","无数据");
+        System.out.println(familyInfo.selectCount()+" "+familyInfo.selectAll(empId));
+        map.put("count",familyInfo.selectCount());
+        map.put("data",familyInfo.selectAll(empId));
+        return  map;
+    }
+
+
+    @RequestMapping("/documentList")
+    @ResponseBody
+    public Map documentList(int empId){
+        Map map=new HashMap();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",documentEmpService.selectCount());
+        map.put("data",documentEmpService.selectAll(empId));
+        return  map;
+    }
+
+
+
 
 
 

@@ -4,6 +4,7 @@ import com.ht.dao.BaseDao;
 import com.ht.service.shihehua.ICourseService;
 import com.ht.service.xiaoen.ICertificatesService;
 import com.ht.vo.employee.CertificatesVo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by shkstart on 2019/12/10
  * @author LaiWeiChun
  */
+@Service
 public class CertificatesServiceImpl extends BaseDao implements ICertificatesService {
 
 
