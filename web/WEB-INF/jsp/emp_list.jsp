@@ -1,16 +1,15 @@
 <%@ page import="com.ht.vo.employee.PostName" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
-  
   <head>
     <meta charset="UTF-8">
     <title>员工列表</title>
     <jsp:include page="top.jsp"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/public.css">
   </head>
-
   <body>
   <div class="layuimini-container">
       <div class="layuimini-main">
@@ -69,28 +68,82 @@
               </div>
           </fieldset>
 
-          <script type="text/html" id="currentTableBar2">
-              <button class="layui-btn layui-btn-danger" id="delSelect" ><i class="layui-icon"></i>批量删除</button>
-              <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-          </script>
 
+          <%--员工表--%>
           <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
+          <%--附表选项页--%>
+          <div class="layui-tab">
+              <ul class="layui-tab-title">
+                  <li class="layui-this">学历查看</li>
+                  <li>教育背景</li>
+                  <li>家庭联系信息</li>
+                  <li>员工考核</li>
+                  <li>证件上传</li>
+              </ul>
+              <div class="layui-tab-content" >
+                  <div class="layui-tab-item layui-show">
+                      <xblock>
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary" id="gljlAdd" >
+                              <i class="layui-icon">&#xe654;</i>
+                              添加
+                          </button>
+                      </xblock>
+                      <table class="layui-hide" id="gzjlTable"  lay-filter="gzjlTableFilter" ></table>
+                  </div>
+                  <div class="layui-tab-item">
+                      <xblock>
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  >
+                              <i class="layui-icon">&#xe654;</i>
+                              添加
+                          </button>
+                      </xblock>
+                      <table class="layui-hide" id="jiaoyuTable" lay-filter="jiaoyuTableFilter"></table>
+                  </div>
+                  <div class="layui-tab-item">
+                      <xblock>
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary" >
+                              <i class="layui-icon">&#xe654;</i>
+                              添加
+                          </button>
+                      </xblock>
+                      <table class="layui-hide" id="jiatingTable" lay-filter="jiatingTableFilter"></table>
+                  </div>
+                  <div class="layui-tab-item">
+                      <xblock>
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  >
+                              <i class="layui-icon">&#xe654;</i>
+                              添加
+                          </button>
+                      </xblock>
+                      <table class="layui-hide" id="ygTable" lay-filter="ygTableFilter"></table>
+                  </div>
+                  <div class="layui-tab-item">
+                      <xblock>
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  >
+                              <i class="layui-icon">&#xe654;</i>
+                              添加
+                          </button>
+                      </xblock>
+                      <table class="layui-hide" id="zjUpTable" lay-filter="zjUpTableFilter"></table>
+                  </div>
+              </div>
+          </div>
 
+          <%--员工表工具--%>
           <script type="text/html" id="currentTableBar">
                   <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
                   <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
           </script>
-
-
           <script type="text/html" id="reset-btn">
                <a class="layui-btn layui-btn-xs" lay-event="resetPwd" >
                    <i class="layui-icon  layui-icon-refresh"></i>
                     重置密码
                </a>
           </script>
-
-          <%--禁用启用--%>
+          <script type="text/html" id="currentTableBar2">
+              <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
+          </script>
           <script type="text/html" id="statusBtn">
               {{# if(d.status==1){ }}
                 <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="prohibit">
@@ -105,110 +158,70 @@
               </a>
               {{# } }}
           </script>
-          <div class="layui-tab layui-tab-card">
-              <ul class="layui-tab-title">
-                  <li class="layui-this">工作经历</li>
-                  <li>教育背景</li>
-                  <li>家庭联系信息</li>
-                  <li>员工考核</li>
-                  <li>证件上传</li>
-              </ul>
-              <div class="layui-tab-content" style="height: 100px;">
-                  <%--工作经历begin--%>
-                  <div class="layui-tab-item layui-show">
-                      <table class="layui-hide" id="jobTable" lay-filter="jobTableFilter"></table>
-                  </div>
-                  <%--工作经历end--%>
-                  <%--教育背景begin--%>
-                  <div class="layui-tab-item">
-                      <table class="layui-hide" id="educationTable" lay-filter="educationTableFilter"></table>
-                  </div>
-                  <%--教育背景end--%>
-                   <%--家庭背景begin--%>
-                  <div class="layui-tab-item">
-                      <table class="layui-hide" id="familyInfoTable" lay-filter="familyInfoTableFilter"></table>
-                  </div>
-                  <%--家庭背景end--%>
-                  <%--考核管理begin--%>
-                  <div class="layui-tab-item">
-                      <table class="layui-hide" id="assessmentTable" lay-filter="assessmentTableFilter"></table>
-                  </div>
-                   <%--考核管理end--%>
-                  <div class="layui-tab-item">
-                      <table class="layui-hide" id="certificatesTable" lay-filter="certificatesTableFilter"></table>
-                  </div>
-              </div>
-          </div>
-      </div>
+
+          <%--工作经历--%>
+          <script type="text/html" id="gzjlBar">
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
+          </script>
+          <%--教育背景--%>
+          <script type="text/html" id="jiaoyuTableBar">
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
+          </script>
+          <script type="text/html" id="jiaoyuTableBar2">
+              <button   class="layui-btn layui-btn-sm layui-btn-primary">
+                  <i class="layui-icon">&#xe654;</i>
+                  添加
+              </button>
+          </script>
+          <%--家庭背景--%>
+          <script type="text/html" id="jiatingTableBar">
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
+          </script>
+          <script type="text/html" id="jiatingTableBar2">
+              <button   class="layui-btn layui-btn-sm layui-btn-primary">
+                  <i class="layui-icon">&#xe654;</i>
+                  添加
+              </button>
+          </script>
+          <%--家庭背景--%>
+          <script type="text/html" id="jiatingTableBar">
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
+          </script>
+          <script type="text/html" id="jiatingTableBar2">
+              <button type="button"   class="layui-btn layui-btn-sm layui-btn-primary">
+                  <i class="layui-icon">&#xe654;</i>
+                  添加
+              </button>
+          </script>
+          <%--家庭背景--%>
+          <script type="text/html" id="zjUpTableBar">
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
+              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
+          </script>
+          <script type="text/html" id="zjUpTableBar2">
+              <button   class="layui-btn layui-btn-sm layui-btn-primary">
+                  <i class="layui-icon">&#xe654;</i>
+                  添加
+              </button>
+          </script>
+    </div>
   </div>
-
-  <script type="text/html" id="jobTableBar2">
-      <button class="layui-btn layui-btn-danger" id="jobDelSelect" ><i class="layui-icon"></i>批量删除</button>
-      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-  </script>
-  <script type="text/html" id="jobTableBar">
-      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-  </script>
-  <script type="text/html" id="educationTableBar2">
-      <button class="layui-btn layui-btn-danger" id="educationDelSelect" ><i class="layui-icon"></i>批量删除</button>
-      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-  </script>
-  <script type="text/html" id="educationTableBar">
-      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-  </script>
-  <script type="text/html" id="familyInfoTabBar2">
-      <button class="layui-btn layui-btn-danger" id="familyInfoDelSelect" ><i class="layui-icon"></i>批量删除</button>
-      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-  </script>
-  <script type="text/html" id="familyInfoTabBar">
-      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-  </script>
-  <script type="text/html" id="assessmentTableBar2">
-      <button class="layui-btn layui-btn-danger" id="assessmentDelSelect" ><i class="layui-icon"></i>批量删除</button>
-      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-  </script>
-  <script type="text/html" id="assessmentTableBar">
-      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-  </script>
-  <script type="text/html" id="certificatesTableBar2">
-      <button class="layui-btn layui-btn-danger" id="certificatesDelSelect" ><i class="layui-icon"></i>批量删除</button>
-      <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
-  </script>
-  <script type="text/html" id="certificatesTableBar">
-      <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-  </script>
+  </body>
   <script type="text/javascript">
-
-        //选择部门下拉框赋值
-        $(function () {
-            $.get("${pageContext.request.contextPath}/emp/depName",{},function (data) {
-                $("#selectDep").prepend("<option value='' class='layui-input'>未选择</option>");
-                $.each(JSON.parse(data),function (index,item) {
-                    $("#selectDep").append("<option value='"+item+"' >"+item+"</option>")
-                });
-                //最终的赋值填空是依赖这句话
-                layui.form.render("select");
-            });
-        });
-
       layui.use(['form', 'table'], function () {
-          var $ = layui.jquery,
-              form = layui.form,
-              table = layui.table;
+          var $ = layui.jquery, form = layui.form,table = layui.table;
 
           /*员工信息*/
           table.render({
               id:"currentTableId",
               elem: '#currentTableId',
               url: '${pageContext.request.contextPath}/emp/empList',
-              height:350,
               cols: [[
-                  {checkbox:true, width:50},
+                  {type:'radio', width:50},
                   {field: 'empId', width:100, title: 'ID', sort: true},
                   {field: 'empName', width:150, title: '员工姓名'},
                   {field: 'depName', width:150, title: '部门'},
@@ -226,70 +239,12 @@
               toolbar:"#currentTableBar2"
           });
 
-          /*工作经历*/
-          table.render({
-              id:"jobTableId",
-              elem: '#jobTable',
-              url: '',
-              height:200,
-              cols: [[
-                  {checkbox:true, width:50},
-                  {field: 'companyName', width:100, title: '公司名称'},
-                  {field: 'degree', width:150, title: '岗位'},
-                  {field: 'startDate', width:150, title: '入职时间'},
-                  {field: 'endDate', width:150, title: '离职时间'},
-                  {field: 'reason', width:100, title: '离职原因'},
-                  {field: 'remark', width:150, title: '说明'},
-                  { width:150, title: '操作',toolbar: '#jobTableBar'}
-              ]],
-              limits: [10, 15, 20, 25, 50, 100],
-              limit: 10,
-              page: true,
-              toolbar:"#jobTableBar2"
+
+          //监听行双击事件(查看附表信息)
+          table.on('rowDouble(currentTableFilter)',function (obj) {
+              var data=obj.data; //获取当前表格数据
+              addSchedule(data.empId,table);
           });
-
-          /*学历背景*/
-          table.render({
-              id:"educationTableId",
-              elem: '#educationTable',
-              url: '',
-              height:200,
-              cols: [[
-                  {checkbox:true, width:50},
-                  {field: 'collegeName', width:250, title: '学校名称'},
-                  {field: 'degree', width:150, title: '学历'},
-                  {field: 'startDate', width:150, title: '入校时间'},
-                  {field: 'endDate', width:150, title: '毕业时间'},
-                  {field: 'remark', width:100, title: '说明'},
-                  {field: 'right', width:250, title: '操作',toolbar: '#educationTableBar'}
-              ]],
-              limits: [10, 15, 20, 25, 50, 100],
-              limit: 10,
-              page: true,
-              toolbar:"#educationTableBar2"
-          });
-
-          /*家庭联系人信息*/
-          table.render({
-              id:"educationTableId",
-              elem: '#educationTable',
-              url: '',
-              height:200,
-              cols: [[
-                  {checkbox:true, width:50},
-                  {field: 'contactName', width:250, title: '联系人名称'},
-                  {field: 'relationship', width:150, title: '与员工关系'},
-                  {field: 'Phone', width:150, title: '联系电话'},
-                  {field: 'remark', width:100, title: '说明'},
-                  {field: 'right', width:250, title: '操作',toolbar: '#educationTableBar'}
-              ]],
-              limits: [10, 15, 20, 25, 50, 100],
-              limit: 10,
-              page: true,
-              toolbar:"#educationTableBar2"
-          });
-
-
 
           // 监听搜索操作
           form.on('submit(data-search-btn)', function (data) {
@@ -312,8 +267,16 @@
               return false;
           });
 
+          //监听表格工具栏
+          table.on('tool(gzjlTableFilter)',function (obj) {
+              alert("dasda");
+              var data=obj.data;
+              if (obj.event=='gzjlAdd'){
+                  alert(data.companyName);
+              }
+          });
 
-          //批量删除
+         /* //批量删除
           $('#delSelect').on('click',function () {
               //获得表格CheckBox已经选中的行的信息
               //lay-data="id:info"
@@ -337,9 +300,9 @@
                                   $("div.layui-table-body table tbody").find("tr:eq("+n+")").remove();
                                   //如果是全选移除，就将全选CheckBox还原为未选中状态
                                   $("div.layui-table-header table thead div.layui-unselect.layui-form-checkbox").removeClass("layui-form-checked");
-                                  /*setTimeout(function () {
+                                  /!*setTimeout(function () {
                                       window.location.reload(); //修改成功后刷新父界面
-                                  })*/
+                                  })*!/
                               }else {
                                   layer.alert('删除失败',{
                                       icon:2
@@ -356,12 +319,22 @@
               }else {
                   layer.msg('请选择需要删除的行');
               }
-          }); //批量删除操作结束
+          });*/
 
+          $('#gljlAdd').on('click',function () {
+            var checkStatus = table.checkStatus('currentTableId');
+            if (checkStatus.data==""){
+               layui.msg("请选择一个员工");
+            }else {
+                x_admin_show('添加工作经历','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+checkStatus.data.empId);
+            }
 
+          });
+
+          //监听员工表的工具栏
           table.on('tool(currentTableFilter)', function (obj) {
               var data = obj.data;
-              if (obj.event === 'edit') {
+              if (obj.event == 'edit') {
                   x_admin_show('修改员工信息','<%=request.getContextPath()%>/emp/to_empUpdate?empId='+data.empId);
               } else if (obj.event === 'delete') {
                   layer.confirm('真的删除行么', function (index) {
@@ -407,8 +380,10 @@
                   });
               }
           });
-          
+
+
       });
+
 
 
       //重载表格
@@ -425,15 +400,90 @@
           }, 'data');
       }
 
+      //附表表格赋值
+      function  addSchedule(empId,table){
+          /*工作经历*/
+          table.render({
+              id:"gzjlTableId",
+              elem: '#gzjlTable',
+              url: '${pageContext.request.contextPath}/emp/jobList?empId='+empId,
+              cols: [[
+                  {field: 'companyName', width:100, title: '公司名称'},
+                  {field: 'degree', width:80, title: '岗位'},
+                  {field: 'startDate', width:150, title: '入职时间',templet:function (row) {
+                          return  createTime(row.startDate);
+                      }},
+                  {field: 'endDate', width:200, title: '离职时间'},
+                  {field: 'reason', width:250, title: '离职原因'},
+                  {field: 'remark', width:250, title: '说明'},
+                  {field: 'right', width:150, title: '操作',toolbar: '#gzjlBar'}
+              ]]
+          });
+
+          /*教育背景*/
+          table.render({
+              id:'jiaoyuTableId',
+              elem:'#jiaoyuTable',
+              url:'${pageContext.request.contextPath}/emp/educationList?empId='+empId,
+              cols:[[
+                  {field: 'collegeName', width:100, title: '学校名称'},
+                  {field: 'degree', width:80, title: '学历'},
+                  {field: 'startDate', width:150, title: '入校时间',templet:function (row) {
+                          return createTime(row.startDate);
+                      }},
+                  {field: 'endDate', width:200, title: '毕业时间',templet:function (row) {
+                          return createTime(row.endDate);
+                      }},
+                  {field: 'remark', width:250, title: '说明'},
+                  {field: 'right', width:150, title: '操作',toolbar: '#jiaoyuTableBar'}
+              ]]
+          });
+
+          /*家庭联系*/
+          table.render({
+              id:"jiatingTableId",
+              elem: '#jiatingTable',
+              url: '${pageContext.request.contextPath}/emp/familylnfoList?empId='+empId,
+              cols: [[
+                  {field: 'contactName', width:150, title: '联系人名称'},
+                  {field: 'relationship', width:150, title: '与员工关系'},
+                  {field: 'Phone', width:150, title: '联系电话'},
+                  {field: 'remark', width:250, title: '说明'},
+                  {field: 'right', width:150, title: '操作',toolbar: '#jiatingTableBar'}
+              ]]
+          });
+          /*员工考核*/
+          /*证件上传*/
+          table.render({
+              id:"zjUpTableId",
+              elem: '#zjUpTable',
+              url: '${pageContext.request.contextPath}/emp/documentList?empId='+empId,
+              cols: [[
+                  {field: 'empId', width:100, title: '员工名称'},
+                  {field: 'docName', width:80, title: '证件名称'},
+                  {field: 'docPath', width:150, title: '上传证件'},
+                  {field: 'upDate', width:150, title: '上传时间',templet:function (data) {
+                          return createTime(data.upDate);
+                      }},
+                  {field: 'upEmp', width:150, title: '上传人'},
+                  {field: 'remark', width:250, title: '备注'},
+                  {field: 'right', width:150, title: '操作',toolbar: '#zjUpTableBar'}
+              ]]
+          });
+
+      }
+
+      //选择部门下拉框赋值
+      $(function () {
+          $.get("${pageContext.request.contextPath}/emp/depName",{},function (data) {
+              $("#selectDep").prepend("<option value='' class='layui-input'>未选择</option>");
+              $.each(JSON.parse(data),function (index,item) {
+                  $("#selectDep").append("<option value='"+item+"' >"+item+"</option>")
+              });
+              //最终的赋值填空是依赖这句话
+              layui.form.render("select");
+          });
+      });
+
   </script>
-
-    <script>var _hmt = _hmt || []; (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();</script>
-  </body>
-
-
 </html>

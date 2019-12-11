@@ -87,6 +87,7 @@ public class CheckInsertController {
         List list = iCheckInsertService.selectAll();
         CheckInsertVo vo = iCheckInsertService.selInsertByID(Integer.parseInt(iD));
         vo.setID(Integer.parseInt(iD));
+        System.out.println(vo.toString());
         model.put("allCheckIndex",list);
         model.put("checkInsert",vo);
         return "editcheckinsert";
@@ -95,6 +96,9 @@ public class CheckInsertController {
     @ResponseBody
     @RequestMapping("/editcheckinsert")
     public String editcheckinsert(CheckInsertVo vo){
+        List list = iCheckInsertService.selectCheckScore(vo.getCheckContent());
+        Map map = (HashMap)list.get(0);
+        vo.setCheckScore((Integer) map.get("checkScore"));
         System.out.println(vo.toString());
         iCheckInsertService.editCheckInsert(vo);
         return "true";
