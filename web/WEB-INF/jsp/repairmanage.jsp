@@ -14,6 +14,8 @@
 <body>
     <table id="demo" lay-filter="test"></table>
 
+
+
     <%--定义头部按钮--%>
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
