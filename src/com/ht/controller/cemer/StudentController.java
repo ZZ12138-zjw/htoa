@@ -143,11 +143,12 @@ public class StudentController {
         if(oname.equals("replyScore")){
             //empid打分老师，projectId答辩项目
             request.setAttribute("emps",this.studentService.selectAllEmp());
-            return "";
+            request.setAttribute("reScores",this.studentService.selectAllReplyScore());
+            return "ReplyScoreAdd";
         }
         if(oname.equals("score")){
             //termid学期号，testtypeid考试类型，courseid考试科目,empid录入人员
-            return "";
+            return "ScoreAdd";
         }
         return "";
     }
