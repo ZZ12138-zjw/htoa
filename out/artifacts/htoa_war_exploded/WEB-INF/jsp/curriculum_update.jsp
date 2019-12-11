@@ -71,7 +71,6 @@
                 success:function(data){
                     var lindex = layer.load();
                     if ('success'==data){
-                        alert(data);
                         layer.alert("修改成功", {icon: 6},function () {
                             layer.close(lindex);
                             // 获得frame索引
