@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.rmi.MarshalledObject;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -259,6 +260,13 @@ public class EmpController {
         map.put("data",documentEmpService.selectAll(empId));
         return  map;
     }
+
+    @RequestMapping("to_jobAdd")
+    public String toJobAdd(int empId,Map map){
+        map.put("empId",empId);
+        return "job_add";
+    }
+
 
 
 
