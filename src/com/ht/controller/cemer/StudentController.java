@@ -45,6 +45,8 @@ public class StudentController {
 
     @RequestMapping({"/studentInfo"})
     public String toStudentInfo(HttpServletRequest request) {
+        request.setAttribute("classes",this.studentService.selectAllClass());
+        request.setAttribute("hours",this.studentService.selectAllHour());
         request.setAttribute("studentInfo", this.studentService.getStudentInfo());
         System.out.println(this.studentService.getStudentInfo().toString());
         return "student_info";
@@ -108,22 +110,7 @@ public class StudentController {
         return "successful";
     }
 
-    @RequestMapping(value = "/class")
-    public String toClassPage(){
-        return "student_class";
-    }
-    @RequestMapping(value = "/classAll")
-    @ResponseBody
-    public Map getClassData(String page,String limit){
-        Map map = new HashMap();
-        map.put("code", 0);
-        map.put("msg", " ");
-        map.put("count", this.classService.selectAll().size());
-        JSONArray jsonArray = (JSONArray)JSON.toJSON(this.classService.selectByPage(Integer.parseInt(page), Integer.parseInt(limit)));
-        map.put("data", jsonArray);
-        System.out.println(map.toString());
-        return map;
-    }
+
 
     @RequestMapping(value = "{oname}/toAdd")
     public String otherToPage(@PathVariable("oname")String oname,HttpServletRequest request){
@@ -148,6 +135,10 @@ public class StudentController {
         }
         if(oname.equals("score")){
             //termid学期号，testtypeid考试类型，courseid考试科目,empid录入人员
+            request.setAttribute("terms",this.studentService.selectAllTerm());
+            request.setAttribute("types",this.studentService.selectAllTestType());
+            request.setAttribute("courses",this.studentService.selectAllCourse());
+            request.setAttribute("emps",this.studentService.selectAllEmp());
             return "ScoreAdd";
         }
         return "";
