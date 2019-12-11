@@ -16,7 +16,7 @@
     <div class="layui-container" style="padding: 20px 0;">
     <form class="layui-form" id="layuiform">
         <input type="hidden" id="ID" name="ID" value="${checkInsert.ID}"/>
-        <input type="hidden" id="checkScore" name="checkScore" value="${checkInsert.checkScore}"/>
+        <%--<input type="hidden" id="checkScore" name="checkScore" value="${checkInsert.checkScore}"/>--%>
         <div class="layui-form-item">
             <label class="layui-form-label">考核内容</label>
             <div class="layui-input-inline">
