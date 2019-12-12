@@ -66,4 +66,7 @@ public interface StudentService {
 
     List selectAllHour();
 
+    List selectBySearch(int page,int size,StudentSearch studentSearch);
+
+    int selectBySearchCount(StudentSearch studentSearch);
 }

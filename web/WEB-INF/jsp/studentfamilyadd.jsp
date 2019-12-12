@@ -25,6 +25,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
+        <input type="hidden" name="stuid" value="<%=request.getAttribute("stuId")%>">
         <div class="layui-form-item">
             <label for="familyname" class="layui-form-label">
                 <span class="x-red">*</span>亲属姓名

@@ -102,21 +102,57 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
+                <xblock>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" id="jtxxAdd">
+                        <i class="layui-icon">&#xe654;</i>
+                        添加
+                    </button>
+                </xblock>
                 <table id="fal" lay-filter="other1"></table>
             </div>
             <div class="layui-tab-item">
+                <xblock>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" id="jyjlAdd">
+                        <i class="layui-icon">&#xe654;</i>
+                        添加
+                    </button>
+                </xblock>
                 <table id="edu" lay-filter="other2"></table>
             </div>
             <div class="layui-tab-item">
+                <xblock>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" id="zxqkAdd">
+                        <i class="layui-icon">&#xe654;</i>
+                        添加
+                    </button>
+                </xblock>
                 <table id="stuHap" lay-filter="other3"></table>
             </div>
             <div class="layui-tab-item">
+                <xblock>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" id="xsqjAdd">
+                        <i class="layui-icon">&#xe654;</i>
+                        添加
+                    </button>
+                </xblock>
                 <table id="holiday" lay-filter="other4"></table>
             </div>
             <div class="layui-tab-item">
+                <xblock>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" id="xmdbAdd">
+                        <i class="layui-icon">&#xe654;</i>
+                        添加
+                    </button>
+                </xblock>
                 <table id="replyScore" lay-filter="other5"></table>
             </div>
             <div class="layui-tab-item">
+                <xblock>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" id="kscjAdd">
+                        <i class="layui-icon">&#xe654;</i>
+                        添加
+                    </button>
+                </xblock>
                 <table id="score" lay-filter="other6"></table>
             </div>
         </div>
@@ -124,7 +160,6 @@
 </div>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加学生','<%=request.getContextPath()%>/student/toAdd')"><i class="layui-icon"></i>添加</button>
     </div>
 </script>
@@ -182,13 +217,13 @@
         table.render({
             elem: '#demo'
             ,height: 312
-            ,url:'<%=request.getContextPath()%>/student/testdata'
+            ,url:'<%=request.getContextPath()%>/student/selectAll'
             ,toolbar: '#toolbarDemo'//开启头部工具栏，并为其绑定左侧模板
             ,page: true //开启分页
             ,method:'post'
             ,limit:10
             ,cols: [[ //表头
-                {checkbox:true}//开启多选框
+                {type:'radio',width:50}//开启多选框
                 ,{field: 'stuId', title: '学生编号', width:100, sort: true}
                 ,{field: 'stuName', title: '学生姓名', width:100, sort: true}
                 ,{field: 'stuno', title: '学号', width:70}
@@ -219,12 +254,101 @@
             ,id:'stuReload'
             ,limits: [5,10,20,50]
         });
+        
+        $("#jtxxAdd").on("click",function () {
+            var checkStatus = table.checkStatus('stuReload');
+            var data=checkStatus.data;
+            if(data==""){
+                layer.msg("请选择学生");
+            }else {
+                var stuId = "";
+                $.each(data,function (i,val) {
+                    stuId=val.stuId;
+                });
+                x_admin_show("添加学生家庭信息","<%=request.getContextPath()%>/student/stuFal/toAdd?stuId="+stuId);
+            }
+        });
+
+        $("#jyjlAdd").on("click",function () {
+            var checkStatus = table.checkStatus('stuReload');
+            var data=checkStatus.data;
+            if(data==""){
+                layer.msg("请选择学生");
+            }else {
+                var stuId = "";
+                $.each(data,function (i,val) {
+                    stuId=val.stuId;
+                });
+                x_admin_show("添加学生教育经历","<%=request.getContextPath()%>/student/stuEdu/toAdd?stuId="+stuId);
+            }
+        });
+
+        $("#zxqkAdd").on("click",function () {
+            var checkStatus = table.checkStatus('stuReload');
+            var data=checkStatus.data;
+            if(data==""){
+                layer.msg("请选择学生");
+            }else {
+                var stuId = "";
+                $.each(data,function (i,val) {
+                    stuId=val.stuId;
+                });
+                x_admin_show("添加学生在校情况","<%=request.getContextPath()%>/student/stuHap/toAdd?stuId="+stuId);
+            }
+        });
+
+        $("#xmdbAdd").on("click",function () {
+            var checkStatus = table.checkStatus('stuReload');
+            var data=checkStatus.data;
+            if(data==""){
+                layer.msg("请选择学生");
+            }else {
+                var stuId = "";
+                $.each(data,function (i,val) {
+                    stuId=val.stuId;
+                });
+                x_admin_show("添加学生项目答辩成绩","<%=request.getContextPath()%>/student/replyScore/toAdd?stuId="+stuId);
+            }
+        });
+
+        $("#kscjAdd").on("click",function () {
+            var checkStatus = table.checkStatus('stuReload');
+            var data=checkStatus.data;
+            if(data==""){
+                layer.msg("请选择学生");
+            }else {
+                var stuId = "";
+                $.each(data,function (i,val) {
+                    stuId=val.stuId;
+                });
+                x_admin_show("添加学生考试成绩","<%=request.getContextPath()%>/student/score/toAdd?stuId="+stuId);
+            }
+        });
+
+        $("#xsqjAdd").on("click",function () {
+            var checkStatus = table.checkStatus('stuReload');
+            var data=checkStatus.data;
+            if(data==""){
+                layer.msg("请选择学生");
+            }else {
+                var stuId = "";
+                $.each(data,function (i,val) {
+                    stuId=val.stuId;
+                });
+                x_admin_show("添加学生请假信息","<%=request.getContextPath()%>/student/holiday/toAdd?stuId="+stuId);
+            }
+        });
+
+
+
+
         form.on('submit(data-search-btn)',function (data) {
             table.reload('stuReload',{
                 page:{
                     curr:1
                 }
                 ,where:{
+
                     stuName:data.field.stuName,
                     phone:data.field.phone,
                     classid:data.field.classid,
@@ -271,17 +395,21 @@
 
             }
         })
-        table.on('rowDouble(test)',function(obj){
+        table.on('row(test)',function(obj){
             var oo = obj.tr; //得到当前行元素对象
-            var o = obj.data; //得到当前行数据
-            var stuId = o.stuId;
-            var stuName = o.stuName;
+            var data = obj.data; //得到当前行数据
+            var stuId = data.stuId;
+            var stuName = data.stuName;
+            selected =  data;
+            //选中行样式
+            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+            //选中radio样式
+            obj.tr.find('i[class="layui-anim layui-icon"]').trigger("click");
             addTable(stuId,stuName);
         });
         function addTable(studentId,studentName){
             table.render({
                 elem:"#fal"
-                ,toolbar:'#falbar'
                 ,url: '<%=request.getContextPath()%>/student/stuFal/select?stuId='+studentId
                 ,method:'post'
                 ,cols: [[
@@ -296,7 +424,6 @@
             });
             table.render({
                 elem:'#edu'
-                ,toolbar:'#edubar'
                 ,url:'<%=request.getContextPath()%>/student/stuEdu/select?stuId='+studentId
                 ,method:'post'
                 ,cols:[[
@@ -311,7 +438,6 @@
             });
             table.render({
                 elem:'#stuHap'
-                ,toolbar:'#hapbar'
                 ,url:'<%=request.getContextPath()%>/student/stuHap/select?stuId='+studentId
                 ,method:'post'
                 ,cols:[[
@@ -342,7 +468,6 @@
             })*/
             table.render({
                 elem:'#replyScore'
-                ,toolbar:'#replybar'
                 ,method:'post'
                 ,url:'<%=request.getContextPath()%>/student/replyScore/select?stuId='+studentId
                 ,cols:[[
@@ -361,7 +486,6 @@
             });
             table.render({
                 elem:'#score'
-                ,toolbar:'#scorebar'
                 ,method:'post'
                 ,url:'<%=request.getContextPath()%>/student/score/select?stuId='+studentId
                 ,cols:[[
