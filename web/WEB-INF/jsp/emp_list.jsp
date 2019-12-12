@@ -84,7 +84,7 @@
               <div class="layui-tab-content" >
                   <div class="layui-tab-item layui-show">
                       <xblock>
-                          <button   class="layui-btn layui-btn-sm layui-btn-primary" id="gljlAdd" >
+                          <button class="layui-btn layui-btn-sm layui-btn-primary" id="gljlAdd" >
                               <i class="layui-icon">&#xe654;</i>
                               添加
                           </button>
@@ -93,7 +93,7 @@
                   </div>
                   <div class="layui-tab-item">
                       <xblock>
-                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  >
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  id="jtbjAdd">
                               <i class="layui-icon">&#xe654;</i>
                               添加
                           </button>
@@ -170,44 +170,20 @@
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
           </script>
-          <script type="text/html" id="jiaoyuTableBar2">
-              <button   class="layui-btn layui-btn-sm layui-btn-primary">
-                  <i class="layui-icon">&#xe654;</i>
-                  添加
-              </button>
-          </script>
           <%--家庭背景--%>
           <script type="text/html" id="jiatingTableBar">
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
           </script>
-          <script type="text/html" id="jiatingTableBar2">
-              <button   class="layui-btn layui-btn-sm layui-btn-primary">
-                  <i class="layui-icon">&#xe654;</i>
-                  添加
-              </button>
-          </script>
           <%--家庭背景--%>
           <script type="text/html" id="jiatingTableBar">
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
-          </script>
-          <script type="text/html" id="jiatingTableBar2">
-              <button type="button"   class="layui-btn layui-btn-sm layui-btn-primary">
-                  <i class="layui-icon">&#xe654;</i>
-                  添加
-              </button>
           </script>
           <%--家庭背景--%>
           <script type="text/html" id="zjUpTableBar">
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
-          </script>
-          <script type="text/html" id="zjUpTableBar2">
-              <button   class="layui-btn layui-btn-sm layui-btn-primary">
-                  <i class="layui-icon">&#xe654;</i>
-                  添加
-              </button>
           </script>
     </div>
   </div>
@@ -242,9 +218,14 @@
 
 
           //监听行双击事件(查看附表信息)
-          table.on('rowDouble(currentTableFilter)',function (obj) {
+          table.on('row(currentTableFilter)',function (obj) {
               var data=obj.data; //获取当前表格数据
+              //选中行样式
+              obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+              //选中radio样式
+              obj.tr.find('i[class="layui-anim layui-icon"]').trigger("click");
               addSchedule(data.empId,table);
+
           });
 
           // 监听搜索操作
@@ -333,10 +314,10 @@
               }
           });*/
 
+          /*工具经历添加*/
           $('#gljlAdd').on('click',function () {
             var checkStatus = table.checkStatus('currentTableId');
             var data=checkStatus.data;
-
             if (data==""){
                layer.msg("请选择一个员工");
             }else {
@@ -347,6 +328,24 @@
                 x_admin_show('添加工作经历','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+empId);
             }
           });
+
+          /*教育背景添加*/
+          $("#").on('click',function () {
+              var checkStatus = table.checkStatus('currentTableId');
+              var data=checkStatus.data;
+              if (data==""){
+                  layer.msg("请选择一个员工");
+              }else {
+                  var empId="";
+                  $.each(data,function (i,val) {
+                      empId=val.empId;
+                  });
+                  x_admin_show('添加工作经历','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+empId);
+              }
+          });
+
+
+
 
 
           //监听员工表的工具栏
