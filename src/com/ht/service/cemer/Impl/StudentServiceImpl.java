@@ -122,4 +122,34 @@ public class StudentServiceImpl extends BaseDao implements StudentService {
     public List selectAllReplyScore() {
         return listByHql("from ReplyScoreVo");
     }
+
+    @Override
+    public List selectAllTerm() {
+        return listByHql("from TermVo");
+    }
+
+    @Override
+    public List selectAllTestType() {
+        return listByHql("from TestTypeVo");
+    }
+
+    @Override
+    public List selectAllCourse() {
+        return listByHql("from CourseVo");
+    }
+
+    @Override
+    public List selectAllFall() {
+        return listByHql("from StudentFallVo");
+    }
+
+    @Override
+    public List selectAllClass() {
+        return listByHql("from StudentClassVo");
+    }
+
+    @Override
+    public List selectAllHour() {
+        return listByHql("from StudentHuorVo");
+    }
 }

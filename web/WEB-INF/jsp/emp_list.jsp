@@ -20,13 +20,13 @@
                   <form class="layui-form layui-form-pane" action="">
                       <div class="layui-form-item">
                           <div class="layui-inline">
-                          <label class="layui-form-label">部门名称</label>
-                          <div class="layui-input-inline"  >
-                              <select name="depName" id="selectDep">
+                              <label class="layui-form-label">部门名称</label>
+                              <div class="layui-input-inline"  >
+                                  <select name="depName" id="selectDep">
 
-                              </select>
+                                  </select>
+                              </div>
                           </div>
-                      </div>
                           <div class="layui-inline">
                               <label class="layui-form-label">员工姓名</label>
                               <div class="layui-input-inline">
