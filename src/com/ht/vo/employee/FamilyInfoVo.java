@@ -19,7 +19,7 @@ public class FamilyInfoVo {
     private Integer empId; //关联Emp表empid字段
     private String contactName; //联系人名称
     private String relationship; //与员工关系
-    private String Phone; //联系电话
+    private String phone; //联系电话
     private String remark; //说明
 
     public Integer getFamilyid() {
@@ -55,11 +55,11 @@ public class FamilyInfoVo {
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public String getRemark() {
@@ -67,7 +67,7 @@ public class FamilyInfoVo {
     }
 
     public void setRemark(String remark) {
-        remark = remark;
+        this.remark = remark;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class FamilyInfoVo {
                 ", Empid='" + empId + '\'' +
                 ", contactName='" + contactName + '\'' +
                 ", relationship='" + relationship + '\'' +
-                ", Phone='" + Phone + '\'' +
+                ", Phone='" + phone + '\'' +
                 ", Remark='" + remark + '\'' +
                 '}';
     }

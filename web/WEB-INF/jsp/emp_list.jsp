@@ -102,7 +102,7 @@
                   </div>
                   <div class="layui-tab-item">
                       <xblock>
-                          <button   class="layui-btn layui-btn-sm layui-btn-primary" >
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary" id="jiatingAdd">
                               <i class="layui-icon">&#xe654;</i>
                               添加
                           </button>
@@ -111,7 +111,7 @@
                   </div>
                   <div class="layui-tab-item">
                       <xblock>
-                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  >
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  id="ygAdd">
                               <i class="layui-icon">&#xe654;</i>
                               添加
                           </button>
@@ -120,7 +120,7 @@
                   </div>
                   <div class="layui-tab-item">
                       <xblock>
-                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  >
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  id="zjAdd">
                               <i class="layui-icon">&#xe654;</i>
                               添加
                           </button>
@@ -144,7 +144,6 @@
           <script type="text/html" id="currentTableBar2">
               <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
           </script>
-
           <script type="text/html" id="statusBtn">
               {{# if(d.status==1){ }}
                 <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="prohibit">
@@ -159,7 +158,6 @@
               </a>
               {{# } }}
           </script>
-
           <%--工作经历--%>
           <script type="text/html" id="gzjlBar">
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
@@ -217,7 +215,7 @@
           });
 
 
-          //监听行双击事件(查看附表信息)
+          //监听行单击事件(查看附表信息)
           table.on('row(currentTableFilter)',function (obj) {
               var data=obj.data; //获取当前表格数据
               //选中行样式
@@ -249,7 +247,7 @@
               return false;
           });
 
-          //监听表格工具栏
+          //监听工作经历表格工具栏
           table.on('tool(gzjlTableFilter)',function (obj) {
               var data=obj.data;
               if (obj.event=='edit'){
@@ -266,6 +264,46 @@
                             }
                         },"text");
                     });
+              }
+          });
+
+          //监听教育背景表格工具栏
+          table.on("tool(jiaoyuTableFilter)",function (obj) {
+              var data=obj.data;
+              if (obj.event=='edit'){
+                  x_admin_show('修改教育背景信息','${pageContext.request.contextPath}/emp/to_eduationUpdate?collegeid='+data.collegeid);
+              }else if(obj.event='delete'){
+                  layer.confirm("你确定要删除这条信息吗？",{icon:3},function (index) {
+                      $.post('${pageContext.request.contextPath}/emp/eduationDelete',{collegeid:data.collegeid},function (data) {
+                          if ("success"==data){
+                              layer.close(index);
+                              layer.msg("删除成功!",{icon:6});
+                              obj.del();
+                          }else {
+                              layer.msg("删除失败！",{icon:2});
+                          }
+                      },"text");
+                  });
+              }
+          });
+
+          //监听家庭表格工具栏
+          table.on("tool(jiatingTableFilter)",function (obj) {
+              var data=obj.data;
+              if (obj.event=='edit'){
+                  x_admin_show('修改家庭背景信息','${pageContext.request.contextPath}/emp/to_familyUpdate?familyid='+data.familyid);
+              }else if(obj.event='delete'){
+                  layer.confirm("你确定要删除这条信息吗？",{icon:3},function (index) {
+                      $.post('${pageContext.request.contextPath}/emp/familyDelete',{familyid:data.familyid},function (data) {
+                          if ("success"==data){
+                              layer.close(index);
+                              layer.msg("删除成功!",{icon:6});
+                              obj.del();
+                          }else {
+                              layer.msg("删除失败！",{icon:2});
+                          }
+                      },"text");
+                  });
               }
           });
 
@@ -330,7 +368,7 @@
           });
 
           /*教育背景添加*/
-          $("#").on('click',function () {
+          $("#jtbjAdd").on('click',function () {
               var checkStatus = table.checkStatus('currentTableId');
               var data=checkStatus.data;
               if (data==""){
@@ -340,12 +378,55 @@
                   $.each(data,function (i,val) {
                       empId=val.empId;
                   });
-                  x_admin_show('添加工作经历','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+empId);
+                  x_admin_show('添加教育背景','${pageContext.request.contextPath}/emp/to_eduationAdd?empId='+empId);
               }
           });
 
 
+          /*家庭背景添加*/
+          $("#jiatingAdd").on('click',function () {
+              var checkStatus = table.checkStatus('currentTableId');
+              var data=checkStatus.data;
+              if (data==""){
+                  layer.msg("请选择一个员工");
+              }else {
+                  var empId="";
+                  $.each(data,function (i,val) {
+                      empId=val.empId;
+                  });
+                  x_admin_show('添加家庭背景','${pageContext.request.contextPath}/emp/to_familyAdd?empId='+empId);
+              }
+          });
 
+          /*员工考核管理*/
+          $("#ygAdd").on('click',function () {
+              var checkStatus = table.checkStatus('currentTableId');
+              var data=checkStatus.data;
+              if (data==""){
+                  layer.msg("请选择一个员工");
+              }else {
+                  var empId="";
+                  $.each(data,function (i,val) {
+                      empId=val.empId;
+                  });
+                  x_admin_show('添加家庭背景','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+empId);
+              }
+          });
+
+          /*证件管理*/
+          $("#zjAdd").on('click',function () {
+              var checkStatus = table.checkStatus('currentTableId');
+              var data=checkStatus.data;
+              if (data==""){
+                  layer.msg("请选择一个员工");
+              }else {
+                  var empId="";
+                  $.each(data,function (i,val) {
+                      empId=val.empId;
+                  });
+                  x_admin_show('添加员工证件','${pageContext.request.contextPath}/emp/to_certificatesAdd?empId='+empId);
+              }
+          });
 
 
           //监听员工表的工具栏
@@ -424,6 +505,7 @@
               id:"gzjlTableId",
               elem: '#gzjlTable',
               url: '${pageContext.request.contextPath}/emp/jobList?empId='+empId,
+              height:300,
               cols: [[
                   {field: 'companyName', width:100, title: '公司名称'},
                   {field: 'degree', width:80, title: '岗位'},
@@ -444,6 +526,7 @@
               id:'jiaoyuTableId',
               elem:'#jiaoyuTable',
               url:'${pageContext.request.contextPath}/emp/educationList?empId='+empId,
+              height:300,
               cols:[[
                   {field: 'collegeName', width:100, title: '学校名称'},
                   {field: 'degree', width:80, title: '学历'},
@@ -463,10 +546,11 @@
               id:"jiatingTableId",
               elem: '#jiatingTable',
               url: '${pageContext.request.contextPath}/emp/familylnfoList?empId='+empId,
+              height:300,
               cols: [[
                   {field: 'contactName', width:150, title: '联系人名称'},
                   {field: 'relationship', width:150, title: '与员工关系'},
-                  {field: 'Phone', width:150, title: '联系电话'},
+                  {field: 'phone', width:150, title: '联系电话'},
                   {field: 'remark', width:250, title: '说明'},
                   {field: 'right', width:150, title: '操作',toolbar: '#jiatingTableBar'}
               ]]
@@ -477,6 +561,7 @@
               id:"zjUpTableId",
               elem: '#zjUpTable',
               url: '${pageContext.request.contextPath}/emp/documentList?empId='+empId,
+              height:300,
               cols: [[
                   {field: 'empId', width:100, title: '员工名称'},
                   {field: 'docName', width:80, title: '证件名称'},

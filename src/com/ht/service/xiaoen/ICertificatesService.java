@@ -1,9 +1,5 @@
 package com.ht.service.xiaoen;
 
-import com.ht.vo.employee.CertificatesVo;
-import com.ht.vo.employee.EducationVo;
-import com.ht.vo.employee.EmpCkBean;
-
 import java.util.List;
 
 /**
