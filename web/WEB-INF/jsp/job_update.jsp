@@ -11,13 +11,14 @@
   <body>
     <div class="x-body">
         <form class="layui-form" lay-filter="add">
-          <input type="hidden" value="${empId}" name="empid">
+          <input type="hidden" value="${jobVo.jobid}" name="jobid">
+          <input type="hidden" value="${jobVo.empid}" name="empid">
           <div class="layui-form-item">
               <label for="companyName" class="layui-form-label">
                   <span class="x-red">*</span>公司名称
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="companyName" name="companyName" required="" lay-verify="companyName"
+                  <input type="text" id="companyName" value="${jobVo.companyName}" name="companyName" required="" lay-verify="companyName"
                   autocomplete="off" class="layui-input">
               </div>
               <%--<div class="layui-form-mid layui-word-aux">
@@ -29,8 +30,8 @@
                   <span class="x-red">*</span>岗位
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="degree" name="degree" required="" lay-verify="degree"
-                         autocomplete="off" class="layui-input">
+                  <input type="text" id="degree" name="degree" value="${jobVo.degree}"  required="" lay-verify="degree"
+                          class="layui-input">
               </div>
           </div>
         <div class="layui-form-item">
@@ -38,8 +39,8 @@
                 <span class="x-red">*</span>入职时间
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="startDate" name="beginDate" required="" lay-verify="startDate"
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="startDate" name="beginDate"  value="${jobVo.startDate}"  lay-verify="startDate"
+                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -48,7 +49,7 @@
                 <span class="x-red">*</span>离职时间
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="endDate" name="endTime" required="" lay-verify="endDate"
+                <input type="text" id="endDate" name="endTime" value="${jobVo.endDate}"  lay-verify="endDate"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -58,7 +59,7 @@
                 <span class="x-red"></span>离职原因
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="reason" name="reason" required="" lay-verify="reason"
+                <input type="text" id="reason" name="reason" required="" value="${jobVo.reason}" lay-verify="reason"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -67,7 +68,7 @@
                   <span class="x-red"></span>说明
               </label>
               <div class="layui-input-inline">
-                  <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                  <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea">${jobVo.remark}</textarea>
               </div>
           </div>
           <div class="layui-form-item" style="margin-left: 100px;">
@@ -83,12 +84,16 @@
               laydate=layui.laydate;
 
             //执行laydate
-            laydate.render({
-                elem:"#startDate"//指定元素
+            var startTime = laydate.render({
+                elem:"#startDate",//指定元素
+                isInitValue: false //是否允许填充初始值,默认为true
             });
-            laydate.render({
-                elem:"#endDate" //指定元素
-            });
+
+
+           var endTime=laydate.render({
+                elem:"#endDate",//指定元素
+               isInitValue: false //是否允许填充初始值,默认为true
+        });
           //表单校验
 
             form.verify({
@@ -142,16 +147,19 @@
           form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给后台
               $.ajax({
-                  url:'${pageContext.request.contextPath}/emp/jobAdd',
+                  url:'${pageContext.request.contextPath}/emp/jobUpdate',
                   type:'post',
                   data:data.field,
                   dataType:'json',
                   success:function (data){
-                      layer.alert("增加成功", {icon: 6},function(){
+                      layer.alert("修改成功", {icon: 6},function(){
                           // 获得frame索引
                           var index = parent.layer.getFrameIndex(window.name);
                           //关闭当前frame
                           parent.layer.close(index);
+                          setTimeout(function () {
+                              window.parent.location.reload(); //修改成功后刷新父界面
+                          })
                       });
                   }
               });

@@ -144,6 +144,7 @@
           <script type="text/html" id="currentTableBar2">
               <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
           </script>
+
           <script type="text/html" id="statusBtn">
               {{# if(d.status==1){ }}
                 <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="prohibit">
@@ -213,7 +214,7 @@
   </body>
   <script type="text/javascript">
       layui.use(['form', 'table'], function () {
-          var $ = layui.jquery, form = layui.form,table = layui.table;
+          var $ = layui.jquery, form = layui.form,table = layui.table,layer=layui.layer;
 
           /*员工信息*/
           table.render({
@@ -269,10 +270,21 @@
 
           //监听表格工具栏
           table.on('tool(gzjlTableFilter)',function (obj) {
-              alert("dasda");
               var data=obj.data;
-              if (obj.event=='gzjlAdd'){
-                  alert(data.companyName);
+              if (obj.event=='edit'){
+                  x_admin_show('修改员工信息','<%=request.getContextPath()%>/emp/to_jobUpdate?jobid='+data.jobid);
+              }else if(obj.event='delete'){
+                    layer.confirm("你确定要删除这条信息吗？",{icon:3},function (index) {
+                        $.post('${pageContext.request.contextPath}/emp/jobDelete',{jobid:data.jobid},function (data) {
+                            if ("success"==data){
+                                layer.close(index);
+                                layer.msg("删除成功!",{icon:6});
+                                obj.del();
+                            }else {
+                                layer.msg("删除失败！",{icon:2});
+                            }
+                        },"text");
+                    });
               }
           });
 
@@ -291,7 +303,7 @@
                   layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
                       //layui中找到Checkbox所在的行,并遍历行的顺序
                       $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
-                          $.post("${pageContext.request.contextPath}/emp/deletes",{
+                          $.post("/emp/deletes",{
                               empIds:ids.toString()
                           },function(data){
                               if ('success'==data){
@@ -322,14 +334,18 @@
           });*/
 
           $('#gljlAdd').on('click',function () {
-            alert('我进来了');
             var checkStatus = table.checkStatus('currentTableId');
-            if (checkStatus.data==""){
-                alert("请选择一个员工");
-            }else {
-                alert(JSON.stringify(checkStatus.data));
-            }
+            var data=checkStatus.data;
 
+            if (data==""){
+               layer.msg("请选择一个员工");
+            }else {
+                var empId="";
+                $.each(data,function (i,val) {
+                    empId=val.empId;
+                });
+                x_admin_show('添加工作经历','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+empId);
+            }
           });
 
 
@@ -383,6 +399,7 @@
               }
           });
 
+
       });
 
 
@@ -414,7 +431,9 @@
                   {field: 'startDate', width:150, title: '入职时间',templet:function (row) {
                           return  createTime(row.startDate);
                       }},
-                  {field: 'endDate', width:200, title: '离职时间'},
+                  {field: 'endDate', width:200, title: '离职时间',templet:function (row) {
+                        return createTime(row.endDate);
+                      }},
                   {field: 'reason', width:250, title: '离职原因'},
                   {field: 'remark', width:250, title: '说明'},
                   {field: 'right', width:150, title: '操作',toolbar: '#gzjlBar'}

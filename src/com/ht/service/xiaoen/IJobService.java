@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface IJobService {
 
+
+
     List<JobVo> selectAll(int empId);
 
     void delete(JobVo jobVo);
