@@ -55,12 +55,13 @@
 </div>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加学生','<%=request.getContextPath()%>/student/toAdd')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加班级','<%=request.getContextPath()%>/cla/toAdd')"><i class="layui-icon"></i>添加</button>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="look">查看班级学生</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
@@ -100,7 +101,7 @@
             ,id:'testReload'
         });
 
-        table.on('tool(test)',function (obj) {
+        table.on('tool(classes)',function (obj) {
             var data = obj.data; //获取当前行的数据
             var layEvent =  obj.event; //获取lay-event对应的值
             var tr = obj.tr;//获取当前行
@@ -109,10 +110,10 @@
                 layer.confirm('真的删除么',function (index) {
                     alert(data.stuId);
                     $.ajax({
-                        url:'${pageContext.request.contextPath}/student/delCla',
+                        url:'${pageContext.request.contextPath}/cla/delCla',
                         type:'post',
                         data:{
-                            stuId:data.stuId
+                            classId:data.classId
                         },
                         dataType:'json',
                         success:function (data){

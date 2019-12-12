@@ -322,16 +322,14 @@
           });*/
 
           $('#gljlAdd').on('click',function () {
-            alert('我进来了');
             var checkStatus = table.checkStatus('currentTableId');
             if (checkStatus.data==""){
-                alert("请选择一个员工");
+               layui.msg("请选择一个员工");
             }else {
-                alert(JSON.stringify(checkStatus.data));
+                x_admin_show('添加工作经历','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+checkStatus.data.empId);
             }
 
           });
-
 
           //监听员工表的工具栏
           table.on('tool(currentTableFilter)', function (obj) {
@@ -382,6 +380,7 @@
                   });
               }
           });
+
 
       });
 

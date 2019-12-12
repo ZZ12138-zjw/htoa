@@ -57,16 +57,16 @@ public class StudentController {
         return "test";
     }
 
-    @RequestMapping({"/testdata"})
+    @RequestMapping({"/selectAll"})
     @ResponseBody
-    public Map getData(String page, String limit) {
+    public Map getData(String page, String limit,StudentSearch studentSearch) {
         System.out.println(page);
         System.out.println(limit);
         Map map = new HashMap();
         map.put("code", 0);
         map.put("msg", " ");
-        map.put("count", this.studentService.getStudentInfo().size());
-        JSONArray jsonArray = (JSONArray)JSON.toJSON(this.studentService.pageGetStudentInfo(Integer.parseInt(page), Integer.parseInt(limit)));
+        map.put("count", this.studentService.selectBySearchCount(studentSearch));
+        JSONArray jsonArray = (JSONArray)JSON.toJSON(this.studentService.selectBySearch(Integer.parseInt(page), Integer.parseInt(limit),studentSearch));
         map.put("data", jsonArray);
         System.out.println(map.toString());
         return map;
@@ -113,27 +113,33 @@ public class StudentController {
 
 
     @RequestMapping(value = "{oname}/toAdd")
-    public String otherToPage(@PathVariable("oname")String oname,HttpServletRequest request){
+    public String otherToPage(@PathVariable("oname")String oname,HttpServletRequest request,String stuId){
         if(oname.equals("stuFal")){
+            request.setAttribute("stuId",stuId);
             return "studentfamilyadd";
         }
         if(oname.equals("stuEdu")){
+            request.setAttribute("stuId",stuId);
             return "StudentEduAdd";
         }
         if(oname.equals("stuHap")){
+            request.setAttribute("stuId",stuId);
             request.setAttribute("emps",this.studentService.selectAllEmp());
             return "studentHapAdd";
         }
         if(oname.equals("holiday")){
+            request.setAttribute("stuId",stuId);
             return "";
         }
         if(oname.equals("replyScore")){
+            request.setAttribute("stuId",stuId);
             //empid打分老师，projectId答辩项目
             request.setAttribute("emps",this.studentService.selectAllEmp());
             request.setAttribute("reScores",this.studentService.selectAllReplyScore());
             return "ReplyScoreAdd";
         }
         if(oname.equals("score")){
+            request.setAttribute("stuId",stuId);
             //termid学期号，testtypeid考试类型，courseid考试科目,empid录入人员
             request.setAttribute("terms",this.studentService.selectAllTerm());
             request.setAttribute("types",this.studentService.selectAllTestType());
@@ -145,54 +151,42 @@ public class StudentController {
     }
     @RequestMapping(value = "stuFal/add")
     @ResponseBody
-    public String addStuFal(StudentFamily studentFamily,HttpServletRequest request){
-        HttpSession session = request.getSession();
-        studentFamily.setStuid(Integer.valueOf(String.valueOf(session.getAttribute("stuId"))));
+    public String addStuFal(StudentFamily studentFamily){
         studentService.addStuFal(studentFamily);
         return "success";
     }
 
     @RequestMapping(value = "stuEdu/add")
     @ResponseBody
-    public String addStuEdu(StudentEduVo studentEduVo,HttpServletRequest request){
-        HttpSession session = request.getSession();
-        studentEduVo.setStuId(Integer.parseInt(String.valueOf(session.getAttribute("stuId"))));
+    public String addStuEdu(StudentEduVo studentEduVo){
         studentService.addStuEdu(studentEduVo);
         return "success";
     }
 
     @RequestMapping(value = "stuHap/add")
     @ResponseBody
-    public String addStuHap(StudentHappeningVo studentHappeningVo,HttpServletRequest request){
-        HttpSession session = request.getSession();
-        studentHappeningVo.setStuid(Integer.parseInt(String.valueOf(session.getAttribute("stuId"))));
+    public String addStuHap(StudentHappeningVo studentHappeningVo){
         studentService.addStuHap(studentHappeningVo);
         return "success";
     }
 
     @RequestMapping(value = "holiday/add")
     @ResponseBody
-    public String addStuholiday(holidayStudentVo holidayStudentVo,HttpServletRequest request){
-        HttpSession session = request.getSession();
-        holidayStudentVo.setStudentId(Integer.parseInt(String.valueOf(session.getAttribute("stuId"))));
+    public String addStuholiday(holidayStudentVo holidayStudentVo){
         studentService.addStuHoliday(holidayStudentVo);
         return "success";
     }
 
     @RequestMapping(value = "replyScore/add")
     @ResponseBody
-    public String addStuRescore(StudentReplyScoreVo studentReplyScoreVo,HttpServletRequest request){
-        HttpSession session = request.getSession();
-        studentReplyScoreVo.setStudentId(Integer.parseInt(String.valueOf(session.getAttribute("stuId"))));
+    public String addStuRescore(StudentReplyScoreVo studentReplyScoreVo){
         studentService.addStuReScore(studentReplyScoreVo);
         return "success";
     }
 
     @RequestMapping(value = "score/add")
     @ResponseBody
-    public String addStuScore(StudentScoreVo studentScoreVo,HttpServletRequest request){
-        HttpSession session = request.getSession();
-        studentScoreVo.setStuid(Integer.parseInt(String.valueOf(session.getAttribute("stuId"))));
+    public String addStuScore(StudentScoreVo studentScoreVo){
         studentService.addStuScore(studentScoreVo);
         return "success";
     }
@@ -200,13 +194,6 @@ public class StudentController {
     @RequestMapping(value = "{oname}/{type}")
     @ResponseBody
     public JSONObject getOtherData(String stuId,@PathVariable("oname") String oname,@PathVariable("type") String type,HttpServletRequest request) {
-        System.out.println(stuId);
-        HttpSession session = request.getSession();
-        if(stuId == null || stuId.equals("")){
-
-        }else{
-            session.setAttribute("stuId",stuId);
-        }
         JSONObject object = new JSONObject();
         object.put("code", 0);
         object.put("msg"," ");
