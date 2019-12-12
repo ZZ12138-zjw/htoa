@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 小燕
@@ -24,7 +25,68 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
 </head>
 <body>
-
+<div class="layui-row">
+    <fieldset class="layui-elem-field layuimini-search">
+        <legend>搜索信息</legend>
+        <div style="margin: 10px 10px 10px 10px">
+            <form class="layui-form layui-form-pane" action="">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">学生姓名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="stuName" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">学生电话</label>
+                        <div class="layui-input-inline">
+                            <input type="number" name="phone" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">学生班级</label>
+                        <div class="layui-input-inline">
+                            <select name="classid">
+                                <option value="" class="layui-input">--选择班级--</option>
+                                <c:forEach items="${requestScope.classes}" var="cla">
+                                    <option value="${cla.classId}">${cla.className}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">宿舍房号</label>
+                        <div class="layui-input-inline">
+                            <select name="hourid">
+                                <option value="" class="layui-input">--选择宿舍--</option>
+                                <c:forEach items="${requestScope.hours}" var="hour">
+                                    <option value="${hour.hourId}">${hour.hourName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">学生状态</label>
+                        <div class="layui-input-inline">
+                            <select name="state">
+                                <option value="" class="layui-input">--选择学生状态--</option>
+                                <option value="1">在读</option>
+                                <option value="2">休学</option>
+                                <option value="3">退学</option>
+                                <option value="4">毕业</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <a class="layui-btn" lay-submit="" lay-filter="data-search-btn">搜索</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+</div>
 <div class="layui-row">
     <table id="demo" lay-filter="test"></table>
 </div>
@@ -115,7 +177,7 @@
 <script>
     layui.use('table', function(){
         var table = layui.table;
-
+        var form = layui.form;
         //第一个实例
         table.render({
             elem: '#demo'
@@ -135,7 +197,17 @@
                 ,{field: 'phone', title: '联系方式', width: 140}
                 ,{field: 'className', title: '班级名称', width: 250, sort: true}
                 ,{field: 'hourName', title: '宿舍房号', width: 140, sort: true}
-                ,{field: 'state', title: '学生状态', width: 100}
+                ,{field: 'state', title: '学生状态', width: 100,templet:function (d) {
+                        if(d.state=="1"){
+                            return "在读";
+                        }else if(d.state=="2"){
+                            return "休学";
+                        }else if(d.state=="3"){
+                            return "退学";
+                        }else if(d.state=="4"){
+                            return "毕业";
+                        }
+                    }}
                 ,{field: 'collar', title: '是否领用电脑', width: 135, sort: true}
                 ,{field: 'grants', title: '享受助学金', width: 100}
                 ,{field: 'computer', title: '是否送电脑', width: 135, sort: true}
@@ -144,8 +216,25 @@
                 ,{field: 'qkMoney', title: '欠款金额', width: 135, sort: true}
                 ,{field: 'right',align:'center', title:'操作', toolbar: '#barDemo', width:200}
             ]]
+            ,id:'stuReload'
             ,limits: [5,10,20,50]
         });
+        form.on('submit(data-search-btn)',function (data) {
+            table.reload('stuReload',{
+                page:{
+                    curr:1
+                }
+                ,where:{
+                    stuName:data.field.stuName,
+                    phone:data.field.phone,
+                    classid:data.field.classid,
+                    hourid:data.field.hourid,
+                    state:data.field.state,
+                }
+                ,text:{none:'无数据'}
+            },'data');
+            return false;
+        })
         table.on('tool(test)',function (obj) {
             var data = obj.data; //获取当前行的数据
             var layEvent =  obj.event; //获取lay-event对应的值

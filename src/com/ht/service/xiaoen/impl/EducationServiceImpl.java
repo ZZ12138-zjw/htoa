@@ -4,6 +4,7 @@ import com.ht.dao.BaseDao;
 import com.ht.service.xiaoen.IEducationService;
 import com.ht.vo.employee.EducationVo;
 import com.ht.vo.employee.EmpCkBean;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,12 +12,14 @@ import java.util.List;
  * Created by shkstart on 2019/12/10
  * @author LaiWeiChun
  */
+@Service
 public class EducationServiceImpl extends BaseDao implements IEducationService {
 
 
+
     @Override
-    public List<EducationVo> selectAll() {
-        return listByHql(" from EducationVo");
+    public List<EducationVo> selectAll(int empId) {
+        return listByHql("from EducationVo e where e.empId="+empId);
     }
 
     @Override

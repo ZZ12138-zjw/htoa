@@ -13,7 +13,7 @@ import java.util.List;
 public interface IEducationService {
 
 
-    List<EducationVo> selectAll();
+    List<EducationVo> selectAll(int empId);
 
     void delete(EducationVo educationVo);
 

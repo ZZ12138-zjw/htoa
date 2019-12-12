@@ -5,6 +5,7 @@ import com.ht.service.xiaoen.IFamilyInfoService;
 import com.ht.service.zz12138.IFloorManageService;
 import com.ht.vo.LogisticsCheck.FloorManageVo;
 import com.ht.vo.employee.FamilyInfoVo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,12 +13,13 @@ import java.util.List;
  * Created by shkstart on 2019/12/10
  * @author LaiWeiChun
  */
+@Service
 public class FamilylnfoServiceImpl extends BaseDao implements IFamilyInfoService {
 
 
     @Override
-    public List<FamilyInfoVo> selectAll() {
-        return listByHql("from FamilyInfoVo");
+    public List<FamilyInfoVo> selectAll(int empId) {
+        return listByHql("from FamilyInfoVo f where f.empId="+empId);
     }
 
     @Override

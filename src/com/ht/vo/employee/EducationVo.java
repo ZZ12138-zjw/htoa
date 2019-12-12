@@ -19,7 +19,7 @@ public class EducationVo {
     @Id
     @GeneratedValue
     private Integer collegeid; //主键，标识列，自动生成
-    private String empId; //关联Emp表empid字段
+    private Integer empId; //关联Emp表empid字段
     private String collegeName; //学校名称
     private String degree; //学历
     private Date startDate; //入校时间
@@ -35,11 +35,11 @@ public class EducationVo {
         this.collegeid = collegeid;
     }
 
-    public String getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
 
-    public void setEmpId(String empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
 

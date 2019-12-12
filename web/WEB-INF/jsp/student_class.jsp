@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 小燕
@@ -21,18 +22,37 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
-
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/lib/layui/css/layui.css" media="all">
 </head>
 <body>
-<label class="layui-form-label">届别</label>
-</label>
-<div class="layui-input-block">
-    <select name="jiebie">
-        <option value="" selected>--不选择--</option>
-    </select>
+<div class="layui-row">
+    <fieldset class="layui-elem-field layuimini-search">
+        <legend>搜索信息</legend>
+        <div style="margin: 10px 10px 10px 10px">
+            <form class="layui-form layui-form-pane" action="">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">届别</label>
+                        <div class="layui-input-inline"  >
+                            <select name="fallid" id="selectFall">
+                                <option value="">--选择届别--</option>
+                                <c:forEach items="${requestScope.falls}" var="fall">
+                                    <option value="${fall.fallid}">${fall.level}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <a class="layui-btn" lay-submit="" lay-filter="data-search-btn">搜索</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </fieldset>
 </div>
-<table id="demo" lay-filter="test"></table>
-
+<div class="layui-row">
+    <table id="LAY_table_classes" lay-filter="classes"></table>
+</div>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加学生','<%=request.getContextPath()%>/student/toAdd')"><i class="layui-icon"></i>添加</button>
@@ -48,12 +68,12 @@
 <script>
     layui.use('table', function(){
         var table = layui.table;
-
+        var form = layui.form;
         //第一个实例
         table.render({
-            elem: '#demo'
+            elem: '#LAY_table_classes'
             ,height: 312
-            ,url:'<%=request.getContextPath()%>/student/classAll'
+            ,url:'<%=request.getContextPath()%>/cla/classAll'
             ,toolbar: '#toolbarDemo'//开启头部工具栏，并为其绑定左侧模板
             ,page: true //开启分页
             ,method:'post'
@@ -75,8 +95,11 @@
                     }}
                 ,{field: 'right',align:'center', title:'操作', toolbar: '#barDemo', width:200}
                 ,{field: 'remark', title: '说明', width: 100}
-            ]],limits: [5,10,20,50]
+            ]]
+            ,limits: [5,10,20,50]
+            ,id:'testReload'
         });
+
         table.on('tool(test)',function (obj) {
             var data = obj.data; //获取当前行的数据
             var layEvent =  obj.event; //获取lay-event对应的值
@@ -102,6 +125,19 @@
             }else if(layEvent == 'edit'){//编辑
                 x_admin_show('修改学生信息','<%=request.getContextPath()%>/student/toUpdate?stuId='+data.stuId);
             }
+        })
+
+        form.on('submit(data-search-btn)',function (data) {
+            table.reload('testReload',{
+                page:{
+                    curr:1
+                }
+                ,where:{
+                    fallid:data.field.fallid
+                }
+                ,text:{none:'无数据'}
+            },'data');
+            return false;
         })
     });
 </script>

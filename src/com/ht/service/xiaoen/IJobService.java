@@ -12,7 +12,9 @@ import java.util.List;
  */
 public interface IJobService {
 
-    List<JobVo> selectAll();
+
+
+    List<JobVo> selectAll(int empId);
 
     void delete(JobVo jobVo);
 
@@ -25,4 +27,6 @@ public interface IJobService {
     int selectCount();
 
     void save(JobVo jobVo);
+
+
 }
