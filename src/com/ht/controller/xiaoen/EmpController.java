@@ -7,6 +7,8 @@ import com.ht.service.xiaoen.*;
 import com.ht.vo.employee.DeptVo;
 import com.ht.vo.employee.EmpCkBean;
 import com.ht.vo.employee.EmpVo;
+import com.ht.vo.employee.JobVo;
+import org.activiti.engine.runtime.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -262,10 +264,61 @@ public class EmpController {
     }
 
     @RequestMapping("to_jobAdd")
-    public String toJobAdd(int empId,Map map){
+    public String toJobAdd(String empId,Map map){
         map.put("empId",empId);
         return "job_add";
     }
+
+    @RequestMapping("/jobAdd")
+    @ResponseBody
+    public String jobAdd(JobVo jobVo,String beginDate,String endTime){
+
+        //layui的控件向后台传值都是String类型
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        //ParsePosition用来标明解析的开始位，其实也可以不传 index--输出类型
+        ParsePosition position1=new ParsePosition(0);
+        ParsePosition position2=new ParsePosition(0);
+        Date startDate= format.parse(beginDate,position1);
+        Date endDate= format.parse(endTime,position2);
+        jobVo.setStartDate(startDate);
+        jobVo.setEndDate(endDate);
+        job.save(jobVo);
+        return "success";
+    }
+
+
+    @RequestMapping("/to_jobUpdate")
+    public String toJobUpdate(JobVo jobVo,Map map){
+        JobVo j = job.select(jobVo);
+        System.out.println(j.toString());
+        map.put("jobVo",j);
+        return "job_update";
+    }
+
+    @RequestMapping("/jobUpdate")
+    @ResponseBody
+    public String jobUpdate(JobVo jobVo,String beginDate,String endTime){
+        //layui的控件向后台传值都是String类型
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        //ParsePosition用来标明解析的开始位，其实也可以不传 index--输出类型
+        ParsePosition position1=new ParsePosition(0);
+        ParsePosition position2=new ParsePosition(0);
+        Date startDate= format.parse(beginDate,position1);
+        Date endDate= format.parse(endTime,position2);
+        jobVo.setStartDate(startDate);
+        jobVo.setEndDate(endDate);
+        job.update(jobVo);
+        return "success";
+    }
+
+    @RequestMapping("/jobDelete")
+    @ResponseBody
+    public String jobDelete(JobVo jobVo){
+        System.out.println(jobVo.toString());
+        job.delete(jobVo);
+        return "success";
+    }
+
 
 
 

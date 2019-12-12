@@ -3,23 +3,21 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset="UTF-8">
     <title></title>
     <jsp:include page="top.jsp"/>
   </head>
-  
   <body>
     <div class="x-body">
         <form class="layui-form" lay-filter="add">
-            <input >
+          <input type="hidden" value="${empId}" name="empid">
           <div class="layui-form-item">
-              <label for="depName" class="layui-form-label">
-                  <span class="x-red">*</span>部门名称
+              <label for="companyName" class="layui-form-label">
+                  <span class="x-red">*</span>公司名称
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="depName" name="depName" required="" lay-verify="depName"
+                  <input type="text" id="companyName" name="companyName" required="" lay-verify="companyName"
                   autocomplete="off" class="layui-input">
               </div>
               <%--<div class="layui-form-mid layui-word-aux">
@@ -27,47 +25,46 @@
               </div>--%>
           </div>
           <div class="layui-form-item">
-              <label for="deptType" class="layui-form-label">
-                  <span class="x-red">*</span>部门类别
+              <label for="degree" class="layui-form-label">
+                  <span class="x-red">*</span>岗位
               </label>
               <div class="layui-input-inline">
-                  <select id="deptType"  name="deptType" >
-                      <option value="">不选择</option>
-                      <%
-                        for(int i=0;i<DeptType.DeptTypeVal().size();i++){%>
-                          <option value="<%=DeptType.DeptTypeVal().get(i)%>%>"><%=DeptType.DeptTypeVal().get(i)%></option>
-                      <%  }
-                      %>
-                  </select>
+                  <input type="text" id="degree" name="degree" required="" lay-verify="degree"
+                         autocomplete="off" class="layui-input">
               </div>
           </div>
         <div class="layui-form-item">
-            <label for="parentId" class="layui-form-label">
-                <span class="x-red">*</span>上级部门名称
+            <label for="startDate" class="layui-form-label">
+                <span class="x-red">*</span>入职时间
             </label>
             <div class="layui-input-inline">
-                <select id="parentId"  name="parentId" lay-verify="required">
-                    <option value=""></option>
-                    <option value="宏图软件" selected>宏图软件</option>
-                </select>
+                <input type="text" id="startDate" name="beginDate" required="" lay-verify="startDate"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <%--从后台查询员工表,然后遍历出来--%>
-            <label for="chairman" class="layui-form-label">
-                <span class="x-red"></span>部门负责人
+            <label for="endDate" class="layui-form-label">
+                <span class="x-red">*</span>离职时间
             </label>
             <div class="layui-input-inline">
-                <select id="chairman"  name="chairman" lay-verify="required">
-                    <c:forEach items="${empList}" var="e">
-                        <option value="${e.empName}">${e.empName}</option>
-                    </c:forEach>
-                </select>
+                <input type="text" id="endDate" name="endTime" required="" lay-verify="endDate"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <%--从后台查询员工表,然后遍历出来--%>
+            <label for="reason" class="layui-form-label">
+                <span class="x-red"></span>离职原因
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="reason" name="reason" required="" lay-verify="reason"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
           <div class="layui-form-item">
               <label for="remark" class="layui-form-label">
-                  <span class="x-red"></span>备注
+                  <span class="x-red"></span>说明
               </label>
               <div class="layui-input-inline">
                   <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
@@ -80,34 +77,72 @@
       </form>
     </div>
     <script>
-        layui.use(['form','layer'], function(){
+        layui.use(['form','layer','laydate'], function(){
           var form = layui.form;
-          var layer = layui.layer;
+          var layer = layui.layer,
+              laydate=layui.laydate;
 
+            //执行laydate
+            laydate.render({
+                elem:"#startDate"//指定元素
+            });
+            laydate.render({
+                elem:"#endDate" //指定元素
+            });
           //表单校验
 
             form.verify({
                 //value：表单的值，item表单的dom对象
-                depName:function (value,item) {
+                companyName:function (value,item) {
                     if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-                        return '部门名称不能有特殊字符';
+                        return '公司名称不能有特殊字符';
                     }
                     if (/(^\_)|(\__)|(\_+$)/.test(value)){
-                        return '部门名称首尾不能出现下划线\'_\'';
+                        return '公司名称首尾不能出现下划线\'_\'';
                     }
                     if (/^\d+\d+\d$/.test(value)){
-                        return '部门名称不能为全数字';
+                        return '公司名称不能为全数字';
                     }
-                    if (value.length<4){
-                        return '部门名称至少得4个字符';
+                },
+                degree:function (value,item) {
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                        return '岗位名称不能有特殊字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)){
+                        return '岗位名称首尾不能出现下划线\'_\'';
+                    }
+                    if (/^\d+\d+\d$/.test(value)){
+                        return '岗位名称不能为全数字';
+                    }
+                },
+                startDate:function (value,item) {
+                    if (value>new Date()){
+                        return '入职时间不能大于现在';
+                    }
+                },
+                endDate:function (value,item) {
+                    if (value<$("#startDate").val()){
+                        return '离职日期不能大于入职时间'
+                    }
+                },
+                reason:function (value,item) {
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                        return '离职原因不能有特殊字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)){
+                        return '离职原因首尾不能出现下划线\'_\'';
+                    }
+                    if (/^\d+\d+\d$/.test(value)){
+                        return '离职原因不能为全数字';
                     }
                 }
+
             });
           //监听提交
           form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给后台
               $.ajax({
-                  url:'${pageContext.request.contextPath}/dept/add',
+                  url:'${pageContext.request.contextPath}/emp/jobAdd',
                   type:'post',
                   data:data.field,
                   dataType:'json',
@@ -117,9 +152,6 @@
                           var index = parent.layer.getFrameIndex(window.name);
                           //关闭当前frame
                           parent.layer.close(index);
-                          setTimeout(function () {
-                              window.parent.location.reload(); //修改成功后刷新父界面
-                          })
                       });
                   }
               });

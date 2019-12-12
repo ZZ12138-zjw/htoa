@@ -84,7 +84,7 @@
               <div class="layui-tab-content" >
                   <div class="layui-tab-item layui-show">
                       <xblock>
-                          <button   class="layui-btn layui-btn-sm layui-btn-primary" id="gljlAdd" >
+                          <button class="layui-btn layui-btn-sm layui-btn-primary" id="gljlAdd" >
                               <i class="layui-icon">&#xe654;</i>
                               添加
                           </button>
@@ -93,7 +93,7 @@
                   </div>
                   <div class="layui-tab-item">
                       <xblock>
-                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  >
+                          <button   class="layui-btn layui-btn-sm layui-btn-primary"  id="jtbjAdd">
                               <i class="layui-icon">&#xe654;</i>
                               添加
                           </button>
@@ -144,6 +144,7 @@
           <script type="text/html" id="currentTableBar2">
               <button class="layui-btn" onclick="x_admin_show('添加员工','${pageContext.request.contextPath}/emp/to_empAdd')"><i class="layui-icon"></i>添加</button>
           </script>
+
           <script type="text/html" id="statusBtn">
               {{# if(d.status==1){ }}
                 <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="prohibit">
@@ -169,51 +170,27 @@
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
           </script>
-          <script type="text/html" id="jiaoyuTableBar2">
-              <button   class="layui-btn layui-btn-sm layui-btn-primary">
-                  <i class="layui-icon">&#xe654;</i>
-                  添加
-              </button>
-          </script>
           <%--家庭背景--%>
           <script type="text/html" id="jiatingTableBar">
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
           </script>
-          <script type="text/html" id="jiatingTableBar2">
-              <button   class="layui-btn layui-btn-sm layui-btn-primary">
-                  <i class="layui-icon">&#xe654;</i>
-                  添加
-              </button>
-          </script>
           <%--家庭背景--%>
           <script type="text/html" id="jiatingTableBar">
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
-          </script>
-          <script type="text/html" id="jiatingTableBar2">
-              <button type="button"   class="layui-btn layui-btn-sm layui-btn-primary">
-                  <i class="layui-icon">&#xe654;</i>
-                  添加
-              </button>
           </script>
           <%--家庭背景--%>
           <script type="text/html" id="zjUpTableBar">
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
           </script>
-          <script type="text/html" id="zjUpTableBar2">
-              <button   class="layui-btn layui-btn-sm layui-btn-primary">
-                  <i class="layui-icon">&#xe654;</i>
-                  添加
-              </button>
-          </script>
     </div>
   </div>
   </body>
   <script type="text/javascript">
       layui.use(['form', 'table'], function () {
-          var $ = layui.jquery, form = layui.form,table = layui.table;
+          var $ = layui.jquery, form = layui.form,table = layui.table,layer=layui.layer;
 
           /*员工信息*/
           table.render({
@@ -241,9 +218,14 @@
 
 
           //监听行双击事件(查看附表信息)
-          table.on('rowDouble(currentTableFilter)',function (obj) {
+          table.on('row(currentTableFilter)',function (obj) {
               var data=obj.data; //获取当前表格数据
+              //选中行样式
+              obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+              //选中radio样式
+              obj.tr.find('i[class="layui-anim layui-icon"]').trigger("click");
               addSchedule(data.empId,table);
+
           });
 
           // 监听搜索操作
@@ -269,10 +251,21 @@
 
           //监听表格工具栏
           table.on('tool(gzjlTableFilter)',function (obj) {
-              alert("dasda");
               var data=obj.data;
-              if (obj.event=='gzjlAdd'){
-                  alert(data.companyName);
+              if (obj.event=='edit'){
+                  x_admin_show('修改工作经历信息','<%=request.getContextPath()%>/emp/to_jobUpdate?jobid='+data.jobid);
+              }else if(obj.event='delete'){
+                    layer.confirm("你确定要删除这条信息吗？",{icon:3},function (index) {
+                        $.post('${pageContext.request.contextPath}/emp/jobDelete',{jobid:data.jobid},function (data) {
+                            if ("success"==data){
+                                layer.close(index);
+                                layer.msg("删除成功!",{icon:6});
+                                obj.del();
+                            }else {
+                                layer.msg("删除失败！",{icon:2});
+                            }
+                        },"text");
+                    });
               }
           });
 
@@ -291,7 +284,7 @@
                   layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
                       //layui中找到Checkbox所在的行,并遍历行的顺序
                       $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
-                          $.post("${pageContext.request.contextPath}/emp/deletes",{
+                          $.post("/emp/deletes",{
                               empIds:ids.toString()
                           },function(data){
                               if ('success'==data){
@@ -321,15 +314,39 @@
               }
           });*/
 
+          /*工具经历添加*/
           $('#gljlAdd').on('click',function () {
             var checkStatus = table.checkStatus('currentTableId');
-            if (checkStatus.data==""){
-               layui.msg("请选择一个员工");
+            var data=checkStatus.data;
+            if (data==""){
+               layer.msg("请选择一个员工");
             }else {
-                x_admin_show('添加工作经历','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+checkStatus.data.empId);
+                var empId="";
+                $.each(data,function (i,val) {
+                    empId=val.empId;
+                });
+                x_admin_show('添加工作经历','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+empId);
             }
-
           });
+
+          /*教育背景添加*/
+          $("#").on('click',function () {
+              var checkStatus = table.checkStatus('currentTableId');
+              var data=checkStatus.data;
+              if (data==""){
+                  layer.msg("请选择一个员工");
+              }else {
+                  var empId="";
+                  $.each(data,function (i,val) {
+                      empId=val.empId;
+                  });
+                  x_admin_show('添加工作经历','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+empId);
+              }
+          });
+
+
+
+
 
           //监听员工表的工具栏
           table.on('tool(currentTableFilter)', function (obj) {
@@ -413,7 +430,9 @@
                   {field: 'startDate', width:150, title: '入职时间',templet:function (row) {
                           return  createTime(row.startDate);
                       }},
-                  {field: 'endDate', width:200, title: '离职时间'},
+                  {field: 'endDate', width:200, title: '离职时间',templet:function (row) {
+                        return createTime(row.endDate);
+                      }},
                   {field: 'reason', width:250, title: '离职原因'},
                   {field: 'remark', width:250, title: '说明'},
                   {field: 'right', width:150, title: '操作',toolbar: '#gzjlBar'}
