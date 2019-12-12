@@ -272,7 +272,7 @@
           table.on('tool(gzjlTableFilter)',function (obj) {
               var data=obj.data;
               if (obj.event=='edit'){
-                  x_admin_show('修改员工信息','<%=request.getContextPath()%>/emp/to_jobUpdate?jobid='+data.jobid);
+                  x_admin_show('修改工作经历信息','<%=request.getContextPath()%>/emp/to_jobUpdate?jobid='+data.jobid);
               }else if(obj.event='delete'){
                     layer.confirm("你确定要删除这条信息吗？",{icon:3},function (index) {
                         $.post('${pageContext.request.contextPath}/emp/jobDelete',{jobid:data.jobid},function (data) {
@@ -353,7 +353,7 @@
           table.on('tool(currentTableFilter)', function (obj) {
               var data = obj.data;
               if (obj.event == 'edit') {
-                  x_admin_show('修改工作经历信息','<%=request.getContextPath()%>/emp/to_empUpdate?empId='+data.empId);
+                  x_admin_show('修改员工信息','<%=request.getContextPath()%>/emp/to_empUpdate?empId='+data.empId);
               } else if (obj.event === 'delete') {
                   layer.confirm('真的删除行么', function (index) {
                       $.ajax({
