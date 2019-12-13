@@ -4,15 +4,20 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ht.service.xiaoen.*;
+import com.ht.util.DateHelper;
 import com.ht.vo.employee.DeptVo;
+import com.ht.vo.employee.EducationVo;
 import com.ht.vo.employee.EmpCkBean;
 import com.ht.vo.employee.EmpVo;
+import com.ht.vo.employee.FamilyInfoVo;
 import com.ht.vo.employee.JobVo;
 import org.activiti.engine.runtime.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.activation.DataHandler;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.rmi.MarshalledObject;
@@ -319,9 +324,88 @@ public class EmpController {
         return "success";
     }
 
+    @RequestMapping("/to_eduationAdd")
+    public String toEduationAdd(String empId,Map map){
+        map.put("empId",empId);
+        return  "education_add";
+    }
+
+    @RequestMapping("/eduationAdd")
+    @ResponseBody
+    public String eduationAdd(EducationVo educationVo,String s,String e){
+        educationVo.setStartDate(DateHelper.parseString(s, DateHelper.pattern_date));
+        educationVo.setEndDate(DateHelper.parseString(e, DateHelper.pattern_date));
+        education.save(educationVo);
+        return "success";
+    }
+
+    @RequestMapping("/to_eduationUpdate")
+    public String toEduationUpdate(EducationVo educationVo,Map map){
+        EducationVo e=education.select(educationVo);
+        map.put("edVo",e);
+        return "education_update";
+    }
+
+
+    @RequestMapping("/eduationUpdate")
+    @ResponseBody
+    public String eduationUpdate(EducationVo educationVo,String s,String e){
+        educationVo.setStartDate(DateHelper.parseString(s, DateHelper.pattern_date));
+        educationVo.setEndDate(DateHelper.parseString(e, DateHelper.pattern_date));
+        education.update(educationVo);
+        return "success";
+    }
+
+    @RequestMapping("/eduationDelete")
+    @ResponseBody
+    public String eduationDelete(EducationVo educationVo){
+        education.delete(educationVo);
+        return "success";
+    }
 
 
 
+
+    @RequestMapping("/to_familyAdd")
+    public String toFamilyAdd(String empId,Map map){
+        map.put("empId",empId);
+        return  "family_add";
+    }
+
+    @ResponseBody
+    @RequestMapping("/familyAdd")
+    public String familyAdd(FamilyInfoVo familyInfoVo){
+        familyInfo.save(familyInfoVo);
+        return  "success";
+    }
+
+    @RequestMapping("/to_familyUpdate")
+    public String toFamilyUpdate(FamilyInfoVo familyInfoVo,Map map){
+        FamilyInfoVo f = familyInfo.select(familyInfoVo);
+        map.put("f",f);
+        return "family_update";
+    }
+
+    @ResponseBody
+    @RequestMapping("/familyUpdate")
+    public String familyUpdate(FamilyInfoVo familyInfoVo){
+        familyInfo.update(familyInfoVo);
+        return "success";
+    }
+
+    @ResponseBody
+    @RequestMapping("/familyDelete")
+    public String familyDelete(FamilyInfoVo familyInfoVo){
+        familyInfo.delete(familyInfoVo);
+        return  "success";
+    }
+
+
+    @RequestMapping("/to_certificatesAdd")
+    public String toCertificatesAdd(String empId,Map map){
+        map.put("empId",empId);
+        return "certificates_add";
+    }
 
 
 

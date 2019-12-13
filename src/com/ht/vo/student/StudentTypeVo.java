@@ -10,6 +10,7 @@ import javax.persistence.Table;
  * @author LaIWeiChun
  */
 
+//班级类别表
 @Entity
 @Table(name="t_studenttype")
 public class StudentTypeVo {

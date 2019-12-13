@@ -46,4 +46,23 @@ public class ClassController {
             return map;
         }
     }
+
+    @RequestMapping(value = "/delCla")
+    @ResponseBody
+    public String delClass(int classId){
+        //删除班级
+        classService.delClass(classService.getById(classId));
+        //并且把改班内所有学生的班级字段改为空值
+        classService.updateStudentClassId(classId);
+        return "success";
+    }
+
+    @RequestMapping(value = "/toAdd")
+    public String toClassAddPage(HttpServletRequest request){
+        request.setAttribute("emps",studentService.selectAllEmp());
+        request.setAttribute("types",classService.selectAllTypes());
+        request.setAttribute("levels",studentService.selectAllFall());
+        return "ClassAdd";
+    }
+
 }

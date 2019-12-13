@@ -24,6 +24,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
+        <input name="studentId" value="<%=request.getAttribute("stuId")%>" type="hidden"/>
         <div class="layui-form-item">
             <label class="layui-form-label">
                 <span class="x-red">*</span>项目答辩名称

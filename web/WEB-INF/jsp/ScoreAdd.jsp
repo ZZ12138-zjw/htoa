@@ -24,6 +24,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
+        <input type="hidden" value="<%=request.getAttribute("stuId")%>" name="stuid"/>
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>课程名称</label>
             <div class="layui-input-inline">

@@ -1,9 +1,7 @@
 package com.ht.service.xiaoen.impl;
 
 import com.ht.dao.BaseDao;
-import com.ht.service.shihehua.ICourseService;
 import com.ht.service.xiaoen.ICertificatesService;
-import com.ht.vo.employee.CertificatesVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
