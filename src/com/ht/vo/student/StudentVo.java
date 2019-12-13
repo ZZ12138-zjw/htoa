@@ -59,6 +59,57 @@ public class StudentVo {
     private String collar;//是否领用
     private String grants;//助学金
 
+    @Override
+    public String toString() {
+        return "StudentVo{" +
+                "stuId=" + stuId +
+                ", password='" + password + '\'' +
+                ", stuName='" + stuName + '\'' +
+                ", middleschool='" + middleschool + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age='" + age + '\'' +
+                ", birthday=" + birthday +
+                ", phone='" + phone + '\'' +
+                ", addr='" + addr + '\'' +
+                ", classid=" + classid +
+                ", hourid=" + hourid +
+                ", entertime=" + entertime +
+                ", introduretech='" + introduretech + '\'' +
+                ", state=" + state +
+                ", nation='" + nation + '\'' +
+                ", natives='" + natives + '\'' +
+                ", residence=" + residence +
+                ", cardid='" + cardid + '\'' +
+                ", professional='" + professional + '\'' +
+                ", prolevel=" + prolevel +
+                ", studytype=" + studytype +
+                ", parents='" + parents + '\'' +
+                ", parentsphone='" + parentsphone + '\'' +
+                ", intrphone='" + intrphone + '\'' +
+                ", audition='" + audition + '\'' +
+                ", auditionoption='" + auditionoption + '\'' +
+                ", isvocational=" + isvocational +
+                ", vocationalsch='" + vocationalsch + '\'' +
+                ", vocationalflag=" + vocationalflag +
+                ", enrollno=" + enrollno +
+                ", qkMoney=" + qkMoney +
+                ", score=" + score +
+                ", dibao='" + dibao + '\'' +
+                ", sourceType='" + sourceType + '\'' +
+                ", guarantee='" + guarantee + '\'' +
+                ", soldier='" + soldier + '\'' +
+                ", registration='" + registration + '\'' +
+                ", zhuxiao='" + zhuxiao + '\'' +
+                ", remart='" + remart + '\'' +
+                ", tuixue='" + tuixue + '\'' +
+                ", xiuxue='" + xiuxue + '\'' +
+                ", stuno='" + stuno + '\'' +
+                ", computer='" + computer + '\'' +
+                ", collar='" + collar + '\'' +
+                ", grants='" + grants + '\'' +
+                '}';
+    }
+
     public Date getBirthday() {
         return birthday;
     }

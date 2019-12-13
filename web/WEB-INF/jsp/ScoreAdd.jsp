@@ -24,7 +24,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
-        <input type="hidden" value="<%=request.getAttribute("stuId")%>" name="stuid"/>
+        <input type="hidden" value="<%=request.getAttribute("stuId")%>" name="stuid" class="layui-input"/>
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>课程名称</label>
             <div class="layui-input-inline">
@@ -166,6 +166,7 @@
                     layer.alert("增加失败");
                 }
             });
+            return false;
         });
 
 
