@@ -132,7 +132,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="xx.html">
+                        <a _href="${pageContext.request.contextPath}/attendance/to_attendanceList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考勤管理</cite>
                         </a>
