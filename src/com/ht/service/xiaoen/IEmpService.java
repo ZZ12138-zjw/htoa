@@ -32,4 +32,14 @@ public interface IEmpService  {
     void resetPwd(int empId);
 
     void delAll(String empIds);
+
+    /**
+     * 查找对应考核指标的分数
+     *      由于zjw没有写
+     *      所以在这里加
+     * @param checkContext
+     *      考核内容
+     * @return
+     */
+    List findCheckFraction(String checkContext);
 }

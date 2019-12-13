@@ -180,10 +180,9 @@
           </script>
           <%--证件背景--%>
           <script type="text/html" id="zjUpTableBar">
-              <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
+              <button class="layui-btn layui-btn-xs layui-btn-primary " lay-event="download"><i class="layui-icon">&#xe601;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
           </script>
-
     </div>
   </div>
   </body>
@@ -288,11 +287,33 @@
               }
           });
 
+          //监听证件表格工具栏
+          table.on("tool(zjUpTableFilter)",function (obj) {
+              var data=obj.data;
+              if (obj.event=='download'){
+                  layer.confirm("你确定要下载吗",function (index) {
+                        layer.msg("好吧");
+                  });
+              }else if(obj.event='delete'){
+                  layer.confirm("你确定要删除这条信息吗？",{icon:3},function (index) {
+                      $.post('${pageContext.request.contextPath}/emp/docDelete',{dId:data.dId},function (data) {
+                          if ("success"==data){
+                              layer.close(index);
+                              layer.msg("删除成功!",{icon:6});
+                              obj.del();
+                          }else {
+                              layer.msg("删除失败！",{icon:2});
+                          }
+                      },"text");
+                  });
+              }
+          });
+
           //监听家庭表格工具栏
           table.on("tool(jiatingTableFilter)",function (obj) {
               var data=obj.data;
               if (obj.event=='edit'){
-                  x_admin_show('修改家庭背景信息','${pageContext.request.contextPath}/emp/to_familyUpdate?familyid='+data.familyid);
+                  x_admin_show('修改证件信息','${pageContext.request.contextPath}/emp/to_familyUpdate?familyid='+data.familyid);
               }else if(obj.event='delete'){
                   layer.confirm("你确定要删除这条信息吗？",{icon:3},function (index) {
                       $.post('${pageContext.request.contextPath}/emp/familyDelete',{familyid:data.familyid},function (data) {
@@ -308,6 +329,25 @@
               }
           });
 
+          //监听员工考核工具栏
+          table.on("tool(ygTableFilter)",function (obj) {
+              var data=obj.data;
+              if (obj.event=='edit'){
+                  x_admin_show('修改员工考核信息','${pageContext.request.contextPath}/emp/to_checkInsertUpdate?id='+data.ID);
+              }else if(obj.event='delete'){
+                  layer.confirm("你确定要删除这条信息吗？",{icon:3},function (index) {
+                      $.post('${pageContext.request.contextPath}/emp/checkInsertDalete',{id:data.ID},function (data) {
+                          if ("success"==data){
+                              layer.close(index);
+                              layer.msg("删除成功!",{icon:6});
+                              obj.del();
+                          }else {
+                              layer.msg("删除失败！",{icon:2});
+                          }
+                      },"text");
+                  });
+              }
+          });
          /* //批量删除
           $('#delSelect').on('click',function () {
               //获得表格CheckBox已经选中的行的信息
@@ -410,7 +450,7 @@
                   $.each(data,function (i,val) {
                       empId=val.empId;
                   });
-                  x_admin_show('添加家庭背景','${pageContext.request.contextPath}/emp/to_jobAdd?empId='+empId);
+                  x_admin_show('添加员工考核','${pageContext.request.contextPath}/emp/to_checkInsertAdd?empId='+empId);
               }
           });
 
@@ -557,6 +597,22 @@
               ]]
           });
           /*员工考核*/
+          /*家庭联系*/
+          table.render({
+              id:"ygTableId",
+              elem: '#ygTable',
+              url: '${pageContext.request.contextPath}/emp/checkList?empId='+empId,
+              height:300,
+              cols: [[
+                  {field: 'checkContent', width:150, title: '考核指标'},
+                  {field: 'checkScore', width:150, title: '考核分数'},
+                  {field: 'checkDate', width:150, title: '考核时间'},
+                  {field: 'checkExplain', width:250, title: '说明'},
+                  {field: 'inputEmp', width:250, title: '录入人员'},
+                  {field: 'right', width:150, title: '操作',toolbar: '#ygTableBar'}
+              ]]
+          });
+
           /*证件上传*/
           table.render({
               id:"zjUpTableId",
@@ -565,10 +621,10 @@
               height:300,
               cols: [[
                   {field: 'empName', width:100, title: '员工名称'},
-                  {field: 'docName', width:80, title: '证件名称'},
-                  {field: 'docPath', width:150, title: '上传证件',templet:'<div><img src="${pageContext.request.contextPath}/images/{{d.docPath}}"/></div>'},
-                  {field: 'upDate', width:150, title: '上传时间'},
-                  {field: 'upEmp', width:150, title: '上传人'},
+                  {field: 'dName', width:80, title: '证件名称'},
+                  {field: 'dPath', width:150, title: '上传证件',templet:'<div><img src="${pageContext.request.contextPath}/images/{{d.dPath}}"/></div>'},
+                  {field: 'uDate', width:150, title: '上传时间'},
+                  {field: 'upName', width:150, title: '上传人'},
                   {field: 'remark', width:250, title: '备注'},
                   {field: 'right', width:150, title: '操作',toolbar: '#zjUpTableBar'}
               ]]

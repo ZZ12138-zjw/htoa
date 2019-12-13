@@ -27,4 +27,6 @@ public interface ICheckInsert {
     public CheckInsertVo selInsertByID(int iD);
 
     public void editCheckInsert(CheckInsertVo vo);
+
+    List listByEmpId(int empId);
 }
