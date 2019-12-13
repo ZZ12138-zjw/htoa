@@ -16,6 +16,7 @@ public class EvaluationContentVo {
     private Integer evaluationID;
     private String evaluationName;
     private String depName;
+    private Integer evaluationScore;
 
     @Override
     public String toString() {
@@ -23,7 +24,16 @@ public class EvaluationContentVo {
                 "evaluationID=" + evaluationID +
                 ", evaluationName='" + evaluationName + '\'' +
                 ", depName='" + depName + '\'' +
+                ", evaluationScore='" + evaluationScore + '\'' +
                 '}';
+    }
+
+    public Integer getEvaluationScore() {
+        return evaluationScore;
+    }
+
+    public void setEvaluationScore(Integer evaluationScore) {
+        this.evaluationScore = evaluationScore;
     }
 
     public Integer getEvaluationID() {

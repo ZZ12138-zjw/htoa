@@ -2,7 +2,9 @@ package com.ht.controller.zz12138;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.ht.service.zz12138.IEmpEvaluationService;
 import com.ht.service.zz12138.IEvaluationService;
+import com.ht.vo.LogisticsCheck.EmpEvaluationVo;
 import com.ht.vo.LogisticsCheck.EvaluationContentVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +26,9 @@ public class EvaluationContro {
 
     @Resource
     IEvaluationService evaluationService;
+
+    @Resource
+    IEmpEvaluationService empEvaluationService;
 
     @RequestMapping("/to_evaluationcontent")
     public String to_evaluationcontent(){
@@ -104,5 +109,57 @@ public class EvaluationContro {
         String id=temp.substring(0,temp.length()-1);
         evaluationService.delEvaluationContent(id);
         return "success";
+    }
+
+    @RequestMapping("/to_empevaluation")
+    public String to_empevaluation(){
+        System.out.println("进入教室考评页面");
+        return "empevaluation";
+    }
+
+    @ResponseBody
+    @RequestMapping("/listempevaluation")
+    public Map listempevaluation(String page,String limit){
+        System.out.println("遍历教师考评");
+        if (limit == null){
+            limit += 5;
+        }
+        List list = empEvaluationService.listEmpEvaluation(Integer.parseInt(page),Integer.parseInt(limit));
+        int total = empEvaluationService.selAllCount();
+        Map map = new HashMap();
+        JSONArray json = (JSONArray) JSON.toJSON(list);
+
+        map.put("code",0);
+        map.put("count",total);
+        map.put("msg","");
+        map.put("data",json);
+        System.out.println(map.toString());
+
+        return map;
+    }
+
+    @RequestMapping("/to_addempevaluation")
+    public String to_addempevaluation(ModelMap model){
+        System.out.println("进入添加教师考评页面");
+        List allDeptList = empEvaluationService.selectAllDept();
+        List allEmpList = empEvaluationService.selectAllEmp();
+        List allEvaluationContentList = empEvaluationService.selectAllEvaluation();
+
+        System.out.println("addDeptList:"+allDeptList.toString());
+        System.out.println("allEmpList:"+allEmpList.toString());
+
+        model.put("allDeptList",allDeptList);
+        model.put("allEmpList",allEmpList);
+        model.put("allEvaluationContentList",allEvaluationContentList);
+
+        return "addempevaluation";
+    }
+
+    @ResponseBody
+    @RequestMapping("/listevaluationemp")
+    public String listevaluationemp(String depId){
+        System.out.println("进入查询员工");
+        System.out.println(depId);
+        return "true";
     }
 }

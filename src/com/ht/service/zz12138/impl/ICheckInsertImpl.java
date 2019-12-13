@@ -60,5 +60,15 @@ public class ICheckInsertImpl extends BaseDao implements ICheckInsert {
         updObject(vo);
     }
 
+    @Override
+    public List selectAllDep() {
+        return listBySQL("select * from t_dept");
+    }
+
+    @Override
+    public List selectAllEmp() {
+        return listBySQL("select * from t_emp");
+    }
+
 
 }

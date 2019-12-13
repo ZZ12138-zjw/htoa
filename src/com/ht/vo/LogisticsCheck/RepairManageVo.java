@@ -1,6 +1,7 @@
 package com.ht.vo.LogisticsCheck;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author @ZZ12138-zjw
@@ -30,8 +31,8 @@ public class RepairManageVo {
                 ", repairSort='" + repairSort + '\'' +
                 ", repairMan='" + repairMan + '\'' +
                 ", repairAddress='" + repairAddress + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", repairStatus='" + repairStatus + '\'' +
                 ", repairDept='" + repairDept + '\'' +
                 ", repairName='" + repairName + '\'' +
