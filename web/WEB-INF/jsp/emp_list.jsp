@@ -174,15 +174,16 @@
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
           </script>
           <%--家庭背景--%>
-          <script type="text/html" id="jiatingTableBar">
+          <script type="text/html" id="ygTableBar">
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
           </script>
-          <%--家庭背景--%>
+          <%--证件背景--%>
           <script type="text/html" id="zjUpTableBar">
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i></button>
               <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i></button>
           </script>
+
     </div>
   </div>
   </body>
@@ -424,7 +425,7 @@
                   $.each(data,function (i,val) {
                       empId=val.empId;
                   });
-                  x_admin_show('添加员工证件','${pageContext.request.contextPath}/emp/to_certificatesAdd?empId='+empId);
+                  x_admin_show('添加员工证件','${pageContext.request.contextPath}/emp/to_docAdd?empId='+empId);
               }
           });
 
@@ -563,12 +564,10 @@
               url: '${pageContext.request.contextPath}/emp/documentList?empId='+empId,
               height:300,
               cols: [[
-                  {field: 'empId', width:100, title: '员工名称'},
+                  {field: 'empName', width:100, title: '员工名称'},
                   {field: 'docName', width:80, title: '证件名称'},
-                  {field: 'docPath', width:150, title: '上传证件'},
-                  {field: 'upDate', width:150, title: '上传时间',templet:function (data) {
-                          return createTime(data.upDate);
-                      }},
+                  {field: 'docPath', width:150, title: '上传证件',templet:'<div><img src="${pageContext.request.contextPath}/images/{{d.docPath}}"/></div>'},
+                  {field: 'upDate', width:150, title: '上传时间'},
                   {field: 'upEmp', width:150, title: '上传人'},
                   {field: 'remark', width:250, title: '备注'},
                   {field: 'right', width:150, title: '操作',toolbar: '#zjUpTableBar'}

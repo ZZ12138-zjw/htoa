@@ -1,26 +1,18 @@
 package com.ht.controller.xiaoen;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+
 import com.ht.service.xiaoen.*;
 import com.ht.util.DateHelper;
-import com.ht.vo.employee.DeptVo;
-import com.ht.vo.employee.EducationVo;
-import com.ht.vo.employee.EmpCkBean;
-import com.ht.vo.employee.EmpVo;
-import com.ht.vo.employee.FamilyInfoVo;
-import com.ht.vo.employee.JobVo;
+import com.ht.util.FileUpload;
+import com.ht.vo.employee.*;
 import org.activiti.engine.runtime.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.activation.DataHandler;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.rmi.MarshalledObject;
+import org.springframework.web.multipart.MultipartFile;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,9 +41,6 @@ public class EmpController {
 
     @Autowired
     private IFamilyInfoService familyInfo;
-
-    @Autowired
-    private ICertificatesService certificates;
 
     @Autowired
     private IEducationService education;
@@ -265,6 +254,7 @@ public class EmpController {
         map.put("msg","");
         map.put("count",documentEmpService.selectCount());
         map.put("data",documentEmpService.selectAll(empId));
+        documentEmpService.selectPage(2,10);
         return  map;
     }
 
@@ -401,10 +391,53 @@ public class EmpController {
     }
 
 
-    @RequestMapping("/to_certificatesAdd")
+    @RequestMapping("/to_docAdd")
     public String toCertificatesAdd(String empId,Map map){
         map.put("empId",empId);
-        return "certificates_add";
+        return "doc_add";
+    }
+
+    @ResponseBody
+    @RequestMapping("/doc_upload")
+    public Map doc_upload(MultipartFile file, HttpServletRequest request){
+
+        Map map=new HashMap();
+        //上传路径
+        String dirName="D:\\workspace_idea\\htoa\\web\\WEB-INF\\static\\images";
+        //上传文件方法
+        String upload = null;
+        try {
+            upload = FileUpload.upload(file, dirName, request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code",0);
+            map.put("msg","");
+            return map;
+
+        }
+
+        Map dataMap=new HashMap();
+        dataMap.put("src",upload);
+
+
+        map.put("code",0);
+        map.put("msg","");
+        map.put("data",dataMap);
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping("/docAdd")
+    public String docAdd(DocumentVo documentVo, HttpSession session){
+
+        EmpVo empVo =(EmpVo)session.getAttribute("empVo");
+        //上传人
+        documentVo.setUpName(empVo.getEmpName());
+        //上传时间
+        documentVo.setuDate(DateHelper.formatDate(new Date(),"yyyy-MM-dd"));
+        System.out.println(documentVo.toString());
+        documentEmpService.save(documentVo);
+        return  "success";
     }
 
 
