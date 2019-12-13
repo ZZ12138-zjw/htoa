@@ -33,4 +33,6 @@ public interface ICheckInsert {
 
     //查询出所有员工
     public List selectAllEmp();
+
+
 }

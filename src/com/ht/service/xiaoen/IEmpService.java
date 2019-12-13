@@ -42,4 +42,13 @@ public interface IEmpService  {
      * @return
      */
     List findCheckFraction(String checkContext);
+
+
+    /**
+     * 通过员工id查询考核指标
+     * @param empId
+     *
+     * @return
+     */
+    List listCheckInsertByEmpId(int empId);
 }

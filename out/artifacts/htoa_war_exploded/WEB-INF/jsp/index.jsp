@@ -237,7 +237,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="${pageContext.request.contextPath}/repaircontro/repairapply">
+                        <a _href="${pageContext.request.contextPath}/repaircontro/to_repairapply">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>报修申请</cite>
                         </a>
@@ -278,7 +278,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/evaluationcontro/to_empevaluation">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>教师考评</cite>
                         </a>

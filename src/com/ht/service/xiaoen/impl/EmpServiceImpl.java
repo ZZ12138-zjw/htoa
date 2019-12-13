@@ -89,5 +89,10 @@ public class EmpServiceImpl extends BaseDao implements IEmpService {
         return listByHql("from CheckIndexVo c where  c.checkContent='"+checkContext+"'");
     }
 
+    @Override
+    public List listCheckInsertByEmpId(int empId) {
+        return listBySQL("select * from checkinsert c   where c.empiD="+empId);
+    }
+
 
 }

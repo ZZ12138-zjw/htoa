@@ -270,7 +270,8 @@ public class EmpController {
         map.put("code", 0);
         map.put("msg", "");
         map.put("count", checkInsert.selAllCount());
-        map.put("data", checkInsert.listByEmpId(empId));
+        map.put("data",emp.listCheckInsertByEmpId(empId));
+
         return map;
     }
 
