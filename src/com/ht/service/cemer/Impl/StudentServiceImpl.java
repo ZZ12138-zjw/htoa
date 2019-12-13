@@ -122,4 +122,72 @@ public class StudentServiceImpl extends BaseDao implements StudentService {
     public List selectAllReplyScore() {
         return listByHql("from ReplyScoreVo");
     }
+
+    @Override
+    public List selectAllTerm() {
+        return listByHql("from TermVo");
+    }
+
+    @Override
+    public List selectAllTestType() {
+        return listByHql("from TestTypeVo");
+    }
+
+    @Override
+    public List selectAllCourse() {
+        return listByHql("from CourseVo");
+    }
+
+    @Override
+    public List selectAllFall() {
+        return listByHql("from StudentFallVo");
+    }
+
+    @Override
+    public List selectAllClass() {
+        return listByHql("from StudentClassVo");
+    }
+
+    @Override
+    public List selectAllHour() {
+        return listByHql("from StudentHuorVo");
+    }
+
+    @Override
+    public List selectBySearch(int page, int size, StudentSearch studentSearch) {
+        String sql = "select s.stuId,s.stuName,s.stuno,s.sex,s.cardid,s.phone,c.className,h.hourName,s.state,s.collar,s.computer,s.grants,s.parents,s.parentsphone,s.qkMoney from t_student s left join t_studentclass c on s.classid = c.classId left join t_studenthuor h on h.hourId= s.hourid";
+        if(studentSearch.getStuName()!= null && !"".equals(studentSearch.getStuName())){
+            sql+=" where s.stuName like '%"+studentSearch.getStuName()+"%'";
+        }else{
+            sql+=" where s.stuName like '%'";
+        }if(studentSearch.getClassid() != null && !"".equals(studentSearch.getClassid())){
+            sql+=" and s.classid="+studentSearch.getClassid()+"";
+        }if(studentSearch.getHourid() != null && !"".equals(studentSearch.getHourid())){
+            sql+=" and s.hourid="+studentSearch.getHourid();
+        }if(studentSearch.getPhone() != null && !"".equals(studentSearch.getPhone())){
+            sql+=" and s.phone like '%"+studentSearch.getPhone()+"%'";
+        }if(studentSearch.getState() !=null && !"".equals(studentSearch.getState())){
+            sql+=" and s.state="+studentSearch.getState();
+        }
+        return pageBySQL(sql,page,size);
+    }
+
+    @Override
+    public int selectBySearchCount(StudentSearch studentSearch) {
+        String sql = "select s.stuId,s.stuName,s.stuno,s.sex,s.cardid,s.phone,c.className,h.hourName,s.state,s.collar,s.computer,s.grants,s.parents,s.parentsphone,s.qkMoney from t_student s left join t_studentclass c on s.classid = c.classId left join t_studenthuor h on h.hourId= s.hourid";
+        if(studentSearch.getStuName() != null && !"".equals(studentSearch.getStuName())){
+            sql+=" where s.stuName like '%"+studentSearch.getStuName()+"%'";
+        }else{
+            sql+=" where s.stuName like '%'";
+        }if(studentSearch.getClassid() != null && !"".equals(studentSearch.getClassid())){
+            sql+=" and s.classid="+studentSearch.getClassid();
+        }if(studentSearch.getHourid() != null && !"".equals(studentSearch.getHourid())){
+            sql+=" and s.hourid="+studentSearch.getHourid();
+        }if(studentSearch.getPhone() != null && !"".equals(studentSearch.getPhone())){
+            sql+=" and s.phone like '%"+studentSearch.getPhone()+"'";
+        }if(studentSearch.getState() !=null && !"".equals(studentSearch.getState())){
+            sql+=" and s.state="+studentSearch.getState();
+        }
+        return listBySQL(sql).size();
+    }
 }

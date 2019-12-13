@@ -25,6 +25,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
+        <input type="hidden" name="stuid" value="<%=request.getAttribute("stuId")%>"/>
         <div class="layui-form-item">
             <label for="happening" class="layui-form-label">
                 <span class="x-red">*</span>情况记录
@@ -113,11 +114,13 @@
 
     });
 </script>
-<script>var _hmt = _hmt || []; (function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
+<script>
+    var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 </body>
 </html>

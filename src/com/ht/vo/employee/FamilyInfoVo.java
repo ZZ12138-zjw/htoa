@@ -16,10 +16,10 @@ public class FamilyInfoVo {
     @Id
     @GeneratedValue
     private Integer familyid; //主键，标识列，自动生成
-    private String Empid; //关联Emp表empid字段
+    private Integer empId; //关联Emp表empid字段
     private String contactName; //联系人名称
     private String relationship; //与员工关系
-    private String Phone; //联系电话
+    private String phone; //联系电话
     private String remark; //说明
 
     public Integer getFamilyid() {
@@ -30,12 +30,12 @@ public class FamilyInfoVo {
         this.familyid = familyid;
     }
 
-    public String getEmpid() {
-        return Empid;
+    public Integer getEmpId() {
+        return empId;
     }
 
-    public void setEmpid(String empid) {
-        Empid = empid;
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
     }
 
     public String getContactName() {
@@ -55,11 +55,11 @@ public class FamilyInfoVo {
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public String getRemark() {
@@ -67,17 +67,17 @@ public class FamilyInfoVo {
     }
 
     public void setRemark(String remark) {
-        remark = remark;
+        this.remark = remark;
     }
 
     @Override
     public String toString() {
         return "FamilyInfoVo{" +
                 "familyid=" + familyid +
-                ", Empid='" + Empid + '\'' +
+                ", Empid='" + empId + '\'' +
                 ", contactName='" + contactName + '\'' +
                 ", relationship='" + relationship + '\'' +
-                ", Phone='" + Phone + '\'' +
+                ", Phone='" + phone + '\'' +
                 ", Remark='" + remark + '\'' +
                 '}';
     }

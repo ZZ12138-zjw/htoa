@@ -16,8 +16,8 @@ public class JobVo {
 
     @Id
     @GeneratedValue
-    private Integer Jobid; //主键，标识列，自动生成
-    private String empid; //关联Emp表empid字段
+    private Integer jobid; //主键，标识列，自动生成
+    private Integer empid; //关联Emp表empid字段
     private String companyName; //公司名称
     private String degree; //岗位
     private Date startDate; //入职时间
@@ -26,18 +26,18 @@ public class JobVo {
     private String remark; //说明
 
     public Integer getJobid() {
-        return Jobid;
+        return jobid;
     }
 
     public void setJobid(Integer jobid) {
-        Jobid = jobid;
+        this.jobid = jobid;
     }
 
-    public String getEmpid() {
+    public Integer getEmpid() {
         return empid;
     }
 
-    public void setEmpid(String empid) {
+    public void setEmpid(Integer empid) {
         this.empid = empid;
     }
 
@@ -92,7 +92,7 @@ public class JobVo {
     @Override
     public String toString() {
         return "JobVo{" +
-                "Jobid=" + Jobid +
+                "Jobid=" + jobid +
                 ", empid='" + empid + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", degree='" + degree + '\'' +

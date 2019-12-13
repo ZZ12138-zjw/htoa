@@ -155,7 +155,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="<%=request.getContextPath()%>/cla/class">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>班级管理</cite>
                         </a>
@@ -167,13 +167,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="<%=request.getContextPath()%>/student/class">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>班级管理</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="${pageContext.request.contextPath}/huor/to_huor_list">
+                        <a _href="order-list.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>宿舍管理</cite>
                         </a>
@@ -278,7 +272,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="${pageContext.request.contextPath}/evaluationcontro/to_evaluationcontent">
+                        <a _href="order-list.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考评内容</cite>
                         </a>
@@ -335,7 +329,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/notice/tonotice_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>公告发布</cite>
                         </a>

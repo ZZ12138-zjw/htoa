@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface IFamilyInfoService {
 
-    List<FamilyInfoVo> selectAll();
+    List<FamilyInfoVo> selectAll(int empId);
 
     void delete(FamilyInfoVo familyInfoVo);
 

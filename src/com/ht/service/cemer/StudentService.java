@@ -54,4 +54,19 @@ public interface StudentService {
 
     List selectAllReplyScore();
 
+    List selectAllTerm();
+
+    List selectAllTestType();
+
+    List selectAllCourse();
+
+    List selectAllFall();
+
+    List selectAllClass();
+
+    List selectAllHour();
+
+    List selectBySearch(int page,int size,StudentSearch studentSearch);
+
+    int selectBySearchCount(StudentSearch studentSearch);
 }

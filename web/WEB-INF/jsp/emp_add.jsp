@@ -25,6 +25,14 @@
                   <span class="x-red">*</span>将会成为您唯一的登入名
               </div>--%>
           </div>
+        <div class="layui-form-item">
+            <label  for="hireday" class="layui-form-label">
+                <span class="x-red">*</span>入职时间
+            </label>
+            <div class="layui-input-inline">
+                <input  placeholder="入职时间" id="hireDay"  lay-verify="required" class="layui-input" name="hireday">
+            </div>
+        </div>
           <div class="layui-form-item">
               <label for="selectDep" class="layui-form-label">
                   <span class="x-red">*</span>部门名称
@@ -181,14 +189,6 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" placeholder="请输入你的支付宝账号" class="layui-input"  id="alipay" name="alipay">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label  for="hireday" class="layui-form-label">
-                <span class="x-red">*</span>入职时间
-            </label>
-            <div class="layui-input-inline">
-                <input  placeholder="入职时间" id="hireDay"  lay-verify="required" class="layui-input" name="hireday">
             </div>
         </div>
         <div class="layui-form-item">
