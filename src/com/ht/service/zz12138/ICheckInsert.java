@@ -28,5 +28,9 @@ public interface ICheckInsert {
 
     public void editCheckInsert(CheckInsertVo vo);
 
-    List listByEmpId(int empId);
+    //查询出所有部门
+    public List selectAllDep();
+
+    //查询出所有员工
+    public List selectAllEmp();
 }

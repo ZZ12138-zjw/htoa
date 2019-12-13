@@ -13,4 +13,12 @@ public interface IEmpEvaluationService {
     public List listEmpEvaluation(int currPage,int pageSize);
 
     public void addEmpEvaluation(EmpEvaluationVo empEvaluationVo);
+
+    public int selAllCount();
+
+    public List selectAllDept();
+
+    public List selectAllEmp();
+
+    public List selectAllEvaluation();
 }

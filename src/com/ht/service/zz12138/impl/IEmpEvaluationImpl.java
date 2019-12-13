@@ -24,4 +24,26 @@ public class IEmpEvaluationImpl extends BaseDao implements IEmpEvaluationService
     public void addEmpEvaluation(EmpEvaluationVo empEvaluationVo) {
         addObject(empEvaluationVo);
     }
+
+    @Override
+    public int selAllCount() {
+        return selTotalRow("select count(*) from empevaluation");
+    }
+
+    @Override
+    public List selectAllDept() {
+        return listBySQL("select * from t_dept");
+    }
+
+    @Override
+    public List selectAllEmp() {
+        return listBySQL("select * from t_emp");
+    }
+
+    @Override
+    public List selectAllEvaluation() {
+        return listByHql("from EvaluationContentVo");
+    }
+
+
 }

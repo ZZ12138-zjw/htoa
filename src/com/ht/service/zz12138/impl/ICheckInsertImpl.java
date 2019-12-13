@@ -61,10 +61,14 @@ public class ICheckInsertImpl extends BaseDao implements ICheckInsert {
     }
 
     @Override
-    public List listByEmpId(int empId) {
-        return listBySQL("select * from checkinsert c where  c.empID="+empId);
+    public List selectAllDep() {
+        return listBySQL("select * from t_dept");
     }
 
+    @Override
+    public List selectAllEmp() {
+        return listBySQL("select * from t_emp");
+    }
 
 
 }

@@ -22,9 +22,15 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">考评分数</label>
+            <div class="layui-input-inline">
+                <input type="text" id="evaluationScore" name="evaluationScore" required  lay-verify="required" placeholder="请输入考核分数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">部门名称</label>
             <div class="layui-input-inline">
-                <select name="depName" id="depName" lay-verify="required">
+                <select name="depName" id="depName" lay-verify="required" lay-search="">
                     <option value=""></option>
                     <c:forEach items="${allDepName}" var="e">
                         <option value="${e.depName}" >${e.depName}</option>
@@ -52,6 +58,7 @@
             $.post("${pageContext.request.contextPath}/evaluationcontro/addevaluationcontent",{
                 evaluationName:$('#evaluationName').val(),
                 depName:$('#depName').val(),
+                evaluationScore:$('#evaluationScore').val()
             },function (data) {
                 if (data=="success"){
                     layer.alert("添加成功", {icon: 6},function () {
