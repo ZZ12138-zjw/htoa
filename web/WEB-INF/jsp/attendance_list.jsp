@@ -14,15 +14,11 @@
 
   <div class="x-body">
       <script type="text/html" id="barDemo2">
-          <button class="layui-btn" onclick="x_admin_show('添加考勤','${pageContext.request.contextPath}/dept/to_deptAdd')"><i class="layui-icon"></i>添加</button>
+          <button class="layui-btn" onclick="x_admin_show('添加考勤','${pageContext.request.contextPath}/attendance/to_attendanceAdd')"><i class="layui-icon"></i>添加</button>
+          <button class="layui-btn">我的审批</button>
       </script>
       <table class="layui-hide" id="attendanceTable" lay-filter="attendanceTableFilter" ></table>
 
-
-      <script type="text/html" id="barDemo">
-          <a class="layui-btn layui-btn-xs" lay-event="edit" >  编辑</a>
-          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
-      </script>
 
   </div>
 
@@ -57,10 +53,19 @@
                       ,{field:'notTime',width:150, title: '未打卡时间'}
                       ,{field:'explanation',width:250, title: '原因说明'}
                       ,{field:'auditor',width:150,title: '审核人'}
-                      ,{field:'auditorTime',width:150,title: '审核时间'}
+                      ,{field:'auditorTime',width:150,title: '审核时间',templet:function (d) {
+                          return createTime(d.auditorTime);
+                      }}
                       ,{field:'auditorEx',width:250,title: '审核说明'}
-                      ,{field:'status',width:100,title: '状态'}
-                      ,{field: 'right', title:'操作',width:200,toolbar: '#barDemo'}
+                      ,{field:'status',width:100,title: '状态',templet:function(d){
+                               if (d.status==1){
+                                   return '<span>审批中</span>'
+                               }else if (d.status==2){
+                                    return '<span>已完成</span>'
+                               }else if (d.status==3){
+                                   return '<span>不批准</span>'
+                               }
+                      }}
                   ]
               ]
               ,limits: [5,10,20,50]

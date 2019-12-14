@@ -28,6 +28,12 @@ public class AttendanceController {
     }
 
 
+    @RequestMapping("/to_attendanceAdd")
+    public String to_attendanceAdd(){
+        return "attendance_add";
+    }
+
+
 
     @RequestMapping("/attendanceList")
     @ResponseBody
