@@ -18,8 +18,6 @@
           <button class="layui-btn">我的审批</button>
       </script>
       <table class="layui-hide" id="attendanceTable" lay-filter="attendanceTableFilter" ></table>
-
-
   </div>
 
     <script>
@@ -47,8 +45,8 @@
               ,toolbar:"#barDemo2" //开启头部工具栏，并为其绑定左侧模板
               ,cols: [   //标题栏
                   [
-                       {checkbox:true}//开启多选框
-                      ,{field:'attId', width:100,title: '编号',sort:true}
+
+                      {field:'attId', width:100,title: '编号',sort:true}
                       ,{field:'empName',width:100, title: '员工姓名'}
                       ,{field:'notTime',width:150, title: '未打卡时间'}
                       ,{field:'explanation',width:250, title: '原因说明'}
