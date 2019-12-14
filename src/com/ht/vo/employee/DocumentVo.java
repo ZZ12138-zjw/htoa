@@ -15,20 +15,28 @@ public class DocumentVo {
 
     @Id
     @GeneratedValue
-    private Integer docId; //主键
-    private String docName; //证件名称
+    private Integer dId; //主键
+    private String dName; //证件名称
     private Integer empId; //员工id
-    private String docPath; //图片路径
-    private String upDate; //上传时间
-    private String upEmp; //上传人
-    private String remark; //说明
+    private String dPath; //图片路径
+    private String uDate; //上传时间
+    private String upName; //上传人
+    private String remark;  //说明
 
-    public Integer getDocId() {
-        return docId;
+    public Integer getdId() {
+        return dId;
     }
 
-    public void setDocId(Integer docId) {
-        this.docId = docId;
+    public void setdId(Integer dId) {
+        this.dId = dId;
+    }
+
+    public String getdName() {
+        return dName;
+    }
+
+    public void setdName(String dName) {
+        this.dName = dName;
     }
 
     public Integer getEmpId() {
@@ -39,36 +47,28 @@ public class DocumentVo {
         this.empId = empId;
     }
 
-    public String getDocName() {
-        return docName;
+    public String getdPath() {
+        return dPath;
     }
 
-    public void setDocName(String docName) {
-        this.docName = docName;
+    public void setdPath(String dPath) {
+        this.dPath = dPath;
     }
 
-    public String getDocPath() {
-        return docPath;
+    public String getuDate() {
+        return uDate;
     }
 
-    public void setDocPath(String docPath) {
-        this.docPath = docPath;
+    public void setuDate(String uDate) {
+        this.uDate = uDate;
     }
 
-    public String getUpDate() {
-        return upDate;
+    public String getUpName() {
+        return upName;
     }
 
-    public void setUpDate(String upDate) {
-        this.upDate = upDate;
-    }
-
-    public String getUpEmp() {
-        return upEmp;
-    }
-
-    public void setUpEmp(String upEmp) {
-        this.upEmp = upEmp;
+    public void setUpName(String upName) {
+        this.upName = upName;
     }
 
     public String getRemark() {
@@ -82,12 +82,12 @@ public class DocumentVo {
     @Override
     public String toString() {
         return "DocumentVo{" +
-                "docId=" + docId +
-                ", docName='" + docName + '\'' +
+                "dId=" + dId +
+                ", dName='" + dName + '\'' +
                 ", empId=" + empId +
-                ", docPath='" + docPath + '\'' +
-                ", upDate='" + upDate + '\'' +
-                ", upEmp='" + upEmp + '\'' +
+                ", dPath='" + dPath + '\'' +
+                ", uDate='" + uDate + '\'' +
+                ", upName='" + upName + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
     }

@@ -21,30 +21,30 @@
     <div class="x-body">
         <form class="layui-form" lay-filter="add">
               <div class="layui-form-item">
-                  <label for="courseName" class="layui-form-label">
+                  <label for="title" class="layui-form-label">
                       <span class="x-red">*</span>标题
                   </label>
                   <div class="layui-input-inline">
-                      <input type="text" id="courseName" name="courseName" required="" lay-verify="courseName"
+                      <input type="text" id="title" name="title" required="" lay-verify="courseName"
                       autocomplete="off" class="layui-input">
                   </div>
-                  <label for="isobligatory" class="layui-form-label">
+                  <label for="noticeType" class="layui-form-label">
                       <span class="x-red">*</span>类别：
                   </label>
                   <div class="layui-input-inline">
-                      <select id="isobligatory"  name="isobligatory" lay-verify="required">
+                      <select id="noticeType"  name="noticeType" lay-verify="required">
                           <option value="1">全体员工</option>
                           <option value="2">全体学生</option>
-                          <option value="3">全体师生</option>
+                          <option value="3">所有人</option>
                       </select>
                   </div>
               </div>
           <div class="layui-form-block">
-              <label for="content" class="layui-form-label">
+              <label for="noticeContent" class="layui-form-label">
                   <span class="x-red">*</span>内容
               </label>
               <div class="layui-input-inline">
-                  <textarea name="content" id="content" class="layui-textarea"></textarea>
+                  <textarea id="noticeContent" style="display: none;"></textarea>
               </div>
           </div>
           <div class="layui-form-item" style="margin-left: 100px;">
@@ -54,10 +54,11 @@
       </form>
     </div>
     <script>
-        layui.use(['form','layer'], function(){
+        layui.use(['form','layer','layedit'], function(){
           var form = layui.form;
           var layer = layui.layer;
-
+            var layedit = layui.layedit;
+            var content = layedit.build('noticeContent'); //建立编辑器
           //表单校验
             form.verify({
                 //value：表单的值，item表单的dom对象
@@ -82,7 +83,7 @@
               $.ajax({
                   url:'${pageContext.request.contextPath}/notice/notice_add',
                   type:'post',
-                  data:data.field,
+                  data:{title:$('#title').val(),content:layedit.getContent(content),noticeType:$('#noticeType').val()},
                   dataType:'json',
                   success:function (data){
                       layer.alert("增加成功", {icon: 6},function(){

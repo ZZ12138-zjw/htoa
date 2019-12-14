@@ -10,6 +10,25 @@
 <head>
     <title>维修管理</title>
     <jsp:include page="top.jsp"></jsp:include>
+
+    <script type="text/javascript">
+        /*时间转换格式*/
+        function  createTime(v) {
+            var date=new Date(v);
+            var y=date.getFullYear();
+            var m=date.getMonth()+1;
+            m = m<10 ? '0'+m : m;
+            var d=date.getDate();
+            d=d<10 ?("0"+d):d;
+            var h=date.getHours();
+            h=h<10?("0"+h):h;
+            var M = date.getMinutes();
+            M = M<10?("0"+M):M;
+            var str = y+"-"+m+"-"+d+" "+h;
+            return str;
+        }
+    </script>
+
 </head>
 <body>
     <table id="demo" lay-filter="test"></table>
@@ -50,8 +69,12 @@
                     ,{field: 'repairStatus', title: '报修状态', width:90, sort: true}
                     ,{field: 'repairAddress', title: '报修地址', width: 100}
                     ,{field: 'repairDept', title: '部门或班级', width: 100}
-                    ,{field: 'startDate', title: '申请时间', width: 100, sort: true}
-                    ,{field: 'endDate', title: '结束时间', width: 100, sort: true}
+                    ,{field: 'startDate',templet:function (data) {
+                            return  createTime(data.startDate)
+                        }, title: '申请时间', width: 120, sort: true}
+                    ,{field: 'endDate', title: '结束时间',templet:function (data) {
+                            return createTime(data.endDate)
+                        }, width: 120, sort: true}
                     ,{field: 'repairIndex', title: '备注', width: 100}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:110}
                 ]],

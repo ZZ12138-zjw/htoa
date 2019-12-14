@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -28,33 +30,40 @@ public class RepairApplyController {
 
     @ResponseBody
     @RequestMapping("/repairmanage")
-    public String repairmanage(RepairManageVo vo){
-        System.out.println("进入维修申请");
-        if (vo.getStartDate()==null){
-            Date currentTime = new Date();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String dateString = formatter.format(currentTime);
-            vo.setStartDate(dateString);
-        }
+    public String repairmanage(RepairManageVo vo) throws ParseException {
+        System.out.println("进入添加维修管理");
         service.addRepairMange(vo);
-        System.out.println();
+        return "success";
+    }
+
+    @ResponseBody
+    @RequestMapping("/repairapply")
+    public String repairapply(RepairManageVo vo) throws ParseException {
+        System.out.println("进入报修申请控制器");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
+        String startdate = simpleDateFormat.format(new Date());
+        vo.setStartDate(startdate);
+        System.out.println(vo.toString());
+        service.addRepairMange(vo);
         return "success";
     }
 
     @ResponseBody
     @RequestMapping("/listrepair")
-    public Map listrepair(String page,String limit){
+    public Map listrepair(String page,String limit) throws ParseException {
+        System.out.println("遍历维修管理");
         if (limit==null){
             limit=5+"";
         }
         List list = service.listRepairManage(Integer.parseInt(page),Integer.parseInt(limit));
-        JSONArray jsonArray=(JSONArray)JSON.toJSON(list);
         int total = service.selTotal();
+        JSONArray json = (JSONArray) JSON.toJSON(list);
         Map map = new HashMap();
-        map.put("data",jsonArray);
+        map.put("data",json);
         map.put("code",0);
         map.put("msg","");
         map.put("count",total);
+        System.out.println("map:"+map.toString());
         return map;
     }
 
@@ -65,8 +74,10 @@ public class RepairApplyController {
         service.delRepairManage(Integer.parseInt(repairID));
     }
 
-    @RequestMapping("/repairapply")
-    public String repairapply(){
+    @RequestMapping("/to_repairapply")
+    public String repairapply(ModelMap model){
+        List list = service.selectAllDept();
+        model.put("allDeptList",list);
         System.out.println("进入维修申请页面");
         return "repairapply";
     }
@@ -78,8 +89,10 @@ public class RepairApplyController {
     }
 
     @RequestMapping("/to_addrepairmanage")
-    public String to_addrepairmanage(){
-        System.out.println("进入维修管理页面");
+    public String to_addrepairmanage(ModelMap model){
+        List list = service.selectAllDept();
+        model.put("allDeptList",list);
+        System.out.println("进入添加维修管理页面");
         return "addrepairmanage";
     }
 
@@ -87,6 +100,8 @@ public class RepairApplyController {
     public String editrepairmanage(String repairid, ModelMap model){
         System.out.println("进入编辑维修管理页面");
         RepairManageVo vo = service.listRepair(Integer.parseInt(repairid));
+        List list = service.selectAllDept();
+
         List sortList = new ArrayList();
         List statusList = new ArrayList();
 
@@ -124,6 +139,7 @@ public class RepairApplyController {
         model.put("listRepair",vo);
         model.put("repairSortList",sortList);
         model.put("repairStatusList",statusList);
+        model.put("allDeptList",list);
         return "editrepairmanage";
     }
 

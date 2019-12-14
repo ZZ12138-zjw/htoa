@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>维修申请</title>
@@ -51,9 +52,14 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">部门或班级</label>
+                <label class="layui-form-label">选择部门</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="repairDept" id="repairDept" required lay-verify="required" placeholder="请输入部门或班级" autocomplete="off" class="layui-input">
+                    <select name="depName" id="depName" lay-verify="required">
+                        <option value=""></option>
+                        <c:forEach items="${allDeptList}" var="e">
+                            <option value="${e.depName}">${e.depName}</option>
+                        </c:forEach>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -73,11 +79,11 @@
 
         //监听提交
         form.on('submit(formDemo)', function(data) {
-            $.post("${pageContext.request.contextPath}/repaircontro/repairmanage",{
+            $.post("${pageContext.request.contextPath}/repaircontro/repairapply",{
                 repairMan:$('#repairMan').val(),
                 repairSort:$('#repairSort').val(),
                 repairAddress:$('#repairAddress').val(),
-                repairDept:$('#repairDept').val(),
+                repairDept:$('#depName').val(),
                 repairName:$('#repairName').val(),
                 repairStatus:'待维修'
             },function (data) {

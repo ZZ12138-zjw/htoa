@@ -52,4 +52,9 @@ public class IRepairManageImpl extends BaseDao implements IRepairManageService {
     public void editrepairmanage(RepairManageVo vo) {
         updObject(vo);
     }
+
+    @Override
+    public List selectAllDept() {
+        return listBySQL("select DISTINCT depid,depName from t_dept");
+    }
 }

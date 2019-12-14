@@ -52,7 +52,12 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">部门或班级</label>
                 <div class="layui-input-inline">
-                    <input type="text" value="${listRepair.repairDept}" id="repairDept" name="repairDept" required  lay-verify="required" autocomplete="off" class="layui-input">
+                    <select name="depName" id="depName" lay-verify="required">
+                        <option value=""></option>
+                        <c:forEach items="${allDeptList}" var="e">
+                            <option value="${e.depName}" ${listRepair.repairDept==e.depName? 'selected' : ''}>${e.depName}</option>
+                        </c:forEach>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -82,7 +87,7 @@
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">维修备注</label>
                 <div class="layui-input-block">
-                    <input type="text" value="${listRepair.repairIndex}" placeholder="请输入备注" id="repairIndex" name="repairIndex" required autocomplete="off" class="layui-input">
+                    <textarea placeholder="请输入备注" id="repairIndex" name="repairIndex" class="layui-textarea">${listRepair.repairIndex}</textarea>
                 </div>
             </div>
             <div class="layui-form-item">
