@@ -44,75 +44,10 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <div class="layui-row layui-col-space15">
+
             <div class="layui-col-md8">
                 <div class="layui-row layui-col-space15">
-                    <div class="layui-col-md6">
-                        <div class="layui-card">
-                            <div class="layui-card-header"><i class="fa fa-warning icon"></i>数据统计</div>
-                            <div class="layui-card-body">
-                                <div class="welcome-module">
-                                    <div class="layui-row layui-col-space10">
-                                        <div class="layui-col-xs6">
-                                            <div class="panel layui-bg-number">
-                                                <div class="panel-body">
-                                                    <div class="panel-title">
-                                                        <span class="label pull-right layui-bg-blue">实时</span>
-                                                        <h5>用户统计</h5>
-                                                    </div>
-                                                    <div class="panel-content">
-                                                        <h1 class="no-margins">1234</h1>
-                                                        <small>当前分类总记录数</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="layui-col-xs6">
-                                            <div class="panel layui-bg-number">
-                                                <div class="panel-body">
-                                                    <div class="panel-title">
-                                                        <span class="label pull-right layui-bg-cyan">实时</span>
-                                                        <h5>商品统计</h5>
-                                                    </div>
-                                                    <div class="panel-content">
-                                                        <h1 class="no-margins">1234</h1>
-                                                        <small>当前分类总记录数</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="layui-col-xs6">
-                                            <div class="panel layui-bg-number">
-                                                <div class="panel-body">
-                                                    <div class="panel-title">
-                                                        <span class="label pull-right layui-bg-orange">实时</span>
-                                                        <h5>浏览统计</h5>
-                                                    </div>
-                                                    <div class="panel-content">
-                                                        <h1 class="no-margins">1234</h1>
-                                                        <small>当前分类总记录数</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="layui-col-xs6">
-                                            <div class="panel layui-bg-number">
-                                                <div class="panel-body">
-                                                    <div class="panel-title">
-                                                        <span class="label pull-right layui-bg-green">实时</span>
-                                                        <h5>订单统计</h5>
-                                                    </div>
-                                                    <div class="panel-content">
-                                                        <h1 class="no-margins">1234</h1>
-                                                        <small>当前分类总记录数</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="layui-col-md6">
                         <div class="layui-card">
                             <div class="layui-card-header"><i class="fa fa-credit-card icon icon-blue"></i>快捷入口</div>
@@ -122,49 +57,49 @@
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" data-iframe-tab="page/menu.html" data-title="菜单管理" data-icon="fa fa-window-maximize">
                                                 <i class="fa fa-window-maximize"></i>
-                                                <cite>菜单管理</cite>
+                                                <cite>员工请假审批</cite>
                                             </a>
                                         </div>
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" data-iframe-tab="page/setting.html" data-title="系统设置" data-icon="fa fa-gears">
                                                 <i class="fa fa-gears"></i>
-                                                <cite>系统设置</cite>
+                                                <cite>学生请假审批</cite>
                                             </a>
                                         </div>
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" data-iframe-tab="page/table.html" data-title="表格示例" data-icon="fa fa-file-text">
                                                 <i class="fa fa-file-text"></i>
-                                                <cite>表格示例</cite>
+                                                <cite>未打卡审批</cite>
                                             </a>
                                         </div>
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" data-iframe-tab="page/icon.html" data-title="图标列表" data-icon="fa fa-dot-circle-o">
                                                 <i class="fa fa-dot-circle-o"></i>
-                                                <cite>图标列表</cite>
+                                                <cite>未读通知公告</cite>
                                             </a>
                                         </div>
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" data-iframe-tab="page/form.html" data-title="表单示例" data-icon="fa fa-calendar">
                                                 <i class="fa fa-calendar"></i>
-                                                <cite>表单示例</cite>
+                                                <cite>本周工作周报</cite>
                                             </a>
                                         </div>
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" data-iframe-tab="page/404.html" data-title="404页面" data-icon="fa fa-hourglass-end">
                                                 <i class="fa fa-hourglass-end"></i>
-                                                <cite>404页面</cite>
+                                                <cite>月谈心记录</cite>
                                             </a>
                                         </div>
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" data-iframe-tab="page/button.html" data-title="按钮示例" data-icon="fa fa-snowflake-o">
                                                 <i class="fa fa-snowflake-o"></i>
-                                                <cite>按钮示例</cite>
+                                                <cite>请假申请</cite>
                                             </a>
                                         </div>
                                         <div class="layui-col-xs3 layuimini-qiuck-module">
                                             <a href="javascript:;" data-iframe-tab="page/layer.html" data-title="弹出层" data-icon="fa fa-shield">
                                                 <i class="fa fa-shield"></i>
-                                                <cite>弹出层</cite>
+                                                <cite>值班管理</cite>
                                             </a>
                                         </div>
                                     </div>
@@ -173,14 +108,8 @@
                         </div>
 
                     </div>
-                    <div class="layui-col-md12">
-                        <div class="layui-card">
-                            <div class="layui-card-header"><i class="fa fa-line-chart icon"></i>报表统计</div>
-                            <div class="layui-card-body">
-                                <div id="echarts-records" style="width: 100%;min-height:500px"></div>
-                            </div>
-                        </div>
-                    </div>
+
+
                 </div>
             </div>
 
