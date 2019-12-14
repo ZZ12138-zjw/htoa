@@ -82,24 +82,23 @@ public class StudentController {
     @RequestMapping({"/add"})
     @ResponseBody
     public String addStu(StudentVo studentVo) {
-        System.out.println("进来了");
         this.studentService.addStuVo(studentVo);
         return "successful";
     }
     @RequestMapping(value = "/toUpdate")
     public String toUpd(int stuId,HttpServletRequest request){
-        System.out.println(stuId);
+        System.out.println("去修改的ID  "+stuId);
         request.setAttribute("student",this.studentService.getById(stuId));
         request.setAttribute("huor", this.studentService.getAllHuor());
         request.setAttribute("studentClass", this.studentService.getAllClass());
         return "studentUpdate";
     }
-    @RequestMapping(value = "/update")
+    @RequestMapping("/update")
     @ResponseBody
     public String updStu(StudentVo studentVo){
-        System.out.println("进来了");
+        System.out.println(studentVo.toString());
         studentService.updStu(studentVo);
-        return "sucessful";
+         return "sucessful";
     }
 
     @RequestMapping(value = "/delStu")
