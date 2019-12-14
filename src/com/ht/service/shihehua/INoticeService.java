@@ -10,7 +10,27 @@ import java.util.List;
 public interface INoticeService {
     public void addNotice(NoticeVo noticeVo);
 
-    public List<NoticeVo> NoticeIdList(String title);
+    public List NoticeIdList(String title);
+
+    public List StudentList();
+
+    public int StudentCount();
+
+    public List selEmpNoticePage(Integer currPage,Integer pageSize);
+
+    public List selStudentNoticePage(Integer currPage,Integer pageSize);
+
+    public NoticeVo selNotice(Integer noticeId);
+
+    public int selEmpNoticeCount();
+
+    public void NoticeUpdate(NoticeVo noticeVo);
+
+    public int selStudentNoticeCount();
+
+    public void delNotice(Integer noticeId);
+
+    public void delNotices(String ids);
 
 
 }

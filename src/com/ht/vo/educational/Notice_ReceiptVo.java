@@ -14,6 +14,7 @@ public class Notice_ReceiptVo {
     private Integer noticeId;  //关联管理通知公告
     private Integer receiver;  //接收人
     private Integer isRead;  //是否已读,1:已读,2:未读
+    private Integer type;//师生类型 1：员工，2：学生
 
     @Override
     public String toString() {
@@ -22,6 +23,7 @@ public class Notice_ReceiptVo {
                 ", noticeId=" + noticeId +
                 ", receiver=" + receiver +
                 ", isRead=" + isRead +
+                ", type=" + type +
                 '}';
     }
 
@@ -55,5 +57,13 @@ public class Notice_ReceiptVo {
 
     public void setIsRead(Integer isRead) {
         this.isRead = isRead;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

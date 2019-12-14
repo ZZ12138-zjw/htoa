@@ -569,7 +569,7 @@
                   {field: 'upDate', width:150, title: '上传时间',templet:function (data) {
                           return createTime(data.upDate);
                       }},
-                  {field: 'upEmpName', width:150, title: '上传人'},
+                  {field: 'upEmp', width:150, title: '上传人'},
                   {field: 'remark', width:250, title: '备注'},
                   {field: 'right', width:150, title: '操作',toolbar: '#zjUpTableBar'}
               ]]
