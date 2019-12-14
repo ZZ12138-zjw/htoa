@@ -25,7 +25,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
-        <input type="hidden" name="stuid" value="<%=request.getAttribute("stuId")%>"/>
+        <input type="hidden" name="stuid" value="<%=request.getAttribute("stuId")%>" class="layui-input"/>
         <div class="layui-form-item">
             <label for="happening" class="layui-form-label">
                 <span class="x-red">*</span>情况记录

@@ -24,7 +24,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
-        <input name="studentId" value="<%=request.getAttribute("stuId")%>" type="hidden"/>
+        <input name="studentId" value="<%=request.getAttribute("stuId")%>" type="hidden" class="layui-input"/>
         <div class="layui-form-item">
             <label class="layui-form-label">
                 <span class="x-red">*</span>项目答辩名称
@@ -153,6 +153,7 @@
                     });
                 }
             });
+            return false;
         });
 
 

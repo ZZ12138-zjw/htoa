@@ -16,7 +16,7 @@ public class DocumentServiceImpl extends BaseDao implements IDocumentService {
 
     @Override
     public List<DocumentVo> selectAll(int empId) {
-        return listBySQL("select d.*,e.empName from t_document d left join t_emp  e on d.empid=e.empId where d.empid="+empId);
+        return listBySQL("select d.*,e.empName from t_document d left join t_emp e on e.empid=d.empid and d.empid="+empId);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class DocumentServiceImpl extends BaseDao implements IDocumentService {
 
     @Override
     public DocumentVo select(DocumentVo documentVo) {
-        return (DocumentVo)getObject(DocumentVo.class,documentVo.getDocId());
+        return (DocumentVo)getObject(DocumentVo.class,documentVo.getdId());
     }
 
     @Override

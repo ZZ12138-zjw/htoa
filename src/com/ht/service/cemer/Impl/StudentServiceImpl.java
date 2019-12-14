@@ -45,7 +45,7 @@ public class StudentServiceImpl extends BaseDao implements StudentService {
 
     @Override
     public void updStu(StudentVo studentVo) {
-        updObject(studentVo);
+         updObject(studentVo);
     }
 
     @Override

@@ -40,8 +40,9 @@
                 ,page: true //开启分页
                 ,cols: [[ //表头
                     {type:'checkbox',align:'center'}
-                    ,{field: 'evaluationID', title: '考评编号', sort: true,fit:'left',align:'center'}
+                    ,{field: 'evaluationID', title: '编号', sort: true,fit:'left',align:'center'}
                     ,{field: 'evaluationName', title: '考核名称',align:'center'}
+                    ,{field: 'evaluationScore', title: '考核分数',align:'center'}
                     ,{field: 'depName', title: '部门名称',align:'center',sort:true}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo',align:'center'}
                 ]],

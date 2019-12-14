@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -82,15 +79,25 @@ public class CheckInsertController {
         return "success";
     }
 
-    @RequestMapping("/to_editcheckinsert")
+    @RequestMapping("/to_infocheckinsert")
     public String to_editcheckinsert(String iD,ModelMap model){
+        //查询出所有考核录入信息
         List list = iCheckInsertService.selectAll();
+
+        //查询出所有部门
+        List deptList = iCheckInsertService.selectAllDep();
+
+        /*//查询出所有员工
+        List empList = iCheckInsertService.listCheckInsert();*/
+
+
+
         CheckInsertVo vo = iCheckInsertService.selInsertByID(Integer.parseInt(iD));
         vo.setID(Integer.parseInt(iD));
         System.out.println(vo.toString());
         model.put("allCheckIndex",list);
         model.put("checkInsert",vo);
-        return "editcheckinsert";
+        return "infocheckinsert";
     }
 
     @ResponseBody
@@ -115,5 +122,35 @@ public class CheckInsertController {
         String id=temp.substring(0,temp.length()-1);
         iCheckInsertService.delCheckInsert(id);
         return "true";
+    }
+
+    @ResponseBody
+    @RequestMapping("/getcheckinsertphoto")
+    public Map getcheckinsertphoto(){
+        Map map = new HashMap();
+        Map map2 = new HashMap();
+        Map photo = new HashMap();
+
+        List list = new ArrayList();
+
+        map2.put("alt","背景1");
+        map2.put("pid",666);
+        map2.put("src","http://localhost:8080/images/1.jpg");
+        map2.put("thumb","http://localhost:8080/images/1.jpg");
+
+        photo.put("alt","背景2");
+        photo.put("pid",666);
+        photo.put("src","http://localhost:8080/images/bg.png");
+        photo.put("thumb","http://localhost:8080/images/bg.png");
+
+        list.add(map2);
+        list.add(photo);
+        JSONArray json = (JSONArray) JSON.toJSON(list);
+
+        map.put("title","缩略图");
+        map.put("id",123);
+        map.put("start",0);
+        map.put("data",json);
+        return map;
     }
 }
