@@ -19,7 +19,7 @@ public class AttendanceVo {
     @GeneratedValue
     private Integer attId;  //编号
     private String empName;  //员工姓名
-    private Date notTime;  //未打卡时间
+    private String notTime;  //未打卡时间
     private String explanation;  //原因说明
     private String auditor;  //审核人
     private Date auditorTime;  //审核时间
@@ -42,11 +42,11 @@ public class AttendanceVo {
         this.empName = empName;
     }
 
-    public Date getNotTime() {
+    public String getNotTime() {
         return notTime;
     }
 
-    public void setNotTime(Date notTime) {
+    public void setNotTime(String notTime) {
         this.notTime = notTime;
     }
 

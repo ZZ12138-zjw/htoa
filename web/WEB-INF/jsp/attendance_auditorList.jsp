@@ -6,7 +6,7 @@
   
   <head>
     <meta charset="UTF-8">
-    <title>考勤管理</title>
+    <title>考勤审核</title>
     <jsp:include page="top.jsp"/>
   </head>
 
@@ -14,10 +14,12 @@
 
   <div class="x-body">
       <script type="text/html" id="barDemo2">
-          <button class="layui-btn" onclick="x_admin_show('添加考勤','${pageContext.request.contextPath}/attendance/to_attendanceAdd')"><i class="layui-icon"></i>添加</button>
-          <a class="layui-btn" href="javascript:location.replace('${pageContext.request.contextPath}/attendance/to_attendanceAuditorList');">我的审批</a>
+          <a class="layui-btn layui-btn-sm" onclick="javascript:location.replace('${pageContext.request.contextPath}/attendance/to_attendanceList')">返回</a>
       </script>
       <table class="layui-hide" id="attendanceTable" lay-filter="attendanceTableFilter" ></table>
+      <script type="text/html" id="barDemo">
+          <a class="layui-btn layui-btn-xs" lay-event="edit" >审批</a>
+      </script>
   </div>
 
     <script>
@@ -37,7 +39,7 @@
           table.render({
               id:"attendanceTableId"
               ,elem: '#attendanceTable'  //指定原始表格元素选择器(推荐id选择器)
-              ,url:'${pageContext.request.contextPath}/attendance/attendanceList'
+              ,url:'${pageContext.request.contextPath}/attendance/attendanceListByEmp'
               ,page: true   //开启分页
               ,method:'post'  //请求方式
               ,limit:10   //分页默认大小
@@ -45,6 +47,7 @@
               ,toolbar:"#barDemo2" //开启头部工具栏，并为其绑定左侧模板
               ,cols: [   //标题栏
                   [
+
                       {field:'attId', width:100,title: '编号',sort:true}
                       ,{field:'empName',width:100, title: '员工姓名'}
                       ,{field:'notTime',width:150, title: '未打卡时间'}
@@ -66,15 +69,31 @@
                                }else if (d.status==3){
                                    return '<span>不批准</span>'
                                }
-                      }}
+                      }},
+                      {field:"right",title:'操作',toolbar:'#barDemo'}
                   ]
               ]
               ,limits: [5,10,20,50]
           });
 
+
+          //监听工具条
+          table.on('tool(attendanceTableFilter)', function(obj) {
+              var data = obj.data;
+              if (obj.event='edit'){
+                  x_admin_show('审核','${pageContext.request.contextPath}/attendance/to_attendanceUpdate?attId='+data.attId)
+              }
+          });
       });
+
     </script>
 
+    <script>var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();</script>
   </body>
 
 

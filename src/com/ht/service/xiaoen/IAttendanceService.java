@@ -20,9 +20,19 @@ public interface IAttendanceService {
 
     AttendanceVo select(AttendanceVo attendanceVo);
 
-    List<AttendanceVo> selectPage(int currPage, int pageSize);
+    List<AttendanceVo> selectPage(int currPage, int pageSize,String empName);
 
     int selectCount();
 
     void save(AttendanceVo attendanceVo);
+
+    /**
+     *      查看自己的审批任务
+     * @param auditor
+     *
+     * @return
+     */
+    List<AttendanceVo> selectMyAuditor(String auditor);
+
+
 }

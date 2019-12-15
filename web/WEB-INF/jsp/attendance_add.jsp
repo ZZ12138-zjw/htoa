@@ -1,4 +1,4 @@
-<%@ page import="com.ht.vo.employee.DeptType" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -14,62 +14,33 @@
     <div class="x-body">
         <form class="layui-form" lay-filter="add">
           <div class="layui-form-item">
-              <label for="depName" class="layui-form-label">
-                  <span class="x-red">*</span>部门名称
+              <label for="notTime" class="layui-form-label">
+                  <span class="x-red">*</span>未打卡日期
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="depName" name="depName" required="" lay-verify="depName"
+                  <input  id="notTime" name="notTime" required="" lay-verify="notTime"
                   autocomplete="off" class="layui-input">
               </div>
-              <%--<div class="layui-form-mid layui-word-aux">
-                  <span class="x-red">*</span>将会成为您唯一的登入名
-              </div>--%>
           </div>
           <div class="layui-form-item">
-              <label for="deptType" class="layui-form-label">
-                  <span class="x-red">*</span>部门类别
+              <label for="time" class="layui-form-label">
+                  <span class="x-red">*</span>时间段
               </label>
               <div class="layui-input-inline">
-                  <select id="deptType"  name="deptType" >
-                      <option value="">不选择</option>
-                      <%
-                        for(int i=0;i<DeptType.DeptTypeVal().size();i++){%>
-                          <option value="<%=DeptType.DeptTypeVal().get(i)%>%>"><%=DeptType.DeptTypeVal().get(i)%></option>
-                      <%  }
-                      %>
+                  <select id="time"  name="time" >
+                      <option value="8:00">8:00</option>
+                      <option value="8:00">14:00</option>
+                      <option value="8:00">17:00</option>
+                      <option value="8:00">21:00</option>
                   </select>
               </div>
           </div>
-        <div class="layui-form-item">
-            <label for="parentId" class="layui-form-label">
-                <span class="x-red">*</span>上级部门名称
-            </label>
-            <div class="layui-input-inline">
-                <select id="parentId"  name="parentId" lay-verify="required">
-                    <option value=""></option>
-                    <option value="宏图软件" selected>宏图软件</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <%--从后台查询员工表,然后遍历出来--%>
-            <label for="chairman" class="layui-form-label">
-                <span class="x-red"></span>部门负责人
-            </label>
-            <div class="layui-input-inline">
-                <select id="chairman"  name="chairman" lay-verify="required">
-                    <c:forEach items="${empList}" var="e">
-                        <option value="${e.empName}">${e.empName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
           <div class="layui-form-item">
-              <label for="remark" class="layui-form-label">
-                  <span class="x-red"></span>备注
+              <label for="explanation" class="layui-form-label">
+                  <span class="x-red"></span>说明原因
               </label>
               <div class="layui-input-inline">
-                  <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                  <textarea name="explanation"  id="explanation" placeholder="请输入内容" class="layui-textarea"></textarea>
               </div>
           </div>
           <div class="layui-form-item" style="margin-left: 100px;">
@@ -79,47 +50,41 @@
       </form>
     </div>
     <script>
-        layui.use(['form','layer'], function(){
+        layui.use(['form','layer','laydate'], function(){
           var form = layui.form;
-          var layer = layui.layer;
+          var layer = layui.layer,
+              laydate=layui.laydate;
 
-          //表单校验
-
-            form.verify({
-                //value：表单的值，item表单的dom对象
-                depName:function (value,item) {
-                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-                        return '部门名称不能有特殊字符';
-                    }
-                    if (/(^\_)|(\__)|(\_+$)/.test(value)){
-                        return '部门名称首尾不能出现下划线\'_\'';
-                    }
-                    if (/^\d+\d+\d$/.test(value)){
-                        return '部门名称不能为全数字';
-                    }
-                    if (value.length<4){
-                        return '部门名称至少得4个字符';
-                    }
-                }
+            //常规用法
+            laydate.render({
+                elem: '#notTime'
             });
+            //表单监听
           //监听提交
           form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给后台
               $.ajax({
-                  url:'${pageContext.request.contextPath}/dept/add',
+                  url:'${pageContext.request.contextPath}/attendance/attendanceAdd',
                   type:'post',
                   data:data.field,
                   dataType:'json',
                   success:function (data){
-                      layer.alert("增加成功", {icon: 6},function(){
-                          // 获得frame索引
-                          var index = parent.layer.getFrameIndex(window.name);
-                          //关闭当前frame
-                          parent.layer.close(index);
-                          setTimeout(function () {
-                              window.parent.location.reload(); //修改成功后刷新父界面
-                          })
-                      });
+                      if ('success'==data){
+                          layer.alert("增加成功！", {icon: 6},function(){
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                              setTimeout(function () {
+                                  window.parent.location.reload(); //修改成功后刷新父界面
+                              })
+                          });
+                      }else if ('No'==data) {
+                          layer.msg('你是部门老总，补什么勤呢！',{icon:6});
+                      }else {
+                          layer.msg('新增失败',{icon:2});
+                      }
+
                   }
               });
               return false;
