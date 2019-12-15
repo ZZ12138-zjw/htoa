@@ -204,7 +204,28 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-<script type="text/html" id="otherbar">
+<script type="text/html" id="otherbar1">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
+</script>
+<script type="text/html" id="otherbar2">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</script>
+<script type="text/html" id="otherbar3">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</script>
+<script type="text/html" id="otherbar4">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</script>
+<script type="text/html" id="otherbar5">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</script>
+<script type="text/html" id="otherbar6">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 </script>
 
@@ -216,7 +237,7 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            ,height: 312
+            ,height: 500
             ,url:'<%=request.getContextPath()%>/student/selectAll'
             ,toolbar: '#toolbarDemo'//开启头部工具栏，并为其绑定左侧模板
             ,page: true //开启分页
@@ -385,16 +406,6 @@
                 x_admin_show('修改学生信息','<%=request.getContextPath()%>/student/toUpdate?stuId='+data.stuId);
             }
         });
-        table.on('tool(other1)',function (obj) {
-            var data = obj.data;//获取当前数据
-            var layevent = obj.event;//获取lay-event对应的值
-            var tr = obj.tr;//获取当前行的dom元素
-            if(layevent == "edit"){
-                x_admin_show('修改学生','<%=request.getContextPath()%>/student/stuFal/toUpdate?stuId='+data.stuId);
-            }else if(layevent == "add"){
-
-            }
-        })
         table.on('row(test)',function(obj){
             var oo = obj.tr; //得到当前行元素对象
             var data = obj.data; //得到当前行数据
@@ -413,13 +424,14 @@
                 ,url: '<%=request.getContextPath()%>/student/stuFal/select?stuId='+studentId
                 ,method:'post'
                 ,cols: [[
-                    {field: 'stuName', title: '学生姓名', width:100, sort: true,templet:function (d) {
+                    {field: 'familyid', title: '亲属姓名', width:100,hide:true}
+                    ,{field: 'stuName', title: '学生姓名', width:100, sort: true,templet:function (d) {
                             return studentName+""
                         }}
                     ,{field: 'familyname', title: '亲属姓名', width:100, sort: true}
                     ,{field: 'relation', title: '与学生关系', width:120}
                     ,{field: 'familyphone', title: '亲属电话', width:120, sort: true}
-                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar', width:200}
+                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar1', width:200}
                 ]]
             });
             table.render({
@@ -427,13 +439,14 @@
                 ,url:'<%=request.getContextPath()%>/student/stuEdu/select?stuId='+studentId
                 ,method:'post'
                 ,cols:[[
-                    {field: 'stuName', title: '学生姓名', width:100, sort: true,templet:function (d) {
+                    {field: 'Eduid', width:100,hide:true}
+                    ,{field: 'stuName', title: '学生姓名', width:100, sort: true,templet:function (d) {
                             return studentName+""
                         }}
                     ,{field: 'school', title: '就读学校', width:100, sort: true}
                     ,{field: 'begindate', title: '开始时间', width:120}
                     ,{field: 'enddate', title: '结束时间', width:120, sort: true}
-                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar', width:200}
+                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar2', width:200}
                 ]]
             });
             table.render({
@@ -441,7 +454,8 @@
                 ,url:'<%=request.getContextPath()%>/student/stuHap/select?stuId='+studentId
                 ,method:'post'
                 ,cols:[[
-                    {field: 'stuName', title: '学生姓名', width:100, sort: true,templet:function (d) {
+                    {field: 'happenid', width:200,hide:true}
+                    ,{field: 'stuName', title: '学生姓名', width:100, sort: true,templet:function (d) {
                             return studentName+""
                         }}
                     ,{field: 'happening', title: '情况记录', width:200, sort: true}
@@ -449,7 +463,7 @@
                             return createTime(row.optime);
                         }}
                     ,{field: 'empName', title: '记录人', width:100, sort: true}
-                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar', width:200}
+                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar3', width:200}
                 ]]
             });
             /*table.render({
@@ -463,7 +477,7 @@
                     ,{field: 'startTime', title: '开始时间', width:70}
                     ,{field: 'endTime', title: '结束时间', width:70, sort: true}
                     ,{field: 'Remark', title: '请假原因', width:70, sort: true}
-                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar', width:200}
+                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar4', width:200}
                 ]]
             })*/
             table.render({
@@ -471,7 +485,8 @@
                 ,method:'post'
                 ,url:'<%=request.getContextPath()%>/student/replyScore/select?stuId='+studentId
                 ,cols:[[
-                    {field: 'proName', title: '项目答辩名称', width:120, sort: true}
+                    {field: 'replyId', width:100,hide:true}
+                    ,{field: 'proName', title: '项目答辩名称', width:120, sort: true}
                     ,{field: 'empName', title: '打分老师', width:100, sort: true}
                     ,{field: 'score1', title: '功能完善(满分50)', width:150}
                     ,{field: 'score2', title: '技术难度(满分10)', width:150, sort: true}
@@ -481,7 +496,7 @@
                     ,{field: 'score6', title: '语言表达(满分10)', width:150, sort: true}
                     ,{field: 'score7', title: '总分(满分100)', width:150, sort: true}
                     ,{field: 'remark', title: '备注', width:100, sort: true}
-                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar', width:200}
+                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar5', width:200}
                 ]]
             });
             table.render({
@@ -489,17 +504,173 @@
                 ,method:'post'
                 ,url:'<%=request.getContextPath()%>/student/score/select?stuId='+studentId
                 ,cols:[[
-                    {field: 'stu', title: '学生姓名', width:100, sort: true,templet:function (d) {
-                            return studentName+""
-                        }}
+                    {field: 'scoreId', width:100,hide:true}
+                    ,{field: 'stu', title: '学生姓名', width:100, sort: true,templet:function (d) {
+                            return studentName+""}}
                     ,{field: 'score', title: '学生成绩', width:100, sort: true}
                     ,{field: 'courseName', title: '课程名称', width:100}
                     ,{field: 'testType', title: '考试类别', width:120, sort: true}
                     ,{field: 'termName', title: '在读学期', width:120, sort: true}
                     ,{field: 'scoreTime', title: '考试时间', width:120, sort: true}
                     ,{field: 'remark', title: '备注', width:70, sort: true}
-                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar', width:200}
+                    ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar6', width:200}
                 ]]
+            });
+            table.on('tool(other1)',function () {
+                var data = obj.data; //获取当前行的数据
+                var layEvent =  obj.event; //获取lay-event对应的值
+                var tr = obj.tr;//获取当前行
+
+                if(layEvent == 'del'){//删除
+                    layer.confirm('真的删除么',function (index) {
+                        alert(data.stuId);
+                        $.ajax({
+                            url:'${pageContext.request.contextPath}/other/stuFal/del',
+                            type:'post',
+                            data:{
+                                familyid:data.familyid
+                            },
+                            dataType:'json',
+                            success:function (data){
+                                layer.alert("删除成功", {icon: 6});
+                            }
+                        });
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新 缓存
+                        layer.close(index);
+                    });
+                }else if(layEvent == 'edit'){//编辑
+                    x_admin_show('修改学生家庭信息','<%=request.getContextPath()%>/other/stuFal/toUpdate?familyid='+data.familyid);
+                }
+            })
+            table.on('tool(other2)',function () {
+                var data = obj.data; //获取当前行的数据
+                var layEvent =  obj.event; //获取lay-event对应的值
+                var tr = obj.tr;//获取当前行
+
+                if(layEvent == 'del'){//删除
+                    layer.confirm('真的删除么',function (index) {
+                        alert(data.stuId);
+                        $.ajax({
+                            url:'${pageContext.request.contextPath}/other/stuEdu/del',
+                            type:'post',
+                            data:{
+                                Eduid:data.Eduid
+                            },
+                            dataType:'json',
+                            success:function (data){
+                                layer.alert("删除成功", {icon: 6});
+                            }
+                        });
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新 缓存
+                        layer.close(index);
+                    });
+                }else if(layEvent == 'edit'){//编辑
+                    x_admin_show('修改学生信息','<%=request.getContextPath()%>/other/stuEdu/toUpdate?Eduid='+data.Eduid);
+                }
+            })
+            table.on('tool(other3)',function () {
+                var data = obj.data; //获取当前行的数据
+                var layEvent =  obj.event; //获取lay-event对应的值
+                var tr = obj.tr;//获取当前行
+
+                if(layEvent == 'del'){//删除
+                    layer.confirm('真的删除么',function (index) {
+                        alert(data.stuId);
+                        $.ajax({
+                            url:'${pageContext.request.contextPath}/other/stuHap/del',
+                            type:'post',
+                            data:{
+                                happenid:data.happenid
+                            },
+                            dataType:'json',
+                            success:function (data){
+                                layer.alert("删除成功", {icon: 6});
+                            }
+                        });
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新 缓存
+                        layer.close(index);
+                    });
+                }else if(layEvent == 'edit'){//编辑
+                    x_admin_show('修改学生信息','<%=request.getContextPath()%>/other/stuHap/toUpdate?happenid='+data.happenid);
+                }
+            })
+            table.on('tool(other4)',function () {
+                var data = obj.data; //获取当前行的数据
+                var layEvent =  obj.event; //获取lay-event对应的值
+                var tr = obj.tr;//获取当前行
+
+                if(layEvent == 'del'){//删除
+                    layer.confirm('真的删除么',function (index) {
+                        alert(data.stuId);
+                        $.ajax({
+                            url:'${pageContext.request.contextPath}/other/holiday/del',
+                            type:'post',
+                            data:{
+                                holidayId:data.holidayId
+                            },
+                            dataType:'json',
+                            success:function (data){
+                                layer.alert("删除成功", {icon: 6});
+                            }
+                        });
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新 缓存
+                        layer.close(index);
+                    });
+                }else if(layEvent == 'edit'){//编辑
+                    x_admin_show('修改学生信息','<%=request.getContextPath()%>/other/holiday/toUpdate?holidayId='+data.holidayId);
+                }
+            })
+            table.on('tool(other5)',function () {
+                var data = obj.data; //获取当前行的数据
+                var layEvent =  obj.event; //获取lay-event对应的值
+                var tr = obj.tr;//获取当前行
+
+                if(layEvent == 'del'){//删除
+                    layer.confirm('真的删除么',function (index) {
+                        alert(data.stuId);
+                        $.ajax({
+                            url:'${pageContext.request.contextPath}/other/replyScore/del',
+                            type:'post',
+                            data:{
+                                replyId:data.replyId
+                            },
+                            dataType:'json',
+                            success:function (data){
+                                layer.alert("删除成功", {icon: 6});
+                            }
+                        });
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新 缓存
+                        layer.close(index);
+                    });
+                }else if(layEvent == 'edit'){//编辑
+                    x_admin_show('修改学生信息','<%=request.getContextPath()%>/other/replyScore/toUpdate?replyId='+data.replyId);
+                }
+            })
+            table.on('tool(other6)',function () {
+                var data = obj.data; //获取当前行的数据
+                var layEvent =  obj.event; //获取lay-event对应的值
+                var tr = obj.tr;//获取当前行
+
+                if(layEvent == 'del'){//删除
+                    layer.confirm('真的删除么',function (index) {
+                        alert(data.stuId);
+                        $.ajax({
+                            url:'${pageContext.request.contextPath}/other/score/del',
+                            type:'post',
+                            data:{
+                                scoreId:data.scoreId
+                            },
+                            dataType:'json',
+                            success:function (data){
+                                layer.alert("删除成功", {icon: 6});
+                            }
+                        });
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新 缓存
+                        layer.close(index);
+                    });
+                }else if(layEvent == 'edit'){//编辑
+                    x_admin_show('修改学生信息','<%=request.getContextPath()%>/other/score/toUpdate?scoreId='+data.scoreId);
+                }
             })
         }
     });

@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <button  class="layui-btn" lay-filter="add" lay-submit="">
+            <button  class="layui-btn" lay-filter="update" lay-submit="">
                 增加
             </button>
         </div>
@@ -93,7 +93,7 @@
         //监听提交
         form.on('submit(add)', function(data){
             $.ajax({
-                url:'${pageContext.request.contextPath}/student/stuFal/add',
+                url:'${pageContext.request.contextPath}/student/stuFal/update',
                 type:'post',
                 data:data.field,
                 dataType:'json',

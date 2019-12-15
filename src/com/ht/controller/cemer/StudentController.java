@@ -87,7 +87,7 @@ public class StudentController {
     }
     @RequestMapping(value = "/toUpdate")
     public String toUpd(int stuId,HttpServletRequest request){
-        System.out.println("去修改的ID  "+stuId);
+        request.setAttribute("emps",this.studentService.selectAllEmp());
         request.setAttribute("student",this.studentService.getById(stuId));
         request.setAttribute("huor", this.studentService.getAllHuor());
         request.setAttribute("studentClass", this.studentService.getAllClass());
@@ -105,7 +105,7 @@ public class StudentController {
     @ResponseBody
     public String delStu(int stuId){
         System.out.println(stuId);
-        //studentService.delStu(studentVo);
+        studentService.delStu(studentService.getById(stuId));
         return "successful";
     }
 
