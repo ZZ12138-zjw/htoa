@@ -11,7 +11,7 @@ import java.util.List;
 public class DocumentServiceImpl extends BaseDao implements DocumentService {
     @Override
     public List selDocument(int currPage, int pageSize) {
-        return pageByHql("from dataDocVo",currPage,pageSize);
+        return pageBySQL("select d.*,e.empName from datadoc d left join t_emp e on d.empId = e.empId",currPage,pageSize);
     }
 
     @Override

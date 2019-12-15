@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ht.service.wj.DocumentService;
+import com.ht.vo.employee.EmpVo;
 import com.ht.vo.upload.dataDocVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -24,21 +26,19 @@ public class DocumentController {
     @Resource
     private DocumentService documentService;
 
-    //资料文档
-    @RequestMapping("/documentList")
-    public String documentList(){
-        return "documentList";
+    @RequestMapping("/document_list")
+    public String document_list(){
+        return "document_list";
     }
 
     @RequestMapping("/docList")
     @ResponseBody
-    public Map docList(String page, String limit){
+    public Map docList(int page, int limit){
         Map map=new HashMap();
         map.put("code",0);
         map.put("msg"," ");
         map.put("count",documentService.selCount());
-        JSONArray jsonArray=(JSONArray) JSON.toJSON(documentService.selDocument(Integer.parseInt(page),Integer.parseInt(limit)));
-        map.put("data",jsonArray);
+        map.put("data",documentService.selDocument(page,limit));
         System.out.println(map.toString());
         return map;
     }
@@ -51,7 +51,7 @@ public class DocumentController {
 
     @ResponseBody
     @RequestMapping("/touploadoc")
-    public Map<String, Object> touploadoc(MultipartFile file, dataDocVo docVo, HttpServletRequest request) throws IOException {
+    public Map<String, Object> touploadoc(MultipartFile file, dataDocVo docVo, HttpServletRequest request, HttpSession session) throws IOException {
         System.out.println("进入服务器");
         //获取原文件名
         String oldName = file.getOriginalFilename();
@@ -60,7 +60,7 @@ public class DocumentController {
         String suffix = oldName.substring(oldName.indexOf("."));
         System.out.println("原文件后缀名" + suffix);
         //获取项目路径
-        String path = request.getSession().getServletContext().getRealPath("\\");
+        String path = request.getServletContext().getRealPath("/");
         System.out.println("项目路径" + path);
 
         //给上传文件夹加上年月日
@@ -90,26 +90,27 @@ public class DocumentController {
         System.out.println("文件上传并保存成功");
         docVo.setDataName(oldName);
         docVo.setOptime(new Date());
-        docVo.setEmpId(12);
-        docVo.setUrl(filepath);
+        EmpVo empVo = (EmpVo)session.getAttribute("empVo");
+        int empid = empVo.getEmpId();
+        docVo.setEmpId(empid);
+        docVo.setUrl(calendar.get(Calendar.YEAR) + mm + calendar.get(Calendar.DAY_OF_MONTH)+"/"+NewName + suffix);
         documentService.addDoc(docVo);
         Map map = new HashMap<String,Object>();
         map.put("code",200);
         map.put("msg", "ok");
+        map.put("data","");
         return map;
     }
 
     @ResponseBody
     @RequestMapping("/delete")
-    public boolean delete(dataDocVo docVo){
+    public void delete(dataDocVo docVo){
         documentService.delDoc(docVo);
-        return true;
     }
 
     @ResponseBody
     @RequestMapping("/deletes")
     public String deletes(String[] id){
-        System.out.println("删除");
         String docIds = "";
         for (int i=0;i<id.length;i++){
             docIds+=id[i]+",";

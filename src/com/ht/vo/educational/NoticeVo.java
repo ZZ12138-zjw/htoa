@@ -16,8 +16,8 @@ public class NoticeVo {
     private Integer noticeType; //类型;3:所有人，1员工,2学生
     private Integer empid; //发布人
     private String noticeTime; //发布时间
-    private String classIds;//班级id列表，逗号分隔
-    private String empIds;//部门id列表，逗号分隔
+    private Integer trueConut;//已读人数
+    private Integer falseCount;//未读人数
 
     @Override
     public String toString() {
@@ -28,8 +28,8 @@ public class NoticeVo {
                 ", noticeType=" + noticeType +
                 ", empid=" + empid +
                 ", noticeTime='" + noticeTime + '\'' +
-                ", classIds='" + classIds + '\'' +
-                ", empIds='" + empIds + '\'' +
+                ", trueConut=" + trueConut +
+                ", falseCount=" + falseCount +
                 '}';
     }
 
@@ -81,19 +81,19 @@ public class NoticeVo {
         this.noticeTime = noticeTime;
     }
 
-    public String getClassIds() {
-        return classIds;
+    public Integer getTrueConut() {
+        return trueConut;
     }
 
-    public void setClassIds(String classIds) {
-        this.classIds = classIds;
+    public void setTrueConut(Integer trueConut) {
+        this.trueConut = trueConut;
     }
 
-    public String getEmpIds() {
-        return empIds;
+    public Integer getFalseCount() {
+        return falseCount;
     }
 
-    public void setEmpIds(String empIds) {
-        this.empIds = empIds;
+    public void setFalseCount(Integer falseCount) {
+        this.falseCount = falseCount;
     }
 }

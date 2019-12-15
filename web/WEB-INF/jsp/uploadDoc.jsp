@@ -1,10 +1,8 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
 <head>
-    <meta charset="UTF-8">
     <title></title>
     <jsp:include page="top.jsp"/>
 </head>
@@ -27,7 +25,7 @@
                 <span class="x-red">*</span>备注
             </label>
             <div class="layui-input-inline">
-                <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea" lay-verify="remark"></textarea>
             </div>
         </div>
         <div class="layui-form-item" style="margin-left: 100px;">
@@ -37,7 +35,6 @@
     </form>
 </div>
 <script>
-
     layui.use('upload', function () {
         var upload = layui.upload;
         var $ = layui.jquery;
@@ -85,8 +82,16 @@
             });
             return false;
         });
-    });
 
+        //表单验证
+        form.verify({
+            remark:function (value) {
+                if (value.length == 0 || value == null){
+                    return "备注不能为空";
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>

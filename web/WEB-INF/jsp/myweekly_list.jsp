@@ -1,15 +1,14 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
-  Date: 2019/12/5
-  Time: 9:51
+  Date: 2019/12/9
+  Time: 19:45
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>资料文档</title>
+    <title>Title</title>
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
@@ -18,42 +17,44 @@
         <i class="layui-icon" style="line-height:38px">ဂ</i></a>
 </div>
 <div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+            <input class="layui-input" placeholder="开始日" name="start" id="start">
+            <input class="layui-input" placeholder="截止日" name="end" id="end">
+            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+
     <script type="text/html" id="barDemo2">
         <button class="layui-btn layui-btn-danger" id="delsel"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/doc/uploadoc')"><i class="layui-icon"></i>添加资料</button>
+        <button class="layui-btn" onclick="x_admin_show('添加周报','${pageContext.request.contextPath}/myweek/weekly_add')"><i class="layui-icon"></i>添加周报</button>
     </script>
     <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
 
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
-        <a class="layui-btn layui-btn-xs"  lay-event="download">下载</a>
+        <a class="layui-btn layui-btn-xs"  lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-xs" lay-event="sel">查看周报</a>
     </script>
 </div>
 <script>
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-    });
-
-    layui.use(['table','layer','form','laypage'], function(){
+    layui.use(['table','layer','form','laypage','laydate'], function(){
         var table = layui.table,
             layer = layui.layer,
             form = layui.form,
-            laypage = layui.laypage;
+            laypage = layui.laypage,
+            laydate = layui.laydate;
+        laydate.render({
+            elem:'#start'
+        });
+        laydate.render({
+            elem:'#end'
+        })
 
         table.render({
             id:"provinceReload"
             ,elem: '#idTest'
-            ,url:'${pageContext.request.contextPath}/doc/docList'
+            ,url:'${pageContext.request.contextPath}/myweek/tomyweekList'
             ,page: true
             ,method:'post'
             ,toolbar:"#barDemo2"
@@ -61,27 +62,39 @@
             ,cols: [
                 [
                     {checkbox:true}//开启多选框
-                    ,{field:'docId', width:100,title: '编号'}
-                    ,{field:'dataName',width:150, title: '资料名'}
-                    ,{field:'url',width:150, title: '资料地址'}
-                    ,{field:'optime',width:150, title: '上传时间', templet:function (row){
-                        return createTime(row.optime);
+                    ,{field:'worklogid', width:100,title: '编号'}
+                    ,{field:'empName',width:150, title: '员工名称'}
+                    ,{field:'workday',width:150, title: '填写日期',templet:function (row){
+                        return createTime(row.workday);
                     }}
-                    ,{field:'remark',width:100,title: '备注'}
-                    ,{field:'empId',width:150,title: '上传人员'}
+                    ,{field:'weekCur',width:200, title: '本周情况描述'}
+                    ,{field:'studentQuestion',width:200,title: '问题学生情况反馈'}
+                    ,{field:'idea',width:150,title: '意见建议'}
+                    ,{field:'weekNext',width:200,title: '下周工作计划'}
                     ,{fixed: 'right', title:'操作',width:300,toolbar: '#barDemo'}
                 ]
             ]
             ,limits: [5,10,20,50]
         });
 
+        function createTime(v){
+            var date = new Date(v);
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            m = m<10?'0'+m:m;
+            var d = date.getDate();
+            d = d<10?("0"+d):d;
+            var str = y+"-"+m+"-"+d;
+            return str;
+        }
+
         //批量删除
         $("#delsel").on("click",function () {
             var checkStatus=table.checkStatus('provinceReload'),
-            data=checkStatus.data;
+                data=checkStatus.data;
             var ids=[];
             $(data).each(function (i,val) { //o即为表格中一行的数据
-                ids.push(val.docId);
+                ids.push(val.worklogid);
             });
 
             if (data.length > 0){
@@ -89,7 +102,7 @@
 
                     //layui中找到Checkbox所在的行,并遍历行的顺序
                     $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
-                        $.post("${pageContext.request.contextPath}/doc/deletes",{
+                        $.post("${pageContext.request.contextPath}/myweek/deletes",{
                             id:ids.toString()
                         },function(data){
                             if ('success'==data){
@@ -121,10 +134,10 @@
             json = JSON.stringify(data);
             switch(obj.event) {
                 case 'del':
-                    var delIndex = layer.confirm('确定删除id为' + data.docId + "的信息吗?", function(delIndex) {
+                    var delIndex = layer.confirm('确定删除id为' + data.worklogid + "的信息吗?", function(delIndex) {
                         $.ajax({
-                            url: '${pageContext.request.contextPath}/doc/delete',
-                            data:{docId:data.docId},
+                            url: '${pageContext.request.contextPath}/myweek/delete',
+                            data:{worklogid:data.worklogid},
                             type: "post",
                             success: function(suc) {
                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
@@ -138,39 +151,16 @@
                         layer.close(delIndex);
                     });
                     break;
-                case 'download':
-                    //获取xmlhttprequest
-                    var xmlRequest = new XMLHttpRequest();
-                    //发起请求
-                    xmlRequest.open("post","${pageContext.request.contextPath}/doc",true);
-                    //设置请求头类型
-                    xmlRequest.setRequestHeader("Content-type","application/json");
-                    xmlRequest.setRequestHeader("id",data.docId);
-                    xmlRequest.responseType = "blob";
-                    //返回
-                    xmlRequest.onload = function (ev) {
-                        var content = xmlRequest.response;
-                        //组装a标签
-                        var elink = document.createElement("a");
+                case 'edit':
+                    x_admin_show('修改周报信息','${pageContext.request.contextPath}/myweek/to_weekUpdate?worklogid='+data.worklogid);
+                    break;
+                case 'sel':
+                    x_admin_show('查看周报','${pageContext.request.contextPath}/myweek/selwek?worklogid='+data.worklogid);
 
-                        //获取文件文件格式,截取文件后缀
-                        var fileaddr = data.file
-                    }
             }
         });
 
     });
-
-    function createTime(v){
-        var date = new Date(v);
-        var y = date.getFullYear();
-        var m = date.getMonth()+1;
-        m = m<10?'0'+m:m;
-        var d = date.getDate();
-        d = d<10?("0"+d):d;
-        var str = y+"-"+m+"-"+d;
-        return str;
-    }
 </script>
 </body>
 </html>

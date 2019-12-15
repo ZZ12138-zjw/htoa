@@ -20,30 +20,16 @@
 <div class="x-body">
     <script type="text/html" id="barDemo2">
         <button class="layui-btn layui-btn-danger" id="delsel"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/doc/uploadoc')"><i class="layui-icon"></i>添加资料</button>
+        <button class="layui-btn" onclick="x_admin_show('添加资料','${pageContext.request.contextPath}/doc/uploadoc')"><i class="layui-icon"></i>添加资料</button>
     </script>
     <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
 
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
-        <a class="layui-btn layui-btn-xs"  lay-event="download">下载</a>
+        <a class="layui-btn layui-btn-xs" href="" download="">下载</a>
     </script>
 </div>
 <script>
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-    });
-
     layui.use(['table','layer','form','laypage'], function(){
         var table = layui.table,
             layer = layui.layer,
@@ -61,19 +47,32 @@
             ,cols: [
                 [
                     {checkbox:true}//开启多选框
-                    ,{field:'docId', width:100,title: '编号'}
+                    ,{field:'docId', width:150,title: '编号'}
                     ,{field:'dataName',width:150, title: '资料名'}
-                    ,{field:'url',width:150, title: '资料地址'}
-                    ,{field:'optime',width:150, title: '上传时间', templet:function (row){
+                    ,{field:'optime',width:200, title: '上传时间', templet:function (row){
                         return createTime(row.optime);
                     }}
-                    ,{field:'remark',width:100,title: '备注'}
-                    ,{field:'empId',width:150,title: '上传人员'}
-                    ,{fixed: 'right', title:'操作',width:300,toolbar: '#barDemo'}
+                    ,{field: 'url', title: '下载文件',width:200,templet:function (data) {
+                        return '<a href="${pageContext.request.contextPath}\\upload\\'+data.url+'" download="'+data.dataName+'" class="layui-btn layui-bg-blue layui-btn-xs" >下载文件</a>'
+                    }}
+                    ,{field:'remark',width:150,title: '备注'}
+                    ,{field:'empName',width:200,title: '上传人员'}
+                    ,{fixed: 'right', title:'操作',width:200,toolbar: '#barDemo'}
                 ]
             ]
             ,limits: [5,10,20,50]
         });
+
+        function createTime(v){
+            var date = new Date(v);
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            m = m<10?'0'+m:m;
+            var d = date.getDate();
+            d = d<10?("0"+d):d;
+            var str = y+"-"+m+"-"+d;
+            return str;
+        }
 
         //批量删除
         $("#delsel").on("click",function () {
@@ -138,39 +137,10 @@
                         layer.close(delIndex);
                     });
                     break;
-                case 'download':
-                    //获取xmlhttprequest
-                    var xmlRequest = new XMLHttpRequest();
-                    //发起请求
-                    xmlRequest.open("post","${pageContext.request.contextPath}/doc",true);
-                    //设置请求头类型
-                    xmlRequest.setRequestHeader("Content-type","application/json");
-                    xmlRequest.setRequestHeader("id",data.docId);
-                    xmlRequest.responseType = "blob";
-                    //返回
-                    xmlRequest.onload = function (ev) {
-                        var content = xmlRequest.response;
-                        //组装a标签
-                        var elink = document.createElement("a");
-
-                        //获取文件文件格式,截取文件后缀
-                        var fileaddr = data.file
-                    }
             }
         });
 
     });
-
-    function createTime(v){
-        var date = new Date(v);
-        var y = date.getFullYear();
-        var m = date.getMonth()+1;
-        m = m<10?'0'+m:m;
-        var d = date.getDate();
-        d = d<10?("0"+d):d;
-        var str = y+"-"+m+"-"+d;
-        return str;
-    }
 </script>
 </body>
 </html>
