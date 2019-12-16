@@ -659,7 +659,6 @@
 
                 if(layEvent == 'del'){//删除
                     layer.confirm('真的删除么',function (index) {
-                        alert(data.stuId);
                         $.ajax({
                             url:'${pageContext.request.contextPath}/other/score/del',
                             type:'post',

@@ -25,6 +25,7 @@
 <body>
 <div class="x-body">
     <form class="layui-form" l>
+        <input name="classId" type="hidden" value="${stuClass.classId}">
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>届别</label>
             </label>
@@ -32,7 +33,11 @@
                 <select name="falled" lay-verify="">
                     <option value="" selected>--选择届别--</option>
                     <c:forEach var="level" items="${requestScope.levels}">
-                        <option value="${level.fallid}">${level.level}</option>
+                        <option value="${level.fallid}"
+                            <c:if test="${stuClass.falled eq level.fallid}">
+                                selected
+                            </c:if>
+                        >${level.level}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -43,7 +48,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="number" id="classNo" name="classNo" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                       autocomplete="off" class="layui-input" value="${stuClass.classNo}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>输入班级编号
@@ -55,7 +60,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="className" name="className" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                       autocomplete="off" class="layui-input" value="${stuClass.className}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>输入班级名称
@@ -67,7 +72,11 @@
                 <select name="teacher">
                     <option value="">--选择授课老师--</option>
                     <c:forEach items="${requestScope.emps}" var="emp">
-                        <option value="${emp.empName}">${emp.empName}</option>
+                        <option value="${emp.empName}"
+                            <c:if test="${stuClass.teacher eq emp.empName}">
+                                selected
+                            </c:if>
+                        >${emp.empName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -80,7 +89,11 @@
                 <select name="classTeacher">
                     <option value="">--选择班主任老师--</option>
                     <c:forEach items="${requestScope.emps}" var="emp">
-                        <option value="${emp.empName}">${emp.empName}</option>
+                        <option value="${emp.empName}"
+                            <c:if test="${stuClass.classTeacher eq emp.empName}">
+                                selected
+                            </c:if>
+                        >${emp.empName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -93,14 +106,18 @@
                 <select name="classType">
                     <option value="">--选择班级类型--</option>
                     <c:forEach items="${requestScope.types}" var="type">
-                        <option value="${type.classType}">${type.typeName}</option>
+                        <option value="${type.classType}"
+                            <c:if test="${stuClass.classType eq type.classType}">
+                                selected
+                            </c:if>
+                        >${type.typeName}</option>
                     </c:forEach>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
-            <button  class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+            <button  class="layui-btn" lay-filter="update" lay-submit="">
+                修改
             </button>
         </div>
     </form>
@@ -127,14 +144,14 @@
         });
 
         //监听提交
-        form.on('submit(add)', function(data){
+        form.on('submit(update)', function(data){
             $.ajax({
-                url:'${pageContext.request.contextPath}/cla/add',
+                url:'${pageContext.request.contextPath}/cla/update',
                 type:'post',
                 data:data.field,
                 dataType:'json',
                 success:function (data){
-                    layer.msg("增加成功",function(){
+                    layer.msg("修改成功",function(){
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
@@ -145,7 +162,7 @@
                     });
                 },
                 error:function () {
-                    layer.msg("增加失败");
+                    layer.msg("修改失败");
                 }
             });
             return false;

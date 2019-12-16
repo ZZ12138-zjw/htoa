@@ -22,6 +22,21 @@ public class StudentClassVo {
     private String remark;//备注
     private Integer falled;//关联班级类别
 
+    @Override
+    public String toString() {
+        return "StudentClassVo{" +
+                "classId=" + classId +
+                ", classNo=" + classNo +
+                ", className='" + className + '\'' +
+                ", count=" + count +
+                ", teacher='" + teacher + '\'' +
+                ", classTeacher='" + classTeacher + '\'' +
+                ", classType=" + classType +
+                ", remark='" + remark + '\'' +
+                ", falled=" + falled +
+                '}';
+    }
+
     public Integer getClassId() {
         return classId;
     }
