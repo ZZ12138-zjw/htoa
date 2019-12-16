@@ -3,7 +3,9 @@ package com.ht.service.cemer.Impl;
 import com.ht.dao.BaseDao;
 import com.ht.service.cemer.OtherService;
 import com.ht.vo.student.*;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OtherServiceImpl extends BaseDao implements OtherService {
     @Override
     public StudentFamily getStuFalById(int familyid) {

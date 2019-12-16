@@ -38,7 +38,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>记录时间</label>
             <div class="layui-input-inline">
-                <input type="text" id="optime" name="optime" required="" lay-verify="required"
+                <input type="text" id="optime" name="time" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -109,9 +109,8 @@
                     });
                 }
             });
+            return false;
         });
-
-
     });
 </script>
 <script>

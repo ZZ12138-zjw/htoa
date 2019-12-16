@@ -439,13 +439,17 @@
                 ,url:'<%=request.getContextPath()%>/student/stuEdu/select?stuId='+studentId
                 ,method:'post'
                 ,cols:[[
-                    {field: 'Eduid', width:100,hide:true}
+                    {field: 'eduid', width:100,hide:true}
                     ,{field: 'stuName', title: '学生姓名', width:100, sort: true,templet:function (d) {
                             return studentName+""
                         }}
                     ,{field: 'school', title: '就读学校', width:100, sort: true}
-                    ,{field: 'begindate', title: '开始时间', width:120}
-                    ,{field: 'enddate', title: '结束时间', width:120, sort: true}
+                    ,{field: 'begindate', title: '开始时间',width:120,templet:function (d) {
+                            return createTime(d.begindate);
+                        }}
+                    ,{field: 'enddate', title: '结束时间', width:120, sort: true,templet:function (d) {
+                            return createTime(d.enddate);
+                        }}
                     ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar2', width:200}
                 ]]
             });
@@ -459,8 +463,8 @@
                             return studentName+""
                         }}
                     ,{field: 'happening', title: '情况记录', width:200, sort: true}
-                    ,{field: 'optime', title: '记录时间', width:120, templet:function (row){
-                            return createTime(row.optime);
+                    ,{field: 'optime', title: '记录时间', width:120, templet:function (d){
+                            return createTime(d.optime);
                         }}
                     ,{field: 'empName', title: '记录人', width:100, sort: true}
                     ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar3', width:200}
@@ -509,14 +513,16 @@
                             return studentName+""}}
                     ,{field: 'score', title: '学生成绩', width:100, sort: true}
                     ,{field: 'courseName', title: '课程名称', width:100}
-                    ,{field: 'testType', title: '考试类别', width:120, sort: true}
+                    ,{field: 'typeName', title: '考试类别', width:120, sort: true}
                     ,{field: 'termName', title: '在读学期', width:120, sort: true}
-                    ,{field: 'scoreTime', title: '考试时间', width:120, sort: true}
-                    ,{field: 'remark', title: '备注', width:70, sort: true}
+                    ,{field: 'scoreTime', title: '考试时间', width:150, sort: true,templet:function (d) {
+                            return getNowFormatDate(d.scoreTime);
+                        }}
+                    ,{field: 'remark', title: '备注', width:150, sort: true}
                     ,{field: 'right',align:'center', title:'操作', toolbar: '#otherbar6', width:200}
                 ]]
             });
-            table.on('tool(other1)',function () {
+            table.on('tool(other1)',function (obj) {
                 var data = obj.data; //获取当前行的数据
                 var layEvent =  obj.event; //获取lay-event对应的值
                 var tr = obj.tr;//获取当前行
@@ -542,7 +548,7 @@
                     x_admin_show('修改学生家庭信息','<%=request.getContextPath()%>/other/stuFal/toUpdate?familyid='+data.familyid);
                 }
             })
-            table.on('tool(other2)',function () {
+            table.on('tool(other2)',function (obj) {
                 var data = obj.data; //获取当前行的数据
                 var layEvent =  obj.event; //获取lay-event对应的值
                 var tr = obj.tr;//获取当前行
@@ -565,10 +571,10 @@
                         layer.close(index);
                     });
                 }else if(layEvent == 'edit'){//编辑
-                    x_admin_show('修改学生信息','<%=request.getContextPath()%>/other/stuEdu/toUpdate?Eduid='+data.Eduid);
+                    x_admin_show('修改教育经历','<%=request.getContextPath()%>/other/stuEdu/toUpdate?Eduid='+data.eduid);
                 }
             })
-            table.on('tool(other3)',function () {
+            table.on('tool(other3)',function (obj) {
                 var data = obj.data; //获取当前行的数据
                 var layEvent =  obj.event; //获取lay-event对应的值
                 var tr = obj.tr;//获取当前行
@@ -594,7 +600,7 @@
                     x_admin_show('修改学生信息','<%=request.getContextPath()%>/other/stuHap/toUpdate?happenid='+data.happenid);
                 }
             })
-            table.on('tool(other4)',function () {
+            table.on('tool(other4)',function (obj) {
                 var data = obj.data; //获取当前行的数据
                 var layEvent =  obj.event; //获取lay-event对应的值
                 var tr = obj.tr;//获取当前行
@@ -620,7 +626,7 @@
                     x_admin_show('修改学生信息','<%=request.getContextPath()%>/other/holiday/toUpdate?holidayId='+data.holidayId);
                 }
             })
-            table.on('tool(other5)',function () {
+            table.on('tool(other5)',function (obj) {
                 var data = obj.data; //获取当前行的数据
                 var layEvent =  obj.event; //获取lay-event对应的值
                 var tr = obj.tr;//获取当前行
@@ -646,7 +652,7 @@
                     x_admin_show('修改学生信息','<%=request.getContextPath()%>/other/replyScore/toUpdate?replyId='+data.replyId);
                 }
             })
-            table.on('tool(other6)',function () {
+            table.on('tool(other6)',function (obj) {
                 var data = obj.data; //获取当前行的数据
                 var layEvent =  obj.event; //获取lay-event对应的值
                 var tr = obj.tr;//获取当前行
@@ -675,6 +681,23 @@
         }
     });
 
+    function getNowFormatDate(t) {
+        var date = new Date(t);
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+        return currentdate;
+    }
 
     function createTime(v){
         var date = new Date(v);

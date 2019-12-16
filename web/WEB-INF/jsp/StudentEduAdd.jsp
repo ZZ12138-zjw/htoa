@@ -39,7 +39,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>开始时间</label>
             <div class="layui-input-inline">
-                <input type="text" id="begindate" name="begindate" required="" lay-verify="required"
+                <input type="text" id="begindate" name="time1" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>结束时间</label>
             <div class="layui-input-inline">
-                <input type="text" id="enddate" name="enddate" required="" lay-verify="required"
+                <input type="text" id="enddate" name="time2" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -107,6 +107,9 @@
                             window.parent.location.reload(); //修改成功后刷新父界面
                         })
                     });
+                },
+                error:function (data) {
+                    layer.msg("新增失败");
                 }
             });
             return false;

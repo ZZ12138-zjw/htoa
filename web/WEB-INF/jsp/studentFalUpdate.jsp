@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 小燕
@@ -25,14 +26,15 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
-        <input type="hidden" name="stuid" value="<%=request.getAttribute("stuId")%>" class="layui-inputs">
+        <input type="hidden" name="stuid" value="${stuFal.stuid}" class="layui-input">
+        <input type="hidden" name="familyid" value="${stuFal.familyid}" class="layui-input">
         <div class="layui-form-item">
             <label for="familyname" class="layui-form-label">
                 <span class="x-red">*</span>亲属姓名
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="familyname" name="familyname" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                       autocomplete="off" class="layui-input" value="${stuFal.familyname}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>输入学生姓名
@@ -40,13 +42,13 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>与学生关系</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline">
                 <select name="relation" lay-verify="">
                     <option value="" selected>--请选择与学生关系--</option>
-                    <option value="父女" >父女</option>
-                    <option value="母女" >母女</option>
-                    <option value="父子" >父子</option>
-                    <option value="母子" >母子</option>
+                    <option value="父女" <c:if test="${stuFal.relation eq '父女'}">selected</c:if>>父女</option>
+                    <option value="母女" <c:if test="${stuFal.relation eq '母女'}">selected</c:if>>母女</option>
+                    <option value="父子" <c:if test="${stuFal.relation eq '父子'}">selected</c:if>>父子</option>
+                    <option value="母子" <c:if test="${stuFal.relation eq '母子'}">selected</c:if>>母子</option>
                 </select>
             </div>
         </div>
@@ -56,7 +58,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="familyphone" name="familyphone" required="" lay-verify="phone"
-                       autocomplete="off" class="layui-input">
+                       autocomplete="off" class="layui-input" value="${stuFal.familyphone}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>输入家长联系电话
@@ -64,7 +66,7 @@
         </div>
         <div class="layui-form-item">
             <button  class="layui-btn" lay-filter="update" lay-submit="">
-                增加
+                修改
             </button>
         </div>
     </form>
@@ -91,14 +93,14 @@
         });
 
         //监听提交
-        form.on('submit(add)', function(data){
+        form.on('submit(update)', function(data){
             $.ajax({
-                url:'${pageContext.request.contextPath}/student/stuFal/update',
+                url:'${pageContext.request.contextPath}/other/stuFal/update',
                 type:'post',
                 data:data.field,
                 dataType:'json',
                 success:function (data){
-                    layer.alert("增加成功", {icon: 6},function(){
+                    layer.alert("修改成功", {icon: 6},function(){
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
@@ -107,12 +109,13 @@
                             window.parent.location.reload(); //新增成功后刷新父界面
                         })
                     });
+                },
+                error:function () {
+                    layer.msg("修改失败");
                 }
             });
             return false;
         });
-
-
     });
 </script>
 <script>var _hmt = _hmt || []; (function() {

@@ -24,14 +24,19 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
-        <input type="hidden" name="stuid" value="<%=request.getAttribute("stuId")%>" class="layui-input"/>
+        <input type="hidden" name="stuid" value="${score.stuid}" class="layui-input"/>
+        <input type="hidden" name="scoreId" value="${score.scoreId}" class="layui-input"/>
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>课程名称</label>
             <div class="layui-input-inline">
                 <select name="courseId" lay-verify="required">
                     <option value="" selected>--请选择课程名称--</option>
                     <c:forEach var="course" items="${requestScope.courses}">
-                        <option value="${course.courseid}">${course.courseName}</option>
+                        <option value="${course.courseid}"
+                            <c:if test="${score.courseId eq course.courseid}">
+                                selected
+                            </c:if>
+                        >${course.courseName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -42,7 +47,11 @@
                 <select name="testType" lay-verify="required">
                     <option value="" selected>--请选择考试类型--</option>
                     <c:forEach var="type" items="${requestScope.types}">
-                        <option value="${type.typeId}">${type.typeName}</option>
+                        <option value="${type.typeId}"
+                                <c:if test="${score.testType eq type.typeId}">
+                                    selected
+                                </c:if>
+                        >${type.typeName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -50,11 +59,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>考试时间</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" id="time1" name="time1" placeholder="yyyy-MM-dd">
+                <input type="text" class="layui-input" id="time1" name="time1" placeholder="yyyy-MM-dd"
+                value="<%=request.getAttribute("time1")%>">
             </div>
             <label class="layui-form-label"><span class="x-red">*</span>选择开始时间</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" id="time2"  name="time2" placeholder="HH:mm:ss">
+                <input type="text" class="layui-input" id="time2"  name="time2" placeholder="HH:mm:ss"
+                value="<%=request.getAttribute("time2")%>">
             </div>
         </div>
         <div class="layui-form-item">
@@ -63,7 +74,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="score" name="score" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                       autocomplete="off" class="layui-input" value="${score.score}">
             </div>
         </div>
         <div class="layui-form-item">
@@ -72,7 +83,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="rescore" name="rescore" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                       autocomplete="off" class="layui-input" value="${score.rescore}"/>
             </div>
         </div>
         <div class="layui-form-item">
@@ -81,7 +92,11 @@
                 <select name="termid" lay-verify="required">
                     <option value="" selected>--请选择学期--</option>
                     <c:forEach var="term" items="${requestScope.terms}">
-                        <option value="${term.termid}">${term.termName}</option>
+                        <option value="${term.termid}"
+                            <c:if test="${score.termid eq term.termid}">
+                                selected
+                            </c:if>
+                        >${term.termName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -89,10 +104,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>录入人员</label>
             <div class="layui-input-inline">
-                <select name="Empid" lay-verify="required">
+                <select name="empid" lay-verify="required">
                     <option value="" selected>--请选择录入人员--</option>
                     <c:forEach var="emp" items="${requestScope.emps}">
-                        <option value="${emp.empId}">${emp.empName}</option>
+                        <option value="${emp.empId}"
+                            <c:if test="${score.empid eq emp.empId}">
+                                selected
+                            </c:if>
+                        >${emp.empName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -101,12 +120,12 @@
             <label class="layui-form-label"><span class="x-red">*</span>备注</label>
             <div class="layui-input-inline">
                 <input type="text" id="remark" name="remark" required="" lay-verify=""
-                       autocomplete="off" class="layui-textarea">
+                       autocomplete="off" class="layui-textarea" value="${score.remark}">
             </div>
         </div>
         <div class="layui-form-item">
-            <button  class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+            <button  class="layui-btn" lay-filter="update" lay-submit="">
+                修改
             </button>
         </div>
     </form>
@@ -145,14 +164,14 @@
         });
 
         //监听提交
-        form.on('submit(add)', function(data){
+        form.on('submit(update)', function(data){
             $.ajax({
-                url:'${pageContext.request.contextPath}/student/score/add',
+                url:'${pageContext.request.contextPath}/other/score/update',
                 type:'post',
                 data:data.field,
                 dataType:'json',
                 success:function (data){
-                    layer.alert("增加成功", {icon: 6},function(){
+                    layer.alert("修改成功", {icon: 6},function(){
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
@@ -163,7 +182,7 @@
                     });
                 },
                 error:function () {
-                    layer.alert("增加失败");
+                    layer.alert("修改失败");
                 }
             });
             return false;
