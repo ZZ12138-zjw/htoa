@@ -41,8 +41,8 @@ public class ICheckInsertImpl extends BaseDao implements ICheckInsert {
     }
 
     @Override
-    public List selectCheckScore(String checkContent) {
-        return listBySQL("select checkScore from checkindex where checkContent in( '"+checkContent+"')");
+    public List selectCheckScore(int checkContentID) {
+        return listBySQL("select * from checkindex where ID ="+checkContentID);
     }
 
     @Override
@@ -67,8 +67,26 @@ public class ICheckInsertImpl extends BaseDao implements ICheckInsert {
 
     @Override
     public List selectAllEmp() {
-        return listBySQL("select * from t_emp");
+        return listBySQL("select empName from t_emp");
     }
 
+    @Override
+    public List selectAllEmp(int deptid) {
+        return listBySQL("select empName,empId from t_emp where deptId = "+deptid);
+    }
 
+    @Override
+    public List selectAllCheckIndex() {
+        return listByHql("from CheckIndexVo");
+    }
+
+    @Override
+    public List selectAllCheckInsert(int checkInsertID) {
+        return listBySQL("select * from checkinsert where ID = "+checkInsertID);
+    }
+
+    @Override
+    public CheckInsertVo selectCheckInsert(int checkInsertID) {
+        return (CheckInsertVo) getObject(CheckInsertVo.class,checkInsertID);
+    }
 }

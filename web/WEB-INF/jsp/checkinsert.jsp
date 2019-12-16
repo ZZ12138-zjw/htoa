@@ -10,6 +10,24 @@
 <html>
 <head>
     <title>考核录入</title>
+
+    <script type="text/javascript">
+        /*时间转换格式*/
+        function  createTime(v) {
+            var date=new Date(v);
+            var y=date.getFullYear();
+            var m=date.getMonth()+1;
+            m = m<10 ? '0'+m : m;
+            var d=date.getDate();
+            d=d<10 ?("0"+d):d;
+            var h=date.getHours();
+            h=h<10?("0"+h):h;
+            var M = date.getMinutes();
+            M = M<10?("0"+M):M;
+            var str = y+"-"+m+"-"+d+" "+h;
+            return str;
+        }
+    </script>
 </head>
 <body>
     <table id="demo" lay-filter="test"></table>
@@ -17,13 +35,15 @@
     <%--定义头部按钮--%>
     <script type="text/html" id="toolbarDemo">
         <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-normal" lay-event="add"><i class="layui-icon">&#xe654;</i>添加</button>
             <button  class="layui-btn layui-btn-warm" id="allDelete"><i class="layui-icon">&#xe640;</i>批量删除</button>
         </div>
     </script>
 
     <%--定义行按钮--%>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe60b;</i>查看详情</a>
+        <a class="layui-btn layui-btn-xs" lay-event="info"><i class="layui-icon">&#xe60b;</i>查看详情</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     </script>
 
@@ -45,11 +65,13 @@
                 ,{field: 'checkContent', title: '考核内容',align:'center'}
                 ,{field: 'empName', title: '员工姓名',align:'center'}
                 ,{field: 'depName', title: '部门名称',align:'center'}
-                ,{field: 'checkDate', title: '考核日期',align:'center',width:150,sort:true}
+                ,{field: 'checkDate', title: '考核日期',templet:function (data) {
+                            return createTime(data.checkDate)
+                        },align:'center',width:150,sort:true}
                 ,{field: 'checkScore', title: '考核分数', sort: true,align:'center'}
                 ,{field: 'inputEmp', title: '录入人员',align:'center'}
                 ,{field: 'checkExplain', title: '考核说明',align:'center'}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo',align:'center',width:180}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo',align:'center',width:230}
             ]],
                 toolbar:'#toolbarDemo'
             });
@@ -98,6 +120,19 @@
                 }
             });
 
+            table.on('toolbar(test)',function(data){
+                if (data.event == "add"){
+                    layer.open({
+                        type: 2,
+                        title: '新增考核录入',
+                        shadeClose: true,
+                        shade: 0.8,
+                        area: ['600px', '90%'],
+                        content: '${pageContext.request.contextPath}/checkinsertcontro/to_addcheckinsert' //iframe的url
+                    })
+                }
+            });
+
             table.on('tool(test)',function (obj) {
                 var data = obj.data;
                 if (obj.event == "del"){
@@ -118,7 +153,7 @@
                         //关闭弹窗
                         layer.close(delIndex);
                     });
-                }else if(obj.event == "edit"){
+                }else if(obj.event == "info"){
                     var index = layer.open({
                         type: 2,
                         title: "查看详情",
@@ -128,7 +163,19 @@
                         shadeClose: true,
                         shade: 0.4,
                         skin: 'layui-layer-rim',
-                        content: ["${pageContext.request.contextPath}/checkinsertcontro/to_infocheckinsert?iD="+data.iD],
+                        content: ["${pageContext.request.contextPath}/checkinsertcontro/to_infocheckinsert?checkInsertID="+data.iD],
+                    });
+                }else if(obj.event == "edit"){
+                    var index = layer.open({
+                        type: 2,
+                        title: "编辑考核录入",
+                        area: ['600px', '90%'],
+                        fix: false, //不固定
+                        maxmin: true,
+                        shadeClose: true,
+                        shade: 0.4,
+                        skin: 'layui-layer-rim',
+                        content: ["${pageContext.request.contextPath}/checkinsertcontro/to_editcheckinsert?checkInsertID="+data.iD],
                     });
                 }
             });

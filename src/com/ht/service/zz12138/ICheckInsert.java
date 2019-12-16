@@ -20,7 +20,7 @@ public interface ICheckInsert {
 
     public List selID(int ID);
 
-    public List selectCheckScore(String checkContent);
+    public List selectCheckScore(int checkContentID);
 
     public void delCheckInsert(String iD);
 
@@ -34,5 +34,12 @@ public interface ICheckInsert {
     //查询出所有员工
     public List selectAllEmp();
 
+    //查询出某某部门下所有员工
+    public List selectAllEmp(int deptid);
 
+    public List selectAllCheckIndex();
+
+    public List selectAllCheckInsert(int checkInsertID);
+
+    public CheckInsertVo selectCheckInsert(int checkInsertID);
 }

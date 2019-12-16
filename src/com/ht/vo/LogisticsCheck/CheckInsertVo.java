@@ -1,13 +1,11 @@
 package com.ht.vo.LogisticsCheck;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * @author @ZZ12138-zjw
- * @date 2019/12/9 19:50
+ * @date 2019/12/15 11:14
  */
-
 @Entity
 @Table(name = "checkinsert")
 public class CheckInsertVo {
@@ -22,10 +20,11 @@ public class CheckInsertVo {
     private String inputEmp;            //录入人员（权限不足时不展示录入按钮）
     private String checkExplain;        //录入备注
     private Integer empID;              //员工ID
-    private String depID;               //部门ID
+    private Integer depID;               //部门ID
     private String depName;             //部门名称
     private String imageName;           //图片名称
     private Integer inputID;            //录入人员ID
+    private Integer checkContentID;            //考核内容ID关联考核指标ID
 
     @Override
     public String toString() {
@@ -38,35 +37,12 @@ public class CheckInsertVo {
                 ", inputEmp='" + inputEmp + '\'' +
                 ", checkExplain='" + checkExplain + '\'' +
                 ", empID=" + empID +
-                ", depID='" + depID + '\'' +
+                ", depID=" + depID +
                 ", depName='" + depName + '\'' +
                 ", imageName='" + imageName + '\'' +
                 ", inputID=" + inputID +
+                ", checkContentID=" + checkContentID +
                 '}';
-    }
-
-    public Integer getInputID() {
-        return inputID;
-    }
-
-    public void setInputID(Integer inputID) {
-        this.inputID = inputID;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
-    public String getDepName() {
-        return depName;
-    }
-
-    public void setDepName(String depName) {
-        this.depName = depName;
     }
 
     public Integer getID() {
@@ -133,11 +109,43 @@ public class CheckInsertVo {
         this.empID = empID;
     }
 
-    public String getDepID() {
+    public Integer getDepID() {
         return depID;
     }
 
-    public void setDepID(String depID) {
+    public void setDepID(Integer depID) {
         this.depID = depID;
+    }
+
+    public String getDepName() {
+        return depName;
+    }
+
+    public void setDepName(String depName) {
+        this.depName = depName;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public Integer getInputID() {
+        return inputID;
+    }
+
+    public void setInputID(Integer inputID) {
+        this.inputID = inputID;
+    }
+
+    public Integer getCheckContentID() {
+        return checkContentID;
+    }
+
+    public void setCheckContentID(Integer checkContentID) {
+        this.checkContentID = checkContentID;
     }
 }
