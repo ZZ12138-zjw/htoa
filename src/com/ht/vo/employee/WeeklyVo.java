@@ -19,7 +19,7 @@ public class WeeklyVo{
     @Id
     @GeneratedValue
     private Integer worklogid; //主键，标识列，自动生成
-    private String empid; //关联Emp表empid字段
+    private int empid; //关联Emp表empid字段
     private Date workday; //填写日期
     private String weekCur; //本周情况描述
     private String studentQuestion; //问题学生情况反馈
@@ -35,11 +35,11 @@ public class WeeklyVo{
         this.worklogid = worklogid;
     }
 
-    public String getEmpid() {
+    public int getEmpid() {
         return empid;
     }
 
-    public void setEmpid(String empid) {
+    public void setEmpid(int empid) {
         this.empid = empid;
     }
 

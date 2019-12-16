@@ -24,6 +24,7 @@
     -->
     <mvc:default-servlet-handler/>
     <mvc:resources mapping="/**" location="WEB-INF/static/"/>
+    <mvc:resources mapping="/**" location="upload"/>
 
     <!--用于ajax请求返回json数据-->
     <!--FastJson注入-->
@@ -77,15 +78,39 @@
            <mvc:exclude-mapping path="/**/*.js"/>
            <mvc:exclude-mapping path="/**/*.png"/>
            <mvc:exclude-mapping path="/**/*.gif"/>
+           <mvc:exclude-mapping path="/**/*.json"/>
            <mvc:exclude-mapping path="/**/*.jpg"/>
+           <mvc:exclude-mapping path="/**/*.png"/>
            <mvc:exclude-mapping path="/**/*.jpeg"/>
            <mvc:exclude-mapping path="/**/*login*"/>
            <mvc:exclude-mapping path="/**/*Login*"/>
+           <mvc:exclude-mapping path="/*student*"/>
             <!-- 使用哪个类来做为拦截器 LoginInterceptor-->
            <bean class="com.ht.global.LoginInterceptor"/>
       </mvc:interceptor>
     </mvc:interceptors>
 
 
+    <!--定义拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--拦截所有路径-->
+            <mvc:mapping path="/*student*"/>
+            <!--以下资源不拦截-->
+            <mvc:exclude-mapping path="/**/fonts/*"/>
+            <mvc:exclude-mapping path="/**/*.css"/>
+            <mvc:exclude-mapping path="/**/*.js"/>
+            <mvc:exclude-mapping path="/**/*.png"/>
+            <mvc:exclude-mapping path="/**/*.gif"/>
+            <mvc:exclude-mapping path="/**/*.json"/>
+            <mvc:exclude-mapping path="/**/*.jpg"/>
+            <mvc:exclude-mapping path="/**/*.png"/>
+            <mvc:exclude-mapping path="/**/*.jpeg"/>
+            <mvc:exclude-mapping path="/**/*login*"/>
+            <mvc:exclude-mapping path="/*student_login*"/>
+            <!-- 使用哪个类来做为拦截器 LoginInterceptor-->
+            <bean class="com.ht.global.StudentLoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

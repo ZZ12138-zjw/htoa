@@ -18,8 +18,8 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 @Controller
-@RequestMapping("/flow")
-public class FlowController {
+@RequestMapping("/process")
+public class ProcessController {
     @Resource
     private ProcessEngine processEngine;
     @Resource
@@ -32,13 +32,13 @@ public class FlowController {
     private RepositoryService repositoryService;
 
     //流程列表
-    @RequestMapping("/flowList")
-    public String flowList(Model model){
+    @RequestMapping("/process_list")
+    public String process_list(Model model){
         ProcessDefinitionQuery query = repositoryService.createProcessDefinitionQuery();
         query.orderByProcessDefinitionVersion().desc();
-        List<ProcessDefinition> flowList = query.list();
-        model.addAttribute("flowList",flowList);
-        return "flowList";
+        List<ProcessDefinition> processList = query.list();
+        model.addAttribute("processList",processList);
+        return "process_list";
     }
 
     //上传流程
@@ -60,12 +60,12 @@ public class FlowController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "redirect:/flow/flowList";
+        return "redirect:/process/process_list";
     }
 
     //查看流程图
     @RequestMapping("/selPro")
-    public String viewProcessImage(String did, String imageName, HttpServletResponse resp){
+    public String selPro(String did, String imageName, HttpServletResponse resp){
         InputStream in = repositoryService.getResourceAsStream(did,imageName);
         try {
             OutputStream out = resp.getOutputStream();
@@ -85,7 +85,7 @@ public class FlowController {
 
     //下载流程图
     @RequestMapping("/downloadPro")
-    public String xiazai(String id,HttpServletResponse resp){
+    public String downloadPro(String id,HttpServletResponse resp){
         try {
 
             //设置response对象的头参数，attachment就是附件，filename=文件名称
@@ -147,5 +147,12 @@ public class FlowController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    //删除流程定义
+    @RequestMapping("/delete")
+    public String delete(String id){
+        repositoryService.deleteDeployment(id,true);
+        return "redirect:/process/process_list";
     }
 }

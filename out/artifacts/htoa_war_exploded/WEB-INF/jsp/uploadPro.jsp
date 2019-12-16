@@ -11,7 +11,7 @@
     <title>上传流程图</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/flow/touploadPro" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/process/touploadPro" method="post" enctype="multipart/form-data">
     <input type="file" name="fbfile"/>
     <input type="submit" value="上传"/>
 </form>
