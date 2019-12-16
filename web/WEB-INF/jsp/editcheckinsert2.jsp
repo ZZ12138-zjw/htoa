@@ -1,4 +1,7 @@
-<%--
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2019/12/9
@@ -22,13 +25,17 @@
                 <select name="deptName" lay-filter="dept" id="dept" lay-search="">
                     <option value="">请选择部门</option>
                     <c:forEach items="${allDeptList}" var="e">
-                        <option value="${e.depid}">${e.depName}</option>
+                        <option value="${e.depid}"  ${checkInsertList.depID==e.depid ? 'selected' : ''}>${e.depName}</option>
                     </c:forEach>
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select name="empName" lay-filter="emp" id="empId" lay-search="">
-                    <option value="">请选择员工</option>
+                    <%--<option value="">请选择员工</option>
+                    <option value="${checkInsertList.empID}">${checkInsertList.empName}</option>--%>
+<%--                    <c:forEach items="${checkInsertList}" var="e">--%>
+                        <option value="${checkInsertList.depID}">${checkInsertList.empName}</option>
+<%--                    </c:forEach>--%>
                 </select>
             </div>
         </div>
@@ -38,7 +45,7 @@
                 <select name="checkContent" id="checkContent" lay-verify="required">
                     <option value=""></option>
                     <c:forEach items="${allCheckIndexList}" var="e">
-                        <option value="${e.ID}" >${e.checkContent}</option>
+                        <option value="${e.ID}" ${checkInsertList.checkContentID==e.ID ? 'selected' :''}>${e.checkContent}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -46,13 +53,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">考核日期</label>
             <div class="layui-input-inline">
-                <input type="text" id="checkDate" name="checkDate" required  lay-verify="required" placeholder="请选择考核日期" autocomplete="off" class="layui-input">
+                <input type="text" id="checkDate" value="${checkInsertList.checkDate}" name="checkDate" required  lay-verify="required" placeholder="请选择考核日期" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">考核说明</label>
             <div class="layui-input-inline">
-                <input type="text" id="checkExplain" name="checkExplain" required  lay-verify="required" placeholder="请输入考核说明" autocomplete="off" class="layui-input">
+                <input type="text" id="checkExplain" value="${checkInsertList.checkExplain}" name="checkExplain" required  lay-verify="required" placeholder="请输入考核说明" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
