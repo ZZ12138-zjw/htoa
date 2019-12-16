@@ -60,7 +60,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="member-list.html">
+                        <a _href="${pageContext.request.contextPath}/empLeave/to_holidayList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>员工请假</cite>
                         </a>
@@ -73,7 +73,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="member-del.html">
+                        <a _href="${pageContext.request.contextPath}/attendance/to_attendanceList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考勤管理</cite>
                         </a>
@@ -126,7 +126,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="xx.html">
+                        <a _href="${pageContext.request.contextPath}/empLeave/to_holidayList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>请假管理</cite>
                         </a>
