@@ -25,21 +25,22 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
-        <input type="hidden" name="stuid" value="<%=request.getAttribute("stuId")%>" class="layui-input"/>
+        <input type="hidden" name="stuid" value="${stuHap.stuid}" class="layui-input"/>
+        <input type="hidden" name="happenid" value="${stuHap.happenid}" class="layui-input"/>
         <div class="layui-form-item">
             <label for="happening" class="layui-form-label">
                 <span class="x-red">*</span>情况记录
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="happening" name="happening" required="" lay-verify="required"
-                       autocomplete="off" class="layui-textarea">
+                       autocomplete="off" class="layui-textarea" value="${stuHap.happening}">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>记录时间</label>
             <div class="layui-input-inline">
                 <input type="text" id="optime" name="time" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                       autocomplete="off" class="layui-input" value="${stuHap.optime}">
             </div>
         </div>
 
@@ -49,14 +50,18 @@
                 <select name="empid" lay-verify="">
                     <option value="" selected>--请选择录入人员--</option>
                     <c:forEach items="${requestScope.emps}" var="emp">
-                        <option value="${emp.empId}">${emp.empName}</option>
+                        <option value="${emp.empId}"
+                            <c:if test="${stuHap.empid eq emp.empId}">
+                                selected
+                            </c:if>
+                        >${emp.empName}</option>
                     </c:forEach>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
-            <button  class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+            <button  class="layui-btn" lay-filter="update" lay-submit="">
+                修改
             </button>
         </div>
     </form>
@@ -66,7 +71,8 @@
     var laydate=layui.laydate;
     //执行一个laydate实例
     laydate.render({
-        elem: '#optime'//指定元素
+        elem: '#optime',//指定元素
+        type:'datetime'
     });
 </script>
 <script>
@@ -91,14 +97,14 @@
         });
 
         //监听提交
-        form.on('submit(add)', function(data){
+        form.on('submit(update)', function(data){
             $.ajax({
-                url:'${pageContext.request.contextPath}/student/stuHap/add',
+                url:'${pageContext.request.contextPath}/other/stuHap/update',
                 type:'post',
                 data:data.field,
                 dataType:'json',
                 success:function (data){
-                    layer.alert("增加成功", {icon: 6},function(){
+                    layer.alert("修改成功", {icon: 6},function(){
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame

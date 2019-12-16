@@ -48,8 +48,7 @@
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <select name="emp" lay-filter="emp" id="emp">
-                        <option value="">请选择员工</option>
+                    <select name="empName" lay-filter="emp" id="empId">
                     </select>
                 </div>
             </div>
@@ -114,10 +113,11 @@
 
             form.on('select(dept)',function (data){
                 if (data.value == "51"){
-                    $('#emp').html('<option value="">请选择员工</option>');
-                    $('#emp').append(new Option("张三",0));
-                    $('#emp').html('<option value="">请选择员工</option>');
-
+                    layer.msg("选择了51");
+                    $('#empId').html('<option value="">请选择员工</option>');
+                    $('#empId').append(new Option("张三",1));
+                    $('#empId').append(new Option("李四",2));
+                    form.render('select');
                 }
                 /*layer.msg(data.value);
                 var depId=data.value;

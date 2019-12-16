@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.ht.service.cemer.ClassService;
 import com.ht.service.cemer.StudentService;
+import com.ht.vo.student.StudentClassVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,7 +35,7 @@ public class ClassController {
         map.put("code", 0);
         map.put("msg", " ");
         JSONArray jsonArray =  new JSONArray();
-        if(fallid == null || fallid.equals("")){
+        if(fallid == null || "".equals(fallid)){
             map.put("count", this.classService.selectAll().size());
             jsonArray = (JSONArray) JSON.toJSON(this.classService.selectByPage(Integer.parseInt(page), Integer.parseInt(limit)));
             map.put("data", jsonArray);
@@ -65,4 +66,44 @@ public class ClassController {
         return "ClassAdd";
     }
 
+    @RequestMapping("/add")
+    @ResponseBody
+    public String addClass(StudentClassVo studentClassVo){
+        System.out.println(studentClassVo.toString());
+        classService.addStuClass(studentClassVo);
+        return "success";
+    }
+
+    @RequestMapping("/toUpdate")
+    public String updateStuClass(int classId,HttpServletRequest request){
+        request.setAttribute("stuClass",classService.getStuClassById(classId));
+        request.setAttribute("emps",studentService.selectAllEmp());
+        request.setAttribute("types",classService.selectAllTypes());
+        request.setAttribute("levels",studentService.selectAllFall());
+        return "classUpdate";
+    }
+
+    @RequestMapping(value = "/update")
+    @ResponseBody
+    public String updateStuClass(StudentClassVo studentClassVo){
+        classService.updateStuClass(studentClassVo);
+        return "success";
+    }
+    @RequestMapping(value = "/toLook")
+    public String toLookStu(int classId,HttpServletRequest request){
+        request.setAttribute("classId",classId);
+        return "ClassStudent_list";
+    }
+    @RequestMapping("/loadStu")
+    @ResponseBody
+    public Map getStuData(int classId){
+        Map map = new HashMap();
+        map.put("code",0);
+        map.put("msg"," ");
+        JSONArray jsonArray = new JSONArray();
+        map.put("count",classService.selectAllStudentByClassId(classId).size());
+        jsonArray = (JSONArray)JSON.toJSON(classService.selectAllStudentByClassId(classId));
+        map.put("data",jsonArray);
+        return map;
+    }
 }

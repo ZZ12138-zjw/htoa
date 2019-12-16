@@ -24,6 +24,22 @@ public class StudentScoreVo {
     private Integer Empid;//录入人员 从session中获取值
     private String remark;//备注
 
+    @Override
+    public String toString() {
+        return "StudentScoreVo{" +
+                "scoreId=" + scoreId +
+                ", stuid=" + stuid +
+                ", score=" + score +
+                ", rescore=" + rescore +
+                ", courseId=" + courseId +
+                ", testType=" + testType +
+                ", termid=" + termid +
+                ", scoreTime=" + scoreTime +
+                ", Empid=" + Empid +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
+
     public Integer getScoreId() {
         return scoreId;
     }

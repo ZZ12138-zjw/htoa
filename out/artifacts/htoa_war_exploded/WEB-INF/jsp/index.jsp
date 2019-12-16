@@ -167,7 +167,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="<%=request.getContextPath()%>/huor/to_huor_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>宿舍管理</cite>
                         </a>

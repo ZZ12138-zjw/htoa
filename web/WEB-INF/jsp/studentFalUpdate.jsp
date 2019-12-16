@@ -2,14 +2,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: 小燕
-  Date: 2019/12/5
-  Time: 19:45
+  Date: 2019/12/9
+  Time: 19:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>新增学生</title>
+    <title>Title</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -21,86 +21,52 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
+
 </head>
 <body>
 <div class="x-body">
-    <form class="layui-form" l>
+    <form class="layui-form">
+        <input type="hidden" name="stuid" value="${stuFal.stuid}" class="layui-input">
+        <input type="hidden" name="familyid" value="${stuFal.familyid}" class="layui-input">
         <div class="layui-form-item">
-            <label class="layui-form-label"><span class="x-red">*</span>届别</label>
+            <label for="familyname" class="layui-form-label">
+                <span class="x-red">*</span>亲属姓名
             </label>
             <div class="layui-input-inline">
-                <select name="falled" lay-verify="">
-                    <option value="" selected>--选择届别--</option>
-                    <c:forEach var="level" items="${requestScope.levels}">
-                        <option value="${level.fallid}">${level.level}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="classNo" class="layui-form-label">
-                <span class="x-red">*</span>班级编号
-            </label>
-            <div class="layui-input-inline">
-                <input type="number" id="classNo" name="classNo" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="familyname" name="familyname" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input" value="${stuFal.familyname}">
             </div>
             <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>输入班级编号
+                <span class="x-red">*</span>输入学生姓名
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="className" class="layui-form-label">
-                <span class="x-red">*</span>班级名称
+            <label class="layui-form-label"><span class="x-red">*</span>与学生关系</label>
+            <div class="layui-input-inline">
+                <select name="relation" lay-verify="">
+                    <option value="" selected>--请选择与学生关系--</option>
+                    <option value="父女" <c:if test="${stuFal.relation eq '父女'}">selected</c:if>>父女</option>
+                    <option value="母女" <c:if test="${stuFal.relation eq '母女'}">selected</c:if>>母女</option>
+                    <option value="父子" <c:if test="${stuFal.relation eq '父子'}">selected</c:if>>父子</option>
+                    <option value="母子" <c:if test="${stuFal.relation eq '母子'}">selected</c:if>>母子</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="familyphone" class="layui-form-label">
+                <span class="x-red">*</span>家长联系电话
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="className" name="className" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="familyphone" name="familyphone" required="" lay-verify="phone"
+                       autocomplete="off" class="layui-input" value="${stuFal.familyphone}">
             </div>
             <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>输入班级名称
+                <span class="x-red">*</span>输入家长联系电话
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label"><span class="x-red">*</span>授课老师</label>
-            <div class="layui-input-inline">
-                <select name="teacher">
-                    <option value="">--选择授课老师--</option>
-                    <c:forEach items="${requestScope.emps}" var="emp">
-                        <option value="${emp.empName}">${emp.empName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                <span class="x-red">*</span>班主任
-            </label>
-            <div class="layui-input-inline">
-                <select name="classTeacher">
-                    <option value="">--选择班主任老师--</option>
-                    <c:forEach items="${requestScope.emps}" var="emp">
-                        <option value="${emp.empName}">${emp.empName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                <span class="x-red">*</span>班级类型
-            </label>
-            <div class="layui-input-inline">
-                <select name="classType">
-                    <option value="">--选择班级类型--</option>
-                    <c:forEach items="${requestScope.types}" var="type">
-                        <option value="${type.classType}">${type.typeName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <button  class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+            <button  class="layui-btn" lay-filter="update" lay-submit="">
+                修改
             </button>
         </div>
     </form>
@@ -127,14 +93,14 @@
         });
 
         //监听提交
-        form.on('submit(add)', function(data){
+        form.on('submit(update)', function(data){
             $.ajax({
-                url:'${pageContext.request.contextPath}/cla/add',
+                url:'${pageContext.request.contextPath}/other/stuFal/update',
                 type:'post',
                 data:data.field,
                 dataType:'json',
                 success:function (data){
-                    layer.msg("增加成功",function(){
+                    layer.alert("修改成功", {icon: 6},function(){
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
@@ -145,13 +111,11 @@
                     });
                 },
                 error:function () {
-                    layer.msg("增加失败");
+                    layer.msg("修改失败");
                 }
             });
             return false;
         });
-
-
     });
 </script>
 <script>var _hmt = _hmt || []; (function() {
