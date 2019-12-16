@@ -26,19 +26,6 @@
                   <span class="x-red">*</span>将会成为您唯一的登入名
               </div>--%>
           </div>
-          <div class="layui-form-item">
-              <label for="deptType" class="layui-form-label">
-                  <span class="x-red">*</span>部门类别
-              </label>
-              <div class="layui-input-inline">
-                  <select id="deptType"   name="deptType" lay-verify="required">
-                      <option value=""  >不选择</option>
-                      <option value="后勤部" >后勤部</option>
-                      <option value="人事部" >人事部</option>
-                      <option value="财务部" >财务部</option>
-                  </select>
-              </div>
-          </div>
         <div class="layui-form-item">
             <label for="parentId" class="layui-form-label">
                 <span class="x-red">*</span>上级部门名称
@@ -97,8 +84,8 @@
                     if (/^\d+\d+\d$/.test(value)){
                         return '部门名称不能为全数字';
                     }
-                    if (value.length<5){
-                        return '部门名称至少得5个字符';
+                    if (value.length<2){
+                        return '部门名称至少得2个字符';
                     }
                 }
             });

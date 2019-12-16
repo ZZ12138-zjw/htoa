@@ -1,11 +1,13 @@
 package com.ht.controller.shihehua;
 
+import com.ht.service.cemer.StudentService;
 import com.ht.service.shihehua.INoticeReceiptService;
 import com.ht.service.shihehua.INoticeService;
 import com.ht.service.xiaoen.IEmpService;
 import com.ht.vo.educational.NoticeVo;
 import com.ht.vo.educational.Notice_ReceiptVo;
 import com.ht.vo.employee.EmpVo;
+import com.ht.vo.student.StudentVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +16,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 华 on 2019/12/12.
@@ -42,38 +46,140 @@ public class NoticeController {
 
     @RequestMapping("/notice_add")
     @ResponseBody
-    public String notice_add(HttpSession session, NoticeVo noticeVo){
-        noticeVo.setEmpid(1);
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String noticeTime = simpleDateFormat.format(date);
-        noticeVo.setNoticeTime(noticeTime);
-        ins.addNotice(noticeVo);
+    public String notice_add(HttpSession session, NoticeVo noticeVo,String noticeType){
         //noticeTime==1 选择发送通知的群体为全体员工
         //noticeTime==2 选择发送通知的群体为全体学生
         //noticeTime==3 选择发送通知的群体为全体员工和全体学生
-        if (noticeVo.getNoticeType()==1){
-            List<NoticeVo> noticeVoList = ins.NoticeIdList(noticeVo.getTitle());
-            for (NoticeVo nt:noticeVoList){
-                int noticeid = nt.getNoticeId();
-                int empid = nt.getEmpid();
-                List<EmpVo> empVoListe = ies.selectAll();
-                for (EmpVo e:empVoListe){
-                    if (e.getEmpId()==empid){
-                        continue;
-                    }else{
-                        Notice_ReceiptVo notice_receiptVo = new Notice_ReceiptVo();
-                        notice_receiptVo.setNoticeId(noticeid);
-                        notice_receiptVo.setReceiver(e.getEmpId());
-                        notice_receiptVo.setIsRead(2);
-                        inr.addNoticeReceipt(notice_receiptVo);
-                    }
+        if (Integer.parseInt(noticeType)==1){
+            EmpVo empVo = (EmpVo) session.getAttribute("empVo");
+            noticeVo.setEmpid(empVo.getEmpId());
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String noticeTime = simpleDateFormat.format(date);
+            noticeVo.setNoticeTime(noticeTime);
+            noticeVo.setTrueConut(0);
+            noticeVo.setFalseCount(ies.selectCount());
+            ins.addNotice(noticeVo);
+
+
+            List<EmpVo> empVoListe = ies.selectAll();
+            for (EmpVo e:empVoListe){
+                if (e.getEmpId()==noticeVo.getEmpid()){
+                    continue;
                 }
+                Notice_ReceiptVo notice_receiptVo = new Notice_ReceiptVo();
+                notice_receiptVo.setNoticeId(noticeVo.getNoticeId());
+                notice_receiptVo.setReceiver(e.getEmpId());
+                notice_receiptVo.setIsRead(2);//1/已读，2/未读
+                notice_receiptVo.setType(1);//类型为员工
+                inr.addNoticeReceipt(notice_receiptVo);
             }
-        }else if(noticeVo.getNoticeType()==2){
-            List<NoticeVo> noticeVoList = ins.NoticeIdList(noticeVo.getTitle());
+
+
+        }else if(Integer.parseInt(noticeType)==2){
+            EmpVo empVo = (EmpVo) session.getAttribute("empVo");
+            noticeVo.setEmpid(empVo.getEmpId());
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String noticeTime = simpleDateFormat.format(date);
+            noticeVo.setNoticeTime(noticeTime);
+            noticeVo.setTrueConut(0);
+            noticeVo.setFalseCount(ins.StudentCount());
+            ins.addNotice(noticeVo);
+
+            List<StudentVo> studentVoList = ins.StudentList();
+            for(StudentVo st:studentVoList){
+                Notice_ReceiptVo notice_receiptVo = new Notice_ReceiptVo();
+                notice_receiptVo.setNoticeId(noticeVo.getNoticeId());
+                notice_receiptVo.setReceiver(st.getStuId());
+                notice_receiptVo.setIsRead(2);//1/已读，2/未读
+                notice_receiptVo.setType(2);//类型为学生
+                inr.addNoticeReceipt(notice_receiptVo);
+            }
+
+        }else if(Integer.parseInt(noticeType)==3){
+            EmpVo empVo = (EmpVo) session.getAttribute("empVo");
+            noticeVo.setEmpid(empVo.getEmpId());
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String noticeTime = simpleDateFormat.format(date);
+            noticeVo.setNoticeTime(noticeTime);
+            noticeVo.setTrueConut(0);
+            noticeVo.setFalseCount(ins.StudentCount()+ies.selectCount());
+            ins.addNotice(noticeVo);
+
+
+            List<EmpVo> empVoListe = ies.selectAll();
+            for (EmpVo e:empVoListe){
+                if (e.getEmpId()==noticeVo.getEmpid()){
+                    continue;
+                }
+                Notice_ReceiptVo notice_receiptVo = new Notice_ReceiptVo();
+                notice_receiptVo.setNoticeId(noticeVo.getNoticeId());
+                notice_receiptVo.setReceiver(e.getEmpId());
+                notice_receiptVo.setIsRead(2);//1/已读，2/未读
+                notice_receiptVo.setType(3);//类型为全体
+                inr.addNoticeReceipt(notice_receiptVo);
+            }
+            List<StudentVo> studentVoList = ins.StudentList();
+            for(StudentVo st:studentVoList){
+                Notice_ReceiptVo notice_receiptVo = new Notice_ReceiptVo();
+                notice_receiptVo.setNoticeId(noticeVo.getNoticeId());
+                notice_receiptVo.setReceiver(st.getStuId());
+                notice_receiptVo.setIsRead(2);//1/已读，2/未读
+                notice_receiptVo.setType(3);//类型为全体
+                inr.addNoticeReceipt(notice_receiptVo);
+            }
 
         }
         return "success";
     }
+
+    @RequestMapping("/to_noticeupdate")
+    public String to_noticeupdate(Map map,String noticeId){
+        map.put("noticeList",ins.selNotice(Integer.parseInt(noticeId)));
+        return "notice_update";
+    }
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public String update(NoticeVo noticeVo){
+        ins.NoticeUpdate(noticeVo);
+        return "success";
+    }
+
+    @RequestMapping("/EmpNoticeList")
+    @ResponseBody
+    public Map noticeList(String page,String limit){
+        System.out.println("       "+page+"      "+limit);
+        Map map = new HashMap();
+        map.put("code",0);
+        map.put("msg"," ");
+        map.put("count",ins.selEmpNoticeCount());
+        map.put("data",ins.selEmpNoticePage(Integer.parseInt(page),Integer.parseInt(limit)));
+        System.out.println(map);
+        return map;
+    }
+
+
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public String delete(String noticeId){
+        ins.delNotice(Integer.parseInt(noticeId));
+        return "success";
+    }
+
+    @RequestMapping("/deteles")
+    @ResponseBody
+    public String deletes(String[] noticeId){
+        String ids = "";
+        for(int i=0;i<noticeId.length;i++){
+            ids+=noticeId[i]+",";
+        }
+        ids=ids.substring(0,ids.length()-1);
+        ins.delNotices(ids);
+        return "success";
+    }
+
 }

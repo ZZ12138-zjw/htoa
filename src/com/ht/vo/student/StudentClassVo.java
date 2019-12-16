@@ -12,29 +12,29 @@ import javax.persistence.*;
 public class StudentClassVo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int classId;//自增主键
-    private int classNo;//班级编号
+    private Integer classId;//自增主键
+    private Integer classNo;//班级编号
     private String className;//班级名称
     private int count;//班级人数
     private String teacher;//授课老师关联字段
     private String classTeacher;//班主任老师关联字段
-    private int classType;//班级类别，关联班级类别表
+    private Integer classType;//班级类别，关联班级类别表
     private String remark;//备注
-    private int falled;//关联班级类别
+    private Integer falled;//关联班级类别
 
-    public int getClassId() {
+    public Integer getClassId() {
         return classId;
     }
 
-    public void setClassId(int classId) {
+    public void setClassId(Integer classId) {
         this.classId = classId;
     }
 
-    public int getClassNo() {
+    public Integer getClassNo() {
         return classNo;
     }
 
-    public void setClassNo(int classNo) {
+    public void setClassNo(Integer classNo) {
         this.classNo = classNo;
     }
 
@@ -70,11 +70,11 @@ public class StudentClassVo {
         this.classTeacher = classTeacher;
     }
 
-    public int getClassType() {
+    public Integer getClassType() {
         return classType;
     }
 
-    public void setClassType(int classType) {
+    public void setClassType(Integer classType) {
         this.classType = classType;
     }
 
@@ -86,11 +86,11 @@ public class StudentClassVo {
         this.remark = remark;
     }
 
-    public int getFalled() {
+    public Integer getFalled() {
         return falled;
     }
 
-    public void setFalled(int falled) {
+    public void setFalled(Integer falled) {
         this.falled = falled;
     }
 }

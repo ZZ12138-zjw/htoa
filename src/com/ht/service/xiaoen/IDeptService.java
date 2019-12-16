@@ -60,4 +60,13 @@ public interface IDeptService {
      */
     void delAll(String depIds);
 
+    /**
+     * 通过部门名称查部门负责人
+     * @param deptId
+     *      部门id
+     * @return
+     *      部门负责人
+     */
+    String selectChairman(Integer deptId);
+
 }

@@ -134,7 +134,7 @@
                 data:data.field,
                 dataType:'json',
                 success:function (data){
-                    layer.alert("增加成功", {icon: 6},function(){
+                    layer.msg("增加成功",function(){
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
@@ -143,6 +143,9 @@
                             window.parent.location.reload(); //新增成功后刷新父界面
                         })
                     });
+                },
+                error:function () {
+                    layer.msg("增加失败");
                 }
             });
         });

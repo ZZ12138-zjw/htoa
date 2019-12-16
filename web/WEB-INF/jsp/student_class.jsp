@@ -73,7 +73,7 @@
         //第一个实例
         table.render({
             elem: '#LAY_table_classes'
-            ,height: 312
+            ,height: 500
             ,url:'<%=request.getContextPath()%>/cla/classAll'
             ,toolbar: '#toolbarDemo'//开启头部工具栏，并为其绑定左侧模板
             ,page: true //开启分页

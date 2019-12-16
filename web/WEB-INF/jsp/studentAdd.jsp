@@ -225,12 +225,14 @@
                         //关闭当前frame
                         parent.layer.close(index);
                         setTimeout(function () {
-                            window.parent.location.reload(); //新增成功后刷新父界面
+                            window.parent.location.reload(); //修改成功后刷新父界面
                         })
                     });
                 }
             });
+            return false;
         });
+
 
 
     });

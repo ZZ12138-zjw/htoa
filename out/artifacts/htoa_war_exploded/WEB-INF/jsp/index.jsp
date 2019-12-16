@@ -66,7 +66,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="${pageContext.request.contextPath}/myweek/myweekpage">
+                        <a _href="${pageContext.request.contextPath}/myweek/myweekly_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>我的周报</cite>
                             
@@ -108,7 +108,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="${pageContext.request.contextPath}/week/weeklyList">
+                        <a _href="${pageContext.request.contextPath}/week/weekly_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>周报管理</cite>
                         </a>
@@ -120,7 +120,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="xx.html">
+                        <a _href="${pageContext.request.contextPath}/talk/talkpage">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>谈心记录</cite>
                         </a>
@@ -132,7 +132,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="xx.html">
+                        <a _href="${pageContext.request.contextPath}/attendance/to_attendanceList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考勤管理</cite>
                         </a>
@@ -237,7 +237,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="${pageContext.request.contextPath}/repaircontro/repairapply">
+                        <a _href="${pageContext.request.contextPath}/repaircontro/to_repairapply">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>报修申请</cite>
                         </a>
@@ -278,7 +278,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/evaluationcontro/to_empevaluation">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>教师考评</cite>
                         </a>
@@ -312,7 +312,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="${pageContext.request.contextPath}/doc/documentList">
+                        <a _href="${pageContext.request.contextPath}/doc/document_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>资料文档</cite>
                         </a>
@@ -346,7 +346,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="${pageContext.request.contextPath}/flow/flowList">
+                        <a _href="${pageContext.request.contextPath}/process/process_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>流程列表</cite>
                         </a>

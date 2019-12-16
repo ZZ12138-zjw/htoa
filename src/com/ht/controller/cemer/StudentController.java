@@ -13,6 +13,9 @@ import com.ht.service.cemer.StudentService;
 import com.ht.service.xiaoen.IEmpService;
 import com.ht.vo.student.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +51,6 @@ public class StudentController {
         request.setAttribute("classes",this.studentService.selectAllClass());
         request.setAttribute("hours",this.studentService.selectAllHour());
         request.setAttribute("studentInfo", this.studentService.getStudentInfo());
-        System.out.println(this.studentService.getStudentInfo().toString());
         return "student_info";
     }
 
@@ -60,15 +62,12 @@ public class StudentController {
     @RequestMapping({"/selectAll"})
     @ResponseBody
     public Map getData(String page, String limit,StudentSearch studentSearch) {
-        System.out.println(page);
-        System.out.println(limit);
         Map map = new HashMap();
         map.put("code", 0);
         map.put("msg", " ");
         map.put("count", this.studentService.selectBySearchCount(studentSearch));
         JSONArray jsonArray = (JSONArray)JSON.toJSON(this.studentService.selectBySearch(Integer.parseInt(page), Integer.parseInt(limit),studentSearch));
         map.put("data", jsonArray);
-        System.out.println(map.toString());
         return map;
     }
 
@@ -82,31 +81,28 @@ public class StudentController {
     @RequestMapping({"/add"})
     @ResponseBody
     public String addStu(StudentVo studentVo) {
-        System.out.println("进来了");
         this.studentService.addStuVo(studentVo);
         return "successful";
     }
     @RequestMapping(value = "/toUpdate")
     public String toUpd(int stuId,HttpServletRequest request){
-        System.out.println(stuId);
+        request.setAttribute("emps",this.studentService.selectAllEmp());
         request.setAttribute("student",this.studentService.getById(stuId));
         request.setAttribute("huor", this.studentService.getAllHuor());
         request.setAttribute("studentClass", this.studentService.getAllClass());
         return "studentUpdate";
     }
-    @RequestMapping(value = "/update")
+    @RequestMapping("/update")
     @ResponseBody
     public String updStu(StudentVo studentVo){
-        System.out.println("进来了");
         studentService.updStu(studentVo);
-        return "sucessful";
+         return "sucessful";
     }
 
     @RequestMapping(value = "/delStu")
     @ResponseBody
     public String delStu(int stuId){
-        System.out.println(stuId);
-        //studentService.delStu(studentVo);
+        studentService.delStu(studentService.getById(stuId));
         return "successful";
     }
 
@@ -158,21 +154,41 @@ public class StudentController {
 
     @RequestMapping(value = "stuEdu/add")
     @ResponseBody
-    public String addStuEdu(StudentEduVo studentEduVo){
+    public String addStuEdu(StudentEduVo studentEduVo,String time1,String time2){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date startTime = new Date();
+        Date endTime = new Date();
+        try {
+            startTime = sdf.parse(time1);
+            endTime = sdf.parse(time2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        studentEduVo.setBegindate(startTime);
+        studentEduVo.setEnddate(endTime);
         studentService.addStuEdu(studentEduVo);
         return "success";
     }
 
     @RequestMapping(value = "stuHap/add")
     @ResponseBody
-    public String addStuHap(StudentHappeningVo studentHappeningVo){
+    public String addStuHap(StudentHappeningVo studentHappeningVo,String time){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date times = new Date();
+        try {
+            times = sdf.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        studentHappeningVo.setOptime(times);
         studentService.addStuHap(studentHappeningVo);
         return "success";
     }
 
     @RequestMapping(value = "holiday/add")
     @ResponseBody
-    public String addStuholiday(holidayStudentVo holidayStudentVo){
+    public String addStuholiday(holidayStudentVo holidayStudentVo)
+    {
         studentService.addStuHoliday(holidayStudentVo);
         return "success";
     }
@@ -186,7 +202,16 @@ public class StudentController {
 
     @RequestMapping(value = "score/add")
     @ResponseBody
-    public String addStuScore(StudentScoreVo studentScoreVo){
+    public String addStuScore(StudentScoreVo studentScoreVo,String time1,String time2){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date testTime = new Date();
+        try {
+            testTime = sdf.parse(time1+" "+time2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        studentScoreVo.setScoreTime(testTime);
+        System.out.println(studentScoreVo.toString());
         studentService.addStuScore(studentScoreVo);
         return "success";
     }
@@ -221,6 +246,7 @@ public class StudentController {
                 object.put("count",haps.size());
                 JSONArray jsonArray = (JSONArray)JSON.toJSON(haps);
                 object.put("data",jsonArray);
+                System.out.println(jsonArray.toJSONString());
                 return object;
             }
         }

@@ -60,7 +60,7 @@
             table.render({
                 id:'provinceReload'
                 ,elem: '#noticeTable'  //指定原始表格元素选择器(推荐id选择器)
-                ,url:'${pageContext.request.contextPath}/notice/noticeList'
+                ,url:'${pageContext.request.contextPath}/notice/EmpNoticeList'
                 ,page: true   //开启分页
                 ,method:'post'  //请求方式
                 ,limit:10   //分页默认大小
@@ -68,14 +68,14 @@
                 ,cols: [   //标题栏
                     [
                         {checkbox:true}//开启多选框
-                        ,{field:'noticeId', width:250,title: '编号'}
-                        ,{field:'title',width:250, title: '标题'}
-                        ,{field:'noticeType',width:250, title: '类别'}
-                        ,{field:'empName',width:250, title: '发布人'}
-                        ,{field:'noticeTime',width:350,title: '发布时间'}
-                        ,{field:'truueCount',width:350,title: '已读人数'}
-                        ,{field:'falseCount',width:350,title: '未读人数'}
-                        ,{fixed: 'right', title:'操作',width:200,toolbar: '#barDemo'}
+                        ,{field:'noticeId', width:150,title: '编号'}
+                        ,{field:'title',width:150, title: '标题'}
+                        ,{field:'noticeType',width:150, title: '类别'}
+                        ,{field:'empName',width:150, title: '发布人'}
+                        ,{field:'noticeTime',width:150,title: '发布时间'}
+                        ,{field:'trueConut',width:150,title: '已读人数'}
+                        ,{field:'falseCount',width:150,title: '未读人数'}
+                        ,{fixed: 'right', title:'操作',width:250,toolbar: '#barDemo'}
                     ]
                 ]
                 ,limits: [5,10,20,50]
@@ -96,14 +96,14 @@
                     data=checkStatus.data;
                 var ids=[];
                 $(data).each(function (i,val) { //o即为表格中一行的数据
-                    ids.push(val.courseid);
+                    ids.push(val.noticeId);
                 });
                 if(data.length>0){
-                    layer.confirm('确定要删除选中的部门吗?',{icon:3,title:'提示信息'},function (index) {
+                    layer.confirm('确定要删除选中的公告吗?',{icon:3,title:'提示信息'},function (index) {
                         //layui中找到Checkbox所在的行,并遍历行的顺序
                         $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
-                            $.post("${pageContext.request.contextPath}/course/deletes",{
-                                courseid:ids.toString()
+                            $.post("${pageContext.request.contextPath}/notice/deletes",{
+                                noticeId:ids.toString()
                             },function(data){
                                 if ('success'==data){
                                     var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
@@ -134,7 +134,7 @@
 
 
             //监听工具条
-            table.on('tool(courseList)', function(obj) {
+            table.on('tool(noticeList)', function(obj) {
                 var data = obj.data;
                 json = JSON.stringify(data);
                 switch(obj.event) {
@@ -156,14 +156,14 @@
                             shadeClose: true,
                             shade: 0.4,
                             skin: 'layui-layer-rim',
-                            content: ["${pageContext.request.contextPath}/course/to_courseUpdate?courseid="+data.courseid, "no"],
+                            content: ["${pageContext.request.contextPath}/notice/to_noticeupdate?noticeId="+data.noticeId, "no"],
                         });
                         break;
                     case 'del':
-                        var delIndex = layer.confirm('真的删除id为' + data.courseid + "的信息吗?", function(delIndex) {
+                        var delIndex = layer.confirm('真的删除id为' + data.noticeId + "的信息吗?", function(delIndex) {
                             $.ajax({
-                                url: '${pageContext.request.contextPath}/course/delete',
-                                data:{courseid:data.courseid},
+                                url: '${pageContext.request.contextPath}/notice/delete',
+                                data:{noticeId:data.noticeId},
                                 type: "post",
                                 success: function(suc) {
                                     obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
@@ -177,6 +177,12 @@
                             //关闭弹窗
                             layer.close(delIndex);
                         });
+                        break;
+                    case 'see':
+                        x_admin_show("${pageContext.request.contextPath}/notice/tonoticeType?noticeId="+data.noticeId)
+                        break;
+                    case 'details':
+
                         break;
                 }
             });

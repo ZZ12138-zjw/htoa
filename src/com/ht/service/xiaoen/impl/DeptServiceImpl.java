@@ -56,5 +56,16 @@ public class DeptServiceImpl  extends BaseDao implements IDeptService {
         executeSQL("delete from t_dept where depid in ("+depIds+")");
     }
 
+    @Override
+    public String selectChairman(Integer deptId) {
+        String chairman="";
+        List<DeptVo> list = listByHql("from DeptVo d where d.depid='" + deptId + "'");
+        for (DeptVo deptVo:list){
+            chairman=deptVo.getChairman();
+        }
+        return chairman;
+    }
+
+
 
 }

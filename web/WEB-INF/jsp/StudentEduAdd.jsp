@@ -24,7 +24,7 @@
 <div class="x-body">
     <form class="layui-form">
         <div class="layui-form-item">
-            <input type="hidden" value="<%=request.getAttribute("stuId")%>" name="stuId"/>
+            <input type="hidden" value="<%=request.getAttribute("stuId")%>" name="stuId" class="layui-inputs"/>
             <label for="school" class="layui-form-label">
                 <span class="x-red">*</span>就读学校
             </label>
@@ -39,7 +39,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>开始时间</label>
             <div class="layui-input-inline">
-                <input type="text" id="begindate" name="begindate" required="" lay-verify="required"
+                <input type="text" id="begindate" name="time1" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>结束时间</label>
             <div class="layui-input-inline">
-                <input type="text" id="enddate" name="enddate" required="" lay-verify="required"
+                <input type="text" id="enddate" name="time2" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -104,11 +104,15 @@
                         //关闭当前frame
                         parent.layer.close(index);
                         setTimeout(function () {
-                            window.parent.location.reload(); //新增成功后刷新父界面
+                            window.parent.location.reload(); //修改成功后刷新父界面
                         })
                     });
+                },
+                error:function (data) {
+                    layer.msg("新增失败");
                 }
             });
+            return false;
         });
 
 

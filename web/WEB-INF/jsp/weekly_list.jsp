@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -25,13 +26,16 @@
                     <label class="layui-form-label">部门名称</label>
                     <div class="layui-input-inline"  >
                         <select name="depName" id="selectDep">
-
+                            <option value="">请选择</option>
+                            <c:forEach items="${depVos}" var="deps">
+                                <option value="${deps.depName}">${deps.depName}</option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>
                 <input  name="empName" placeholder="员工姓名" class="layui-input">
-                <input class="layui-input" placeholder="开始日" name="workday" id="test1">
-                <input class="layui-input" placeholder="截止日" name="workday" id="test2">
+                <input class="layui-input" placeholder="开始日" name="startDay" id="test1">
+                <input class="layui-input" placeholder="截止日" name="endDay" id="test2">
                 <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
             </form>
         </div>
@@ -39,7 +43,7 @@
         <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
 
         <script type="text/html" id="barDemo">
-            <a href="" class="layui-btn layui-btn-normal">查看周报</a>
+            <a class="layui-btn layui-btn-xs" lay-event="sel">查看周报</a>
         </script>
     </div>
 
@@ -48,30 +52,22 @@
            var laydate = layui.laydate;
 
            laydate.render({
-              elem:'#test1,#test2'
+              elem:'#test1'
            });
-        });
-
-        //选择部门下拉框赋值
-        $(function () {
-            $.get("${pageContext.request.contextPath}/week/deptName",{},function (data) {
-                $("#selectDep").prepend("<option value='' class='layui-input'>未选择</option>");
-                $.each(JSON.parse(data),function (index,item) {
-                    $("#selectDep").append("<option value='"+item+"' >"+item+"</option>")
-                });
-                //最终的赋值填空是依赖这句话
-                layui.form.render("select");
+            laydate.render({
+                elem:'#test2'
             });
         });
 
-        layui.use(['table','form'],function () {
+        layui.use(['table','form','layer'],function () {
             var table = layui.table,
-                form = layui.form;
+                form = layui.form,
+                layer = layui.layer;
 
             table.render({
-                id:"provinceReload"
+                id:"idTest"
                 ,elem: '#idTest'
-                ,url:'${pageContext.request.contextPath}/week/weekLists'
+                ,url:'${pageContext.request.contextPath}/week/weekList'
                 ,page: true
                 ,method:'post'
                 ,limit:10
@@ -79,7 +75,7 @@
                     [
                         {checkbox:false}//开启多选框
                         ,{field:'worklogid', width:100,title: '编号'}
-                        ,{field:'empid',width:150, title: '员工名称'}
+                        ,{field:'empName',width:150, title: '员工名称'}
                         ,{field:'workday',width:150, title: '填写日期', templet:function (row){
                             return createTime(row.workday);
                         }}
@@ -93,6 +89,17 @@
                 ,limits: [5,10,20,50]
             });
 
+            function createTime(v){
+                var date = new Date(v);
+                var y = date.getFullYear();
+                var m = date.getMonth()+1;
+                m = m<10?'0'+m:m;
+                var d = date.getDate();
+                d = d<10?("0"+d):d;
+                var str = y+"-"+m+"-"+d;
+                return str;
+            }
+
             // 监听搜索操作
             form.on('submit(sreach)', function (data) {
                 var result = JSON.stringify(data.field);
@@ -103,7 +110,8 @@
                         curr: 1
                     }
                     , where: {
-                        empid:data.field.empid
+                        depName:data.field.depName,
+                        empName:data.field.empName,
                     }
                     ,text:{none:'无数据'}
                 }, 'data');
@@ -111,19 +119,16 @@
                 return false;
             });
 
+            table.on('tool(complainList)',function (obj) {
+                var data = obj.data;
+                json = JSON.stringify(data);
+                switch(obj.event) {
+                    case 'sel':
+                        x_admin_show('查看周报','${pageContext.request.contextPath}/myweek/selwek?worklogid='+data.worklogid);
+                }
+            })
+
         });
-
-
-        function createTime(v){
-            var date = new Date(v);
-            var y = date.getFullYear();
-            var m = date.getMonth()+1;
-            m = m<10?'0'+m:m;
-            var d = date.getDate();
-            d = d<10?("0"+d):d;
-            var str = y+"-"+m+"-"+d;
-            return str;
-        }
     </script>
 </body>
 </html>
