@@ -1,5 +1,8 @@
 package com.ht.controller.shihehua;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.ht.service.cemer.StudentService;
 import com.ht.service.shihehua.INoticeReceiptService;
 import com.ht.service.shihehua.INoticeService;
@@ -9,6 +12,7 @@ import com.ht.vo.educational.Notice_ReceiptVo;
 import com.ht.vo.employee.EmpVo;
 import com.ht.vo.student.StudentVo;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -161,8 +165,6 @@ public class NoticeController {
         return map;
     }
 
-
-
     @RequestMapping("/delete")
     @ResponseBody
     public String delete(String noticeId){
@@ -179,6 +181,37 @@ public class NoticeController {
         }
         ids=ids.substring(0,ids.length()-1);
         ins.delNotices(ids);
+        return "success";
+    }
+
+    @RequestMapping("/tonoticeType")
+    public String tonoticeType(Map map,String noticeId){
+        NoticeVo noticeVo = ins.selNotice(Integer.parseInt(noticeId));
+        EmpVo empVo = new EmpVo();
+        empVo.setEmpId(noticeVo.getEmpid());
+        map.put("noticeList",noticeVo);
+        map.put("empList",ies.select(empVo));
+        return "notice_type";
+    }
+
+    @RequestMapping("/to_noticeReceipt")
+    public String to_noticeReceipt(ModelMap map, String noticeId){
+        List list = ins.selNoticeReceiptEmpList(Integer.parseInt(noticeId));
+        JSONArray json = (JSONArray) JSON.toJSON(list);
+        map.put("noticeReceiptList",json);
+        System.out.println("JSON:"+json.toJSONString());
+        return "notice_receipt";
+    }
+
+    @RequestMapping("updateType")
+    @ResponseBody
+    public String EmpNoticeReceiptList(HttpSession session,String noticeId){
+        System.out.println("noticeId   "+noticeId);
+        EmpVo empVo = (EmpVo) session.getAttribute("empVo");
+        ins.updateEmpNoticeReceiptType(empVo.getEmpId(),Integer.parseInt(noticeId));
+        int trueCount = ins.EmpNoticeTrueCount(Integer.parseInt(noticeId));
+        int falseCount = ins.EmpNoticeFalseCount(Integer.parseInt(noticeId));
+        ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
         return "success";
     }
 

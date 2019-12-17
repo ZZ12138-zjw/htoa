@@ -19,7 +19,7 @@
             <button class="layui-btn" onclick="x_admin_show('添加用户','${pageContext.request.contextPath}/notice/tonotice_add')"><i class="layui-icon"></i>添加</button>
         </script>
 
-        <table class="layui-hide" id="noticeTable" lay-filter="noticeList" lay-data="id:'info'"></table>
+        <table class="layui-hide" id="noticeTable" lay-filter="noticeList"></table>
 
         <script type="text/html" id="complain_toolbar">
             <div class="layui-btn-container">
@@ -70,7 +70,7 @@
                         {checkbox:true}//开启多选框
                         ,{field:'noticeId', width:150,title: '编号'}
                         ,{field:'title',width:150, title: '标题'}
-                        ,{field:'noticeType',width:150, title: '类别'}
+                        ,{field:'noticeType',width:150, title: '类别',templet:'#leixing'}
                         ,{field:'empName',width:150, title: '发布人'}
                         ,{field:'noticeTime',width:150,title: '发布时间'}
                         ,{field:'trueConut',width:150,title: '已读人数'}
@@ -179,14 +179,31 @@
                         });
                         break;
                     case 'see':
-                        x_admin_show("${pageContext.request.contextPath}/notice/tonoticeType?noticeId="+data.noticeId)
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/notice/updateType',
+                            data:{noticeId:data.noticeId},
+                            type: "post",
+                            success: function(data) {
+                            }
+                        });
+                        x_admin_show('公告内容',"${pageContext.request.contextPath}/notice/tonoticeType?noticeId="+data.noticeId);
+                        layer.closeBtn.on("click",function(){
+                            location.reload();
+                        });
                         break;
                     case 'details':
-
+                        x_admin_show('详情',"${pageContext.request.contextPath}/notice/to_noticeReceipt?noticeId="+data.noticeId);
                         break;
                 }
             });
         });
+    </script>
+    <script type="text/html" id="leixing">
+        {{# if(d.noticeType == 1){ }}
+        员工
+        {{# }else if(d.noticeType == 2){ }}
+        学生
+        {{# } }}
     </script>
 </body>
 </html>
