@@ -23,7 +23,7 @@
         2>允许使用“/"做整天映射
     -->
     <mvc:default-servlet-handler/>
-
+    <!--<mvc:resources mapping="/**" location="upload"/>-->
     <mvc:resources mapping="/**" location="WEB-INF/static/"/>
 
     <!--用于ajax请求返回json数据-->
