@@ -16,6 +16,7 @@
     <div id="main" style="width: 500px;height: 300px"></div>
 </body>
 <script>
+
     var mychart = echarts.init(document.getElementById("main"));
     $.post("url",{},function (d) {
         mychart.setOption({
