@@ -185,7 +185,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="<%=request.getContextPath()%>/reScore/page">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>答辩成绩</cite>
                         </a>

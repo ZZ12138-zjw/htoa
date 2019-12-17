@@ -23,9 +23,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/lib/layui/css/layui.css" media="all">
 </head>
 <body>
-    <div class="layui-row" class="layui-input-block" style="align-content: center">
-        <table class="layui-table" layui-filter="students" id="students" style="align-content: center"></table>
-    </div>
+<table class="layui-table" layui-filter="students" id="students" style="align-content: center"></table>
 <script>
     layui.use('table',function () {
         var table = layui.table;
@@ -33,7 +31,9 @@
             elem:'#students'
             ,height:500
             ,url:'<%=request.getContextPath()%>/cla/loadStu?classId=<%=request.getAttribute("classId")%>'
-            ,cols:[[
+            ,cols:[[//标题栏
+                {align:'center',title:'共:${persents}人',colspan:4}
+                ],[
                 {field: 'className', title: '班级', width:250}
                 ,{field: 'stuName', title: '学生姓名', width:90}
                 ,{field: 'sex', title: '性别', width:80}

@@ -33,4 +33,18 @@ public interface INoticeService {
     public void delNotices(String ids);
 
 
+    public List selNoticeReceiptEmpList(Integer noticeId);
+
+    public List selEmpNoticeList(Integer empId);
+
+
+    public int EmpNoticeFalseCount(Integer noticeId);
+
+    public int EmpNoticeTrueCount(Integer noticeId);
+
+    public void updateEmpNoticeReceiptType(Integer empId,Integer noticeId);
+
+    public void updateEmpNoticeCount(Integer trueCount,Integer falseCount,Integer noticeId);
+
+
 }

@@ -72,4 +72,34 @@ public class NoticeServiceImpl extends BaseDao implements INoticeService {
     public void delNotices(String ids) {
         executeSQL("delete from t_notice n left jion notice_receipt nr on n.noticeId=nr.noticeId where noticeId in("+ids+")");
     }
+
+    @Override
+    public List selNoticeReceiptEmpList(Integer noticeId) {
+        return listBySQL("select n.title,e.empName,n.noticeTime,e1.empName js,r.type,r.isRead from t_emp e right join t_notice n on n.empid=e.empId left join notice_receipt r on n.noticeId=r.noticeId left join t_emp e1 on r.receiver = e1.empId where r.type in(1,3) and n.noticeId="+noticeId);
+    }
+
+    @Override
+    public List selEmpNoticeList(Integer empId) {
+        return listBySQL("select n.noticeId,n.title,n.noticeTime,n.content,r.isRead,e.empId from t_notice n right join notice_receipt r on n.noticeId = r.noticeId left join t_emp e on r.receiver=e.empId where r.type in(1,3) and e.empId="+empId);
+    }
+
+    @Override
+    public int EmpNoticeFalseCount(Integer noticeId) {
+        return selTotalRow("select count(*) from t_notice n right join notice_receipt r on n.noticeId = r.noticeId where r.isRead=2 and n.noticeId="+noticeId+"");
+    }
+
+    @Override
+    public int EmpNoticeTrueCount(Integer noticeId) {
+        return selTotalRow("select count(*) from t_notice n right join notice_receipt r on n.noticeId = r.noticeId where r.isRead=1 and n.noticeId="+noticeId+"");
+    }
+
+    @Override
+    public void updateEmpNoticeReceiptType(Integer empId,Integer noticeId) {
+        executeSQL("update notice_receipt set isRead=1 where receiver="+empId+" and noticeId="+noticeId+"");
+    }
+
+    @Override
+    public void updateEmpNoticeCount(Integer trueCount,Integer falseCount,Integer noticeId) {
+        executeSQL("update t_notice set trueConut="+trueCount+",falseCount="+falseCount+" where noticeId="+noticeId+"");
+    }
 }
