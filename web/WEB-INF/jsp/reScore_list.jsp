@@ -69,6 +69,11 @@
         </div>
     </fieldset>
 </div>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加学生项目答辩成绩','<%=request.getContextPath()%>/reScore/toAddReScore')"><i class="layui-icon"></i>批量添加</button>
+    </div>
+</script>
 <div class="layui-row">
     <table id="LAY_table_classes" lay-filter="test" class="layui-table layui-btn-xs"></table>
 </div>
@@ -80,30 +85,31 @@
 
         table.render({
             elem:'#LAY_table_classes'
-            ,height:500
+            ,height:400
             ,url:'<%=request.getContextPath()%>/reScore/loadData'
             ,page:true
+            ,toolbar:'#toolbarDemo'
             ,method:'post'
             ,limit:10
             ,cols:[[
-                {field:'replyId',title:'编号',width:60}
-                ,{field:'stuName',title:'学生姓名',width:80}
-                ,{field:'classid',title:'班级',width:120,templet:function (d) {
+                {field:'replyId',title:'编号'}
+                ,{field:'stuName',title:'学生姓名'}
+                ,{field:'classid',title:'班级',templet:function (d) {
                         <c:forEach items="${classes}" var="cla">
                             if(d.classid == ${cla.classId}){
                                 return "${cla.className}";
                             }
                         </c:forEach>
                     }}
-                ,{field:'proName',title:'项目名称',width:150}
-                ,{field:'score1',title:'功能完善50',width:95}
-                ,{field:'score2',title:'技术难度10',width:95}
-                ,{field:'score3',title:'界面完美10',width:95}
-                ,{field:'score4',title:'回答问题10',width:95}
-                ,{field:'score5',title:'演示方法10',width:95}
-                ,{field:'score6',title:'语言表达10',width:95}
-                ,{field:'score7',title:'总分100',width:90}
-                ,{field:'remark',title:'备注',width:100}
+                ,{field:'proName',title:'项目名称'}
+                ,{field:'score1',title:'功能完善50'}
+                ,{field:'score2',title:'技术难度10'}
+                ,{field:'score3',title:'界面完美10'}
+                ,{field:'score4',title:'回答问题10'}
+                ,{field:'score5',title:'演示方法10'}
+                ,{field:'score6',title:'语言表达10'}
+                ,{field:'score7',title:'总分100'}
+                ,{field:'remark',title:'备注'}
             ]]
             ,id:'testReload'
         });

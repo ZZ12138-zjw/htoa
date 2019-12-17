@@ -49,4 +49,9 @@ public class ReScoreServiceImpl extends BaseDao implements ReScoreService {
         }
         return pageBySQL(sql,page,limit);
     }
+
+    @Override
+    public List getStudentByClassid(int classid) {
+        return listByHql("from StudentVo where classid="+classid);
+    }
 }
