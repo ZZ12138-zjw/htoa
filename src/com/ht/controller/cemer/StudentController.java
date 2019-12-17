@@ -61,7 +61,7 @@ public class StudentController {
 
     @RequestMapping({"/selectAll"})
     @ResponseBody
-    public Map getData(String page, String limit,StudentSearch studentSearch) {
+    public Map getData(String page,String limit,StudentSearch studentSearch) {
         Map map = new HashMap();
         map.put("code", 0);
         map.put("msg", " ");

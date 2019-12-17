@@ -92,6 +92,13 @@ public class ClassController {
     @RequestMapping(value = "/toLook")
     public String toLookStu(int classId,HttpServletRequest request){
         request.setAttribute("classId",classId);
+        int count = classService.selectAllStudentByClassId(classId).size();
+        request.setAttribute("persents",count);
+        StudentClassVo studentClassVo = classService.getStuClassById(classId);
+        if(studentClassVo.getCount() >= 0 && studentClassVo.getCount()!=count){
+            studentClassVo.setCount(count);
+            updateStuClass(studentClassVo);
+        }
         return "ClassStudent_list";
     }
     @RequestMapping("/loadStu")

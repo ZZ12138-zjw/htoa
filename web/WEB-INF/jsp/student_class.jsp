@@ -80,8 +80,7 @@
             ,method:'post'
             ,limit:10
             ,cols: [[ //表头
-                {checkbox:true}//开启多选框
-                ,{field: 'classId', title: '序号', width:70,hide:true, sort: true}
+                {field: 'classId', title: '序号', width:70,hide:true, sort: true}
                 ,{field: 'classNo', title: '班级编号', width:90, sort: true}
                 ,{field: 'className', title: '班级名称', width:220}
                 ,{field: 'classTeacher', title: '班主任', width:100, sort: true}
