@@ -51,9 +51,9 @@ public class NoticeController {
     @RequestMapping("/notice_add")
     @ResponseBody
     public String notice_add(HttpSession session, NoticeVo noticeVo,String noticeType){
-        //noticeTime==1 选择发送通知的群体为全体员工
-        //noticeTime==2 选择发送通知的群体为全体学生
-        //noticeTime==3 选择发送通知的群体为全体员工和全体学生
+        //noticeType==1 选择发送通知的群体为全体员工
+        //noticeType=2 选择发送通知的群体为全体学生
+        //noticeType==3 选择发送通知的群体为全体员工和全体学生
         if (Integer.parseInt(noticeType)==1){
             EmpVo empVo = (EmpVo) session.getAttribute("empVo");
             noticeVo.setEmpid(empVo.getEmpId());
@@ -122,7 +122,7 @@ public class NoticeController {
                 notice_receiptVo.setNoticeId(noticeVo.getNoticeId());
                 notice_receiptVo.setReceiver(e.getEmpId());
                 notice_receiptVo.setIsRead(2);//1/已读，2/未读
-                notice_receiptVo.setType(3);//类型为全体
+                notice_receiptVo.setType(1);//类型为老师
                 inr.addNoticeReceipt(notice_receiptVo);
             }
             List<StudentVo> studentVoList = ins.StudentList();
@@ -131,7 +131,7 @@ public class NoticeController {
                 notice_receiptVo.setNoticeId(noticeVo.getNoticeId());
                 notice_receiptVo.setReceiver(st.getStuId());
                 notice_receiptVo.setIsRead(2);//1/已读，2/未读
-                notice_receiptVo.setType(3);//类型为全体
+                notice_receiptVo.setType(2);//类型为全体
                 inr.addNoticeReceipt(notice_receiptVo);
             }
 
@@ -169,6 +169,7 @@ public class NoticeController {
     @ResponseBody
     public String delete(String noticeId){
         ins.delNotice(Integer.parseInt(noticeId));
+        ins.delNoticeReceipt(Integer.parseInt(noticeId));
         return "success";
     }
 
@@ -181,6 +182,7 @@ public class NoticeController {
         }
         ids=ids.substring(0,ids.length()-1);
         ins.delNotices(ids);
+        ins.delNoticeReceipts(ids);
         return "success";
     }
 

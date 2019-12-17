@@ -186,9 +186,26 @@
                             success: function(data) {
                             }
                         });
-                        x_admin_show('公告内容',"${pageContext.request.contextPath}/notice/tonoticeType?noticeId="+data.noticeId);
-                        layer.closeBtn.on("click",function(){
-                            location.reload();
+                        var w;
+                        var g;
+                        if (w == null || w == '') {
+                            w=($(window).width()*0.9);
+                        };
+                        if (h == null || h == '') {
+                            h=($(window).height() - 50);
+                        };
+                        layer.open({
+                            type: 2,
+                            area: [w+'px', h +'px'],
+                            fix: false, //不固定
+                            maxmin: true,
+                            shadeClose: true,
+                            shade:0.4,
+                            title: '查看公告',
+                            content: '${pageContext.request.contextPath}/notice/tonoticeType?noticeId='+data.noticeId,
+                            end:function(){
+                                location.reload();//弹出层结束后，刷新主页面
+                            }
                         });
                         break;
                     case 'details':
@@ -203,6 +220,8 @@
         员工
         {{# }else if(d.noticeType == 2){ }}
         学生
+        {{# }else if(d.noticeType == 3){ }}
+        全体
         {{# } }}
     </script>
 </body>
