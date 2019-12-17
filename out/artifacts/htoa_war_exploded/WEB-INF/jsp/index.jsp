@@ -28,7 +28,7 @@
           <li class="layui-nav-item">
             <a href="javascript:;">+新增</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('请假','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>请假</a></dd>
+              <dd><a onclick="x_admin_show('请假','${pageContext.request.contextPath}/empLeave/to_holidayAdd')"><i class="iconfont">&#xe6a2;</i>请假</a></dd>
               <dd><a onclick="x_admin_show('谈心','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>谈心</a></dd>
                <dd><a onclick="x_admin_show('员工','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>员工</a></dd>
             </dl>
