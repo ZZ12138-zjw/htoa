@@ -19,7 +19,7 @@
                   <span class="x-red">*</span>开始时间
               </label>
               <div class="layui-input-inline">
-                  <input  name="s" id="startTime" class="layui-input">
+                  <input  name="s" id="startTime" autocomplete="off" class="layui-input">
               </div>
           </div>
         <div class="layui-form-item">
@@ -27,7 +27,7 @@
                 <span class="x-red">*</span>结束时间
             </label>
             <div class="layui-input-inline">
-                <input  name="e" id="endTime" class="layui-input">
+                <input  name="e" id="endTime"  autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -87,6 +87,7 @@
                   data:data.field,
                   dataType:'json',
                   success:function (data){
+                      layui.layer.closeAll();
                       layer.alert("提交成功", {icon: 6},function(){
                           // 获得frame索引
                           var index = parent.layer.getFrameIndex(window.name);
@@ -101,6 +102,39 @@
               return false;
           });
         });
+
+        //jquery layui 开始请求打开layui加载动画 所有请求结束后关闭layui加载动画
+        $.ajaxSetup({
+            beforeSend: function () {
+                layui.use('layer', function () {
+                    layui.layer.load();
+                    //console.log(Lodingindex) opacity
+                    $(".layui-layer-shade").css('background', '#000000')
+                    $(".layui-layer-shade").css('opacity', '0.2')
+                    $(".layui-layer-shade").click(function (event) {
+                        event.stopPropagation();
+                    })
+                });
+            },
+            complete: function () {
+                //layui.use('layer', function () {
+                //    layui.layer.closeAll();
+                //    setTimeout(function () {
+                //        layui.layer.closeAll();
+                //    }, 2000);
+                //});
+            },
+            error: function () {
+                //layui.use('layer', function () {
+                //    layui.layer.closeAll();
+                //});
+            }
+        });
+
+
+        $(document).ajaxStop(function () {
+
+        })
 
     </script>
 

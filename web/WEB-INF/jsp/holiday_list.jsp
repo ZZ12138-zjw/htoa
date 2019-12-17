@@ -17,8 +17,7 @@
 
       <script type="text/html" id="barDemo2">
           <button class="layui-btn" onclick="x_admin_show('申请请假','${pageContext.request.contextPath}/empLeave/to_holidayAdd')"><i class="layui-icon"></i>申请请假</button>
-          <button class="layui-btn layui-btn-danger" onclick="javascript:location.replace('${pageContext.request.contextPath}/empLeave/to_myTaskList')"><i class="layui-icon"></i>我的任务</button>
-          <button class="layui-btn layui-btn-danger" ><i class="layui-icon"></i>历史任务</button>
+          <button class="layui-btn" onclick="javascript:location.replace('${pageContext.request.contextPath}/empLeave/to_myTaskList')"><i class="layui-icon">&#xe642;</i>我的任务</button>
       </script>
 
       <script type="text/html" id="barDemo">
@@ -46,6 +45,7 @@
               form = layui.form,
               laypage = layui.laypage,
               $ =layui.jquery;
+
 
 
           table.render({
@@ -92,7 +92,6 @@
                   x_admin_show('查看批注','${pageContext.request.contextPath}/empLeave/lookComment?hid='+data.holidayid);
               }
           });
-
 
 
           //刷新

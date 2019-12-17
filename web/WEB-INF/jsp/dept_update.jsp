@@ -45,7 +45,7 @@
             <div class="layui-input-inline">
                 <select id="chairman"  name="chairman" lay-verify="required">
                     <c:forEach items="${empList}" var="e">
-                        <option value="${e.empName}"  ${deptVo.depName==e.empName ? 'selected' : ''}>${e.empName}</option>
+                        <option value="${e.empId}"  ${deptVo.depName==e.empName ? 'selected' : ''}>${e.empName}</option>
                     </c:forEach>
                 </select>
             </div>

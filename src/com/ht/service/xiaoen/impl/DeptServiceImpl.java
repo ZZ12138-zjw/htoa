@@ -38,7 +38,7 @@ public class DeptServiceImpl  extends BaseDao implements IDeptService {
 
     @Override
     public List<DeptVo> selectPage(int currPage, int pageSize) {
-        return pageByHql("from DeptVo ",currPage,pageSize);
+        return pageBySQL("select d.depid,d.depName,d.parentId,e.empName,d.remark from t_dept d left join t_emp e on d.chairman=e.empId",currPage,pageSize);
     }
 
     @Override
