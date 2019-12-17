@@ -37,10 +37,9 @@ public class DeptController{
     public Map depList(String page,  String limit){
         Map map=new HashMap();
         map.put("code",0);
-        map.put("msg"," ");
+        map.put("msg","");
         map.put("count",dept.selectCount());
-        JSONArray jsonArray=(JSONArray)JSON.toJSON(dept.selectPage(Integer.parseInt(page),Integer.parseInt(limit)));
-        map.put("data",jsonArray);
+        map.put("data",dept.selectPage(Integer.parseInt(page),Integer.parseInt(limit)));
         return map;
     }
 
