@@ -36,7 +36,17 @@
                   <td>${h.holidayDay}</td>
                   <td>${h.startTime}</td>
                   <td>${h.endTime}</td>
-                  <td>${h.status}</td>
+                  <td>
+                        <c:if test="${h.status==1}">
+                            审批中
+                        </c:if>
+                          <c:if test="${h.status==2}">
+                              完成
+                          </c:if>
+                          <c:if test="${h.status==3}">
+                              不同意
+                          </c:if>
+                  </td>
                   <td>${h.remark}</td>
                   <td>
                       <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="

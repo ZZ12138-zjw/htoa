@@ -39,7 +39,7 @@
             <div class="layui-input-inline">
                 <select id="title" name="flow">
                     <option value="同意">同意</option>
-                    <option value="不同意">同意</option>
+                    <option value="不同意">不同意</option>
                 </select>
             </div>
         </div>

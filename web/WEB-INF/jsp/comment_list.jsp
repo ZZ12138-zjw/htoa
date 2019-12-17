@@ -30,7 +30,7 @@
           <tbody>
               <c:forEach items="${commentList}" var="c">
                   <tr align="center">
-                      <td>${c.userId}</td>
+                      <td>${c.empName}</td>
                       <td>${c.fullMessage}</td>
                       <td>${c.time}</td>
                   </tr>

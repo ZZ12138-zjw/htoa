@@ -17,16 +17,12 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricVariableInstance;
 import org.activiti.engine.impl.identity.Authentication;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
-import org.activiti.engine.impl.pvm.PvmTransition;
-import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -117,7 +113,13 @@ public class EmpLeaveController {
 
         //动态执行人
         Map amap=new HashMap();
-        amap.put("assignee2",deptService.selectChairman(empVo.getDeptId()));
+        //如果自己就是部门负责人
+        if (deptService.selectChairman(empVo.getDeptId()).equals(empVo.getEmpId()+"")){
+            System.out.println("我就是部门负责人");
+            amap.put("assignee2","3");
+        }else {
+            amap.put("assignee2",deptService.selectChairman(empVo.getDeptId()));
+        }
 
         //完成任务(通过任务id完成任务)
         taskService.complete(singleResult.getId(),amap);
@@ -165,7 +167,19 @@ public class EmpLeaveController {
         HistoricVariableInstance singleResult = historyService.createHistoricVariableInstanceQuery().variableValueEquals("hid",Integer.parseInt(hid)).singleResult();
         //获取流程实例id (查看实例批注)
         List<Comment> commentList = taskService.getProcessInstanceComments(singleResult.getProcessInstanceId());
-        map.put("commentList",commentList);
+        List list=new ArrayList();
+        for(Comment comment:commentList){
+            Map dataMap=new HashMap();
+            EmpVo empVo=new EmpVo();
+            empVo.setEmpId(Integer.parseInt(comment.getUserId()));
+            EmpVo e = empService.select(empVo);
+            dataMap.put("fullMessage",comment.getFullMessage());
+            dataMap.put("time",comment.getTime());
+            dataMap.put("empName",e.getEmpName());
+            list.add(dataMap);
+        }
+        map.put("commentList",list);
+
         return "comment_list";
 
     }
@@ -204,9 +218,8 @@ public class EmpLeaveController {
         //设置备注信息，(任务id，实例id，页面上的备注)
         taskService.addComment(taskId,processInstanceId,remark);
 
-
         //获取下级处理人
-        String assignee2=(String) taskService.getVariable(taskId,"assignee2");
+        String assignee2=(String)taskService.getVariable(taskId,"assignee2");
         //这里先直接写死的(陈总的id) 因为所有上级的上级都是陈总
         String empId="3";
         //添加任务变量
