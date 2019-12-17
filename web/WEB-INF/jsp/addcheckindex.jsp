@@ -80,6 +80,16 @@
             },"text");
             return false;
         });
+
+        form.on('select',function (data2) {
+            if (data.value == "51"){
+                layer.msg("选择了51");
+                $('#empId').html('<option value="">请选择员工</option>');
+                $('#empId').append(new Option("张三",1));
+                $('#empId').append(new Option("李四",2));
+                form.render('select');
+            }
+        })
     });
 </script>
 </body>

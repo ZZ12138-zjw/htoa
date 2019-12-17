@@ -38,6 +38,18 @@ public class TestController {
         return "top";
     }
 
+    @RequestMapping("/to_student_index")
+    public String to_student_index(){
+        return  "student_jsp/student_index";
+    }
+
+    @RequestMapping("/to_student_login")
+    public String to_student_login(){
+        return "student_jsp/student_login";
+    }
+
+
+
 
 
 
