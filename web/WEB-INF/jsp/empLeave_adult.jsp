@@ -13,14 +13,33 @@
   <body>
     <div class="x-body">
         <form class="layui-form" lay-filter="add">
+            <input type="hidden" name="taskId" value="${taskId}">
+            <input type="hidden" name="insId" value="${insId}">
+            <input type="hidden" name="hid" value="${holiday.holidayid}">
+        <div class="layui-form-item">
+            <label for="empName" class="layui-form-label">
+                <span class="x-red">*</span>请假人
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="empName" value="${holiday.empName}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="day" class="layui-form-label">
+                <span class="x-red">*</span>请假天数
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="day" value="${holiday.holidayDay}" class="layui-input">
+            </div>
+        </div>
         <div class="layui-form-item">
             <label for="title" class="layui-form-label">
                 <span class="x-red">*</span>是否批准
             </label>
             <div class="layui-input-inline">
                 <select id="title" name="flow">
-                    <option value="事假">同意</option>
-                    <option value="病假">不同意</option>
+                    <option value="同意">同意</option>
+                    <option value="不同意">同意</option>
                 </select>
             </div>
         </div>
@@ -30,7 +49,7 @@
                   <span class="x-red"></span>备注
               </label>
               <div class="layui-input-inline">
-                  <textarea name="comment"  id="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                  <textarea name="remark"  id="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
               </div>
           </div>
           <div class="layui-form-item" style="margin-left: 100px;">
@@ -43,28 +62,29 @@
     <script>
         layui.use(['form','layer','laydate'], function(){
           var form = layui.form;
-          var layer = layui.layer,
-              laydate=layui.laydate;
+          var layer = layui.layer;
 
           //表单校验
           //监听提交
           form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给后台
               $.ajax({
-                  url:'${pageContext.request.contextPath}/empLeave/',
+                  url:'${pageContext.request.contextPath}/empLeave/complete',
                   type:'post',
                   data:data.field,
                   dataType:'json',
                   success:function (data){
-                      layer.alert("审批成功", {icon: 6},function(){
-                          // 获得frame索引
-                          var index = parent.layer.getFrameIndex(window.name);
-                          //关闭当前frame
-                          parent.layer.close(index);
-                          setTimeout(function () {
-                              window.parent.location.reload(); //修改成功后刷新父界面
-                          })
-                      });
+                      if ("success"==data){
+                          layer.alert("审批成功", {icon: 6},function(){
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                              setTimeout(function () {
+                                  window.parent.location.reload(); //修改成功后刷新父界面
+                              })
+                          });
+                      }
                   }
               });
               return false;

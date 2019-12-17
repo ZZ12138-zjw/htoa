@@ -11,23 +11,33 @@
   </head>
 
   <body>
-  <div class="x-body">
-      <table>
+
+  <div class="layui-form">
+      <table class="layui-table">
+          <colgroup>
+              <col width="150">
+              <col width="150">
+              <col width="200">
+              <col>
+          </colgroup>
+          <thead>
           <tr>
               <th>审批人</th>
               <th>批注</th>
               <th>审批时间</th>
           </tr>
-          <c:forEach items="${commentList}" var="c">
-          <tr align="center">
-              <td>${c.userId}</td>
-              <td>${c.fullMessage}</td>
-              <td>${c.time}</td>
-          </tr>
-          </c:forEach>
+          </thead>
+          <tbody>
+              <c:forEach items="${commentList}" var="c">
+                  <tr align="center">
+                      <td>${c.userId}</td>
+                      <td>${c.fullMessage}</td>
+                      <td>${c.time}</td>
+                  </tr>
+              </c:forEach>
+          </tbody>
       </table>
   </div>
-
 
     <script>var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");
