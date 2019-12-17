@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.ht.service.wj.MyWeekService;
 import com.ht.vo.employee.EmpVo;
+import com.ht.vo.employee.WeekCheck;
 import com.ht.vo.employee.WeeklyVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,12 +53,12 @@ public class MyWeekController {
     //查询所有周报
     @RequestMapping("/tomyweekList")
     @ResponseBody
-    public Map tomyweekList(int page, int limit,HttpSession session,Integer empid){
+    public Map tomyweekList(int page, int limit, HttpSession session, Integer empid, WeekCheck weekCheck){
         Map map=new HashMap();
         map.put("code",0);
         map.put("msg"," ");
         map.put("count",myWeekService.selCount(session,empid));
-        map.put("data",myWeekService.selweek(page,limit,empid,session));
+        map.put("data",myWeekService.selweek(page,limit,empid,session,weekCheck));
         System.out.println(map.toString());
         return map;
     }

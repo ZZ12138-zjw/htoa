@@ -1,5 +1,6 @@
 package com.ht.controller.wj;
 
+import com.ht.service.cemer.ClassService;
 import com.ht.service.cemer.StudentService;
 import com.ht.service.wj.TalkRecordService;
 import com.ht.vo.employee.ChatRecordVo;
@@ -21,6 +22,8 @@ public class TalkRecordController {
     private TalkRecordService talkRecordService;
     @Resource
     private StudentService studentService;
+    @Resource
+    private ClassService classService;
 
     @RequestMapping("/talkpage")
     public String talkpage(){
@@ -43,6 +46,8 @@ public class TalkRecordController {
     public String addTalkRecord(HttpServletRequest request){
         List stulist = studentService.getStudentInfo();
         request.setAttribute("stulist",stulist);
+        List classList = classService.selectAll();
+        request.setAttribute("classList",classList);
         return "addTalkRecord";
     }
 

@@ -179,7 +179,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/testscore/Test_score">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考试成绩</cite>
                         </a>
@@ -295,7 +295,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/feedback/Feedback">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>问题反馈</cite>
                         </a>

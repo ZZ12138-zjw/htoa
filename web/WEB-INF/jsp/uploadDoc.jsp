@@ -41,7 +41,6 @@
         upload.render({
             elem: '#uploadFile'
             ,auto: false
-            ,bindAction: '#get'
             ,accept:'file'
             ,drag:true
             ,auto: false
@@ -53,9 +52,8 @@
 
 
     layui.use(['form','layer'], function(){
-        var form = layui.form;
-        var layer = layui.layer;
-
+        var form = layui.form,
+            layer = layui.layer;
         //监听提交
         form.on('submit(formDemo)',function(data){
             var fd = new FormData();
