@@ -29,8 +29,10 @@ public interface INoticeService {
     public int selStudentNoticeCount();
 
     public void delNotice(Integer noticeId);
+    public void delNoticeReceipt(Integer noticeId);
 
     public void delNotices(String ids);
+    public void delNoticeReceipts(String ids);
 
 
     public List selNoticeReceiptEmpList(Integer noticeId);
