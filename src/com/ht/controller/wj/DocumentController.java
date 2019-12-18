@@ -51,7 +51,7 @@ public class DocumentController {
 
     @ResponseBody
     @RequestMapping("/touploadoc")
-    public Map<String, Object> touploadoc(MultipartFile file, dataDocVo docVo, HttpServletRequest request, HttpSession session) throws IOException {
+    public Map touploadoc(MultipartFile file, dataDocVo docVo, HttpServletRequest request, HttpSession session) throws IOException {
         System.out.println("进入服务器");
         //获取原文件名
         String oldName = file.getOriginalFilename();
@@ -96,9 +96,8 @@ public class DocumentController {
         docVo.setUrl(calendar.get(Calendar.YEAR) + mm + calendar.get(Calendar.DAY_OF_MONTH)+"/"+NewName + suffix);
         documentService.addDoc(docVo);
         Map map = new HashMap<String,Object>();
-        map.put("code",200);
-        map.put("msg", "ok");
-        map.put("data","");
+        map.put("code","0");
+        map.put("msg", "");
         return map;
     }
 

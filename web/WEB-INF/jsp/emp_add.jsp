@@ -21,16 +21,13 @@
                   <input type="text" id="empName" name="empName" required=""  lay-verify="empName"
                   autocomplete="off" class="layui-input">
               </div>
-              <%--<div class="layui-form-mid layui-word-aux">
-                  <span class="x-red">*</span>将会成为您唯一的登入名
-              </div>--%>
           </div>
         <div class="layui-form-item">
             <label  for="hireday" class="layui-form-label">
                 <span class="x-red">*</span>入职时间
             </label>
             <div class="layui-input-inline">
-                <input  placeholder="入职时间" id="hireDay"  lay-verify="required" class="layui-input" name="hireday">
+                <input  placeholder="入职时间" id="hireDay"  lay-verify="required" class="layui-input" autocomplete="off" name="hireday">
             </div>
         </div>
           <div class="layui-form-item">
@@ -39,7 +36,6 @@
               </label>
               <div class="layui-input-inline">
                   <select id="selectDep"  name="deptId" lay-verify="required">
-                      <option value="" >无选择</option>
                   <c:forEach items="${depList}" var="d">
                       <option value="${d.depid}">${d.depName}</option>
                   </c:forEach>
@@ -52,10 +48,16 @@
             </label>
             <div class="layui-input-inline">
                 <select name="postName" id="postName">
-                    <option value="" class="layui-input">未选择</option>
-                    <% for(int i=0;i<PostName.postNames().size();i++){%>
-                    <option value="<%=PostName.postNames().get(i)%>" class="layui-input"><%=PostName.postNames().get(i)%></option>
-                    <%}%>
+                    <option value="校长">校长</option>
+                    <option value="招生老师">招生老师</option>
+                    <option value="专业老师">专业老师</option>
+                    <option value="专职班主任">专职班主任</option>
+                    <option value="教务主任">教务主任</option>
+                    <option value="总经理">总经理</option>
+                    <option value="会计">会计</option>
+                    <option value="学工主任">学工主任</option>
+                    <option value="2+3专业老师">2+3专业老师</option>
+                    <option value="后勤主任">后勤主任</option>
                 </select>
             </div>
         </div>

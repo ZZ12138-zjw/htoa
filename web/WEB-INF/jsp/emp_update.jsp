@@ -46,10 +46,16 @@
             </label>
             <div class="layui-input-inline">
                 <select name="postName" id="postName" lay-verify="required">
-                    <option value="" class="layui-input">未选择</option>
-                    <% for(int i=0;i<PostName.postNames().size();i++){%>
-                    <option value="<%=PostName.postNames().get(i)%>"><%=PostName.postNames().get(i)%></option>
-                    <%}%>
+                    <option value="校长" ${empVo.postName=='校长' ? 'selected' : ''}>校长</option>
+                    <option value="招生老师" ${empVo.postName=='招生老师' ? 'selected' : ''}>招生老师</option>
+                    <option value="专业老师" ${empVo.postName=='专业老师' ? 'selected' : ''}>专业老师</option>
+                    <option value="专职班主任" ${empVo.postName=='专职班主任' ? 'selected' : ''}>专职班主任</option>
+                    <option value="教务主任" ${empVo.postName=='教务主任' ? 'selected' : ''}>教务主任</option>
+                    <option value="总经理" ${empVo.postName=='总经理' ? 'selected' : ''}>总经理</option>
+                    <option value="会计" ${empVo.postName=='会计' ? 'selected' : ''}>会计</option>
+                    <option value="学工主任" ${empVo.postName=='学工主任' ? 'selected' : ''}>学工主任</option>
+                    <option value="2+3专业老师" ${empVo.postName=='3专业老师' ? 'selected' : ''}>2+3专业老师</option>
+                    <option value="后勤主任" ${empVo.postName=='后勤主任' ? 'selected' : ''}>后勤主任</option>
                 </select>
             </div>
         </div>
