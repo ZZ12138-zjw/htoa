@@ -13,11 +13,13 @@
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
+
+
+
     <div class="x-nav">
         <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
             <i class="layui-icon" style="line-height:38px">ဂ</i></a>
     </div>
-
     <div class="layui-row">
         <fieldset class="layui-elem-field layuimini-search">
             <legend>搜索信息</legend>
@@ -82,6 +84,11 @@
     <div class="layui-row">
         <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
     </div>
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加学生科目成绩','<%=request.getContextPath()%>/testscore/toAddScore')"><i class="layui-icon"></i>批量添加</button>
+        </div>
+    </script>
     <script>
         layui.use(['table','form','layer'],function () {
             var table = layui.table,
@@ -91,14 +98,14 @@
             table.render({
                 id:"idTest"
                 ,elem: '#idTest'
+                ,toolbar:'#toolbarDemo'
+                ,height:500
                 ,url:'${pageContext.request.contextPath}/testscore/tse'
                 ,page: true
                 ,method:'post'
                 ,limit:10
-                ,cols: [
-                    [
-                        {checkbox:false}//开启多选框
-                        ,{field:'scoreId', width:100,title: '编号'}
+                ,cols:[[
+                        {field:'scoreId', width:100,title: '编号'}
                         ,{field:'stuName',width:150, title: '学生姓名'}
                         ,{field:'score',width:150, title: '分数'}
                         ,{field:'rescore',width:150, title: '补考分数'}
@@ -106,12 +113,11 @@
                         ,{field:'typeName',width:150, title: '考试类别'}
                         ,{field:'termName',width:150, title: '在读学期'}
                         ,{field:'scoreTime',width:150, title: '考试时间', templet:function (row){
-                            return createTime(row.scoreTime);
+                            return getNowFormatDate(row.scoreTime);
                         }}
                         ,{field:'empName',width:200, title: '录用人员'}
                         ,{field:'remark',width:200, title: '备注'}
-                    ]
-                ]
+                ]]
                 ,limits: [5,10,20,50]
             });
 
@@ -124,6 +130,24 @@
                 d = d<10?("0"+d):d;
                 var str = y+"-"+m+"-"+d;
                 return str;
+            }
+
+            function getNowFormatDate(t) {
+                var date = new Date(t);
+                var seperator1 = "-";
+                var seperator2 = ":";
+                var month = date.getMonth() + 1;
+                var strDate = date.getDate();
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month;
+                }
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate;
+                }
+                var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                    + " " + date.getHours() + seperator2 + date.getMinutes()
+                    + seperator2 + date.getSeconds();
+                return currentdate;
             }
 
             // 监听搜索操作
@@ -143,7 +167,6 @@
                     }
                     ,text:{none:'无数据'}
                 }, 'data');
-                7
                 return false;
             });
         });

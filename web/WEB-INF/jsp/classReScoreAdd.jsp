@@ -18,8 +18,6 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
-    <script src="<%=request.getContextPath()%>/laydate/laydate.js"></script> <!-- 改成你的路径 -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/laydate/theme/default/laydate.css">
 </head>
 <body>
 <form class="layui-form" action="<%=request.getContextPath()%>/reScore/addReScore">

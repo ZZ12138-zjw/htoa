@@ -2,9 +2,11 @@ package com.ht.service.wj.impl;
 
 import com.ht.dao.BaseDao;
 import com.ht.service.wj.SysreportService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SysreportServiceImpl extends BaseDao implements SysreportService {
     @Override
     public List empAssess() {

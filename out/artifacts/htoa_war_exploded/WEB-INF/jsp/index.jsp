@@ -289,7 +289,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="${pageContext.request.contextPath}/feedback/Feedback">
+                        <a _href="">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>问题反馈</cite>
                         </a>
