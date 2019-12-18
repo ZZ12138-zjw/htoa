@@ -1,3 +1,6 @@
+<%@ page import="com.ht.vo.LogisticsCheck.CheckInsertVo" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -19,37 +22,38 @@
         <div class="layui-form-item">
             <label class="layui-form-label">部门名称</label>
             <div class="layui-input-inline">
-                <input type="text" disabled="disabled" id="depName" value="${checkInsert.depName}" name="depName" required  lay-verify="required" placeholder="请输入被考核员工姓名" autocomplete="off" class="layui-input">
+                <% Map map = (HashMap) request.getAttribute("checkInsertList"); %>
+                <input type="text" id="depName" value="<%= map.get("depName")%>" name="depName" disabled="disabled" required  lay-verify="required" placeholder="请输入被考核员工姓名" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">员工姓名</label>
             <div class="layui-input-inline">
-                <input type="text" disabled="disabled" id="empName" value="${checkInsert.empName}" name="empName" required  lay-verify="required" placeholder="请输入被考核员工姓名" autocomplete="off" class="layui-input">
+                <input type="text" disabled="disabled" value="<%= map.get("empName")%>" id="empName" name="empName" required  lay-verify="required" placeholder="请输入被考核员工姓名" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">考核内容</label>
             <div class="layui-input-inline">
-                <input type="text" disabled="disabled" id="checkContent" value="${checkInsert.checkContent}" name="checkContent" required  lay-verify="required" placeholder="请输入被考核员工姓名" autocomplete="off" class="layui-input">
+                <input type="text" disabled="disabled" value="<%= map.get("checkContent")%>" id="checkContent" name="checkContent" required  lay-verify="required" placeholder="请输入被考核员工姓名" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">考核日期</label>
             <div class="layui-input-inline">
-                <input type="text" disabled="disabled" id="checkDate" value="${checkInsert.checkDate}" name="checkDate" required  lay-verify="required" placeholder="请选择考核日期" autocomplete="off" class="layui-input">
+                <input type="text" disabled="disabled" value="<%= map.get("checkDate2")%>" id="checkDate" name="checkDate" required  lay-verify="required" placeholder="请选择考核日期" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">录入人员</label>
             <div class="layui-input-inline">
-                <input type="text" disabled="disabled" id="inputEmp" value="${checkInsert.inputEmp}" name="inputEmp" required  lay-verify="required" placeholder="请输入录入人员姓名" autocomplete="off" class="layui-input">
+                <input type="text" disabled="disabled" value="<%= map.get("inputEmp")%>" id="inputEmp" name="inputEmp" required  lay-verify="required" placeholder="请输入录入人员姓名" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">考核说明</label>
             <div class="layui-input-inline">
-                <textarea name="checkExplain" id="checkExplain" disabled="disabled" placeholder="请输入内容" class="layui-textarea">${checkInsert.checkExplain}</textarea>
+                <textarea name="checkExplain" id="checkExplain" value="<%= map.get("checkExplain")%>" disabled="disabled" placeholder="请输入内容" class="layui-textarea">${checkInsertList.checkExplain}</textarea>
             </div>
         </div>
 
@@ -61,7 +65,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">图片展示</label>
             <div class="layui-input-inline">
-                <img src="${pageContext.request.contextPath}/images/bg.png" onclick="img_click()" style="width: 100px;height: 100px;">
+                <img src="${pageContext.request.contextPath}/checkinsertimg/<%= map.get("checkDate2")%>/<%= map.get("imageName")%>" onclick="img_click()" style="width: 100px;height: 100px;">
             </div>
             <div class="layui-form-mid layui-word-aux">点击查看大图</div>
         </div>
@@ -78,7 +82,7 @@
     function img_click(){
       layui.use('layer',function () {
           var layer = layui.layer;
-          $.post('${pageContext.request.contextPath}/checkinsertcontro/getcheckinsertphoto',{},function(data){
+          $.post('${pageContext.request.contextPath}/checkinsertcontro/getcheckinsertphoto?checkInsertID='+<%=map.get("ID")%>,{},function(data){
               layer.photos({
                   photos: data //格式见API文档手册页
                   ,anim: 2 //0-6的选择，指定弹出图片动画类型，默认随机

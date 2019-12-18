@@ -22,7 +22,6 @@
       </script>
       <table class="layui-hide" id="complainTable" lay-filter="complainList" ></table>
 
-
       <script type="text/html" id="barDemo">
           <a class="layui-btn layui-btn-xs" lay-event="edit" >  编辑</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
@@ -72,7 +71,7 @@
                       ,{field:'depid', width:100,title: 'ID',sort:true}
                       ,{field:'depName',width:150, title: '部门名称'}
                       ,{field:'parentId',width:150, title: '上级部门'}
-                      ,{field:'chairman',width:150, title: '部门负责人'}
+                      ,{field:'empName',width:150, title: '部门负责人'}
                       ,{field:'remark',width:450,title: '备注'}
                       ,{field: 'right', title:'操作',width:200,toolbar: '#barDemo'}
                   ]

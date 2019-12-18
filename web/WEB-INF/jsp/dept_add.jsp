@@ -25,21 +25,6 @@
                   <span class="x-red">*</span>将会成为您唯一的登入名
               </div>--%>
           </div>
-          <div class="layui-form-item">
-              <label for="deptType" class="layui-form-label">
-                  <span class="x-red">*</span>部门类别
-              </label>
-              <div class="layui-input-inline">
-                  <select id="deptType"  name="deptType" >
-                      <option value="">不选择</option>
-                      <%
-                        for(int i=0;i<DeptType.DeptTypeVal().size();i++){%>
-                          <option value="<%=DeptType.DeptTypeVal().get(i)%>%>"><%=DeptType.DeptTypeVal().get(i)%></option>
-                      <%  }
-                      %>
-                  </select>
-              </div>
-          </div>
         <div class="layui-form-item">
             <label for="parentId" class="layui-form-label">
                 <span class="x-red">*</span>上级部门名称
@@ -59,7 +44,7 @@
             <div class="layui-input-inline">
                 <select id="chairman"  name="chairman" lay-verify="required">
                     <c:forEach items="${empList}" var="e">
-                        <option value="${e.empName}">${e.empName}</option>
+                        <option value="${e.empId}">${e.empName}</option>
                     </c:forEach>
                 </select>
             </div>

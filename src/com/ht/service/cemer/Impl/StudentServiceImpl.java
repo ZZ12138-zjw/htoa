@@ -65,7 +65,7 @@ public class StudentServiceImpl extends BaseDao implements StudentService {
 
     @Override
     public List selectStuHap(int stuId) {
-        return listBySQL("select h.stuid,h.happening,h.optime,e.empName from t_studenthappening h,t_emp e where h.stuid = "+stuId+" and h.empid = e.empId");
+        return listBySQL("select h.happenid,h.stuid,h.happening,h.optime,e.empName from t_studenthappening h,t_emp e where h.stuid = "+stuId+" and h.empid = e.empId");
     }
 
     @Override
@@ -75,12 +75,12 @@ public class StudentServiceImpl extends BaseDao implements StudentService {
 
     @Override
     public List selectReplyScore(int stuId) {
-        return listBySQL("select r.studentId,rs.proName,e.empName,r.score1,r.score2,r.score3,r.score4,r.score5,r.score6,r.score7,r.remark from t_studentReplyScore r,t_replyscore rs,t_emp e where r.projectId = rs.projectId and r.studentId ="+stuId+" and e.empId = r.empId");
+        return listBySQL("select r.replyId,r.studentId,rs.proName,e.empName,r.score1,r.score2,r.score3,r.score4,r.score5,r.score6,r.score7,r.remark from t_studentReplyScore r,t_replyscore rs,t_emp e where r.projectId = rs.projectId and r.studentId ="+stuId+" and e.empId = r.empId");
     }
 
     @Override
     public List selectScore(int stuId) {
-        return listBySQL("select s.stuid,s.score,c.courseName,t.typeName,m.termName,s.scoreTime,s.remark from t_studentscore s,course c,t_testtype t,term m where s.stuid ="+stuId+" and s.testType = t.typeId and m.termid = s.termid");
+        return listBySQL("select s.scoreId,s.stuid,s.score,c.courseName,t.typeName,m.termName,s.scoreTime,s.remark from t_studentscore s left join course c on s.courseId=c.courseid left join t_testtype t on s.testType = t.typeId left join term m on s.termid=m.termid where s.stuid ="+stuId);
     }
 
     @Override

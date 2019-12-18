@@ -51,11 +51,11 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="phone" class="layui-form-label">
+            <label for="familyphone" class="layui-form-label">
                 <span class="x-red">*</span>家长联系电话
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="phone" name="phone" required="" lay-verify="phone"
+                <input type="text" id="familyphone" name="familyphone" required="" lay-verify="phone"
                        autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -109,6 +109,7 @@
                     });
                 }
             });
+            return false;
         });
 
 

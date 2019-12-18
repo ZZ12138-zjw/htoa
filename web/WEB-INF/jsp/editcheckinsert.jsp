@@ -15,8 +15,20 @@
 <body>
     <div class="layui-container" style="padding: 20px 0;">
     <form class="layui-form" id="layuiform">
-        <input type="hidden" id="ID" name="ID" value="${checkInsert.ID}"/>
+        <input type="hidden" id="ID" name="ID" value="${checkInsertList.ID}"/>
         <%--<input type="hidden" id="checkScore" name="checkScore" value="${checkInsert.checkScore}"/>--%>
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门名称</label>
+            <div class="layui-input-inline">
+                <input type="text" id="depName" value="${checkInsertList.}" name="depName" disabled="disabled" required  lay-verify="required" placeholder="请输入被考核员工姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">员工姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" disabled="disabled" value="<%= map.get("empName")%>" id="empName" name="empName" required  lay-verify="required" placeholder="请输入被考核员工姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">考核内容</label>
             <div class="layui-input-inline">
