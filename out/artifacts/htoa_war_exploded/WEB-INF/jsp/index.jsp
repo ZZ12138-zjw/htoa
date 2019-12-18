@@ -28,7 +28,7 @@
           <li class="layui-nav-item">
             <a href="javascript:;">+新增</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('请假','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>请假</a></dd>
+              <dd><a onclick="x_admin_show('请假','${pageContext.request.contextPath}/empLeave/to_holidayAdd')"><i class="iconfont">&#xe6a2;</i>请假</a></dd>
               <dd><a onclick="x_admin_show('谈心','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>谈心</a></dd>
                <dd><a onclick="x_admin_show('员工','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>员工</a></dd>
             </dl>
@@ -39,7 +39,7 @@
             <a href="javascript:;">${empVo.empName}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
               <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
-              <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+              <dd><a onclick="x_admin_show('修改密码','http://www.baidu.com')">切换帐号</a></dd>
               <dd><a href="${pageContext.request.contextPath}/sign_out">退出</a></dd>
             </dl>
           </li>
@@ -111,12 +111,6 @@
                         <a _href="${pageContext.request.contextPath}/week/weekly_list">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>周报管理</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="xx.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>周报审阅</cite>
                         </a>
                     </li>
                     <li>
@@ -352,21 +346,9 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="admin-list.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>管理员列表</cite>
-                        </a>
-                    </li >
-                    <li>
                         <a _href="admin-role.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>角色管理</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="admin-cate.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>权限分类</cite>
                         </a>
                     </li >
                     <li>
