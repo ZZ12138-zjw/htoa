@@ -2,7 +2,11 @@ package com.ht.service.cemer.Impl;
 
 import com.ht.dao.BaseDao;
 import com.ht.service.cemer.ReScoreService;
+import com.ht.vo.employee.EmpVo;
 import com.ht.vo.student.ReScoreCheck;
+import com.ht.vo.student.ReplyScoreVo;
+import com.ht.vo.student.StudentClassVo;
+import com.ht.vo.student.StudentReplyScoreVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,6 +56,26 @@ public class ReScoreServiceImpl extends BaseDao implements ReScoreService {
 
     @Override
     public List getStudentByClassid(int classid) {
-        return listByHql("from StudentVo where classid="+classid);
+        return listBySQL("select stuId,stuName from t_student where classid="+classid);
+    }
+
+    @Override
+    public StudentClassVo getById(int classid) {
+        return (StudentClassVo)getObject(StudentClassVo.class,classid);
+    }
+
+    @Override
+    public ReplyScoreVo getProById(int projectId) {
+        return (ReplyScoreVo)getObject(ReplyScoreVo.class,projectId);
+    }
+
+    @Override
+    public EmpVo getEById(int empid) {
+        return (EmpVo)getObject(EmpVo.class,empid);
+    }
+
+    @Override
+    public void addStuRescore(StudentReplyScoreVo studentReplyScoreVo) {
+        addObject(studentReplyScoreVo);
     }
 }
