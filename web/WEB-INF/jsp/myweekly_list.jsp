@@ -12,31 +12,51 @@
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
-<div class="x-nav">
-    <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:38px">ဂ</i></a>
-</div>
-<div class="x-body">
+    <div class="x-nav">
+        <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+            <i class="layui-icon" style="line-height:38px">ဂ</i></a>
+    </div>
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-            <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end">
-            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-        </form>
+        <fieldset class="layui-elem-field layuimini-search">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px">
+                <form class="layui-form layui-form-pane">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">开始日</label>
+                            <div class="layui-input-inline">
+                                <input name="startDay" autocomplete="off" class="layui-input" id="test1">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">结束日</label>
+                            <div class="layui-input-inline">
+                                <input name="endDay" autocomplete="off" class="layui-input" id="test2">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
     </div>
 
     <script type="text/html" id="barDemo2">
         <button class="layui-btn layui-btn-danger" id="delsel"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加周报','${pageContext.request.contextPath}/myweek/weekly_add')"><i class="layui-icon"></i>添加周报</button>
     </script>
-    <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
-
+    <div class="layui-row">
+        <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
+    </div>
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
         <a class="layui-btn layui-btn-xs"  lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-xs" lay-event="sel">查看周报</a>
     </script>
-</div>
 <script>
     layui.use(['table','layer','form','laypage','laydate'], function(){
         var table = layui.table,
@@ -52,7 +72,7 @@
         })
 
         table.render({
-            id:"provinceReload"
+            id:"idTest"
             ,elem: '#idTest'
             ,url:'${pageContext.request.contextPath}/myweek/tomyweekList'
             ,page: true
@@ -87,6 +107,25 @@
             var str = y+"-"+m+"-"+d;
             return str;
         }
+
+        // 监听搜索操作
+        form.on('submit(sreach)', function (data) {
+            var result = JSON.stringify(data.field);
+            alert(result);
+            //执行搜索重载
+            table.reload('idTest', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    startDay:data.field.startDay,
+                    endDay:data.field.endDay
+                }
+                ,text:{none:'无数据'}
+            }, 'data');
+            7
+            return false;
+        });
 
         //批量删除
         $("#delsel").on("click",function () {

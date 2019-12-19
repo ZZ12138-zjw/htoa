@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.ht.service.cemer.ReScoreService;
 import com.ht.service.cemer.StudentService;
 import com.ht.vo.student.ReScoreCheck;
+import com.ht.vo.student.StudentReplyScoreVo;
 import com.sun.media.sound.SoftTuning;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,22 +58,50 @@ public class ReScoreController {
 
     @RequestMapping("/addReScore")
     public String addReScore(ReScoreCheck reScoreCheck,HttpServletRequest request){
-        System.out.println(reScoreCheck.toString());
+        //System.out.println(reScoreCheck.toString());
         request.setAttribute("reScoreChecks",reScoreCheck);
+        request.setAttribute("cla",scoreService.getById(reScoreCheck.getClassid()));
+        request.setAttribute("reScore",scoreService.getProById(reScoreCheck.getProjectId()));
+        request.setAttribute("emp",scoreService.getEById(reScoreCheck.getEmpId()));
         return "reScoreAdd_form";
     }
 
     @RequestMapping("/loadReScore")
     @ResponseBody
-    public Map getData(HttpServletRequest request){
+    public Map getData(int classid){
         Map map = new HashMap();
-        ReScoreCheck reScoreCheck = (ReScoreCheck)request.getAttribute("reScoreChecks");
-        List students = scoreService.getStudentByClassid(reScoreCheck.getClassid());
+        List students = scoreService.getStudentByClassid(classid);
         map.put("code",0);
         map.put("msg"," ");
         map.put("count",students.size());
         JSONArray jsonArray = (JSONArray)JSON.toJSON(students);
+        System.out.println(jsonArray.toJSONString());
         map.put("data",jsonArray);
         return map;
+    }
+
+    @RequestMapping(value = "/addStuReScore")
+    @ResponseBody
+    public String addStuReScore(String reScoreList,String empId,String projectId){
+        System.out.println(reScoreList);
+        JSONArray jsonArray = JSONArray.parseArray(reScoreList);
+        for(int i = 0;i<jsonArray.size();i++){
+            StudentReplyScoreVo s = new StudentReplyScoreVo();
+            Map o = (Map)jsonArray.get(i);
+            s.setScore1(Integer.parseInt(o.get("s1").toString()));
+            s.setScore2(Integer.parseInt(o.get("s2").toString()));
+            s.setScore3(Integer.parseInt(o.get("s3").toString()));
+            s.setScore4(Integer.parseInt(o.get("s4").toString()));
+            s.setScore5(Integer.parseInt(o.get("s5").toString()));
+            s.setScore6(Integer.parseInt(o.get("s6").toString()));
+            s.setScore7(Integer.parseInt(o.get("s7").toString()));
+            s.setStudentId(Integer.parseInt(o.get("stuId").toString()));
+            s.setProjectId(Integer.parseInt(projectId));
+            s.setEmpId(Integer.parseInt(empId));
+            s.setRemark(o.get("rs").toString());
+
+            scoreService.addStuRescore(s);
+        }
+        return "success";
     }
 }

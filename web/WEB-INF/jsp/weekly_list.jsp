@@ -19,33 +19,60 @@
             <i class="layui-icon" style="line-height:38px">ဂ</i></a>
     </div>
 
-    <div class="x-body">
-        <div class="layui-row">
-            <form class="layui-form layui-col-md12 x-so">
+    <div class="layui-row">
+        <fieldset class="layui-elem-field layuimini-search">
+        <legend>搜索信息</legend>
+        <div style="margin: 10px">
+        <form class="layui-form layui-form-pane">
+            <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">部门名称</label>
                     <div class="layui-input-inline"  >
-                        <select name="depName" id="selectDep">
+                        <select name="depid" id="selectDep">
                             <option value="">请选择</option>
                             <c:forEach items="${depVos}" var="deps">
-                                <option value="${deps.depName}">${deps.depName}</option>
+                                <option value="${deps.depid}">${deps.depName}</option>
                             </c:forEach>
                         </select>
                     </div>
                 </div>
-                <input  name="empName" placeholder="员工姓名" class="layui-input">
-                <input class="layui-input" placeholder="开始日" name="startDay" id="test1">
-                <input class="layui-input" placeholder="截止日" name="endDay" id="test2">
-                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-            </form>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">员工姓名</label>
+                    <div class="layui-input-inline">
+                        <input name="empName" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">开始日</label>
+                    <div class="layui-input-inline">
+                        <input name="startDay" autocomplete="off" class="layui-input" id="test1">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">结束日</label>
+                    <div class="layui-input-inline">
+                        <input name="endDay" autocomplete="off" class="layui-input" id="test2">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+            </div>
+        </form>
         </div>
-
-        <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
-
-        <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs" lay-event="sel">查看周报</a>
-        </script>
+        </fieldset>
     </div>
+
+    <div class="layui-row">
+        <table class="layui-hide" id="idTest" lay-filter="complainList"></table>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="sel">查看周报</a>
+    </script>
 
     <script>
         layui.use('laydate',function () {
@@ -110,12 +137,14 @@
                         curr: 1
                     }
                     , where: {
-                        depName:data.field.depName,
+                        depid:data.field.depid,
                         empName:data.field.empName,
+                        startDay:data.field.startDay,
+                        endDay:data.field.endDay
                     }
                     ,text:{none:'无数据'}
                 }, 'data');
-
+7
                 return false;
             });
 

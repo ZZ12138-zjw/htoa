@@ -3,6 +3,7 @@ package com.ht.service.wj.impl;
 import com.ht.dao.BaseDao;
 import com.ht.service.wj.MyWeekService;
 import com.ht.vo.employee.EmpVo;
+import com.ht.vo.employee.WeekCheck;
 import com.ht.vo.employee.WeeklyVo;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,14 @@ import java.util.Map;
 public class MyWeekServiceImpl extends BaseDao implements MyWeekService {
 
     @Override
-    public List selweek(int currPage, int pageSize,Integer empid,HttpSession session) {
+    public List selweek(int currPage, int pageSize, Integer empid, HttpSession session, WeekCheck weekCheck) {
         EmpVo empVo = (EmpVo)session.getAttribute("empVo");
         empid = empVo.getEmpId();
-        return pageBySQL("select w.*,e.empName from t_weekly w left join t_emp e on w.empid = e.empId where w.empid=" + empid,currPage,pageSize);
+        String sql = "select w.*,e.empName from t_weekly w left join t_emp e on w.empid = e.empId where w.empid=" + empid;
+        if(weekCheck.getStartDay() != null && !"".equals(weekCheck.getStartDay()) && weekCheck.getEndDay() != null && !"".equals(weekCheck.getEndDay())){
+            sql+=" and w.workday between '"+weekCheck.getStartDay()+"' and '"+weekCheck.getEndDay()+"'";
+        }
+        return pageBySQL(sql,currPage,pageSize);
     }
 
     @Override

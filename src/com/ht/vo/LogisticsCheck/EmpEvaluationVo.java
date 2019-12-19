@@ -1,6 +1,7 @@
 package com.ht.vo.LogisticsCheck;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 //此vo为教师考评vo
 
@@ -17,12 +18,13 @@ public class EmpEvaluationVo {
     private String empName;                 //员工名称
     private Integer empID;                  //员工ID
     private Integer depID;                  //部门ID
-    private Integer evaluationContentID;    //考评ID
+    private String evaluationContentID;    //考评ID
     private String evaluationContent;       //考评内容
     private Integer evaluationScore;        //考评分数
     private String startDate;               //开始日期
     private String endDate;                 //结束日期
     private Integer evaluationStatus;        //考评状态 0未开始，1考评中，2考评完成
+    private Integer evaluationType;          //员工类型 1为专业老师   2为班主任
 
     @Override
     public String toString() {
@@ -32,13 +34,22 @@ public class EmpEvaluationVo {
                 ", empName='" + empName + '\'' +
                 ", empID=" + empID +
                 ", depID=" + depID +
-                ", evaluationContentID=" + evaluationContentID +
+                ", evaluationContentID='" + evaluationContentID + '\'' +
                 ", evaluationContent='" + evaluationContent + '\'' +
                 ", evaluationScore=" + evaluationScore +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", evaluationStatus=" + evaluationStatus +
+                ", evaluationType=" + evaluationType +
                 '}';
+    }
+
+    public Integer getEvaluationType() {
+        return evaluationType;
+    }
+
+    public void setEvaluationType(Integer evaluationType) {
+        this.evaluationType = evaluationType;
     }
 
     public Integer getEvaluationStatus() {
@@ -89,11 +100,11 @@ public class EmpEvaluationVo {
         this.depID = depID;
     }
 
-    public Integer getEvaluationContentID() {
+    public String getEvaluationContentID() {
         return evaluationContentID;
     }
 
-    public void setEvaluationContentID(Integer evaluationContentID) {
+    public void setEvaluationContentID(String evaluationContentID) {
         this.evaluationContentID = evaluationContentID;
     }
 

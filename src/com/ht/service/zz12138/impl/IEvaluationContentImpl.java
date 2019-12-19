@@ -40,7 +40,7 @@ public class IEvaluationContentImpl extends BaseDao implements IEvaluationServic
 
     @Override
     public List selDepName() {
-        return listBySQL("select depName from t_dept");
+        return listBySQL("select * from t_dept");
     }
 
     @Override

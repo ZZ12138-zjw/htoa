@@ -121,8 +121,8 @@
                     <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
                     <div class="layui-card-body layui-text">
                     <c:forEach items="${EmpNoticeList}" var="list">
-                        <div class="layuimini-notice"  id="test" onclick="updtype()">
-                            <input type="hidden" id="noticeId" name="noticeId" value="${list.noticeId}">
+                        <div class="layuimini-notice">
+                            <input type="hidden" class="layuimini-notice-noticeId" value="${list.noticeId}">
                             <div class="layuimini-notice-title">${list.title}   <c:if test="${list.isRead==1}">已读</c:if><c:if test="${list.isRead==2}">未读</c:if></div>
                             <div class="layuimini-notice-extra">${list.noticeTime}</div>
                             <div class="layuimini-notice-content layui-hide">
@@ -152,6 +152,7 @@
          * 查看公告信息
          **/
         $('body').on('click', '.layuimini-notice', function () {
+            var noticeId = $(this).children('.layuimini-notice-noticeId').val();
             var title = $(this).children('.layuimini-notice-title').text(),
                 noticeTime = $(this).children('.layuimini-notice-extra').text(),
                 content = $(this).children('.layuimini-notice-content').html();
@@ -173,7 +174,7 @@
                 success: function (layero) {
                     $.ajax({
                         url: '${pageContext.request.contextPath}/notice/updateType',
-                        data:{noticeId:$("#noticeId").val()},
+                        data:{noticeId:noticeId},
                         type: "post",
                         success: function(data) {
                         }
@@ -184,26 +185,13 @@
                             window.location.reload(); //修改成功后刷新父界面
                         });
                         location.reload();
-                    })
+                    });
                 }
             });
         });
 
     });
 </script>
-<%--<script type="text/javascript">
-    function updtype(){
-        var noticeid =${"noticeId"}.val();
-        $.ajax({
-            url: '${pageContext.request.contextPath}/notice/updateType',
-            data:{noticeId:noticeid},
-            type: "post",
-            success: function(data) {
-
-            }
-        })
-    }
-</script>--%>
 </body>
 
 </html>
