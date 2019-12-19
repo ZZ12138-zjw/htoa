@@ -19,7 +19,7 @@ public class holidayStudentVo {
     private Date startTime;     //开始时间
     private Date endTime;       //结束时间
     private String Title;       //标题
-    private String Remark;      //内容      
+    private String Remark;      //内容
     private String Status;      //审批状态
 
     public int getHolidayId() {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -258,12 +259,21 @@ public class EvaluationContro {
     }
 
     @RequestMapping("/to_editempevaluation")
-    public String alldelempevaluation(String empEvaluationID,ModelMap model) throws ParseException {
+    public String alldelempevaluation(HttpServletRequest request, String empEvaluationID, ModelMap model) throws ParseException {
         EmpEvaluationVo vo = empEvaluationService.selectEmpEvaluation(Integer.parseInt(empEvaluationID));
         List list = empEvaluationService.selectAllDept();
 
         String evaluationContent[] = vo.getEvaluationContent().split(",");
         String evaluationContentID[] = vo.getEvaluationContentID().split(",");
+
+        List list1 = new ArrayList();
+        List list2 = new ArrayList();
+
+        for (int i=0;i<evaluationContent.length;i++){
+
+            list1.add(evaluationContent[i]);
+            list2.add(evaluationContentID[i]);
+        }
 
          Date start = new Date();
          Date end = new Date();
@@ -276,9 +286,16 @@ public class EvaluationContro {
          vo.setEndDate(simpleDateFormat.format(end));
 
         model.put("empEvaluationList",vo);
-        model.put("evaluationContent",evaluationContent);
-        model.put("evaluationContentID",evaluationContentID);
+//        model.put("allList",allList);
+//        model.put("evaluationContentID",map2);
         model.put("allDeptList",list);
+        request.setAttribute("evaluationContent",list1);
+        request.setAttribute("evaluationContentID",list2);
+
+
+        System.out.println("empEvaluationList:"+vo.toString());
+        System.out.println("list1:"+list1.toString());
+        System.out.println("list2:"+list2.toString());
         return "editempevaluation";
     }
 }

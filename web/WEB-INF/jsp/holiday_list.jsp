@@ -63,10 +63,10 @@
                       ,{field:'empName',width:100, title: '请假人'}
                       ,{field:'holidayDay',width:100, title: '请假时长'}
                       ,{field:'startTime',width:150, title: '开始时间',templet:function (d) {
-                          return createDate(d.startTime)
+                          return createTime(d.startTime)
                       }}
                       ,{field:'endTime',width:150,title: '结束时间',templet:function (d) {
-                          return createDate(d.endTime)
+                          return createTime(d.endTime)
                       }}
                       ,{field:'status',width:100,title: '状态',templet:function (d) {
                           if (d.status==1){

@@ -90,4 +90,12 @@ public class StudentHuorController {
         return "success";
     }
 
+    @RequestMapping("/to_hourStudent")
+    public String to_hourStudent(Map map,String huorId){
+        map.put("count",ih.selHourStudentCount(Integer.parseInt(huorId)));
+        JSONArray jsonArray = (JSONArray) JSON.toJSON(ih.selHourStudent(Integer.parseInt(huorId)));
+        map.put("HourStudentList",jsonArray);
+        return "hour_student";
+    }
+
 }

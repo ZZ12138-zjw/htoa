@@ -161,6 +161,7 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加学生','<%=request.getContextPath()%>/student/toAdd')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn layui-btn-sm" id="adjust"><i class="layui-icon"></i>调整宿舍</button>
     </div>
 </script>
 <script type="text/html" id="falbar">
@@ -202,6 +203,7 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="reset">重置密码</a>
 </script>
 
 <script type="text/html" id="otherbar1">
@@ -275,7 +277,17 @@
             ,id:'stuReload'
             ,limits: [5,10,20,50]
         });
-        
+
+        $("#adjust").on("click",function () {
+            var checkStatus = table.checkStatus('stuReload');
+            var data=checkStatus.data;
+            if(data==""){
+                layer.msg("请选择学生");
+            }else{
+                
+            }
+        })
+
         $("#jtxxAdd").on("click",function () {
             var checkStatus = table.checkStatus('stuReload');
             var data=checkStatus.data;

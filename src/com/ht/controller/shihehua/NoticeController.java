@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -78,8 +79,6 @@ public class NoticeController {
                 notice_receiptVo.setType(1);//类型为员工
                 inr.addNoticeReceipt(notice_receiptVo);
             }
-
-
         }else if(Integer.parseInt(noticeType)==2){
             EmpVo empVo = (EmpVo) session.getAttribute("empVo");
             noticeVo.setEmpid(empVo.getEmpId());
@@ -173,7 +172,7 @@ public class NoticeController {
         return "success";
     }
 
-    @RequestMapping("/deteles")
+    @RequestMapping("/deletes")
     @ResponseBody
     public String deletes(String[] noticeId){
         String ids = "";
@@ -181,6 +180,7 @@ public class NoticeController {
             ids+=noticeId[i]+",";
         }
         ids=ids.substring(0,ids.length()-1);
+        System.out.println(ids);
         ins.delNotices(ids);
         ins.delNoticeReceipts(ids);
         return "success";
@@ -211,10 +211,17 @@ public class NoticeController {
         System.out.println("noticeId   "+noticeId);
         EmpVo empVo = (EmpVo) session.getAttribute("empVo");
         ins.updateEmpNoticeReceiptType(empVo.getEmpId(),Integer.parseInt(noticeId));
-        int trueCount = ins.EmpNoticeTrueCount(Integer.parseInt(noticeId));
-        int falseCount = ins.EmpNoticeFalseCount(Integer.parseInt(noticeId));
-        ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
+        NoticeVo noticeVo = ins.selNotice(Integer.parseInt(noticeId));
+        if (noticeVo.getNoticeType()==1){
+            int trueCount = ins.EmpNoticeTrueCount(Integer.parseInt(noticeId));
+            int falseCount = ins.EmpNoticeFalseCount(Integer.parseInt(noticeId));
+            ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
+        }else if (noticeVo.getNoticeType()==3){
+            int trueCount = ins.EmpNoticeTrueCount(Integer.parseInt(noticeId))+ins.StudentNoticeTrueCount(Integer.parseInt(noticeId));
+            int falseCount = ins.EmpNoticeFalseCount(Integer.parseInt(noticeId))+ins.StudentNoticeFalseCount(Integer.parseInt(noticeId));
+            System.out.println("trueCount :"+trueCount+"        false :"+falseCount);
+            ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
+        }
         return "success";
     }
-
 }
