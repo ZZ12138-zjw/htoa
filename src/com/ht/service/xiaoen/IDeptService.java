@@ -66,7 +66,17 @@ public interface IDeptService {
      *      部门id
      * @return
      *      部门负责人
+     *          id
      */
     String selectChairman(Integer deptId);
+
+
+    /**
+     * 通过部门名称查部门负责人
+     * @param deptId
+     * @return
+     *      部门负责人name
+     */
+    public String selectChairmanName(Integer deptId);
 
 }
