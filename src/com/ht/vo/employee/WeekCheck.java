@@ -3,15 +3,17 @@ package com.ht.vo.employee;
 import java.util.Date;
 
 public class WeekCheck {
-    private String depName;
+    private Integer depid;
     private String empName;
+    private String startDay;
+    private String endDay;
 
-    public String getDepName() {
-        return depName;
+    public Integer getDepid() {
+        return depid;
     }
 
-    public void setDepName(String depName) {
-        this.depName = depName;
+    public void setDepid(Integer depid) {
+        this.depid = depid;
     }
 
     public String getEmpName() {
@@ -22,11 +24,29 @@ public class WeekCheck {
         this.empName = empName;
     }
 
+    public String getStartDay() {
+        return startDay;
+    }
+
+    public void setStartDay(String startDay) {
+        this.startDay = startDay;
+    }
+
+    public String getEndDay() {
+        return endDay;
+    }
+
+    public void setEndDay(String endDay) {
+        this.endDay = endDay;
+    }
+
     @Override
     public String toString() {
         return "WeekCheck{" +
-                "depName='" + depName + '\'' +
+                "depid=" + depid +
                 ", empName='" + empName + '\'' +
+                ", startDay='" + startDay + '\'' +
+                ", endDay='" + endDay + '\'' +
                 '}';
     }
 }

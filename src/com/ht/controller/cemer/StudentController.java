@@ -81,6 +81,7 @@ public class StudentController {
     @RequestMapping({"/add"})
     @ResponseBody
     public String addStu(StudentVo studentVo) {
+        studentVo.setPassword("123456");
         this.studentService.addStuVo(studentVo);
         return "successful";
     }

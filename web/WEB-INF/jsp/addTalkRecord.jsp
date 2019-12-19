@@ -17,7 +17,7 @@
         <form class="layui-form" id="userForm">
             <div class="layui-form-item">
                 <label class="layui-form-label">学生姓名</label>
-                <div class="layui-input-inline"  >
+                <div class="layui-input-inline">
                     <select name="sayface" id="selectDep">
                         <option value="">请选择</option>
                         <c:forEach items="${stulist}" var="stu">
@@ -79,6 +79,12 @@
                     }
                 });
                 return false;
+            });
+
+            form.on('select(classid)',function () {
+                $.ajax({
+                   url:
+                });
             });
 
             form.verify({
