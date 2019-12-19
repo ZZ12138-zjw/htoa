@@ -266,7 +266,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/evaluationcontro/to_evaluationcontent">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考评内容</cite>
                         </a>
@@ -346,15 +346,9 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="admin-role.html">
+                        <a _href="${pageContext.request.contextPath}/quanXie/to_roleList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>角色管理</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="admin-rule.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>权限管理</cite>
                         </a>
                     </li >
                 </ul>
@@ -369,17 +363,17 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="echarts1.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/emp_assessreport">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>拆线图</cite>
+                            <cite>员工考核</cite>
                         </a>
                     </li >
 
 
                     <li>
-                        <a _href="echarts2.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/emp_attendancereport">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>柱状图</cite>
+                            <cite>未打卡说明</cite>
                         </a>
                     </li>
                     <li>

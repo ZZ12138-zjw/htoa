@@ -84,7 +84,7 @@
            <mvc:exclude-mapping path="/**/*.jpeg"/>
            <mvc:exclude-mapping path="/**/*login*"/>
            <mvc:exclude-mapping path="/**/*Login*"/>
-           <mvc:exclude-mapping path="/*student*"/>
+           <mvc:exclude-mapping path="/*Stu*"/>
             <!-- 使用哪个类来做为拦截器 LoginInterceptor-->
            <bean class="com.ht.global.LoginInterceptor"/>
       </mvc:interceptor>
@@ -95,7 +95,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <!--拦截带student的页面-->
-            <mvc:mapping path="/*_student*"/>
+            <mvc:mapping path="/*toStu*"/>
             <!--以下资源不拦截-->
             <mvc:exclude-mapping path="/**/fonts/*"/>
             <mvc:exclude-mapping path="/**/*.css"/>
@@ -106,7 +106,6 @@
             <mvc:exclude-mapping path="/**/*.jpg"/>
             <mvc:exclude-mapping path="/**/*.png"/>
             <mvc:exclude-mapping path="/**/*.jpeg"/>
-            <mvc:exclude-mapping path="/**/*login*"/>
             <!-- 使用哪个类来做为拦截器 LoginInterceptor-->
             <bean class="com.ht.global.StudentLoginInterceptor"/>
         </mvc:interceptor>
