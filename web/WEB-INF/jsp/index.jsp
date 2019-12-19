@@ -369,17 +369,17 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="echarts1.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/emp_assessreport">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>拆线图</cite>
+                            <cite>员工考核</cite>
                         </a>
                     </li >
 
 
                     <li>
-                        <a _href="echarts2.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/emp_attendancereport">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>柱状图</cite>
+                            <cite>未打卡说明</cite>
                         </a>
                     </li>
                     <li>
