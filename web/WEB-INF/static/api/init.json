@@ -31,7 +31,7 @@
             },
             {
               "title": "日常公告",
-              "href": "student_welcome-2.html",
+              "href": "/notice_student_con/to_studentNotice",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
