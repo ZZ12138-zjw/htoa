@@ -178,7 +178,7 @@ public class OtherController {
     @RequestMapping(value = "score/del")
     @ResponseBody
     public String delStuScore(int scoreId){
-        otherService.delReScore(otherService.getReScoreById(scoreId));
+        otherService.delStuScore(otherService.getStuScore(scoreId));
         return "success";
     }
 }

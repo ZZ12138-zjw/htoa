@@ -21,4 +21,12 @@ public interface ClassService {
     void updateStudentClassId(int classid);
     //查询出所有班级类型
     List selectAllTypes();
+    //新增班级
+    void addStuClass(StudentClassVo classVo);
+
+    StudentClassVo getStuClassById(int classId);
+
+    void updateStuClass(StudentClassVo studentClassVo);
+
+    List selectAllStudentByClassId(int classId);
 }

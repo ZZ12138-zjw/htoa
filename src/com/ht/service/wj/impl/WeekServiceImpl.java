@@ -11,12 +11,19 @@ import java.util.List;
 public class WeekServiceImpl extends BaseDao implements WeekService {
     @Override
     public List selWeek(int currPage, int pageSize, WeekCheck weekCheck) {
-        String sql = "select w.*,d.depName,e.empName from t_weekly w left join t_emp e on w.empid = e.empId left join t_dept d on e.deptId = d.depid";
-        if (weekCheck.getDepName() != null && !"".equals(weekCheck.getDepName())){
-            sql+=" where d.depName='"+weekCheck.getDepName()+"'";
+        System.out.println("开始时间" + weekCheck.getStartDay());
+        System.out.println("结束时间" + weekCheck.getEndDay());
+        String sql = "select w.*,e.empName from t_weekly w left join t_emp e on w.empid = e.empId ";
+        if (weekCheck.getDepid() != null && !"".equals(weekCheck.getDepid())){
+            sql+=" where w.empid in(select e.empId from t_emp where e.deptId ='"+weekCheck.getDepid()+"')";
+        }else {
+            sql+=" where 1=1";
         }
         if (weekCheck.getEmpName() != null && !"".equals(weekCheck.getEmpName())){
-            sql+=" where e.empName='"+weekCheck.getEmpName()+"'";
+            sql+=" and e.empName='"+weekCheck.getEmpName()+"'";
+        }
+        if(weekCheck.getStartDay() != null && !"".equals(weekCheck.getStartDay()) && weekCheck.getEndDay() != null && !"".equals(weekCheck.getEndDay())){
+            sql+=" and w.workday between '"+weekCheck.getStartDay()+"' and '"+weekCheck.getEndDay()+"'";
         }
         return pageBySQL(sql,currPage,pageSize);
     }

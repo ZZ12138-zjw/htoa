@@ -148,6 +148,7 @@
                     layer.msg("增加失败");
                 }
             });
+            return false;
         });
 
 

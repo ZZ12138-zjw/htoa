@@ -48,4 +48,24 @@ public class ClassServiceImpl extends BaseDao implements ClassService{
     public List selectAllTypes() {
         return listByHql("from StudentTypeVo");
     }
+
+    @Override
+    public void addStuClass(StudentClassVo classVo) {
+        addObject(classVo);
+    }
+
+    @Override
+    public StudentClassVo getStuClassById(int classId) {
+        return (StudentClassVo)getObject(StudentClassVo.class,classId);
+    }
+
+    @Override
+    public void updateStuClass(StudentClassVo studentClassVo) {
+        updObject(studentClassVo);
+    }
+
+    @Override
+    public List selectAllStudentByClassId(int classId) {
+        return listBySQL("select c.className,s.stuName,s.sex,s.phone from t_student s left join t_studentclass c on c.classId = s.classid where c.classId="+classId);
+    }
 }

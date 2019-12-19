@@ -20,13 +20,13 @@ public class StudentLoginInterceptor implements HandlerInterceptor {
         String url =httpServletRequest.getRequestURI();
         //toLowerCase()转小写
         //返回true则继续往下执行
-        if (url.toLowerCase().indexOf("student_index")>=0){
+        /*if (url.toLowerCase().indexOf("student_")>=0){
             return true;
-        }
+        }*/
 
        HttpSession session = httpServletRequest.getSession();
         //判断用户是否登录,登录了则继续往下执行
-       if (session.getAttribute("studentVo")==null){
+       if (session.getAttribute("studentVo")!=null){
             return true;
        }
        //转发到学生登录页面
