@@ -377,15 +377,15 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="echarts3.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/dormitory">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>地图</cite>
+                            <cite>宿舍统计</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="echarts4.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/employeesLeave">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>饼图</cite>
+                            <cite>员工请假</cite>
                         </a>
                     </li>
                     <li>

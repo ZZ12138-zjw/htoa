@@ -266,7 +266,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/evaluationcontro/to_evaluationcontent">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考评内容</cite>
                         </a>
@@ -365,7 +365,7 @@
                     <li>
                         <a _href="${pageContext.request.contextPath}/sysreport/emp_assessreport">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>员工考核报表</cite>
+                            <cite>员工考核</cite>
                         </a>
                     </li >
 
@@ -377,15 +377,15 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="echarts3.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/dormitory">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>地图</cite>
+                            <cite>宿舍统计</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="echarts4.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/employeesLeave">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>饼图</cite>
+                            <cite>员工请假</cite>
                         </a>
                     </li>
                     <li>
