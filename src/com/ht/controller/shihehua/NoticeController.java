@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -216,5 +217,4 @@ public class NoticeController {
         ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
         return "success";
     }
-
 }

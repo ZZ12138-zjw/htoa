@@ -53,15 +53,6 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="count" class="layui-form-label">
-                    <span class="x-red">*</span>宿舍人数
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="count" name="count" required="" placeholder="请输入宿人数"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label for="addr" class="layui-form-label">
                     <span class="x-red">*</span>宿舍地址
                 </label>
