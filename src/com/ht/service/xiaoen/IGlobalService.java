@@ -1,6 +1,7 @@
 package com.ht.service.xiaoen;
 
 import com.ht.vo.employee.EmpVo;
+import com.ht.vo.student.StudentVo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,6 +26,15 @@ public interface IGlobalService {
      * @param empVo
      */
     void  changPassword(EmpVo empVo);
+
+    /**
+     * 学生登录
+     * @param phone
+     * @param password
+     * @return
+     */
+    StudentVo stuLogin(String phone,String password);
+
 
 
 

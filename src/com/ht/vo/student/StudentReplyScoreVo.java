@@ -25,6 +25,24 @@ public class StudentReplyScoreVo {
     private float score7;//总分100
     private String remark;//备注
 
+    @Override
+    public String toString() {
+        return "StudentReplyScoreVo{" +
+                "replyId=" + replyId +
+                ", studentId=" + studentId +
+                ", projectId=" + projectId +
+                ", empId=" + empId +
+                ", score1=" + score1 +
+                ", score2=" + score2 +
+                ", score3=" + score3 +
+                ", score4=" + score4 +
+                ", score5=" + score5 +
+                ", score6=" + score6 +
+                ", score7=" + score7 +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
+
     public Integer getReplyId() {
         return replyId;
     }

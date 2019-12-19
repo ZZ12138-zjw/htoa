@@ -45,7 +45,7 @@ public class EmpServiceImpl extends BaseDao implements IEmpService {
             sql+=" where 1=1";
         }
         if (empCk.getEmpName()!=null && !"".equals(empCk.getEmpName())){
-            sql+=" and e.empName='"+empCk.getEmpName()+"'";
+            sql+=" and e.empName like '%"+empCk.getEmpName()+"%'";
         }
         if (empCk.getPhone()!=null && !"".equals(empCk.getPhone())){
             sql+=" and e.phone='"+empCk.getPhone()+"'";

@@ -1,13 +1,17 @@
 package com.ht.controller.xiaoen;
 
+import com.ht.service.shihehua.INoticeService;
 import com.ht.service.xiaoen.IGlobalService;
 import com.ht.vo.employee.EmpVo;
+import com.ht.vo.student.StudentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * Created by shkstart on 2019/12/9
@@ -16,21 +20,34 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class GlobalController {
 
-
     @Autowired
     private IGlobalService global;
+    @Resource
+    private INoticeService ins;
 
+    /**
+     * 跳往员工登录页面
+     * @return
+     */
     @RequestMapping("/to_login")
     public String toLogin(){
         return  "login";
     }
 
+
+    /**
+     * 员工端登录
+     * @param session
+     * @param phone
+     *      登录账号
+     * @param password
+     *      登录密码
+     * @return
+     */
     @RequestMapping("/login")
     @ResponseBody
     public String lgoin(HttpSession session,String phone,String password){
-        System.out.println(" "+password+"  "+phone);
         EmpVo empVo=global.login(phone,password);
-        System.out.println("empVo "+empVo==null);
         if (empVo==null){
             return "failed";
         }
@@ -38,10 +55,78 @@ public class GlobalController {
         return  "success";
     }
 
+
+
+    /**
+     * 员工端退出
+     *
+     * @param session
+     * @return
+     */
     @RequestMapping("/sign_out")
     public String sign_out(HttpSession session){
         session.invalidate();
         return "redirect:login.jsp";
+    }
+
+    /**
+     * 进入员工后台主页面，前提是要先登录
+     * @return
+     */
+    @RequestMapping("/htoa")
+    public String htOa(){
+        return "index";
+    }
+
+    /**
+     * 首页
+     * @param session
+     * @param map
+     * @return
+     */
+    @RequestMapping("/to_welcome")
+    public String to_welcome(HttpSession session, Map map){
+        EmpVo empVo = (EmpVo) session.getAttribute("empVo");
+        map.put("EmpNoticeList",ins.selEmpNoticeList(empVo.getEmpId()));
+        return "welcome2";
+    }
+
+    /**
+     * 一些重复的头文件
+     * @return
+     */
+    @RequestMapping("/to_top")
+    public String toTop(){
+        return "top";
+    }
+
+    /**
+     * 进入学生端的后台,前提是要先登录
+     * @return
+     */
+    @RequestMapping("/toStu")
+    public String toStu(){
+        return  "student_jsp/student_index";
+    }
+
+    /**
+     * 学生端登录页面
+     * @return
+     */
+    @RequestMapping("/toStuLogin")
+    private String toStuLogin(){
+        return   "student_jsp/student_login";
+    }
+
+    @RequestMapping("/stuLogin")
+    @ResponseBody
+    public String stuLogin(String phone,String password,HttpSession session){
+        StudentVo studentVo = global.stuLogin(phone, password);
+        if (studentVo==null){
+            return "failed";
+        }
+        session.setAttribute("studentVo",studentVo);
+        return  "success";
     }
 
 

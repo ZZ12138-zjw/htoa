@@ -16,6 +16,17 @@
 <div class="layui-container" style="padding: 20px 0;">
     <form class="layui-form" id="layuiform">
         <div class="layui-form-item">
+            <label class="layui-form-label">部门名称</label>
+            <div class="layui-input-inline">
+                <select name="depName" id="depName" lay-verify="required" lay-search="">
+                    <option value=""></option>
+                    <c:forEach items="${allDeptList}" var="e">
+                        <option value="${e.depid}" >${e.depName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">考评名称</label>
             <div class="layui-input-inline">
                 <input type="text" id="evaluationName" name="evaluationName" required  lay-verify="required" placeholder="请输入考核内容" autocomplete="off" class="layui-input">
@@ -28,14 +39,10 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">部门名称</label>
-            <div class="layui-input-inline">
-                <select name="depName" id="depName" lay-verify="required" lay-search="">
-                    <option value=""></option>
-                    <c:forEach items="${allDepName}" var="e">
-                        <option value="${e.depName}" >${e.depName}</option>
-                    </c:forEach>
-                </select>
+            <label class="layui-form-label">员工类型</label>
+            <div class="layui-input-block">
+                <input type="radio" name="evaluationType" value="1" title="专业老师" checked lay-filter="evaluationType">
+                <input type="radio" name="evaluationType" value="2" title=专职班主任 lay-filter="evaluationType">
             </div>
         </div>
         <div class="layui-form-item">
@@ -52,13 +59,22 @@
         $ = layui.jquery;
         var form = layui.form
             ,layer = layui.layer;
-
         //监听提交
+        var evaluationType = 1;
+        form.on('radio',function (data) {
+            evaluationType = 0;
+            evaluationType+=data.value;
+        })
+
         form.on('submit(formDemo)', function(data) {
+            var depName = $("#depName option:selected");
+
             $.post("${pageContext.request.contextPath}/evaluationcontro/addevaluationcontent",{
                 evaluationName:$('#evaluationName').val(),
-                depName:$('#depName').val(),
-                evaluationScore:$('#evaluationScore').val()
+                depName:depName.text(),
+                evaluationScore:$('#evaluationScore').val(),
+                evaluationType:evaluationType,
+                depID:depName.val()
             },function (data) {
                 if (data=="success"){
                     layer.alert("添加成功", {icon: 6},function () {
