@@ -23,7 +23,7 @@ import java.util.Map;
  * Created by 华 on 2019/12/18.
  */
 @Controller
-@RequestMapping("/notice_student_con")
+@RequestMapping("Stu/notice_student")
 public class StudentNoticeController {
     @Resource
     INoticeService ins;
@@ -53,6 +53,7 @@ public class StudentNoticeController {
         map.put("msg"," ");
         map.put("count",ins.selStudentNoticeCount());
         map.put("data",ins.selStudentNoticePage(Integer.parseInt(page),Integer.parseInt(limit)));
+        System.out.println(map.toString());
         return map;
     }
 
@@ -70,10 +71,17 @@ public class StudentNoticeController {
     public String StudentNoticeReceiptList(HttpSession session, String noticeId){
         System.out.println("noticeId   "+noticeId);
         StudentVo studentVo = (StudentVo) session.getAttribute("studentVo");
-        ins.updateEmpNoticeReceiptType(studentVo.getStuId(),Integer.parseInt(noticeId));
-        int trueCount = ins.EmpNoticeTrueCount(Integer.parseInt(noticeId));
-        int falseCount = ins.EmpNoticeFalseCount(Integer.parseInt(noticeId));
-        ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
+        ins.updateStudentNoticeReceiptType(studentVo.getStuId(),Integer.parseInt(noticeId));
+        NoticeVo noticeVo = ins.selNotice(Integer.parseInt(noticeId));
+        if (noticeVo.getNoticeType()==2){
+            int trueCount = ins.StudentNoticeTrueCount(Integer.parseInt(noticeId));
+            int falseCount = ins.StudentNoticeFalseCount(Integer.parseInt(noticeId));
+            ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
+        }else if (noticeVo.getNoticeType()==3){
+            int trueCount = ins.EmpNoticeTrueCount(Integer.parseInt(noticeId))+ins.StudentNoticeTrueCount(Integer.parseInt(noticeId));
+            int falseCount = ins.EmpNoticeFalseCount(Integer.parseInt(noticeId)+ins.StudentNoticeFalseCount(Integer.parseInt(noticeId)));
+            ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
+        }
         return "success";
     }
 

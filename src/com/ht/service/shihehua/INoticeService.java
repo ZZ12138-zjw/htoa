@@ -39,6 +39,7 @@ public interface INoticeService {
     public List selNoticeReceiptStudentList(Integer noticeId);
 
     public List selEmpNoticeList(Integer empId);
+    public List selStudentpNoticeList(Integer stuId);
 
 
     public int EmpNoticeFalseCount(Integer noticeId);

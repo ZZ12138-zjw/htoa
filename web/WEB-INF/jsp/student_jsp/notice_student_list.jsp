@@ -45,7 +45,7 @@
             table.render({
                 id:'provinceReload'
                 ,elem: '#noticeTable'  //指定原始表格元素选择器(推荐id选择器)
-                ,url:'${pageContext.request.contextPath}/notice_student/StrudentNoticeList'
+                ,url:'${pageContext.request.contextPath}/Stu/notice_student/StrudentNoticeList'
                 ,page: true   //开启分页
                 ,method:'post'  //请求方式
                 ,limit:10   //分页默认大小
@@ -77,7 +77,7 @@
                 switch(obj.event) {
                     case 'see':
                         $.ajax({
-                            url: '${pageContext.request.contextPath}/notice_student_con/updateStudentType',
+                            url: '${pageContext.request.contextPath}/Stu/notice_student/updateStudentType',
                             data:{noticeId:data.noticeId},
                             type: "post",
                             success: function(data) {
@@ -99,14 +99,14 @@
                             shadeClose: true,
                             shade:0.4,
                             title: '查看公告',
-                            content: '${pageContext.request.contextPath}/notice_student/tonoticeType?noticeId='+data.noticeId,
+                            content: '${pageContext.request.contextPath}/Stu/notice_student/tonoticeType?noticeId='+data.noticeId,
                             end:function(){
                                 location.reload();//弹出层结束后，刷新主页面
                             }
                         });
                         break;
                     case 'details':
-                        x_admin_show('详情',"${pageContext.request.contextPath}/notice_student/to_noticeStudentReceipt?noticeId="+data.noticeId);
+                        x_admin_show('详情',"${pageContext.request.contextPath}/Stu/notice_student/to_noticeStudentReceipt?noticeId="+data.noticeId);
                         break;
                 }
             });
