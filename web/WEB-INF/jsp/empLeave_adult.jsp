@@ -80,6 +80,7 @@
                               var index = parent.layer.getFrameIndex(window.name);
                               //关闭当前frame
                               parent.layer.close(index);
+                              layer.closeAll();
                               setTimeout(function () {
                                   window.parent.location.reload(); //修改成功后刷新父界面
                               })
@@ -90,6 +91,39 @@
               return false;
           });
         });
+
+        //jquery layui 开始请求打开layui加载动画 所有请求结束后关闭layui加载动画
+        $.ajaxSetup({
+            beforeSend: function () {
+                layui.use('layer', function () {
+                    layui.layer.load();
+                    //console.log(Lodingindex) opacity
+                    $(".layui-layer-shade").css('background', '#000000')
+                    $(".layui-layer-shade").css('opacity', '0.2')
+                    $(".layui-layer-shade").click(function (event) {
+                        event.stopPropagation();
+                    })
+                });
+            },
+            complete: function () {
+                //layui.use('layer', function () {
+                //    layui.layer.closeAll();
+                //    setTimeout(function () {
+                //        layui.layer.closeAll();
+                //    }, 2000);
+                //});
+            },
+            error: function () {
+                //layui.use('layer', function () {
+                //    layui.layer.closeAll();
+                //});
+            }
+        });
+
+
+        $(document).ajaxStop(function () {
+
+        })
 
     </script>
 
