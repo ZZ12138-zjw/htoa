@@ -16,7 +16,7 @@ public class StudentVo {
     private Integer stuId;//学生服主键Id;
     private String password;//登录密码
     private String stuName;//学生名称
-    private String middleschool;//毕业学校
+    private String middleschool;//毕业学-校
     private String sex;//性别
     private String age;//年龄
     private Date birthday;//出生日期、
