@@ -57,7 +57,7 @@
               ,url:'${pageContext.request.contextPath}/dept/depList'
               ,page: true   //开启分页
               ,method:'post'  //请求方式
-              ,limit:10   //分页默认大小
+              ,c:10   //分页默认大小
               ,height:450
               ,toolbar:"#barDemo2", //开启头部工具栏，并为其绑定左侧模板
               defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可

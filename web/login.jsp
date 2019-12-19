@@ -47,7 +47,7 @@
         $.post("${pageContext.request.contextPath}/login",{phone:data.field.phone,password:data.field.password},function (callVal) {
               if (callVal=='success'){
                  layer.alert('登录成功',{icon:6},function(){
-                   location.href='${pageContext.request.contextPath}/test';
+                   location.href='${pageContext.request.contextPath}/htoa';
                  });
               }else{
                 layer.msg('账号异常(请检查账号密码是否正常)',{icon:2});
