@@ -18,10 +18,10 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">学生姓名</label>
                 <div class="layui-input-inline">
-                    <select name="sayface" id="selectDep" lay-filter="classid">
+                    <select name="sayface" id="selectDep">
                         <option value="">请选择</option>
-                        <c:forEach items="${classList}" var="cla">
-                            <option value="${cla.classId}">${cla.className}</option>
+                        <c:forEach items="${stulist}" var="stu">
+                            <option value="${stu.stuId}">${stu.stuName}</option>
                         </c:forEach>
                     </select>
                 </div>

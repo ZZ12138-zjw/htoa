@@ -34,10 +34,10 @@
             ,cols:[[//标题栏
                 {align:'center',title:'共:${persents}人',colspan:4}
                 ],[
-                {field: 'className', title: '班级', width:250}
-                ,{field: 'stuName', title: '学生姓名', width:90}
-                ,{field: 'sex', title: '性别', width:80}
-                ,{field: 'phone', title: '联系电话', width:120}
+                {field: 'className', title: '班级'}
+                ,{field: 'stuName', title: '学生姓名'}
+                ,{field: 'sex', title: '性别'}
+                ,{field: 'phone', title: '联系电话'}
             ]]
         })
     })

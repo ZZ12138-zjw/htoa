@@ -523,8 +523,6 @@
 
       });
 
-
-
       //重载表格
       function table_reload(){
           var table=layui.table;

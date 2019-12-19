@@ -5,7 +5,7 @@
   "homeInfo": {
     "title": "首页",
     "icon": "fa fa-home",
-    "href": "student_welcome-1.html?mpi=m-p-i-0"
+    "href": "Stu.jsp"
   },
   "logoInfo": {
     "title": "宏图OA学生端",
@@ -25,13 +25,13 @@
           "child": [
             {
               "title": "我的请假",
-              "href": "student_welcome-1.html",
+              "href": "Stu.jsp",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "日常公告",
-              "href": "student_welcome-2.html",
+              "href": "Stu.jsp",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -39,19 +39,19 @@
         },
         {
           "title": "教师考评",
-          "href": "student_menu.html",
+          "href": "Stu.jsp",
           "icon": "fa fa-window-maximize",
           "target": "_self"
         },
         {
           "title": "问题反馈",
-          "href": "student_setting.html",
+          "href": "Stu.jsp",
           "icon": "fa fa-gears",
           "target": "_self"
         },
         {
           "title": "保修申请",
-          "href": "studenttable.html",
+          "href": "Stu.jsp",
           "icon": "fa fa-file-text",
           "target": "_self"
         }
