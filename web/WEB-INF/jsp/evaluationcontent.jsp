@@ -44,6 +44,13 @@
                     ,{field: 'evaluationName', title: '考核名称',align:'center'}
                     ,{field: 'evaluationScore', title: '考核分数',align:'center'}
                     ,{field: 'depName', title: '部门名称',align:'center',sort:true}
+                    ,{field: 'evaluationType', title: '员工类型',templet:function (data) {
+                            if (data.evaluationType==1){
+                                return "专业老师";
+                            } else {
+                                return "专职班主任";
+                            }
+                        },align:'center',sort:true}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo',align:'center'}
                 ]],
                 toolbar:'#toolbarDemo'

@@ -10,6 +10,24 @@
 <head>
     <jsp:include page="top.jsp"></jsp:include>
     <title>教师考评</title>
+    <script type="text/javascript">
+        /*时间转换格式*/
+        function  createTime(v) {
+            var date=new Date(v);
+            var y=date.getFullYear();
+            var m=date.getMonth()+1;
+            m = m<10 ? '0'+m : m;
+            var d=date.getDate();
+            d=d<10 ?("0"+d):d;
+            var h=date.getHours();
+            h=h<10?("0"+h):h;
+            var M = date.getMinutes();
+            M = M<10?("0"+M):M;
+            var str = y+"-"+m+"-"+d+" "+h;
+            return str;
+        }
+    </script>
+
 </head>
 <body>
     <table id="demo" lay-filter="test"></table>
@@ -41,12 +59,16 @@
                 ,cols: [[ //表头
                     {type:'checkbox',align:'center'}
                     ,{field: 'empEvaluationID', title: '编号', sort: true,fit:'left',align:'center'}
-                    ,{field: 'evaluationContent', title: '考评内容',align:'center'}
+                    ,{field: 'evaluationContent', title: '考评内容',align:'center',width:150}
                     ,{field: 'evaluationScore', title: '考评分数',align:'center'}
                     ,{field: 'empName', title: '员工名称',align:'center'}
                     ,{field: 'depName', title: '部门名称',align:'center',sort:true}
-                    ,{field: 'startDate', title: '开始日期',align:'center',sort:true,width:150}
-                    ,{field: 'endDate', title: '结束日期',align:'center',sort:true,width:150}
+                    ,{field: 'startDate', title: '开始日期',templet:function (data) {
+                        return createTime(data.startDate);
+                        },align:'center',sort:true,width:150}
+                    ,{field: 'endDate', title: '结束日期',templet:function (data) {
+                            return createTime(data.endDate);
+                        },align:'center',sort:true,width:150}
                     ,{field: 'evaluationStatus', title: '考评状态',templet:function (data){
                         if (data.evaluationStatus == 0){
                             return "未开始";
@@ -55,7 +77,7 @@
                         }else if(data.evaluationStatus == 2){
                             return "考评完成";
                         }
-                        },align:'center',sort:true,width:150}
+                        },align:'center',sort:true}
                     ,{fixed: 'right', title:'操作', toolbar: '#barDemo',align:'center',width:150}
                 ]],
                 toolbar:'#toolbarDemo'
@@ -81,14 +103,14 @@
                     data=checkStatus.data;
                 var ids=[];
                 $(data).each(function (i,val) { //o即为表格中一行的数据
-                    ids.push(val.evaluationID);
+                    ids.push(val.empEvaluationID);
                 });
                 if(data.length>0){
                     layer.confirm('确定要删除选中的信息吗?',{icon:3,title:'提示信息'},function (index) {
                         //layui中找到Checkbox所在的行,并遍历行的顺序
                         $("div.layui-table-body table tbody input[name='layTableCheckbox']:checked").each(function () { //遍历选中的checkbox
                             $.post("${pageContext.request.contextPath}/evaluationcontro/alldelempevaluation",{
-                                evaluationID:ids.toString()
+                                empEvaluationID:ids.toString()
                             },function(data){
                                 if ('success'==data){
                                     var n=$(this).parents("tbody tr").index();  //获取checkBox所在行的顺序
@@ -121,10 +143,10 @@
             table.on('tool(test)',function (data2) {
                 var data = data2.data;
                 if (data2.event == "del"){
-                    var delIndex = layer.confirm('真的删除编号为 ' + data.evaluationID + " 的信息吗?", function(delIndex) {
+                    var delIndex = layer.confirm('真的删除编号为 ' + data.empEvaluationID + " 的信息吗?", function(delIndex) {
                         $.ajax({
                             url: '${pageContext.request.contextPath}/evaluationcontro/delempevaluation',
-                            data:{evaluationID:data.evaluationID},
+                            data:{empEvaluationID:data.empEvaluationID},
                             type: "post",
                             success: function(suc) {
                                 data2.del(); //删除对应行（tr）的DOM结构，并更新缓存
@@ -145,8 +167,26 @@
                         shadeClose: true,
                         shade: 0.8,
                         area: ['600px', '90%'],
-                        content: '${pageContext.request.contextPath}/evaluationcontro/to_editempevaluation?evaluationID='+data.evaluationID //iframe的url
+                        content: '${pageContext.request.contextPath}/evaluationcontro/to_editempevaluation?empEvaluationID='+data.empEvaluationID //iframe的url
                     })
+                }else if(data2.event == "del"){
+                    var delIndex = layer.confirm('真的删除编号为' + data.empEvaluationID + "的信息吗?", function(delIndex) {
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/evaluationcontro/delempevaluation',
+                            data:{empEvaluationID:data.empEvaluationID},
+                            type: "post",
+                            success: function(suc) {
+                                data2.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                layer.close(delIndex);
+                                console.log(delIndex);
+                                layer.msg("删除成功", {
+                                    icon: 1
+                                });
+                            }
+                        });
+                        //关闭弹窗
+                        layer.close(delIndex);
+                    });
                 }
             })
         });

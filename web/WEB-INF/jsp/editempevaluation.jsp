@@ -22,40 +22,44 @@
                     <select name="deptName" lay-filter="dept" id="dept" lay-search="">
                         <option value="">请选择部门</option>
                         <c:forEach items="${allDeptList}" var="e">
-                            <option value="${e.depid}">${e.depName}</option>
+                            <option value="${e.depid}" ${empEvaluationList.depID == e.depid ? 'selected' : ''}>${e.depName}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="layui-input-inline">
                     <select name="empName" lay-filter="emp" lay-filter="emp" id="empId" lay-search="">
                         <option value="">请选择员工</option>
+                        <option value="${empEvaluationList.empID}">${empEvaluationList.empName}</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">员工类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="evaluationType" value="1" title="专业老师" checked lay-filter="evaluationType">
-                    <input type="radio" name="evaluationType" value="2" title=专职班主任 lay-filter="evaluationType">
+                    <input type="radio" name="evaluationType" value="1" title="专业老师" ${empEvaluationList.evaluationType==1 ? 'checked' : ''} lay-filter="evaluationType">
+                    <input type="radio" name="evaluationType" value="2" title=专职班主任 ${empEvaluationList.evaluationType==1 ? '' : 'checked'} lay-filter="evaluationType">
                 </div>
             </div>
             <div class="layui-form-item" id="test">
                 <label class="layui-form-label">考评内容</label>
                 <div class="layui-input-block" id="evaluationContent">
 <%--                    <input type="checkbox" value="132" title="123" name="123">--%>
+                        <c:forEach items="${allDeptList}" var="e">
+                            <option value="${e.depid}" ${empEvaluationList.depID == e.depid ? 'selected' : ''}>${e.depName}</option>
+                        </c:forEach>
                 </div>
                 <div class="layui-form-mid layui-word-aux">根据部门名称与员工类型来筛选考评内容</div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">开始日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="startDate" name="startDate" required  lay-verify="required" placeholder="请选择开始日期" autocomplete="off" class="layui-input">
+                    <input type="text" id="startDate" value="${empEvaluationList.startDate}" name="startDate" required  lay-verify="required" placeholder="请选择开始日期" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">开始日期</label>
+                <label class="layui-form-label">结束日期</label>
                 <div class="layui-input-inline">
-                     <input type="text" id="endDate" name="endDate" required  lay-verify="required" placeholder="请选择结束日期" autocomplete="off" class="layui-input">
+                     <input type="text" id="endDate" value="${empEvaluationList.endDate}" name="endDate" required  lay-verify="required" placeholder="请选择结束日期" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -107,14 +111,14 @@
                     data:data.field,
                     dataType:'json',
                     success:function (obj) {
-                            layer.alert("添加成功", {icon: 6},function () {
-                                var index = parent.layer.getFrameIndex(window.name);
-                                //关闭当前frame
-                                parent.layer.close(index);
-                                setTimeout(function () {
-                                    window.parent.location.reload(); //修改成功后刷新父界面
-                                })
-                            });
+                        layer.alert("添加成功", {icon: 6},function () {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                            setTimeout(function () {
+                                window.parent.location.reload(); //修改成功后刷新父界面
+                            })
+                        });
                     }
                 });
                 return false;
@@ -178,8 +182,6 @@
                 type:'datetime',
                 format:'yyyy-MM-dd HH'
             })
-
-
 
             laydate.render({
                 elem:'#endDate',
