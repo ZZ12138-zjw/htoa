@@ -24,12 +24,6 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        //不拦截学生的url
-        if (url.toLowerCase().indexOf("stu")>=0){
-            return true;
-        }
-
-
        HttpSession session = httpServletRequest.getSession();
         //判断用户是否登录,登录了则继续往下执行
        if (session.getAttribute("empVo")!=null){

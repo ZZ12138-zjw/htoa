@@ -16,20 +16,29 @@
     <div class="x-body">
         <form class="layui-form" id="userForm">
             <div class="layui-form-item">
-                <label class="layui-form-label">学生姓名</label>
+                <label class="layui-form-label">选择班级</label>
                 <div class="layui-input-inline">
-                    <select name="sayface" id="selectDep">
-                        <option value="">请选择</option>
-                        <c:forEach items="${stulist}" var="stu">
-                            <option value="${stu.stuId}">${stu.stuName}</option>
+                    <select name="className" id="class" lay-filter="class">
+                        <option value="">请选择班级</option>
+                        <c:forEach items="${classList}" var="cla">
+                            <option value="${cla.classId}">${cla.className}</option>
                         </c:forEach>
                     </select>
                 </div>
             </div>
 
             <div class="layui-form-item">
+                <label class="layui-form-label">学生姓名</label>
+                <div class="layui-input-inline">
+                    <select name="sayface" id="stuId">
+                        <option value="">请选择学生</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <label for="addr" class="layui-form-label">
-                    <span class="x-red">*</span>地址
+                    <span class="x-red"></span>地址
                 </label>
                 <div class="layui-input-inline">
                     <input name="addr"  id="addr" class="layui-input" lay-verify="addr"/>
@@ -38,7 +47,7 @@
 
             <div class="layui-form-item">
                 <label for="sayscon" class="layui-form-label">
-                    <span class="x-red">*</span>谈心内容
+                    <span class="x-red"></span>谈心内容
                 </label>
                 <div class="layui-input-inline">
                     <textarea name="sayscon"  id="sayscon" class="layui-textarea" lay-verify="sayscon"></textarea>
@@ -55,7 +64,8 @@
     <script>
         layui.use(['form','layer'],function () {
             var form = layui.form,
-                layer = layui.layer;
+                layer = layui.layer,
+                $ = layui.$;
 
             //监听提交
             form.on('submit(formDemo)',function(data){
@@ -81,10 +91,17 @@
                 return false;
             });
 
-            form.on('select(classid)',function () {
-                $.ajax({
-                   url:
-                });
+            form.on('select(class)',function (data) {
+                $('#stuId').empty();
+                $.get('${pageContext.request.contextPath}/talk/stulist',{
+                    classId:data.value
+                },function (data2) {
+                    $('#stuId').html('<option value="">请选择学生</option>');
+                    for(var i=0;i<data2.stulist.length;i++){
+                        $('#stuId').append("<option value='"+data2.stulist[i].stuId+"'>"+data2.stulist[i].stuName+"</option>");
+                    }
+                    form.render('select');
+                },"json");
             });
 
             form.verify({

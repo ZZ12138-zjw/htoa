@@ -85,12 +85,12 @@ public class NoticeServiceImpl extends BaseDao implements INoticeService {
 
     @Override
     public List selNoticeReceiptEmpList(Integer noticeId) {
-        return listBySQL("select n.title,e.empName,n.noticeTime,e1.empName js,n.noticeType,r.isRead from t_emp e right join t_notice n on n.empid=e.empId left join notice_receipt r on n.noticeId=r.noticeId left join t_emp e1 on r.receiver = e1.empId where n.noticeType in(1,3) and r.type=1 and n.noticeId="+noticeId);
+        return listBySQL("select n.title,e.empName,n.noticeTime,e1.empName js,r.type,r.isRead from t_emp e right join t_notice n on n.empid=e.empId left join notice_receipt r on n.noticeId=r.noticeId left join t_emp e1 on r.receiver = e1.empId where n.noticeType in(1,3) and r.type=1 and n.noticeId="+noticeId);
     }
 
     @Override
     public List selNoticeReceiptStudentList(Integer noticeId) {
-        return listBySQL("select n.title,e.empName,n.noticeTime,s.stuName js,n.noticeType,r.isRead from t_emp e right join t_notice n on n.empid=e.empId left join notice_receipt r on n.noticeId=r.noticeId left join t_student s on r.receiver = s.stuId where n.noticeType in(2,3) and r.type=2 and n.noticeId="+noticeId);
+        return listBySQL("select n.title,e.empName,n.noticeTime,s.stuName js,r.type,r.isRead from t_emp e right join t_notice n on n.empid=e.empId left join notice_receipt r on n.noticeId=r.noticeId left join t_student s on r.receiver = s.stuId where n.noticeType in(2,3) and r.type=2 and n.noticeId="+noticeId);
     }
 
     @Override

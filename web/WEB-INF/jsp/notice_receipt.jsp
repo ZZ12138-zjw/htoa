@@ -26,7 +26,7 @@
                     ,{field: 'noticeTime', title: '发布时间', minWidth: 150}
                     ,{field: 'js', title: '接收人', minWidth: 160}
                     ,{field: 'isRead', title: '是否已读', width: 80,templet:'#shifou'}
-                    ,{field: 'noticeType', title: '类型', width: 80,templet:'#leixing'}
+                    ,{field: 'type', title: '类型', width: 80,templet:'#leixing'}
                 ]],
                 data:${noticeReceiptList},
                 even: true
@@ -34,12 +34,10 @@
         })
     </script>
     <script type="text/html" id="leixing">
-        {{# if(d.noticeType == 1){ }}
+        {{# if(d.type == 1){ }}
         员工
-        {{# }else if(d.noticeType == 2){ }}
+        {{# }else if(d.type == 2){ }}
         学生
-        {{# }else if(d.noticeType == 3){ }}
-        全部
         {{# } }}
     </script>
     <script type="text/html" id="shifou">

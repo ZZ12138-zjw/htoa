@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ht.service.cemer.ClassService;
+import com.ht.service.cemer.IStudentHuorService;
 import com.ht.service.cemer.StudentService;
 import com.ht.service.xiaoen.IEmpService;
 import com.ht.vo.student.*;
@@ -37,6 +38,8 @@ public class StudentController {
     ClassService classService;
     @Resource
     IEmpService empService;
+    @Resource
+    IStudentHuorService huorService;
 
     public StudentController() {
     }
@@ -82,6 +85,11 @@ public class StudentController {
     @ResponseBody
     public String addStu(StudentVo studentVo) {
         studentVo.setPassword("123456");
+        int huorId = studentVo.getHourid();
+        StudentHuorVo studentHuorVo = huorService.selHuor(huorId);
+        int count = huorService.getHuorCount(huorId);
+        studentHuorVo.setCount(count+1);
+        huorService.updateHuor(studentHuorVo);
         this.studentService.addStuVo(studentVo);
         return "successful";
     }
