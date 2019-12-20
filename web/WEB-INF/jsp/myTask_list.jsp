@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html>
 <html>
   
@@ -32,8 +33,8 @@
                   <td>${h.holidayid}</td>
                   <td>${h.empName}</td>
                   <td>${h.holidayDay}</td>
-                  <td>${h.startTime}</td>
-                  <td>${h.endTime}</td>
+                  <td><fmt:formatDate value="${h.startTime}" pattern="yyyy年MM月dd日"/></td>
+                  <td><fmt:formatDate value="${h.endTime}" pattern="yyyy年MM月dd日"/></td>
                   <td>
                         <c:if test="${h.status==1}">
                             审批中
