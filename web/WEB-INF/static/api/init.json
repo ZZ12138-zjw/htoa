@@ -25,7 +25,7 @@
           "child": [
             {
               "title": "我的请假",
-              "href": "Stu.jsp",
+              "href": "",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
@@ -39,7 +39,7 @@
         },
         {
           "title": "教师考评",
-          "href": "Stu.jsp",
+          "href": "/Stu/empevaluationcontro/to_empevaluationlist",
           "icon": "fa fa-window-maximize",
           "target": "_self"
         },
@@ -51,7 +51,13 @@
         },
         {
           "title": "保修申请",
-          "href": "Stu.jsp",
+          "href": "/Stu/studentrepair/to_repairapply",
+          "icon": "fa fa-file-text",
+          "target": "_self"
+        },
+        {
+          "title": "我的报修",
+          "href": "/Stu/studentrepair/to_viewrepairapply",
           "icon": "fa fa-file-text",
           "target": "_self"
         }

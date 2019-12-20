@@ -2,7 +2,9 @@ package com.ht.service.zz12138;
 
 import com.ht.vo.LogisticsCheck.EmpEvaluationVo;
 import com.ht.vo.LogisticsCheck.EvaluationContentVo;
+import com.ht.vo.LogisticsCheck.EvaluationListVo;
 import com.ht.vo.employee.EmpVo;
+import com.ht.vo.student.StudentClassVo;
 
 import java.util.List;
 import java.util.Map;
@@ -47,4 +49,41 @@ public interface IEmpEvaluationService {
 
     //根据ID查询教师考评
     public EmpEvaluationVo selectEmpEvaluation(int empEvaluationID);
+
+    //将员工ID   员工姓名  班级ID存入考评列表表
+    public void addEvaluationList(int empID,String empName,int classID,String className,int stuId,int evaluationContentID);
+
+    //根据授课老师姓名查询出班级ID
+    public List selectClass1(String teacherName);
+
+    //根据专职班主任姓名查询出班级ID
+    public List selectClass2(String classTeacherName);
+
+    public StudentClassVo selClass1(int classId);
+
+    public StudentClassVo selClass2(int classId);
+
+    //根据班级ID查询出所有学生
+    public List selectStudent(int classId);
+
+    //根据学生ID查询evaluationlist
+    public List selectEvaluationList(int stuId);
+
+    //根据班级ID查询班级详细信息
+    public List selectClass(int classId);
+
+    //根据老师姓名查询老师ID
+    public List selectEmp(String empName);
+
+    //根据教师ID与教师类型查询教师考评
+    public List selectEvaluation(int empID,int evaluationType);
+
+    //根据员工ID与学生ID查询evaluationlist evaluationStatus
+    public List seelctEvaluationStatus(int empID,int stuId);
+
+    //将考评内容ID存入empevaluationlist中
+    public void addEvaluationID(int empID);
+
+    //根据员工ID查询考评内容
+    public List selectEvaluationByEmpID(int empID);
 }

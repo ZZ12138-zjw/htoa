@@ -5,6 +5,7 @@ import com.ht.service.zz12138.IEmpEvaluationService;
 import com.ht.vo.LogisticsCheck.EmpEvaluationVo;
 import com.ht.vo.LogisticsCheck.EvaluationContentVo;
 import com.ht.vo.employee.EmpVo;
+import com.ht.vo.student.StudentClassVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -81,6 +82,73 @@ public class IEmpEvaluationImpl extends BaseDao implements IEmpEvaluationService
     @Override
     public EmpEvaluationVo selectEmpEvaluation(int empEvaluationID) {
         return (EmpEvaluationVo) getObject(EmpEvaluationVo.class,empEvaluationID);
+    }
+
+    @Override
+    public void addEvaluationList(int empID, String empName, int classID,String className,int stuId,int evaluationContentID) {
+        executeSQL("insert into t_evaluationlist(empID,empName,classId,className,stuId,evaluationStatus)  values("+empID+",'"+empName+"',"+classID+",'"+className+"','"+stuId+"',"+evaluationContentID+")");
+    }
+
+    @Override
+    public List selectClass1(String teacherName) {
+        return listBySQL("select * from t_studentclass where teacher = '"+teacherName+"'");
+    }
+
+    @Override
+    public List selectClass2(String classTeacherName) {
+        return listBySQL("select * from t_studentclass where classTeacher = '"+classTeacherName+"'");
+    }
+
+    @Override
+    public StudentClassVo selClass1(int classId) {
+        return (StudentClassVo) getObject(StudentClassVo.class,classId);
+    }
+
+    @Override
+    public StudentClassVo selClass2(int classId) {
+        return (StudentClassVo) getObject(StudentClassVo.class,classId);
+    }
+
+    @Override
+    public List selectStudent(int classId) {
+        return listBySQL("select stuId from t_student where classId = "+classId);
+    }
+
+    @Override
+    public List selectEvaluationList(int stuId) {
+        return listBySQL("select * from t_evaluationlist where stuId = "+stuId);
+    }
+
+    @Override
+    public List selectClass(int classId) {
+        return listBySQL("select * from t_studentclass where classId = "+classId);
+    }
+
+    @Override
+    public List selectEmp(String empName) {
+        return listBySQL("select * from t_emp where empName = '"+empName+"'");
+    }
+
+    @Override
+    public List selectEvaluation(int empID, int evaluationType) {
+        return listBySQL("select * from empevaluation where empID = "+empID+" and evaluationType = "+evaluationType);
+    }
+
+    @Override
+    public List seelctEvaluationStatus(int empID, int stuId) {
+        return listBySQL("select * from t_evaluationlist where empID = "+empID+" and stuId = "+stuId);
+    }
+
+
+
+    @Override
+    public void addEvaluationID(int empID) {
+//        executeSQL("update t_evaluationlist set evaluationContentID = select empEvaluationID from empevaluation where empID = " + empID);
+    }
+
+    @Override
+    public List selectEvaluationByEmpID(int empID) {
+        return listBySQL("select * from empevaluation where empID = "+empID);
     }
 
 
