@@ -203,7 +203,7 @@
                   {field: 'postName', width:150, title: '职务'},
                   {field: 'sex', width:100, title: '性别'},
                   {field: 'phone', width:150, title: '手机号码'},
-                  {field: 'address', width:100, title: '家庭地址'},
+                  {field: 'address', width:250, title: '家庭地址'},
                   {field: 'center', title: '设置状态', width:150, templet:"#statusBtn"},
                   {field: 'center', width:150, title: '重置密码',toolbar:'#reset-btn'},
                   {field: 'right', width:250, title: '操作',toolbar: '#currentTableBar'}
