@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Admin
-  Date: 2019/12/18
-  Time: 20:33
+  Date: 2019/12/19
+  Time: 10:44
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -24,17 +24,25 @@
                 <form class="layui-form layui-form-pane">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">员工姓名</label>
-                            <div class="layui-input-inline">
-                                <input name="empName" autocomplete="off" class="layui-input">
+                            <label class="layui-form-label">部门名称</label>
+                            <div class="layui-input-inline"  >
+                                <select name="depid" id="selectDep">
+                                    <option value="">请选择</option>
+
+                                </select>
                             </div>
                         </div>
 
                         <div class="layui-inline">
-                            <input type="radio" name="month" value="全部月份" title="全部月份">
-                            <input type="radio" name="month" value="本月（12月)" title="本月（12月)" checked>
-                            <input type="radio" name="month" value="上月（11月)" title="上月（11月)" checked>
+                            <label class="layui-form-label">部门名称</label>
+                            <div class="layui-input-inline"  >
+                                <select name="depid" id="selectDep1">
+                                    <option value="">请选择</option>
+
+                                </select>
+                            </div>
                         </div>
+
 
                         <div class="layui-inline">
                             <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -58,39 +66,25 @@
             table.render({
                 id:"idTest"
                 ,elem: '#idTest'
-                ,url:'${pageContext.request.contextPath}/sysreport/empattendance'
+                ,url:'${pageContext.request.contextPath}/sysreport/dormitorycount'
                 ,page: true
                 ,method:'post'
                 ,limit:10
                 ,cols: [
                     [
-                        {field:'attId',title: 'ID'}
-                        ,{field:'empName', title: '员工姓名'}
-                        ,{field:'notTime', title: '未打卡时间',templet:function (row){
-                            return createTime(row.notTime);
-                        }}
-                        ,{field:'explanation',title: '原因'}
-                        ,{field:'auditor',title: '审核人'}
-                        ,{field:'auditorEx',title: '审核说明'}
-                        ,{field:'auditorTime',title: '审核时间'}
-                        ,{field:'status',title: '审核状态'}
+                        {field:'floorName',title: '宿舍楼栋'}
+                        ,{field:'hourName', title: '宿舍房号'}
+                        ,{field:'addr',title: '宿舍地址'}
+                        ,{field:'stucount',title: '录入学生数'}
+                        ,{field:'numberBeds',title: '床位数'}
+                        ,{field:'status',title: '空位数'}
                     ]
                 ]
                 ,limits: [5,10,20,50]
             });
 
-            function createTime(v){
-                var date = new Date(v);
-                var y = date.getFullYear();
-                var m = date.getMonth()+1;
-                m = m<10?'0'+m:m;
-                var d = date.getDate();
-                d = d<10?("0"+d):d;
-                var str = y+"-"+m+"-"+d;
-                return str;
-            }
-
         });
     </script>
+
 </body>
 </html>

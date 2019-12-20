@@ -35,7 +35,7 @@ public class NoticeServiceImpl extends BaseDao implements INoticeService {
     //noticeId,title,noticeType,empid,noticeTime,trueConut,falseCount
     @Override
     public List selEmpNoticePage(Integer currPage, Integer pageSize) {
-        return pageBySQL("select n.*,e.empName from t_notice n left join t_emp e on n.empid=e.empId where noticeType in(1,3)",currPage,pageSize);
+        return pageBySQL("select n.*,e.empName from t_notice n left join t_emp e on n.empid=e.empId",currPage,pageSize);
     }
 
     @Override
@@ -95,7 +95,12 @@ public class NoticeServiceImpl extends BaseDao implements INoticeService {
 
     @Override
     public List selEmpNoticeList(Integer empId) {
-        return listBySQL("select n.noticeId,n.title,n.noticeTime,n.content,r.isRead,e.empId from t_notice n right join notice_receipt r on n.noticeId = r.noticeId left join t_emp e on r.receiver=e.empId where isRead=2 and r.type in(1,3) and e.empId="+empId);
+        return listBySQL("select n.noticeId,n.title,n.noticeTime,n.content,r.isRead from t_notice n right join notice_receipt r on n.noticeId = r.noticeId left join t_emp e on r.receiver=e.empId where type=1 and isRead=2 and n.noticeType in(1,3) and r.receiver="+empId);
+    }
+
+    @Override
+    public List selStudentpNoticeList(Integer stuId) {
+        return listBySQL("select n.noticeId,n.title,n.noticeTime,n.content,r.isRead from t_notice n right join notice_receipt r on n.noticeId = r.noticeId left join t_student s on r.receiver=s.stuId where type=2 and isRead=2 and n.noticeType in(2,3) and r.receiver=1"+stuId);
     }
 
     @Override
