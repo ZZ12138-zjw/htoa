@@ -13,10 +13,6 @@
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
-<div class="x-nav">
-    <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:38px">ဂ</i></a>
-</div>
 <div class="x-body">
     <script type="text/html" id="barDemo2">
         <button class="layui-btn layui-btn-danger" id="delsel"><i class="layui-icon"></i>批量删除</button>
@@ -26,7 +22,6 @@
 
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
-        <a class="layui-btn layui-btn-xs" href="" download="">下载</a>
     </script>
 </div>
 <script>
@@ -46,18 +41,18 @@
             ,limit:10
             ,cols: [
                 [
-                    {checkbox:true}//开启多选框
-                    ,{field:'docId', width:150,title: '编号'}
-                    ,{field:'dataName',width:150, title: '资料名'}
-                    ,{field:'optime',width:200, title: '上传时间', templet:function (row){
+                    {checkbox:true}
+                    ,{field:'docId',title: '编号'}
+                    ,{field:'dataName', title: '资料名'}
+                    ,{field:'optime', title: '上传时间', templet:function (row){
                         return createTime(row.optime);
                     }}
-                    ,{field: 'url', title: '下载文件',width:200,templet:function (data) {
+                    ,{field: 'url', title: '下载文件',templet:function (data) {
                         return '<a href="${pageContext.request.contextPath}\\upload\\'+data.url+'" download="'+data.dataName+'" class="layui-btn layui-bg-blue layui-btn-xs" >下载文件</a>'
                     }}
-                    ,{field:'remark',width:150,title: '备注'}
-                    ,{field:'empName',width:200,title: '上传人员'}
-                    ,{fixed: 'right', title:'操作',width:200,toolbar: '#barDemo'}
+                    ,{field:'remark',title: '备注'}
+                    ,{field:'empName',title: '上传人员'}
+                    ,{fixed: 'right', title:'操作',toolbar: '#barDemo'}
                 ]
             ]
             ,limits: [5,10,20,50]

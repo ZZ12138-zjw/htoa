@@ -187,11 +187,11 @@
 
     $(".submit").on('click',function () {
         if($("#username").val() == '') {
-            // $(".err-username").html('杂种！！你用户名呢！？？？');
+            // $(".tips").html('杂种！！你用户名呢！？？？');
             $(".tips").html('老兄！！你用户名呢！？？？');
-            $("#logo").attr("src",'${pageContext.request.contextPath}/images/null-username.jpg')
+            $("#logo").attr("src",'${pageContext.request.contextPath}/images/null-password.jpg')
         } else if($("#password").val() == '') {
-            // $(".err-password").html('畜生！！你密码呢！？？？');
+            // $(".tips").html('畜生！！你密码呢！？？？');
             $(".tips").html('老兄！！你密码呢！？？？');
             $("#logo").attr("src",'${pageContext.request.contextPath}/images/null-password.jpg')
         } else {

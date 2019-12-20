@@ -15,7 +15,11 @@
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/xadmin.js"></script>
-
+    <style>
+        .first-tab .layui-tab-close{
+            display:none!important;
+        }
+    </style>
 </head>
 <body>
     <!-- 顶部开始 -->
@@ -38,8 +42,8 @@
           <li class="layui-nav-item">
             <a href="javascript:;">${empVo.empName}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
-              <dd><a onclick="x_admin_show('修改密码','http://www.baidu.com')">切换帐号</a></dd>
+              <dd><a onclick="x_admin_show('个人信息','${pageContext.request.contextPath}/emp/myData')">个人信息</a></dd>
+              <dd><a onclick="x_admin_show('修改密码','${pageContext.request.contextPath}/toCheckOldPwd')">修改密码</a></dd>
               <dd><a href="${pageContext.request.contextPath}/sign_out">退出</a></dd>
             </dl>
           </li>
@@ -266,7 +270,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="order-list.html">
+                        <a _href="${pageContext.request.contextPath}/evaluationcontro/to_evaluationcontent">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>考评内容</cite>
                         </a>
@@ -365,7 +369,7 @@
                     <li>
                         <a _href="${pageContext.request.contextPath}/sysreport/emp_assessreport">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>员工考核报表</cite>
+                            <cite>员工考核</cite>
                         </a>
                     </li >
 
@@ -377,15 +381,15 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="echarts3.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/dormitory">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>地图</cite>
+                            <cite>宿舍统计</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="echarts4.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/employeesLeave">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>饼图</cite>
+                            <cite>员工请假</cite>
                         </a>
                     </li>
                     <li>
@@ -424,7 +428,7 @@
     <div class="page-content">
         <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowClose="true">
           <ul class="layui-tab-title">
-            <li>我的桌面</li>
+            <li class="first-tab">我的桌面</li>
           </ul>
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">

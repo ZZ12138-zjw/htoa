@@ -1,13 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
-  Date: 2019/12/17
-  Time: 20:37
+  Date: 2019/12/19
+  Time: 15:33
   To change this template use File | Settings | File Templates.
 --%>
-<!DOCTYPE HTML>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>Title</title>
@@ -33,15 +32,9 @@
                         </div>
 
                         <div class="layui-inline">
-                            <label class="layui-form-label">部门名称</label>
-                            <div class="layui-input-inline"  >
-                                <select name="depid" id="selectDep">
-                                    <option value="">请选择</option>
-                                    <c:forEach items="${depVos}" var="deps">
-                                        <option value="${deps.depid}">${deps.depName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
+                                <input type="radio" name="month" value="全部月份" title="全部月份">
+                                <input type="radio" name="month" value="本月（12月)" title="本月（12月)" checked>
+                                <input type="radio" name="month" value="上月（11月)" title="上月（11月)" checked>
                         </div>
 
                         <div class="layui-inline">
@@ -59,7 +52,7 @@
     <div class="layui-row">
         <div class="layui-tab">
             <ul class="layui-tab-title">
-                <li>员工考核各项得分详情</li>
+                <li>请假详情</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
@@ -78,48 +71,74 @@
             table.render({
                 id:"idTest"
                 ,elem: '#idTest'
-                ,url:'${pageContext.request.contextPath}/sysreport/empassess'
+                ,url:'${pageContext.request.contextPath}/sysreport/employeesLeavekh'
                 ,page: true
                 ,method:'post'
                 ,limit:10
                 ,cols: [
                     [
                         {type:'radio'}//开启单选框
-                        ,{field:'empID',title: '员工编号'}
-                        ,{field:'empName', title: '员工名称'}
-                        ,{field:'depName', title: '部门名称'}
-                        ,{field:'sex',title: '性别'}
-                        ,{field:'phone',title: '手机号码'}
-                        ,{field:'ascore',title: '考核总分'}
+                        ,{field:'empid',title: 'ID'}
+                        ,{field:'empName', title: '员工姓名'}
+                        ,{field:'qjcs',title: '请假次数'}
+                        ,{field:'tshu',title: '天数'}
                     ]
                 ]
                 ,limits: [5,10,20,50]
             });
 
+            // 监听搜索操作
+            form.on('submit(sreach)', function (data) {
+                var result = JSON.stringify(data.field);
+                alert(result);
+                //执行搜索重载
+                table.reload('idTest', {
+                    page: {
+                        curr: 1
+                    }
+                    , where: {
+                        empName:data.field.empName,
+                    }
+                    ,text:{none:'无数据'}
+                }, 'data');
+                7
+                return false;
+            });
+
             table.on('row(complainList)',function (obj) {
                 var data = obj.data;    //当前行数据
-                var empID = data.empID;
+                var empid = data.empid;
                 obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');   //选中样式
                 obj.tr.find('i[class="layui-anim layui-icon"]').trigger("click");  //单机选中单选框
-                addTable(empID);
+                addTable(empid);
             });
-            
-            function addTable(empID) {
+
+            function addTable(empid) {
                 table.render({
                     elem:'#kh',
-                    url:'${pageContext.request.contextPath}/sysreport/xq/?empID=' + empID,
+                    url:'${pageContext.request.contextPath}/sysreport/empqjxq/?empid=' + empid,
                     method:'post',
                     cols:[
                         [
-                            {field:'checkContent',title: '考核内容'},
                             {field:'empName',title: '员工姓名'},
-                            {field:'checkScore',title: '考核分数'},
-                            {field:'checkDate',title: '考核时间', templet:function (row){
-                                    return createTime(row.checkDate);
+                            {field:'holidayDay',title: '请假天数'},
+                            {field:'startTime',title: '开始时间', templet:function (row){
+                                    return createTime(row.startTime);
                                 }},
-                            {field:'imageName',title: '图片'},
-                            {field:'inputEmp',title: '录入人员'},
-                            {field:'checkExplain',title: '说明'}
+                            {field:'endTime',title: '结束时间', templet:function (row){
+                                    return createTime(row.endTime);
+                                }},
+                            {field:'title',title: '类型'},
+                            {field:'remark',title: '备注'},
+                            {field:'status',title: '状态',templet:function (row) {
+                                    if (row.status==1){
+                                        return "<span>审批中</span>"
+                                    }else if(row.status==2){
+                                        return "<span>已完成</span>"
+                                    }else if(row.status==3){
+                                        return "<span>不批准</span>"
+                                    }
+                                }}
                         ]
                     ]
                 });
@@ -139,5 +158,4 @@
         });
     </script>
 </body>
-
 </html>

@@ -28,7 +28,7 @@ public class GlobalServiceImpl extends BaseDao implements IGlobalService {
 
     @Override
     public void changPassword(EmpVo empVo) {
-
+        updObject(empVo);
     }
 
     @Override

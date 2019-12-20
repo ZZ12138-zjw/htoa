@@ -1,5 +1,7 @@
 package com.ht.service.wj;
 
+import com.ht.vo.employee.WeekCheck;
+
 import java.util.List;
 
 public interface SysreportService {
@@ -12,4 +14,8 @@ public interface SysreportService {
 
     List dormitoryCount(int currPage,int pageSize);
     int seldormitory();
+
+    List EmployeesLeave(int currPage, int pageSize,WeekCheck weekCheck);
+    int selempqj();
+    List empqingjiaxq(int empid);
 }

@@ -28,8 +28,9 @@
         </script>
 
         <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-xs" lay-event="edit" >  编辑</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
+            <a class="layui-btn layui-btn-xs" lay-event="see" >查看宿舍人员</a>
         </script>
     </div>
     <script type="text/javascript">
@@ -61,18 +62,18 @@
                 ,page: true   //开启分页
                 ,method:'post'  //请求方式
                 ,limit:10   //分页默认大小
+                ,height:400
                 ,toolbar:"#toobalDemo"
                 ,cols: [   //标题栏
                     [
                         {checkbox:true}//开启多选框
-                        ,{field:'hourId', width:250,title: '编号'}
-                        ,{field:'hourIddsc',width:250, title: '排序编号'}
+                        ,{field:'hourId', width:100,title: '编号'}
+                        ,{field:'hourIddsc',width:100, title: '排序编号'}
                         ,{field:'hourName',width:250, title: '宿舍房号'}
-                        ,{field:'floorName',width:250, title: '宿舍楼栋'}
-                        ,{field:'numberBeds',width:250,title: '床位数'}
-                        ,{field:'count',width:250,title: '宿舍人数'}
-                        ,{field:'addr',width:250,title: '宿舍地址'}
-                        ,{fixed: 'right', title:'操作',width:200,toolbar: '#barDemo'}
+                        ,{field:'floorName',width:150, title: '宿舍楼栋'}
+                        ,{field:'numberBeds',width:100,title: '床位数'}
+                        ,{field:'addr',width:150,title: '宿舍地址'}
+                        ,{fixed: 'right', title:'操作',width:250,toolbar: '#barDemo'}
                     ]
                 ]
                 ,limits: [5,10,20,50]
@@ -156,6 +157,9 @@
                             //关闭弹窗
                             layer.close(delIndex);
                         });
+                        break;
+                    case 'see':
+                        x_admin_show('宿舍人员信息',"${pageContext.request.contextPath}/huor/to_hourStudent?huorId="+data.hourId);
                         break;
                 }
             });

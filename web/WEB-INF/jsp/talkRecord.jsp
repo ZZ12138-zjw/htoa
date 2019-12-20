@@ -12,10 +12,6 @@
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
-    <div class="x-nav">
-        <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-            <i class="layui-icon" style="line-height:38px">ဂ</i></a>
-    </div>
     <div class="x-body">
         <script type="text/html" id="barDemo2">
             <button class="layui-btn layui-btn-danger" id="delsel"><i class="layui-icon"></i>批量删除</button>
@@ -46,15 +42,15 @@
                 ,cols: [
                     [
                         {checkbox:true}//开启多选框
-                        ,{field:'chatid', width:150,title: '编号'}
-                        ,{field:'stuName',width:200, title: '学生姓名'}
-                        ,{field:'empName',width:200, title: '员工姓名'}
-                        ,{field:'addr',width:150, title: '地址'}
-                        ,{field:'sayscon',width:200,title: '谈心内容'}
-                        ,{field:'chatDate',width:150,title: '时间',templet:function (row){
+                        ,{field:'chatid',title: '编号'}
+                        ,{field:'stuName', title: '学生姓名'}
+                        ,{field:'empName', title: '员工姓名'}
+                        ,{field:'addr', title: '地址'}
+                        ,{field:'sayscon',title: '谈心内容'}
+                        ,{field:'chatDate',title: '时间',templet:function (row){
                             return createTime(row.chatDate);
                         }}
-                        ,{fixed: 'right', title:'操作',width:150,toolbar: '#barDemo'}
+                        ,{fixed: 'right', title:'操作',toolbar: '#barDemo'}
                     ]
                 ]
                 ,limits: [5,10,20,50]

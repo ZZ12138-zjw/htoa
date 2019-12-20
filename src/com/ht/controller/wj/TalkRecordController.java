@@ -44,11 +44,18 @@ public class TalkRecordController {
 
     @RequestMapping("/addTalkRecord")
     public String addTalkRecord(HttpServletRequest request){
-        List stulist = studentService.getStudentInfo();
-        request.setAttribute("stulist",stulist);
         List classList = classService.selectAll();
         request.setAttribute("classList",classList);
         return "addTalkRecord";
+    }
+
+    @ResponseBody
+    @RequestMapping("/stulist")
+    public Map stulist(int classId){
+        List stulist = talkRecordService.stulist(classId);
+        Map map = new HashMap();
+        map.put("stulist",stulist);
+        return map;
     }
 
     @ResponseBody

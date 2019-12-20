@@ -10,4 +10,5 @@ public interface TalkRecordService {
     void addTalk(ChatRecordVo chatRecordVo);
     void delete(ChatRecordVo chatRecordVo);
     void deletes(String id);
+    List stulist(int classId);
 }
