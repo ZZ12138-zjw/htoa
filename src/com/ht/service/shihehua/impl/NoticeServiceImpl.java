@@ -35,7 +35,7 @@ public class NoticeServiceImpl extends BaseDao implements INoticeService {
     //noticeId,title,noticeType,empid,noticeTime,trueConut,falseCount
     @Override
     public List selEmpNoticePage(Integer currPage, Integer pageSize) {
-        return pageBySQL("select n.*,e.empName from t_notice n left join t_emp e on n.empid=e.empId where noticeType in(1,3)",currPage,pageSize);
+        return pageBySQL("select n.*,e.empName from t_notice n left join t_emp e on n.empid=e.empId",currPage,pageSize);
     }
 
     @Override

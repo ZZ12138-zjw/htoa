@@ -20,10 +20,7 @@ import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 华 on 2019/12/12.
@@ -197,8 +194,19 @@ public class NoticeController {
     }
 
     @RequestMapping("/to_noticeReceipt")
-    public String to_noticeReceipt(ModelMap map, String noticeId){
-        List list = ins.selNoticeReceiptEmpList(Integer.parseInt(noticeId));
+    public String to_noticeReceipt(ModelMap map, String noticeId,String noticeType){
+        List list = new ArrayList();
+        if(Integer.parseInt(noticeType)==1){
+             list = ins.selNoticeReceiptEmpList(Integer.parseInt(noticeId));
+
+        }else if (Integer.parseInt(noticeType)==2){
+             list = ins.selNoticeReceiptStudentList(Integer.parseInt(noticeId));
+
+        }else{
+             list = ins.selNoticeReceiptEmpList(Integer.parseInt(noticeId));
+            List list2 = ins.selNoticeReceiptStudentList(Integer.parseInt(noticeId));
+            list.addAll(list2);
+        }
         JSONArray json = (JSONArray) JSON.toJSON(list);
         map.put("noticeReceiptList",json);
         System.out.println("JSON:"+json.toJSONString());
