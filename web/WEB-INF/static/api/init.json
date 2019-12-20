@@ -25,13 +25,13 @@
           "child": [
             {
               "title": "我的请假",
-              "href": "",
+              "href": "Stu.jsp",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "日常公告",
-              "href": "/Stu/notice_student/to_studentNotice",
+              "href": "Stu.jsp",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

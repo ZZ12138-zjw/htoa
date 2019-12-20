@@ -70,7 +70,7 @@ public class TestscoreController {
         request.setAttribute("cources",studentService.selectAllCourse());
         request.setAttribute("emps",studentService.selectAllEmp());
         request.setAttribute("types",studentService.selectAllTestType());
-        return "student/scoreAdd_form";
+        return "studentScore/scoreAdd_form";
     }
 
     @RequestMapping("/score_form")
@@ -89,7 +89,7 @@ public class TestscoreController {
         request.setAttribute("emp",scoreService.empById(scoreCheck.getEmpid()));
         request.setAttribute("course",scoreService.courseById(scoreCheck.getCourseId()));
         request.setAttribute("type",scoreService.typeById(scoreCheck.getTestType()));
-        return "student/scoreAdd_list";
+        return "studentScore/scoreAdd_list";
     }
 
     @RequestMapping("/getTableData")

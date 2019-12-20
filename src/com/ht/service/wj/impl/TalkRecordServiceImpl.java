@@ -33,4 +33,9 @@ public class TalkRecordServiceImpl extends BaseDao implements TalkRecordService 
     public void deletes(String id) {
         executeSQL("delete from t_chatRecord where chatid in("+id+")");
     }
+
+    @Override
+    public List stulist(int classId) {
+        return listBySQL("select stuName,stuId from t_student where classid=" + classId);
+    }
 }
