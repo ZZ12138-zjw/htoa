@@ -28,4 +28,5 @@ public interface IStudentHuorService {
     public int selHourStudentCount(Integer hourId);
 
     public List selHourStudent(Integer hourId);
+
 }

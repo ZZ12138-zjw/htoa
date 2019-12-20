@@ -61,4 +61,5 @@ public class StudentHuorServiceImpl extends BaseDao implements IStudentHuorServi
     public List selHourStudent(Integer hourId) {
         return listBySQL("select h.hourName,c.className,s.stuName,s.phone from t_studentHuor h left join t_student s on h.hourId=s.hourid left join t_studentclass c on s.classid=c.classId where h.hourId="+hourId);
     }
+
 }
