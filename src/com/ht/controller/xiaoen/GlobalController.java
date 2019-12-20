@@ -1,6 +1,7 @@
 package com.ht.controller.xiaoen;
 
 import com.ht.service.shihehua.INoticeService;
+import com.ht.service.xiaoen.IEmpService;
 import com.ht.service.xiaoen.IGlobalService;
 import com.ht.vo.employee.EmpVo;
 import com.ht.vo.student.StudentVo;
@@ -24,6 +25,8 @@ public class GlobalController {
     private IGlobalService global;
     @Resource
     private INoticeService ins;
+    @Resource
+    private IEmpService emp;
 
     /**
      * 跳往员工登录页面
@@ -128,6 +131,55 @@ public class GlobalController {
         session.setAttribute("studentVo",studentVo);
         return  "success";
     }
+
+    /**
+     * 修改密码页面
+     * @return
+     */
+    @RequestMapping("/toCheckOldPwd")
+    public String toCheckOldPwd(){
+        return "ck_pwd";
+    }
+
+    @RequestMapping("/toChangePwd")
+    public String toChangePwd(){
+        return "change_pwd";
+    }
+    /**
+     * 验证旧密码是否正确
+     * @param password
+     * @param session
+     * @return
+     */
+    @RequestMapping("/checkOldPwd")
+    @ResponseBody
+    public String checkOldPwd(String password,HttpSession session){
+        EmpVo empVo =(EmpVo)session.getAttribute("empVo");
+        EmpVo ckR = emp.ckOldPwd(password, empVo.getEmpId() + "");
+        if (ckR!=null){
+            return "success";
+        }
+        return "";
+    }
+
+    /**
+     * 修改密码
+     * @param password
+     * @param session
+     * @return
+     */
+    @RequestMapping("/changePwd")
+    @ResponseBody
+    public String changePwd(String password,HttpSession session){
+        System.out.println("测试密码:"+password);
+        EmpVo empVo =(EmpVo)session.getAttribute("empVo");
+        empVo.setPassword(password);
+        global.changPassword(empVo);
+        return "success";
+    }
+
+
+
 
 
 

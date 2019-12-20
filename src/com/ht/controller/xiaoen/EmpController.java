@@ -523,5 +523,34 @@ public class EmpController {
     }
 
 
+    /**
+     * 员工个人资料
+     * @param session
+     * @return
+     */
+    @RequestMapping("/myData")
+    public String myData(HttpSession session,Map map){
+        EmpVo empVo = (EmpVo)session.getAttribute("empVo");
+        map.put("empVo",empVo);
+
+        System.out.println(job.selectAll(empVo.getEmpId())+" "+education.selectAll(empVo.getEmpId())+" "
+        +familyInfo.selectAll(empVo.getEmpId())
+        );
+        //工作经历
+        map.put("jobVos",job.selectAll(empVo.getEmpId()));
+        //学历背景
+        map.put("educationVos",education.selectAll(empVo.getEmpId()));
+        //家庭联系人信息
+        map.put("familyInfoVos",familyInfo.selectAll(empVo.getEmpId()));
+        return "my_data";
+    }
+
+
+
+
+
+
+
+
 
 }

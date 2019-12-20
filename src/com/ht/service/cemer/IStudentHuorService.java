@@ -25,5 +25,4 @@ public interface IStudentHuorService {
 
     public void updateHuor(StudentHuorVo studentHuorVo);
 
-    int getHuorCount(int huorId);
 }

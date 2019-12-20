@@ -25,7 +25,7 @@
           "child": [
             {
               "title": "我的请假",
-              "href": "stuHoliday/to_holidayList",
+              "href": "Stu.jsp",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },

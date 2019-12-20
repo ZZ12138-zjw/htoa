@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 考核控制器
  * Created by shkstart on 2019/12/13
  * @author LaIWeiChun
  */
@@ -70,13 +71,14 @@ public class AttendanceController {
             //拼接一下时间
             attendanceVo.setNotTime(attendanceVo.getNotTime()+" "+time);
             //是否为部门负责人
-            if(empVo.getEmpName().equals(dept.selectChairman(empVo.getDeptId()))){
+            if(empVo.getEmpName().equals(dept.selectChairmanName(empVo.getDeptId()))){
                 //所有上级都是宏图软件，而宏图软件负责人是陈生武
                 attendanceVo.setAuditor("陈生武");
             }else {
                 //查该员工部门负责人
-                attendanceVo.setAuditor(dept.selectChairman(empVo.getDeptId()));
+                attendanceVo.setAuditor(dept.selectChairmanName(empVo.getDeptId()));
             }
+            //状态为审核中
             attendanceVo.setStatus(1);
             attendanceVo.setEmpName(empVo.getEmpName());
             attendance.save(attendanceVo);

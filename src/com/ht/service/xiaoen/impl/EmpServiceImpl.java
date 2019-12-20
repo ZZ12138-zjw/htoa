@@ -94,5 +94,16 @@ public class EmpServiceImpl extends BaseDao implements IEmpService {
         return listBySQL("select * from checkinsert c   where c.empiD="+empId);
     }
 
+    @Override
+    public EmpVo ckOldPwd(String password, String empId) {
+        List<EmpVo> list = listByHql("from EmpVo e where e.empId=" + empId + " and e.password='" + password + "'");
+        for(EmpVo empVo:list){
+            return empVo;
+        }
+        return null;
+    }
+
+
+
 
 }

@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2019/12/12
@@ -28,8 +28,9 @@
                 </div>
                 <div class="layui-input-inline">
                     <select name="empName" lay-filter="emp" lay-filter="emp" id="empId" lay-search="">
+                        <option value="${empEvaluationList.empID}" >${empEvaluationList.empName}</option>
                         <option value="">请选择员工</option>
-                        <option value="${empEvaluationList.empID}">${empEvaluationList.empName}</option>
+
                     </select>
                 </div>
             </div>
@@ -43,10 +44,17 @@
             <div class="layui-form-item" id="test">
                 <label class="layui-form-label">考评内容</label>
                 <div class="layui-input-block" id="evaluationContent">
-<%--                    <input type="checkbox" value="132" title="123" name="123">--%>
-                        <c:forEach items="${allDeptList}" var="e">
-                            <option value="${e.depid}" ${empEvaluationList.depID == e.depid ? 'selected' : ''}>${e.depName}</option>
-                        </c:forEach>
+                    <%
+                        List evaluationContentList = (List) request.getAttribute("evaluationContent");
+                        List evaluationContentIDList = (List) request.getAttribute("evaluationContentID");
+                    %>
+                    <%
+                        for (int i=0;i<evaluationContentIDList.size();i++){
+                    %>
+                        <input type="checkbox" value="<%=evaluationContentIDList.get(i)%>" title="<%=evaluationContentList.get(i)%>" checked>
+                    <%
+                        }
+                    %>
                 </div>
                 <div class="layui-form-mid layui-word-aux">根据部门名称与员工类型来筛选考评内容</div>
             </div>

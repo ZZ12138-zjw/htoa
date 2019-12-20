@@ -51,9 +51,4 @@ public class StudentHuorServiceImpl extends BaseDao implements IStudentHuorServi
     public void updateHuor(StudentHuorVo studentHuorVo) {
         updObject(studentHuorVo);
     }
-
-    @Override
-    public int getHuorCount(int huorId) {
-        return listByHql("from StudentVo where hourid="+huorId).size();
-    }
 }

@@ -6,13 +6,14 @@ import com.ht.vo.employee.DeptVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by shkstart on 2019/12/4
  * @author LaiWeiChun
  */
 @Service
-public class DeptServiceImpl  extends BaseDao implements IDeptService {
+public class DeptServiceImpl   extends BaseDao implements IDeptService {
 
 
     @Override
@@ -64,6 +65,13 @@ public class DeptServiceImpl  extends BaseDao implements IDeptService {
             chairman=deptVo.getChairman();
         }
         return chairman;
+    }
+
+    @Override
+    public String selectChairmanName(Integer deptId) {
+       List list=listBySQL("select e.empName from t_dept d left join t_emp e on d.chairman=e.empId where depid="+deptId);
+       Map map=(Map)list.get(0);
+       return (String) map.get("empName");
     }
 
 

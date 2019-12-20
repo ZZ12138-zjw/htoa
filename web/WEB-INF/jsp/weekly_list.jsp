@@ -13,12 +13,6 @@
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
-
-    <div class="x-nav">
-        <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-            <i class="layui-icon" style="line-height:38px">ဂ</i></a>
-    </div>
-
     <div class="layui-row">
         <fieldset class="layui-elem-field layuimini-search">
         <legend>搜索信息</legend>
@@ -100,17 +94,16 @@
                 ,limit:10
                 ,cols: [
                     [
-                        {checkbox:false}//开启多选框
-                        ,{field:'worklogid', width:100,title: '编号'}
-                        ,{field:'empName',width:150, title: '员工名称'}
-                        ,{field:'workday',width:150, title: '填写日期', templet:function (row){
+                        {field:'worklogid',title: '编号'}
+                        ,{field:'empName', title: '员工名称'}
+                        ,{field:'workday', title: '填写日期', templet:function (row){
                             return createTime(row.workday);
                         }}
-                        ,{field:'weekCur',width:200, title: '本周情况描述'}
-                        ,{field:'studentQuestion',width:200,title: '问题学生情况反馈'}
-                        ,{field:'idea',width:150,title: '意见建议'}
-                        ,{field:'weekNext',width:200,title: '下周工作计划'}
-                        ,{fixed: 'right', title:'操作',width:100,toolbar: '#barDemo'}
+                        ,{field:'weekCur', title: '本周情况描述'}
+                        ,{field:'studentQuestion',title: '问题学生情况反馈'}
+                        ,{field:'idea',title: '意见建议'}
+                        ,{field:'weekNext',title: '下周工作计划'}
+                        ,{fixed: 'right', title:'操作',toolbar: '#barDemo'}
                     ]
                 ]
                 ,limits: [5,10,20,50]

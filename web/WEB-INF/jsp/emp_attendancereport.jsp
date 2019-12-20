@@ -29,6 +29,16 @@
                                 <input name="empName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
+
+                        <div class="layui-inline">
+                            <input type="radio" name="month" value="全部月份" title="全部月份">
+                            <input type="radio" name="month" value="本月（12月)" title="本月（12月)" checked>
+                            <input type="radio" name="month" value="上月（11月)" title="上月（11月)" checked>
+                        </div>
+
+                        <div class="layui-inline">
+                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                        </div>
                     </div>
                 </form>
             </div>

@@ -36,8 +36,10 @@ public interface INoticeService {
 
 
     public List selNoticeReceiptEmpList(Integer noticeId);
+    public List selNoticeReceiptStudentList(Integer noticeId);
 
     public List selEmpNoticeList(Integer empId);
+    public List selStudentpNoticeList(Integer stuId);
 
 
     public int EmpNoticeFalseCount(Integer noticeId);
@@ -47,6 +49,15 @@ public interface INoticeService {
     public void updateEmpNoticeReceiptType(Integer empId,Integer noticeId);
 
     public void updateEmpNoticeCount(Integer trueCount,Integer falseCount,Integer noticeId);
+
+
+    public int StudentNoticeFalseCount(Integer noticeId);
+
+    public int StudentNoticeTrueCount(Integer noticeId);
+
+    public void updateStudentNoticeReceiptType(Integer stuId,Integer noticeId);
+
+    public void updateStudentNoticeCount(Integer trueCount,Integer falseCount,Integer noticeId);
 
 
 }
