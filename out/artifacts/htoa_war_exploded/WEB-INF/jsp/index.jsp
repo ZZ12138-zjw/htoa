@@ -43,7 +43,7 @@
             <a href="javascript:;">${empVo.empName}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
               <dd><a onclick="x_admin_show('个人信息','${pageContext.request.contextPath}/emp/myData')">个人信息</a></dd>
-              <dd><a onclick="x_admin_show('修改密码','http://www.baidu.com')">切换帐号</a></dd>
+              <dd><a onclick="x_admin_show('修改密码','${pageContext.request.contextPath}/toCheckOldPwd')">修改密码</a></dd>
               <dd><a href="${pageContext.request.contextPath}/sign_out">退出</a></dd>
             </dl>
           </li>

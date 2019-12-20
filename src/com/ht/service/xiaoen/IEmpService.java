@@ -51,4 +51,13 @@ public interface IEmpService  {
      * @return
      */
     List listCheckInsertByEmpId(int empId);
+
+    /**
+     * 修改密码，验证旧密码是否正确
+     * @param password
+     * @param empId
+     * @return
+     */
+    EmpVo ckOldPwd(String password,String empId);
+
 }

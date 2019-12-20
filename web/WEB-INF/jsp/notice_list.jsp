@@ -209,7 +209,7 @@
                         });
                         break;
                     case 'details':
-                        x_admin_show('详情',"${pageContext.request.contextPath}/notice/to_noticeReceipt?noticeId="+data.noticeId);
+                        x_admin_show('详情',"${pageContext.request.contextPath}/notice/to_noticeReceipt?noticeId="+data.noticeId+"&&noticeType="+data.noticeType+"");
                         break;
                 }
             });

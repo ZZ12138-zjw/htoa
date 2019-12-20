@@ -121,7 +121,7 @@
                     <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
                     <div class="layui-card-body layui-text">
                     <c:forEach items="${EmpNoticeList}" var="list">
-                        <div class="layuimini-notice">
+                        <div class="layuimini-notice" id="noticeList">
                             <input type="hidden" class="layuimini-notice-noticeId" value="${list.noticeId}">
                             <div class="layuimini-notice-title">${list.title}   <c:if test="${list.isRead==1}">已读</c:if><c:if test="${list.isRead==2}">未读</c:if></div>
                             <div class="layuimini-notice-extra">${list.noticeTime}</div>
@@ -145,27 +145,20 @@
             layuimini = layui.layuimini,
             echarts = layui.echarts;
 
-
-
-
-        /**
-         * 查看公告信息
-         **/
         $('body').on('click', '.layuimini-notice', function () {
             var noticeId = $(this).children('.layuimini-notice-noticeId').val();
             var title = $(this).children('.layuimini-notice-title').text(),
                 noticeTime = $(this).children('.layuimini-notice-extra').text(),
                 content = $(this).children('.layuimini-notice-content').html();
-            var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
+            var html = '<div style="padding:15px 20px;text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
                 '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
                 '<div style="font-size: 12px">' + content + '</div>\n' +
                 '</div>\n';
             parent.layer.open({
                 type: 1,
                 title: '系统公告'+'<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">'+noticeTime+'</span>',
+                area:["1000px","500px"],
                 closeBtn:false,
-                width:'500px',
-                height:'400px',
                 shade: 0.8,
                 id: 'layuimini-notice',
                 btnAlign: 'c',
