@@ -179,8 +179,14 @@ public class GlobalController {
     }
 
 
-
-
+    /**
+     * 学生端主页
+     * @return
+     */
+    @RequestMapping("/studentWelcome")
+    public String toStudentWelcome(){
+        return "student_jsp/student_welcome";
+    }
 
 
 

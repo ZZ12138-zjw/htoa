@@ -5,7 +5,7 @@
   "homeInfo": {
     "title": "首页",
     "icon": "fa fa-home",
-    "href": "Stu.jsp"
+    "href": "studentWelcome"
   },
   "logoInfo": {
     "title": "宏图OA学生端",
