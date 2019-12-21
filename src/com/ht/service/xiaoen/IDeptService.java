@@ -61,7 +61,7 @@ public interface IDeptService {
     void delAll(String depIds);
 
     /**
-     * 通过部门名称查部门负责人
+     * 通过部门名称查部门负责人id
      * @param deptId
      *      部门id
      * @return
@@ -72,7 +72,7 @@ public interface IDeptService {
 
 
     /**
-     * 通过部门名称查部门负责人
+     * 通过部门id名称查部门负责人名称
      * @param deptId
      * @return
      *      部门负责人name

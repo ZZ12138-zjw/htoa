@@ -19,8 +19,7 @@
     <table class="layui-hide" id="complainTable" lay-filter="complainList" ></table>
 
     <script type="text/html" id="barDemo2">
-        <button class="layui-btn" onclick="x_admin_show('申请请假','${pageContext.request.contextPath}/stuHoliday/to_holidayAdd')"><i class="layui-icon"></i>申请请假</button>
-        <button class="layui-btn" onclick="javascript:location.replace('${pageContext.request.contextPath}/empLeave/to_myTaskList')"><i class="layui-icon">&#xe642;</i>我的任务</button>
+        <button class="layui-btn" onclick="x_admin_show('申请请假','${pageContext.request.contextPath}/stuHoliday/to_holidayAdd')"><i class="layui-icon"></i>申请请假</button>
     </script>
 
     <script type="text/html" id="barDemo">
@@ -49,8 +48,6 @@
             laypage = layui.laypage,
             $ =layui.jquery;
 
-
-
         table.render({
             id:"provinceReload"
             ,elem: '#complainTable'  //指定原始表格元素选择器(推荐id选择器)
@@ -68,20 +65,12 @@
                     }}
                     ,{field:'holidayDay',width:100, title: '请假时长'}
                     ,{field:'startTime',width:150, title: '开始时间',templet:function (d) {
-                        return getNowFormatDate(d.startTime)
+                        return createTime(d.startTime);
                     }}
                     ,{field:'endTime',width:150,title: '结束时间',templet:function (d) {
-                        return getNowFormatDate(d.endTime)
+                        return createTime(d.endTime);
                     }}
-                    ,{field:'status',width:100,title: '状态',templet:function (d) {
-                        if (d.status==1){
-                            return "<span>审批中</span>"
-                        }else if(d.status==2){
-                            return "<span>已完成</span>"
-                        }else if(d.status==3){
-                            return "<span>不批准</span>"
-                        }
-                    }}
+                    ,{field:'status',width:100,title: '状态'}
                     ,{field:'remark',width:250,title: '备注'}
                     ,{field: 'right', title:'操作',width:100,toolbar: '#barDemo'}
                 ]
@@ -94,7 +83,7 @@
         table.on('tool(complainList)', function(obj) {
             var data = obj.data;
             if (obj.event=='edit'){
-                x_admin_show('查看批注','${pageContext.request.contextPath}/empLeave/lookComment?hid='+data.holidayid);
+                x_admin_show('查看批注','${pageContext.request.contextPath}/stuHoliday/lookComment?hid='+data.holidayId);
             }
         });
 
