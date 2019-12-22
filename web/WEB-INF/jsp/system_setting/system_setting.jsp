@@ -64,7 +64,7 @@
             </td>
             <td style="text-align: center;vertical-align: middle">
                 <a style="cursor: pointer" href="javascript:void(0);" class="site-demo-active" data-type="tabAdd"
-                   data-url="${pageContext.request.contextPath}/system_setting/jiebie_setting"
+                   data-url="${pageContext.request.contextPath}/process/process_list"
                    data-id="流程设置" data-title="流程设置">
                     <i class="layui-icon layui-icon-set-fill" style="font-size: 60px; color: #c2c2c2;"></i>
                     <br>

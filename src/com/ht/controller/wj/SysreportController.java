@@ -7,6 +7,7 @@ import com.ht.service.zz12138.IFloorManageService;
 import com.ht.vo.employee.DeptVo;
 import com.ht.vo.employee.WeekCheck;
 import com.ht.vo.student.HourNameSearch;
+import com.ht.vo.student.StuqjSearch;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -129,4 +130,30 @@ public class SysreportController {
         return map;
     }
 
+    @RequestMapping("/stuloyeesLeave")
+    public String stuloyeesLeave(){
+        return "stuloyeesLeave";
+    }
+
+    @ResponseBody
+    @RequestMapping("/stuloyeesLeavekh")
+    public Map stuloyeesLeavekh(int page, int limit, StuqjSearch stuqjSearch){
+        Map map=new HashMap();
+        map.put("code",0);
+        map.put("msg"," ");
+        map.put("count",sysreportService.selstuqj());
+        map.put("data",sysreportService.StuloyeesLeave(page,limit,stuqjSearch));
+        System.out.println(map.toString());
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping("/stuqjxq")
+    public Map stuqjxq(int studentId){
+        Map map = new HashMap();
+        map.put("code",0);
+        map.put("msg"," ");
+        map.put("data",sysreportService.stuqingjiaxq(studentId));
+        return map;
+    }
 }

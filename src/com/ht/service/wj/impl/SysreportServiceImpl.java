@@ -4,6 +4,7 @@ import com.ht.dao.BaseDao;
 import com.ht.service.wj.SysreportService;
 import com.ht.vo.employee.WeekCheck;
 import com.ht.vo.student.HourNameSearch;
+import com.ht.vo.student.StuqjSearch;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -92,5 +93,24 @@ public class SysreportServiceImpl extends BaseDao implements SysreportService {
     @Override
     public List empqingjiaxq(int empid) {
         return listBySQL("select e.empName,hy.holidayDay,hy.startTime,hy.endTime,hy.title,hy.remark,hy.status from t_holiday hy left join t_emp e on hy.empid = e.empId where hy.empid=" + empid);
+    }
+
+    @Override
+    public List StuloyeesLeave(int currPage, int pageSize, StuqjSearch stuqjSearch) {
+        String sql = "select hs.studentId,s.stuName,count(*)qjcs from holidaystudent hs left join t_student s on hs.studentId = s.stuId group by s.stuName";
+        if (stuqjSearch.getStuName() != null && !"".equals(stuqjSearch.getStuName())){
+            sql+=" having stuName='"+stuqjSearch.getStuName()+"'";
+        }
+        return pageBySQL(sql,currPage,pageSize);
+    }
+
+    @Override
+    public int selstuqj() {
+        return selTotalRow("select count(*) from (select hs.studentId,s.stuName,count(*)qjcs from holidaystudent hs left join t_student s on hs.studentId = s.stuId group by s.stuName)count");
+    }
+
+    @Override
+    public List stuqingjiaxq(int studentId) {
+        return listBySQL("select s.stuName,hs.holidayDay,hs.startTime,hs.endTime,hs.title,hs.remark,hs.status from holidaystudent hs left join t_student s on hs.studentId = s.stuId where hs.studentId=" + studentId);
     }
 }

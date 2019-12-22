@@ -344,12 +344,6 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="${pageContext.request.contextPath}/process/process_list">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>流程列表</cite>
-                        </a>
-                    </li >
-                    <li>
                         <a _href="${pageContext.request.contextPath}/quanXie/to_roleList">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>角色管理</cite>
@@ -399,27 +393,9 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="echarts5.html">
+                        <a _href="${pageContext.request.contextPath}/sysreport/stuloyeesLeave">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>雷达图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts6.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>k线图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts7.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>热力图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="echarts8.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>仪表图</cite>
+                            <cite>学生请假</cite>
                         </a>
                     </li>
                 </ul>

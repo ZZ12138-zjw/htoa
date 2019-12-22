@@ -22,14 +22,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">员工姓名</label>
                             <div class="layui-input-inline">
-                                <input name="empName" autocomplete="off" class="layui-input">
+                                <input name="stuName" autocomplete="off" class="layui-input">
                             </div>
-                        </div>
-
-                        <div class="layui-inline">
-                                <input type="radio" name="month" value="全部月份" title="全部月份">
-                                <input type="radio" name="month" value="本月（12月)" title="本月（12月)" checked>
-                                <input type="radio" name="month" value="上月（11月)" title="上月（11月)" checked>
                         </div>
 
                         <div class="layui-inline">
@@ -66,17 +60,16 @@
             table.render({
                 id:"idTest"
                 ,elem: '#idTest'
-                ,url:'${pageContext.request.contextPath}/sysreport/employeesLeavekh'
+                ,url:'${pageContext.request.contextPath}/sysreport/stuloyeesLeavekh'
                 ,page: true
                 ,method:'post'
                 ,limit:10
                 ,cols: [
                     [
                         {type:'radio'}//开启单选框
-                        ,{field:'empid',title: 'ID'}
-                        ,{field:'empName', title: '员工姓名'}
+                        ,{field:'studentId',title: 'ID'}
+                        ,{field:'stuName', title: '学生姓名'}
                         ,{field:'qjcs',title: '请假次数'}
-                        ,{field:'tshu',title: '天数'}
                     ]
                 ]
                 ,limits: [5,10,20,50]
@@ -92,7 +85,7 @@
                         curr: 1
                     }
                     , where: {
-                        empName:data.field.empName,
+                        stuName:data.field.stuName,
                     }
                     ,text:{none:'无数据'}
                 }, 'data');
@@ -102,20 +95,20 @@
 
             table.on('row(complainList)',function (obj) {
                 var data = obj.data;    //当前行数据
-                var empid = data.empid;
+                var studentId = data.studentId;
                 obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');   //选中样式
                 obj.tr.find('i[class="layui-anim layui-icon"]').trigger("click");  //单机选中单选框
-                addTable(empid);
+                addTable(studentId);
             });
 
-            function addTable(empid) {
+            function addTable(studentId) {
                 table.render({
                     elem:'#kh',
-                    url:'${pageContext.request.contextPath}/sysreport/empqjxq/?empid=' + empid,
+                    url:'${pageContext.request.contextPath}/sysreport/stuqjxq/?studentId=' + studentId,
                     method:'post',
                     cols:[
                         [
-                            {field:'empName',title: '员工姓名'},
+                            {field:'stuName',title: '学生姓名'},
                             {field:'holidayDay',title: '请假天数'},
                             {field:'startTime',title: '开始时间', templet:function (row){
                                     return createTime(row.startTime);
@@ -123,7 +116,7 @@
                             {field:'endTime',title: '结束时间', templet:function (row){
                                     return createTime(row.endTime);
                                 }},
-                            {field:'title',title: '类型'},
+                            {field:'title',title: '标题'},
                             {field:'remark',title: '备注'},
                             {field:'status',title: '状态',templet:function (row) {
                                     if (row.status==1){
