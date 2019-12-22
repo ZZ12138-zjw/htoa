@@ -14,11 +14,6 @@
     <jsp:include page="top.jsp"></jsp:include>
 </head>
 <body>
-    <div class="x-nav">
-        <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-            <i class="layui-icon" style="line-height:38px">ဂ</i></a>
-    </div>
-
     <div class="layui-row">
         <fieldset class="layui-elem-field layuimini-search">
             <legend>搜素信息</legend>
@@ -114,28 +109,33 @@
                             {field:'checkContent',title: '考核内容'},
                             {field:'empName',title: '员工姓名'},
                             {field:'checkScore',title: '考核分数'},
-                            {field:'checkDate',title: '考核时间', templet:function (row){
-                                    return createTime(row.checkDate);
-                                }},
+                            {field:'checkDate',title: '考核时间'},
                             {field:'imageName',title: '图片'},
                             {field:'inputEmp',title: '录入人员'},
                             {field:'checkExplain',title: '说明'}
                         ]
                     ]
                 });
-
-                function createTime(v){
-                    var date = new Date(v);
-                    var y = date.getFullYear();
-                    var m = date.getMonth()+1;
-                    m = m<10?'0'+m:m;
-                    var d = date.getDate();
-                    d = d<10?("0"+d):d;
-                    var str = y+"-"+m+"-"+d;
-                    return str;
-                }
-
             }
+
+            // 监听搜索操作
+            form.on('submit(sreach)', function (data) {
+                var result = JSON.stringify(data.field);
+                alert(result);
+                //执行搜索重载
+                table.reload('idTest', {
+                    page: {
+                        curr: 1
+                    }
+                    , where: {
+                        empName:data.field.empName,
+                        depid:data.field.depid,
+                    }
+                    ,text:{none:'无数据'}
+                }, 'data');
+                7
+                return false;
+            });
         });
     </script>
 </body>
