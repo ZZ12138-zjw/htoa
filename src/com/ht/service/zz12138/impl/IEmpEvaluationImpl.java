@@ -2,6 +2,7 @@ package com.ht.service.zz12138.impl;
 
 import com.ht.dao.BaseDao;
 import com.ht.service.zz12138.IEmpEvaluationService;
+import com.ht.vo.LogisticsCheck.AddEmpEvaluationVo;
 import com.ht.vo.LogisticsCheck.EmpEvaluationVo;
 import com.ht.vo.LogisticsCheck.EvaluationContentVo;
 import com.ht.vo.employee.EmpVo;
@@ -85,8 +86,8 @@ public class IEmpEvaluationImpl extends BaseDao implements IEmpEvaluationService
     }
 
     @Override
-    public void addEvaluationList(int empID, String empName, int classID,String className,int stuId,int evaluationContentID) {
-        executeSQL("insert into t_evaluationlist(empID,empName,classId,className,stuId,evaluationStatus)  values("+empID+",'"+empName+"',"+classID+",'"+className+"','"+stuId+"',"+evaluationContentID+")");
+    public void addEvaluationList(int empID, String empName, int classID,String className,int stuId,String evaluationContentID,int evaluationStatus,int empEvaluationID) {
+        executeSQL("insert into t_evaluationlist(empID,empName,classId,className,stuId,evaluationStatus,evaluationContentID,empEvaluationID)  values("+empID+",'"+empName+"',"+classID+",'"+className+"','"+stuId+"',"+evaluationStatus+",'"+evaluationContentID+"',"+empEvaluationID+")");
     }
 
     @Override
@@ -149,6 +150,31 @@ public class IEmpEvaluationImpl extends BaseDao implements IEmpEvaluationService
     @Override
     public List selectEvaluationByEmpID(int empID) {
         return listBySQL("select * from empevaluation where empID = "+empID);
+    }
+
+    @Override
+    public List selectEmpByEmpName(String empName) {
+        return listBySQL("select * from t_emp where empName = '"+empName+"'");
+    }
+
+    @Override
+    public List selectEvaluationList(int stuID, int empID) {
+        return listBySQL("select * from t_evaluationlist where stuId = "+stuID+" and empID = "+empID);
+    }
+
+    @Override
+    public List selectEvaluation(int empEvaluationID) {
+        return listBySQL("select * from empevaluation where empEvaluationID = "+empEvaluationID);
+    }
+
+    @Override
+    public void addEvaluation(AddEmpEvaluationVo vo) {
+        addObject(vo);
+    }
+
+    @Override
+    public void updateEvaluationStatus(int stuId, int empEvaluationID) {
+        executeSQL("update t_evaluationlist set evaluationStatus = 1 where stuId = "+stuId+" and empEvaluationID = "+empEvaluationID);
     }
 
 

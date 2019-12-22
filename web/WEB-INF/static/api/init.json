@@ -39,7 +39,7 @@
         },
         {
           "title": "教师考评",
-          "href": "Stu.jsp",
+          "href": "/Stu/empevaluationcontro/to_empevaluationlist",
           "icon": "fa fa-window-maximize",
           "target": "_self"
         },
@@ -51,7 +51,7 @@
         },
         {
           "title": "保修申请",
-          "href": "Stu.jsp",
+          "href": "/Stu/studentrepair/to_repairapply",
           "icon": "fa fa-file-text",
           "target": "_self"
         }

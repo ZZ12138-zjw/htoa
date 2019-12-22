@@ -213,6 +213,18 @@ public class EvaluationContro {
     }
 
     @ResponseBody
+    @RequestMapping("/alldelempevaluation")
+    public String alldelempevaluation(int empEvaluationID[]){
+        String evaluationID = "";
+        for (int i=0;i<empEvaluationID.length;i++){
+            evaluationID+=empEvaluationID[i] + ",";
+        }
+        evaluationID = evaluationID.substring(0,evaluationID.length()-1);
+        empEvaluationService.allDelEmpEvaluation(evaluationID);
+        return "success";
+    }
+
+    @ResponseBody
     @RequestMapping("/addempevaluation")
     public String addempevaluation(EmpEvaluationVo empEvaluationVo) throws ParseException {
         System.out.println("进入添加员工考评后台");
@@ -242,17 +254,19 @@ public class EvaluationContro {
         }
 
         List<Map> evaluationContentList = empEvaluationService.selectEvaluationContent(empEvaluationVo.getEvaluationContentID());
-        int totalScore = 0;
+        String totalScore = "";
+        int evaluationTotalScore = 0;
 
         for (int i = 0; i < evaluationContentList.size(); i++) {
             Map map = evaluationContentList.get(i);
-            totalScore += (Integer) map.get("evaluationScore");
+            totalScore += (Integer) map.get("evaluationScore")+",";
+            evaluationTotalScore += (Integer) map.get("evaluationScore");
         }
 
-        empEvaluationVo.setEvaluationScore(totalScore);
+        empEvaluationVo.setEvaluationTotalScore(evaluationTotalScore);
+        empEvaluationVo.setEvaluationScore(totalScore.substring(0,totalScore.length()-1));
         System.out.println("empEvaluationVo:" + empEvaluationVo.toString());
         empEvaluationService.addEmpEvaluation(empEvaluationVo);
-
 
         List<Map> classes = new ArrayList<>();
         if (empEvaluationVo.getEvaluationType() == 1) {//老师
@@ -269,23 +283,10 @@ public class EvaluationContro {
             List<Map> evaluationList = empEvaluationService.selectEvaluationByEmpID(empEvaluationVo.getEmpID());
             List allEvaluationID = new ArrayList();
 
-
-
-            /*for (Map map3 : evaluationList){
-            }*/
+            System.out.println("evaluationContentID:"+empEvaluationVo.getEvaluationContentID());
 
             for (Map stu : studentList) {
-                for (int i = 0; i < evaluationList.size(); i++) {
-                    Map<String,String> map4 = evaluationList.get(i);
-                    String evaluationid[] = map4.get("evaluationContentID").split(",");
-                    Map<String,Integer> map5 = new HashMap<>();
-                    for (int j=0;j<evaluationid.length;j++){
-                        String evaID = evaluationid[j];
-                        map5.put("evaluationContentID",Integer.parseInt(evaID));
-                        System.out.println("map5:"+map5.toString());
-                    }
-                    empEvaluationService.addEvaluationList(empEvaluationVo.getEmpID(), empEvaluationVo.getEmpName(), clz.getClassId(), clz.getClassName(), Integer.parseInt(stu.get("stuId") + ""),map5.get("evaluationContentID"));
-                }
+                empEvaluationService.addEvaluationList(empEvaluationVo.getEmpID(), empEvaluationVo.getEmpName(), clz.getClassId(), clz.getClassName(), Integer.parseInt(stu.get("stuId") + ""),empEvaluationVo.getEvaluationContentID(),0,empEvaluationVo.getEmpEvaluationID());
             }
         }
 
