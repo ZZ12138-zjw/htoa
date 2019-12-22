@@ -355,6 +355,12 @@
                             <cite>角色管理</cite>
                         </a>
                     </li >
+                    <li>
+                        <a _href="${pageContext.request.contextPath}/system_setting/toSetting">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>系统设置</cite>
+                        </a>
+                    </li >
                 </ul>
             </li>
             <%--系统设置 end--%>

@@ -51,4 +51,19 @@ public class StudentHuorServiceImpl extends BaseDao implements IStudentHuorServi
     public void updateHuor(StudentHuorVo studentHuorVo) {
         updObject(studentHuorVo);
     }
+
+    @Override
+    public int getHuorCount(int huorId) {
+        return listByHql("from StudentVo where hourid="+huorId).size();
+    }
+
+    @Override
+    public int selHourStudentCount(Integer hourId) {
+        return selTotalRow("select count(s.stuName) from t_studentHuor h left join t_student s on h.hourId=s.hourid where h.hourId="+hourId);
+    }
+
+    @Override
+    public List selHourStudent(Integer hourId) {
+        return listBySQL("select h.hourName,c.className,s.stuName,s.phone from t_studentHuor h left join t_student s on h.hourId=s.hourid left join t_studentclass c on s.classid=c.classId where h.hourId="+hourId);
+    }
 }
