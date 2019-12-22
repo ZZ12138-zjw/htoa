@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface IModuleService {
 
-    List<ModuleVo> selectAll();
+    List<ModuleVo> selectAll(Integer root);
 
     void delete(ModuleVo moduleVo);
 
@@ -25,5 +25,6 @@ public interface IModuleService {
     int selectCount();
 
     void save(ModuleVo moduleVo);
+
 
 }

@@ -1,15 +1,21 @@
 package com.ht.controller.zz12138;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.ht.service.zz12138.IEmpEvaluationService;
+import com.ht.vo.LogisticsCheck.AddEmpEvaluationVo;
 import com.ht.vo.LogisticsCheck.EmpEvaluationVo;
 import com.ht.vo.LogisticsCheck.EvaluationListVo;
 import com.ht.vo.student.StudentVo;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,52 +38,114 @@ public class EmpEvaluationController {
 
     @ResponseBody
     @RequestMapping("/liststudentempevaluation")
-    public Map liststudentempevaluation(String evaluationType, HttpSession session) {
+    public Map liststudentempevaluation(String evaluation, HttpSession session) {
+        //获取session
         StudentVo studentVo = (StudentVo) session.getAttribute("studentVo");
 
-        //根据学生ID查询evaluationlist状态是已读还是未读
-        List<Map> evaluationList = empEvaluationService.selectEvaluationList(studentVo.getStuId());
+        int evaluationType = Integer.parseInt(evaluation);
 
-        if (Integer.parseInt(evaluationType)==1){
-            //根据班级ID查询班级列表，获得当前授课老师
-            List<Map> studentClassList = empEvaluationService.selectClass(studentVo.getClassid());
-            int empID = 0;
+        //通过班级ID获取到专业老师与专职班主任
+        List<Map> studentClass = empEvaluationService.selectClass(studentVo.getClassid());
+        Map<String,String> map = studentClass.get(0);
 
-            //根据授课老师姓名查询授课老师ID，查询t_emp表
-            for (Map<String,String> map : studentClassList){
-                List<Map> empList = empEvaluationService.selectEmp(map.get("teacher"));
-                Map<String,Integer> map2 = empList.get(0);
-                empID = map2.get("empId");
-                break;
-            }
+        //
+        if (evaluationType==1){
+            //通过专业老师姓名查询t_emp表获取到专业老师的ID
+            List<Map> studentClass1 = empEvaluationService.selectEmpByEmpName(map.get("teacher"));
+            Map<String,Integer> empMap = studentClass1.get(0);
 
-            //查询学生是否已读考评
-            List<Map> evaluationStatus = empEvaluationService.seelctEvaluationStatus(empID,studentVo.getStuId());
-            Map<String,Integer> map = evaluationStatus.get(0);
-            if (map.get("evaluationStatus")==0){
-                List<Map> empEvaluationList = empEvaluationService.selectEvaluation(empID, Integer.parseInt(evaluationType));
-                System.out.println("考评内容："+empEvaluationList.toString());
-                /*for (Map map2 : empEvaluationList) {
+            //通过学生ID与教师ID查询evaluationList获取evaluationContentID
+            List<Map> list = empEvaluationService.selectEvaluationList(studentVo.getStuId(),empMap.get("empId"));
+            Map<String,Object> map1 = list.get(0);
 
-                    //
-                }*/
+            if (Integer.parseInt(map1.get("evaluationStatus") + "")==0){
+                List empEvaluationList = empEvaluationService.selectEvaluation(Integer.parseInt(map1.get("empEvaluationID") + ""));
+
+                Map dataMap = new HashMap();
+                JSONArray json = (JSONArray) JSON.toJSON(empEvaluationList);
+
+                dataMap.put("msg","");
+                dataMap.put("code",0);
+                dataMap.put("count",1);
+                dataMap.put("data",json);
+                return dataMap;
             }else{
-                System.out.println("学生已考评！");
+                Map dataMap = new HashMap();
+
+                dataMap.put("msg", "");
+                dataMap.put("code", 0);
+                dataMap.put("count", 1);
+                dataMap.put("data", "");
+                return dataMap;
             }
+            //学生ID与考评ID查询该学生的考评状态
+//            List<Map> evaluationList =
 
+        }else{
+            //通过专职班主任姓名查询t_emp表获取到专业老师的ID
+            List<Map> studentClass1 = empEvaluationService.selectEmpByEmpName(map.get("classTeacher"));
+            Map<String, Integer> empMap = studentClass1.get(0);
 
-            //根据老师ID和教师类型查询教师考评表
+            //通过学生ID与教师ID查询evaluationList获取evaluationContentID
+            List<Map> list = empEvaluationService.selectEvaluationList(studentVo.getStuId(), empMap.get("empId"));
+            Map<String, Object> map1 = list.get(0);
 
+            System.out.println(map1.toString());
+            if (Integer.parseInt(map1.get("evaluationStatus") + "") == 0) {
+                List empEvaluationList = empEvaluationService.selectEvaluation(Integer.parseInt(map1.get("empEvaluationID") + ""));
+                Map dataMap = new HashMap();
+                JSONArray json = (JSONArray) JSON.toJSON(empEvaluationList);
+
+                dataMap.put("msg", "");
+                dataMap.put("code", 0);
+                dataMap.put("count", 1);
+                dataMap.put("data", json);
+                return dataMap;
+            } else {
+                Map dataMap = new HashMap();
+
+                dataMap.put("msg", "");
+                dataMap.put("code", 0);
+                dataMap.put("count", 1);
+                dataMap.put("data", "");
+                return dataMap;
+            }
         }
+    }
 
-        /*for (Map<String,Integer> map : evaluationList){
-            if (map.get("evaluationStatus")==0){
+    @RequestMapping("/to_startevaluation")
+    public String to_startevaluation(String empEvaluationID, ModelMap model, HttpServletRequest request) {
+        EmpEvaluationVo vo = empEvaluationService.selectEmpEvaluation(Integer.parseInt(empEvaluationID));
+        String evaluationContent[] = vo.getEvaluationContent().split(",");
+        String evaluationContentID[] = vo.getEvaluationContentID().split(",");
+        String evaluationScore[] = vo.getEvaluationScore().split(",");
 
-                Map studentClassMap = studentClassList.get(0);
-                System.out.println(studentClassMap.toString());
-            }
-        }*/
-        Map map = new HashMap();
-        return map;
+        List content = new ArrayList();
+        List contentID = new ArrayList();
+        List score = new ArrayList();
+
+        request.setAttribute("evaluationContent", evaluationContent);
+        request.setAttribute("evaluationContentID", evaluationContentID);
+        request.setAttribute("evaluationScore", evaluationScore);
+        request.setAttribute("empEvaluationVo",vo);
+        return "student_jsp/student_startevaluation";
+    }
+
+    @ResponseBody
+    @RequestMapping("/addempevaluation")
+    public String addempevaluation(AddEmpEvaluationVo addEmpEvaluationVo,HttpSession session){
+        String evaluationSingleGetScore[] = addEmpEvaluationVo.getEvaluationSingleGetScore().split(",");
+        StudentVo studentVo = (StudentVo) session.getAttribute("studentVo");
+        int totalScore = 0;
+        for (int i=0;i<evaluationSingleGetScore.length;i++){
+            totalScore+=Integer.parseInt(evaluationSingleGetScore[i]);
+        }
+        addEmpEvaluationVo.setEvaluationTotalGetScore(totalScore);
+        addEmpEvaluationVo.setStuId(studentVo.getStuId());
+        addEmpEvaluationVo.setStuName(studentVo.getStuName());
+        empEvaluationService.addEvaluation(addEmpEvaluationVo);
+        empEvaluationService.updateEvaluationStatus(addEmpEvaluationVo.getStuId(),Integer.parseInt(addEmpEvaluationVo.getEmpEvaluationID()));
+        System.out.println(addEmpEvaluationVo.toString());
+        return "success";
     }
 }

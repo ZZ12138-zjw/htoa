@@ -60,7 +60,7 @@
                     {type:'checkbox',align:'center'}
                     ,{field: 'empEvaluationID', title: '编号', sort: true,fit:'left',align:'center'}
                     ,{field: 'evaluationContent', title: '考评内容',align:'center',width:150}
-                    ,{field: 'evaluationScore', title: '考评分数',align:'center'}
+                    ,{field: 'evaluationTotalScore', title: '考评分数',align:'center'}
                     ,{field: 'empName', title: '员工名称',align:'center'}
                     ,{field: 'depName', title: '部门名称',align:'center',sort:true}
                     ,{field: 'startDate', title: '开始日期',templet:function (data) {

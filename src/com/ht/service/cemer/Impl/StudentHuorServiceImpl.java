@@ -24,7 +24,7 @@ public class StudentHuorServiceImpl extends BaseDao implements IStudentHuorServi
 
     @Override
     public List selHuorPage(Integer currPage, Integer pageSize) {
-        return pageBySQL("select h.hourId,h.addr,h.hourIddsc,h.hourName,h.numberBeds,f.floorName from t_studentHuor h left join t_studentFloor f on h.floorId=f.floorId",currPage,pageSize);
+        return pageBySQL("select h.*,f.floorName from t_studentHuor h left join t_studentFloor f on h.floorId=f.floorId",currPage,pageSize);
     }
 
     @Override
@@ -50,6 +50,11 @@ public class StudentHuorServiceImpl extends BaseDao implements IStudentHuorServi
     @Override
     public void updateHuor(StudentHuorVo studentHuorVo) {
         updObject(studentHuorVo);
+    }
+
+    @Override
+    public int getHuorCount(int huorId) {
+        return listByHql("from StudentVo where hourid="+huorId).size();
     }
 
     @Override

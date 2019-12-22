@@ -14,13 +14,13 @@ public class holidayStudentVo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int holidayId;     //主键
-    private int StudentId;      //学生表主键
+    private int studentId;      //学生表主键
     private int holidayDay;     //假期天数
     private Date startTime;     //开始时间
     private Date endTime;       //结束时间
     private String Title;       //标题
-    private String Remark;      //内容
-    private String Status;      //审批状态
+    private String remark;      //内容
+    private String status;      //审批状态
 
     public int getHolidayId() {
         return holidayId;
@@ -31,11 +31,11 @@ public class holidayStudentVo {
     }
 
     public int getStudentId() {
-        return StudentId;
+        return studentId;
     }
 
     public void setStudentId(int studentId) {
-        StudentId = studentId;
+        this.studentId = studentId;
     }
 
     public int getHolidayDay() {
@@ -71,18 +71,18 @@ public class holidayStudentVo {
     }
 
     public String getRemark() {
-        return Remark;
+        return remark;
     }
 
     public void setRemark(String remark) {
-        Remark = remark;
+        this.remark = remark;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 }

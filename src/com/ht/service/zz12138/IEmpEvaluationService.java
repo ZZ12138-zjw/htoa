@@ -1,5 +1,6 @@
 package com.ht.service.zz12138;
 
+import com.ht.vo.LogisticsCheck.AddEmpEvaluationVo;
 import com.ht.vo.LogisticsCheck.EmpEvaluationVo;
 import com.ht.vo.LogisticsCheck.EvaluationContentVo;
 import com.ht.vo.LogisticsCheck.EvaluationListVo;
@@ -51,7 +52,7 @@ public interface IEmpEvaluationService {
     public EmpEvaluationVo selectEmpEvaluation(int empEvaluationID);
 
     //将员工ID   员工姓名  班级ID存入考评列表表
-    public void addEvaluationList(int empID,String empName,int classID,String className,int stuId,int evaluationContentID);
+    public void addEvaluationList(int empID,String empName,int classID,String className,int stuId,String evaluationContentID,int evaluationStatus,int empEvaluationID);
 
     //根据授课老师姓名查询出班级ID
     public List selectClass1(String teacherName);
@@ -86,4 +87,19 @@ public interface IEmpEvaluationService {
 
     //根据员工ID查询考评内容
     public List selectEvaluationByEmpID(int empID);
+
+    //根据员工姓名
+    public List selectEmpByEmpName(String empName);
+
+    //根据学生ID与教师ID查询evaluationList
+    public List selectEvaluationList(int stuID,int empID);
+
+    //根据考评ID查询考评内容
+    public List selectEvaluation(int empEvaluationID);
+
+    //从学生端添加教师考评
+    public void addEvaluation(AddEmpEvaluationVo vo);
+
+    //更新学生考评状态为1
+    public void updateEvaluationStatus(int stuId,int empEvaluationID);
 }

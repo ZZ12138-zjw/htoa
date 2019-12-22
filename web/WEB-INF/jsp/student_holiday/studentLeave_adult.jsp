@@ -4,45 +4,41 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset="UTF-8">
     <title></title>
-    <jsp:include page="top.jsp"/>
+    <jsp:include page="../top.jsp"/>
   </head>
   
   <body>
     <div class="x-body">
         <form class="layui-form" lay-filter="add">
-          <div class="layui-form-item">
-              <label for="startTime" class="layui-form-label">
-                  <span class="x-red">*</span>开始时间
-              </label>
-              <div class="layui-input-inline">
-                  <input  name="s" id="startTime" autocomplete="off" class="layui-input">
-              </div>
-          </div>
+            <input type="hidden" name="taskId" value="${taskId}">
+            <input type="hidden" name="hid" value="${holiday.holidayId}">
         <div class="layui-form-item">
-            <label for="endTime" class="layui-form-label">
-                <span class="x-red">*</span>结束时间
+            <label for="empName" class="layui-form-label">
+                <span class="x-red">*</span>请假人
             </label>
             <div class="layui-input-inline">
-                <input  name="e" id="endTime"  autocomplete="off" class="layui-input">
+                <input type="text" id="empName" value="${holiday.stuName}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="day" class="layui-form-label">
+                <span class="x-red">*</span>请假天数
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="day" value="${holiday.holidayDay}" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label for="title" class="layui-form-label">
-                <span class="x-red">*</span>请假类型
+                <span class="x-red">*</span>是否批准
             </label>
             <div class="layui-input-inline">
-                <select id="title" name="title">
-                    <option value="事假">事假</option>
-                    <option value="病假">病假</option>
-                    <option value="4小时带薪假">4小时带薪假</option>
-                    <option value="婚嫁">婚嫁</option>
-                    <option value="产假">产假</option>
-                    <option value="陪产假">陪产假</option>
-                    <option value="其它">其它</option>
+                <select id="title" name="flow">
+                    <option value="同意">同意</option>
+                    <option value="不同意">不同意</option>
                 </select>
             </div>
         </div>
@@ -65,39 +61,30 @@
     <script>
         layui.use(['form','layer','laydate'], function(){
           var form = layui.form;
-          var layer = layui.layer,
-              laydate=layui.laydate;
+          var layer = layui.layer;
 
-
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#startTime' //指定元素
-            });
-
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#endTime' //指定元素
-            });
           //表单校验
           //监听提交
           form.on('submit(formDemo)',function(data){
             //发异步，把数据提交给后台
               $.ajax({
-                  url:'${pageContext.request.contextPath}/empLeave/holidayAdd',
+                  url:'${pageContext.request.contextPath}/stuHoliday/complete',
                   type:'post',
                   data:data.field,
                   dataType:'json',
                   success:function (data){
-                      layui.layer.closeAll();
-                      layer.alert("提交成功", {icon: 6},function(){
-                          // 获得frame索引
-                          var index = parent.layer.getFrameIndex(window.name);
-                          //关闭当前frame
-                          parent.layer.close(index);
-                          setTimeout(function () {
-                              window.parent.location.reload(); //修改成功后刷新父界面
-                          })
-                      });
+                      if ("success"==data){
+                          layer.alert("审批成功", {icon: 6},function(){
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                              layer.closeAll();
+                              setTimeout(function () {
+                                  window.parent.location.reload(); //修改成功后刷新父界面
+                              })
+                          });
+                      }
                   }
               });
               return false;

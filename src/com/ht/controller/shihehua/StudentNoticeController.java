@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,8 +59,16 @@ public class StudentNoticeController {
     }
 
     @RequestMapping("/to_noticeStudentReceipt")
-    public String to_noticeStudentReceipt(ModelMap map, String noticeId){
-        List list = ins.selNoticeReceiptStudentList(Integer.parseInt(noticeId));
+    public String to_noticeStudentReceipt(ModelMap map, String noticeId,String noticeType){
+        List list = new ArrayList();
+        if (Integer.parseInt(noticeType)==2){
+            list = ins.selNoticeReceiptStudentList(Integer.parseInt(noticeId));
+
+        }else{
+            list = ins.selNoticeReceiptEmpList(Integer.parseInt(noticeId));
+            List list2 = ins.selNoticeReceiptStudentList(Integer.parseInt(noticeId));
+            list.addAll(list2);
+        }
         JSONArray json = (JSONArray) JSON.toJSON(list);
         map.put("noticeReceiptList",json);
         System.out.println("JSON:"+json.toJSONString());
@@ -68,7 +77,7 @@ public class StudentNoticeController {
 
     @RequestMapping("updateStudentType")
     @ResponseBody
-    public String StudentNoticeReceiptList(HttpSession session, String noticeId){
+    public String StudentNoticeReceiptList(HttpSession session,String noticeId){
         System.out.println("noticeId   "+noticeId);
         StudentVo studentVo = (StudentVo) session.getAttribute("studentVo");
         ins.updateStudentNoticeReceiptType(studentVo.getStuId(),Integer.parseInt(noticeId));
@@ -79,7 +88,7 @@ public class StudentNoticeController {
             ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
         }else if (noticeVo.getNoticeType()==3){
             int trueCount = ins.EmpNoticeTrueCount(Integer.parseInt(noticeId))+ins.StudentNoticeTrueCount(Integer.parseInt(noticeId));
-            int falseCount = ins.EmpNoticeFalseCount(Integer.parseInt(noticeId)+ins.StudentNoticeFalseCount(Integer.parseInt(noticeId)));
+            int falseCount = ins.EmpNoticeFalseCount(Integer.parseInt(noticeId))+ins.StudentNoticeFalseCount(Integer.parseInt(noticeId));
             ins.updateEmpNoticeCount(trueCount,falseCount,Integer.parseInt(noticeId));
         }
         return "success";
