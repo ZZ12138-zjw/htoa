@@ -2,9 +2,12 @@ package com.ht.service.cemer.Impl;
 
 import com.ht.dao.BaseDao;
 import com.ht.service.cemer.SystemSettingService;
+import com.ht.vo.educational.TermVo;
 import com.ht.vo.employee.DeptVo;
+import com.ht.vo.student.ReplyScoreVo;
 import com.ht.vo.student.StudentFallVo;
 import com.ht.vo.student.StudentTypeVo;
+import com.ht.vo.student.TestTypeVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -89,5 +92,80 @@ public class SystemSettingServiceImpl extends BaseDao implements SystemSettingSe
     @Override
     public List selectEmpAll() {
         return listByHql("from EmpVo");
+    }
+
+    @Override
+    public List selectTermAll() {
+        return listByHql("from TermVo");
+    }
+
+    @Override
+    public List selectTermByPage(int page, int limit) {
+        return pageByHql("from TermVo",page,limit);
+    }
+
+    @Override
+    public void addTerm(TermVo termVo) {
+        addObject(termVo);
+    }
+
+    @Override
+    public TermVo getTermById(int termid) {
+        return (TermVo)getObject(TermVo.class,termid);
+    }
+
+    @Override
+    public void delTerm(TermVo termVo) {
+        delObject(termVo);
+    }
+
+    @Override
+    public List selectReplyScoreAll() {
+        return listByHql("from ReplyScoreVo");
+    }
+
+    @Override
+    public List selectReplyScoreByPage(int page, int limit) {
+        return pageByHql("from ReplyScoreVo",page,limit);
+    }
+
+    @Override
+    public void addReplyScore(ReplyScoreVo replyScoreVo) {
+        addObject(replyScoreVo);
+    }
+
+    @Override
+    public ReplyScoreVo getReplyScoerById(int projectId) {
+        return (ReplyScoreVo)getObject(ReplyScoreVo.class,projectId);
+    }
+
+    @Override
+    public void delReplyScore(ReplyScoreVo replyScoreVo) {
+        delObject(replyScoreVo);
+    }
+
+    @Override
+    public List selectTestType() {
+        return listByHql("from TestTypeVo");
+    }
+
+    @Override
+    public List selectTestTypePage(int page, int limit) {
+        return pageByHql("from TestTypeVo",page,limit);
+    }
+
+    @Override
+    public void addTestType(TestTypeVo testTypeVo) {
+        addObject(testTypeVo);
+    }
+
+    @Override
+    public TestTypeVo getTestTypeById(int typeId) {
+        return (TestTypeVo)getObject(TestTypeVo.class,typeId);
+    }
+
+    @Override
+    public void delTestType(TestTypeVo testTypeVo) {
+        delObject(testTypeVo);
     }
 }

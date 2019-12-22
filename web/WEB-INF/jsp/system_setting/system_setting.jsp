@@ -55,7 +55,7 @@
             </td>
             <td style="text-align: center;vertical-align: middle">
                 <a style="cursor: pointer" href="javascript:void(0);" class="site-demo-active" data-type="tabAdd"
-                   data-url="${pageContext.request.contextPath}/system_setting/jiebie_setting"
+                   data-url="${pageContext.request.contextPath}/system_setting/term_setting"
                    data-id="学期设置" data-title="学期设置">
                     <i class="layui-icon layui-icon-set-fill" style="font-size: 60px; color: #c2c2c2;"></i>
                     <br>
@@ -75,7 +75,7 @@
         <tr>
             <td style="text-align: center;vertical-align: middle">
                 <a style="cursor: pointer" href="javascript:void(0);" class="site-demo-active" data-type="tabAdd"
-                   data-url="${pageContext.request.contextPath}/system_setting/jiebie_setting"
+                   data-url="${pageContext.request.contextPath}/system_setting/replyscore_setting"
                    data-id="答辩项目" data-title="答辩项目">
                     <i class="layui-icon layui-icon-set-fill" style="font-size: 60px; color: #c2c2c2;"></i>
                     <br>
@@ -84,20 +84,20 @@
             </td>
             <td style="text-align: center;vertical-align: middle">
                 <a style="cursor: pointer" href="javascript:void(0);" class="site-demo-active" data-type="tabAdd"
-                   data-url="${pageContext.request.contextPath}/system_setting/jiebie_setting"
-                   data-id="工作时间" data-title="工作时间">
+                   data-url="${pageContext.request.contextPath}/system_setting/testtype_setting"
+                   data-id="考试类型" data-title="考试类型">
                     <i class="layui-icon layui-icon-set-fill" style="font-size: 60px; color: #c2c2c2;"></i>
                     <br>
-                    <label style="font-size: 18px">工作时间</label>
+                    <label style="font-size: 18px">考试类型</label>
                 </a>
             </td>
             <td style="text-align: center;vertical-align: middle">
                 <a style="cursor: pointer" href="javascript:void(0);" class="site-demo-active" data-type="tabAdd"
-                   data-url="${pageContext.request.contextPath}/system_setting/jiebie_setting"
-                   data-id="APP设置" data-title="APP设置">
+                   data-url="${pageContext.request.contextPath}/system_setting/testtype_setting"
+                   data-id="权限设置" data-title="权限设置">
                     <i class="layui-icon layui-icon-set-fill" style="font-size: 60px; color: #c2c2c2;"></i>
                     <br>
-                    <label style="font-size: 18px">APP设置</label>
+                    <label style="font-size: 18px">权限设置</label>
                 </a>
             </td>
         </tr>

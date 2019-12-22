@@ -1,9 +1,12 @@
 package com.ht.controller.cemer;
 
 import com.ht.service.cemer.SystemSettingService;
+import com.ht.vo.educational.TermVo;
 import com.ht.vo.employee.DeptVo;
+import com.ht.vo.student.ReplyScoreVo;
 import com.ht.vo.student.StudentFallVo;
 import com.ht.vo.student.StudentTypeVo;
+import com.ht.vo.student.TestTypeVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -125,6 +128,106 @@ public class SystemSettingsController {
     @ResponseBody
     public String delDept(int depid){
         settingService.deleteDept(settingService.getDeptById(depid));
+        return "success";
+    }
+
+    @RequestMapping("/term_setting")
+    public String toTermPage(){
+        return "system_setting/term_setting";
+    }
+
+    @RequestMapping("/term_data")
+    @ResponseBody
+    public Map getTermData(String page,String limit){
+        Map map = new HashMap();
+        map.put("code",0);
+        map.put("msg"," ");
+        map.put("count",settingService.selectTermAll().size());
+        map.put("data",settingService.selectTermByPage(Integer.parseInt(page),Integer.parseInt(limit)));
+        return map;
+    }
+    @RequestMapping("/term_toAdd")
+    public String toTermAddPage(){
+        return "system_setting/term_add";
+    }
+
+    @RequestMapping("/term_add")
+    @ResponseBody
+    public String addTerm(TermVo termVo){
+        settingService.addTerm(termVo);
+        return "success";
+    }
+    @RequestMapping("/term_delete")
+    @ResponseBody
+    public String delTerm(int termid){
+        settingService.delTerm(settingService.getTermById(termid));
+        return "success";
+    }
+
+    @RequestMapping("/replyscore_setting")
+    public String toReplyscoreSetting(){
+        return "system_setting/replyscore_setting";
+    }
+
+    @RequestMapping("/replyscore_data")
+    @ResponseBody
+    public Map getReplyscoreSetting(String page,String limit){
+        Map map = new HashMap();
+        map.put("code",0);
+        map.put("msg"," ");
+        map.put("count",settingService.selectReplyScoreAll().size());
+        map.put("data",settingService.selectReplyScoreByPage(Integer.parseInt(page),Integer.parseInt(limit)));
+        return map;
+    }
+
+    @RequestMapping("/replyscore_toAdd")
+    public String toReplyScoreAddPage(){
+        return "system_setting/replyscore_add";
+    }
+    @RequestMapping("/replyscore_add")
+    @ResponseBody
+    public String addReplyScore(ReplyScoreVo replyScoreVo){
+        settingService.addReplyScore(replyScoreVo);
+        return "success";
+    }
+
+    @RequestMapping("/replyscore_delete")
+    @ResponseBody
+    public String delReplyScore(int projectId){
+        settingService.delReplyScore(settingService.getReplyScoerById(projectId));
+        return "success";
+    }
+
+    @RequestMapping("/testtype_setting")
+    public String totestTypePage(){
+
+        return "system_setting/testtype_setting";
+    }
+
+    @RequestMapping("/testtype_data")
+    @ResponseBody
+    public Map gettesttypedata(String page,String limit){
+        Map map = new HashMap();
+        map.put("code",0);
+        map.put("msg"," ");
+        map.put("count",settingService.selectTestType().size());
+        map.put("data",settingService.selectTestTypePage(Integer.parseInt(page),Integer.parseInt(limit)));
+        return map;
+    }
+    @RequestMapping("/testtype_toAdd")
+    public String toAddTestType(){
+        return "system_setting/testtype_add";
+    }
+    @RequestMapping("/testtype_add")
+    @ResponseBody
+    public String addTestType(TestTypeVo testTypeVo){
+        settingService.addTestType(testTypeVo);
+        return "success";
+    }
+    @RequestMapping("/testtype_delete")
+    @ResponseBody
+    public String delTestTypeDelete(int typeId){
+        settingService.delTestType(settingService.getTestTypeById(typeId));
         return "success";
     }
 }
