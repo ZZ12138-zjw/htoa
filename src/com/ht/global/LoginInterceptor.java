@@ -25,17 +25,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         //不拦截学生端的路径
-        if (url.toLowerCase().indexOf("stu") >= 0) {
+        if (url.toLowerCase().indexOf("stu")>=0){
             return true;
         }
-
        HttpSession session = httpServletRequest.getSession();
         //判断用户是否登录,登录了则继续往下执行
        if (session.getAttribute("empVo")!=null){
             return true;
        }
-
-
        //转发到登录页面
        httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login.jsp");
 

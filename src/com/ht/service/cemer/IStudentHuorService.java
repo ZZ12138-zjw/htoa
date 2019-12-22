@@ -25,4 +25,9 @@ public interface IStudentHuorService {
 
     public void updateHuor(StudentHuorVo studentHuorVo);
 
+    int getHuorCount(int huorId);
+
+    public int selHourStudentCount(Integer hourId);
+
+    public List selHourStudent(Integer hourId);
 }
