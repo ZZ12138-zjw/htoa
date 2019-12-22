@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -179,8 +180,18 @@ public class GlobalController {
     }
 
 
-
-
+    /**
+     * 学生端主页
+     * @return
+     */
+    @RequestMapping("/studentWelcome")
+    public String toStudentWelcome(Map map,HttpSession session){
+        StudentVo studentVo = (StudentVo) session.getAttribute("studentVo");
+        System.out.println(studentVo.getStuId());
+        List list = ins.selStudentpNoticeList(studentVo.getStuId());
+        map.put("studenNoticeList",list);
+        return "student_jsp/student_welcome";
+    }
 
 
 

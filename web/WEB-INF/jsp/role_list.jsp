@@ -16,7 +16,7 @@
             <table class="layui-hide" id="roleTable" lay-filter="roleTableFilter"></table>
             <script type="text/html" id="roleTableBar">
                 <button class="layui-btn layui-btn-xs layui-btn-primary data-count-edit" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑权限</button>
-                <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event=""><i class="layui-icon">&#xe640;</i>角色名称</button>
+                <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="role"><i class="layui-icon">&#xe640;</i>角色名称</button>
                 <button class="layui-btn layui-btn-xs layui-btn-primary data-count-delete" lay-event="delete"><i class="layui-icon">&#xe640;</i>删除</button>
             </script>
             <script type="text/html" id="toolbar">
@@ -63,7 +63,10 @@
                         }
                     });
                 });
+            }else if (obj.event=='edit'){
+                x_admin_show('编辑权限','${pageContext.request.contextPath}/quanXie/toModuleEdit')
             }
+
         });
     });
 </script>

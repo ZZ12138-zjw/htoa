@@ -16,8 +16,8 @@ public class ModuleServiceImpl extends BaseDao implements IModuleService {
 
 
     @Override
-    public List<ModuleVo> selectAll() {
-        return listByHql("from ModuleVo");
+    public List<ModuleVo> selectAll(Integer root) {
+        return listByHql("from ModuleVo m where m.root="+root);
     }
 
     @Override

@@ -20,11 +20,12 @@ public class EmpEvaluationVo {
     private Integer depID;                  //部门ID
     private String evaluationContentID;    //考评ID
     private String evaluationContent;       //考评内容
-    private Integer evaluationScore;        //考评分数
+    private String evaluationScore;        //考评分数
     private String startDate;               //开始日期
     private String endDate;                 //结束日期
     private Integer evaluationStatus;        //考评状态 0未开始，1考评中，2考评完成
     private Integer evaluationType;          //员工类型 1为专业老师   2为班主任
+    private Integer evaluationTotalScore;       //考评总分
 
     @Override
     public String toString() {
@@ -36,12 +37,21 @@ public class EmpEvaluationVo {
                 ", depID=" + depID +
                 ", evaluationContentID='" + evaluationContentID + '\'' +
                 ", evaluationContent='" + evaluationContent + '\'' +
-                ", evaluationScore=" + evaluationScore +
+                ", evaluationScore='" + evaluationScore + '\'' +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", evaluationStatus=" + evaluationStatus +
                 ", evaluationType=" + evaluationType +
+                ", evaluationTotalScore=" + evaluationTotalScore +
                 '}';
+    }
+
+    public Integer getEvaluationTotalScore() {
+        return evaluationTotalScore;
+    }
+
+    public void setEvaluationTotalScore(Integer evaluationTotalScore) {
+        this.evaluationTotalScore = evaluationTotalScore;
     }
 
     public Integer getEvaluationType() {
@@ -116,11 +126,11 @@ public class EmpEvaluationVo {
         this.evaluationContent = evaluationContent;
     }
 
-    public Integer getEvaluationScore() {
+    public String getEvaluationScore() {
         return evaluationScore;
     }
 
-    public void setEvaluationScore(Integer evaluationScore) {
+    public void setEvaluationScore(String evaluationScore) {
         this.evaluationScore = evaluationScore;
     }
 
