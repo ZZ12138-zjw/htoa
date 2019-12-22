@@ -100,7 +100,7 @@ public class NoticeServiceImpl extends BaseDao implements INoticeService {
 
     @Override
     public List selStudentpNoticeList(Integer stuId) {
-        return listBySQL("select n.noticeId,n.title,n.noticeTime,n.content,r.isRead from t_notice n right join notice_receipt r on n.noticeId = r.noticeId left join t_student s on r.receiver=s.stuId where type=2 and isRead=2 and n.noticeType in(2,3) and r.receiver=1"+stuId);
+        return listBySQL("select n.noticeId,n.title,n.noticeTime,n.content,r.isRead from t_notice n right join notice_receipt r on n.noticeId = r.noticeId left join t_student s on r.receiver=s.stuId where type=2 and isRead=2 and n.noticeType in(2,3) and r.receiver="+stuId);
     }
 
     @Override

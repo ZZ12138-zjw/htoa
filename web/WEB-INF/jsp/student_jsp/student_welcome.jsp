@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,90 +44,16 @@
                 <div class="layui-card">
                     <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
                     <div class="layui-card-body layui-text">
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">修改选项卡样式</div>
-                            <div class="layuimini-notice-extra">2019-07-11 23:06</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
+                        <c:forEach items="${studenNoticeList}" var="list">
+                            <div class="layuimini-notice" >
+                                <input type="hidden" class="layuimini-notice-noticeId" value="${list.noticeId}">
+                                <div class="layuimini-notice-title">${list.title}   <c:if test="${list.isRead==1}">已读</c:if><c:if test="${list.isRead==2}">未读</c:if></div>
+                                <div class="layuimini-notice-extra">${list.noticeTime}</div>
+                                <div class="layuimini-notice-content layui-hide">
+                                        ${list.content}
+                                </div>
                             </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">新增系统404模板</div>
-                            <div class="layuimini-notice-extra">2019-07-11 12:57</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
-                            </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">新增treetable插件和菜单管理样式</div>
-                            <div class="layuimini-notice-extra">2019-07-05 14:28</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
-                            </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">修改logo缩放问题</div>
-                            <div class="layuimini-notice-extra">2019-07-04 11:02</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
-                            </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">修复左侧菜单缩放tab无法移动</div>
-                            <div class="layuimini-notice-extra">2019-06-17 11:55</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
-                            </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">修复多模块菜单栏展开有问题</div>
-                            <div class="layuimini-notice-extra">2019-06-13 14:53</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -146,6 +73,7 @@
          * 查看公告信息
          **/
         $('body').on('click', '.layuimini-notice', function () {
+            var noticeId = $(this).children('.layuimini-notice-noticeId').val();
             var title = $(this).children('.layuimini-notice-title').text(),
                 noticeTime = $(this).children('.layuimini-notice-extra').text(),
                 content = $(this).children('.layuimini-notice-content').html();
@@ -156,18 +84,28 @@
             parent.layer.open({
                 type: 1,
                 title: '系统公告'+'<span style="float: right;right: 1px;font-size: 12px;color: #b1b3b9;margin-top: 1px">'+noticeTime+'</span>',
-                area: '300px;',
+                area: ["1000px","500px"],
+                closeBtn:false,
                 shade: 0.8,
                 id: 'layuimini-notice',
-                btn: ['查看', '取消'],
+                btn: '返回',
                 btnAlign: 'c',
                 moveType: 1,
                 content:html,
                 success: function (layero) {
+                    $.ajax({
+                        url: '${pageContext.request.contextPath}/Stu/notice_student/updateStudentType',
+                        data:{noticeId:noticeId},
+                        type: "post",
+                        success: function(data) {
+                        }
+                    });
                     var btn = layero.find('.layui-layer-btn');
-                    btn.find('.layui-layer-btn0').attr({
-                        href: 'https://gitee.com/zhongshaofa/layuimini',
-                        target: '_blank'
+                    btn.find('.layui-layer-btn0').on('click',function () {
+                        setTimeout(function () {
+                            window.location.reload(); //修改成功后刷新父界面
+                        });
+                        location.reload();
                     });
                 }
             });
