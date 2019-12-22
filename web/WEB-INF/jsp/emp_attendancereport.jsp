@@ -72,8 +72,18 @@
                         ,{field:'explanation',title: '原因'}
                         ,{field:'auditor',title: '审核人'}
                         ,{field:'auditorEx',title: '审核说明'}
-                        ,{field:'auditorTime',title: '审核时间'}
-                        ,{field:'status',title: '审核状态'}
+                        ,{field:'auditorTime',title: '审核时间',templet:function (row){
+                            return createTime(row.auditorTime);
+                        }}
+                        ,{field:'status',title: '审核状态',templet:function(d){
+                            if (d.status==1){
+                                return '<span>审批中</span>'
+                            }else if (d.status==2){
+                                return '<span>已完成</span>'
+                            }else if (d.status==3){
+                                return '<span>不批准</span>'
+                            }
+                        }}
                     ]
                 ]
                 ,limits: [5,10,20,50]
@@ -89,6 +99,24 @@
                 var str = y+"-"+m+"-"+d;
                 return str;
             }
+
+            // 监听搜索操作
+            form.on('submit(sreach)', function (data) {
+                var result = JSON.stringify(data.field);
+                alert(result);
+                //执行搜索重载
+                table.reload('idTest', {
+                    page: {
+                        curr: 1
+                    }
+                    , where: {
+                        empName:data.field.empName,
+                    }
+                    ,text:{none:'无数据'}
+                }, 'data');
+                7
+                return false;
+            });
 
         });
     </script>

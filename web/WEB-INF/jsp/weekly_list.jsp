@@ -137,7 +137,7 @@
                     }
                     ,text:{none:'无数据'}
                 }, 'data');
-7
+
                 return false;
             });
 

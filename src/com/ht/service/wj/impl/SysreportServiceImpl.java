@@ -3,6 +3,7 @@ package com.ht.service.wj.impl;
 import com.ht.dao.BaseDao;
 import com.ht.service.wj.SysreportService;
 import com.ht.vo.employee.WeekCheck;
+import com.ht.vo.student.HourNameSearch;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +12,17 @@ import java.util.List;
 public class SysreportServiceImpl extends BaseDao implements SysreportService {
 
     @Override
-    public List empAssessReport(int currPage, int pageSize) {
-        return pageBySQL("select e.empID,e.empName,d.depName,e.sex,e.phone,sum(ch.checkScore) as ascore from t_emp e left join checkinsert ch on e.empId = ch.empID  left join t_dept d on e.deptId = d.depid group by e.empName",currPage,pageSize);
+    public List empAssessReport(int currPage, int pageSize,WeekCheck weekCheck) {
+        String sql = "select e.empID,e.empName,d.depName,d.depid,e.sex,e.phone,sum(ch.checkScore) as ascore from t_emp e left join checkinsert ch on e.empId = ch.empID  left join t_dept d on e.deptId = d.depid group by e.empName";
+        if(weekCheck.getEmpName() != null && !"".equals(weekCheck.getEmpName())){
+            sql+=" having e.empName='"+weekCheck.getEmpName()+"'";
+        }else {
+            sql+=" having 1=1";
+        }
+        if (weekCheck.getDepid() != null && !"".equals(weekCheck.getDepid())){
+            sql+=" and d.depid ='"+weekCheck.getDepid()+"'";
+        }
+        return pageBySQL(sql,currPage,pageSize);
     }
 
     @Override
@@ -27,8 +37,12 @@ public class SysreportServiceImpl extends BaseDao implements SysreportService {
     }
 
     @Override
-    public List empAttendanceReport(int currPage, int pageSize) {
-        return pageBySQL("select * from t_attendance",currPage,pageSize);
+    public List empAttendanceReport(int currPage, int pageSize,WeekCheck weekCheck) {
+        String sql="select * from t_attendance";
+        if (weekCheck.getEmpName() != null && !"".equals(weekCheck.getEmpName())){
+            sql+=" where empName='"+weekCheck.getEmpName()+"'";
+        }
+        return pageBySQL(sql,currPage,pageSize);
     }
 
     @Override
@@ -37,9 +51,13 @@ public class SysreportServiceImpl extends BaseDao implements SysreportService {
     }
 
     @Override
-    public List dormitoryCount(int currPage, int pageSize) {
-        return pageBySQL("select fo.floorName,ho.hourName,ho.addr,count(s.hourid)stucount,ho.numberBeds from t_studentHuor ho left join t_studentFloor fo on ho.floorId = fo.floorId \n" +
-                "left join t_student s on s.hourid = ho.hourId group by ho.hourName",currPage,pageSize);
+    public List dormitoryCount(int currPage, int pageSize, HourNameSearch hourNameSearch) {
+        String sql = "select fo.floorName,ho.hourName,ho.addr,count(s.stuName)stucount,ho.numberBeds,(ho.numberBeds-count(s.stuName))kws from t_studenthuor ho left join t_studentfloor fo on ho.floorId = fo.floorId \n" +
+                "left join t_student s on s.hourid = ho.hourId group by ho.hourName";
+        if (hourNameSearch.getHourName() != null && !"".equals(hourNameSearch.getHourName())){
+            sql+=" having ho.hourName='"+hourNameSearch.getHourName()+"'";
+        }
+        return pageBySQL(sql,currPage,pageSize);
     }
 
     @Override
@@ -48,10 +66,20 @@ public class SysreportServiceImpl extends BaseDao implements SysreportService {
     }
 
     @Override
+    public List selfloorList() {
+        return listByHql("from StudentFloorVo");
+    }
+
+    @Override
+    public List hourNameList(int floorId) {
+        return listBySQL("select hourName,hourId from t_studenthuor where floorId=" + floorId);
+    }
+
+    @Override
     public List EmployeesLeave(int currPage, int pageSize,WeekCheck weekCheck) {
         String sql = "select hy.empid,e.empName,count(*)qjcs,sum(hy.holidayDay)tshu from t_holiday hy left join t_emp e on hy.empid = e.empId group by e.empName";
         if (weekCheck.getEmpName() != null && !"".equals(weekCheck.getEmpName())){
-            sql="select hy.empid,e.empName,count(*)qjcs,sum(hy.holidayDay)tshu from t_holiday hy left join t_emp e on hy.empid = e.empId where e.empName='"+weekCheck.getEmpName()+"'group by e.empName";
+            sql+=" having e.empName='"+weekCheck.getEmpName()+"'";
         }
         return pageBySQL(sql,currPage,pageSize);
     }
